@@ -5,6 +5,8 @@ import { useAsync } from "../hooks/useAsync";
 import { useProgress } from "../stores/progressStore";
 import { READING_SIZES, useSettings, type ReadingSize, type Theme } from "../stores/settingsStore";
 import { toast } from "../stores/toastStore";
+import { ReminderFields, AutostartField, BackupFields } from "./settings/SystemFields";
+import { Field } from "./settings/ui";
 
 const THEMES: { value: Theme; label: string }[] = [
   { value: "system", label: "Como el sistema" },
@@ -72,6 +74,15 @@ export function SettingsScreen() {
         </Field>
       </Section>
 
+      <Section title="Recordatorio">
+        <ReminderFields />
+        <AutostartField />
+      </Section>
+
+      <Section title="Respaldo">
+        <BackupFields />
+      </Section>
+
       <Section title="Acerca de">
         <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-sm">
           <dt className="text-muted">Versión</dt>
@@ -92,16 +103,6 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
       <h2 className="mb-4 font-display text-xl font-semibold">{title}</h2>
       <div className="flex flex-col gap-5">{children}</div>
     </section>
-  );
-}
-
-function Field({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
-  return (
-    <div>
-      <p className="mb-2 text-sm font-semibold">{label}</p>
-      {children}
-      {hint && <p className="mt-2 text-xs leading-relaxed text-muted">{hint}</p>}
-    </div>
   );
 }
 

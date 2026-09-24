@@ -4,11 +4,13 @@ import { gameDay } from "../domain/day";
 import { levelFromXp, type LevelInfo } from "../domain/levels";
 import { computeStreak, type StreakInfo } from "../domain/streaks";
 import { missionProgress, type MissionProgress } from "../domain/missions";
-import type { Award } from "../domain/xp";
+import { xpFor, type ActivityType, type Award } from "../domain/xp";
 import { toast } from "./toastStore";
 
 type ProgressState = {
   loaded: boolean;
+  /** Día de juego con el que se calculó todo (para detectar el cambio de día con la app abierta). */
+  day: string;
   name: string;
   totalXp: number;
   todayXp: number;
@@ -16,6 +18,8 @@ type ProgressState = {
   level: LevelInfo;
   streak: StreakInfo;
   missions: MissionProgress;
+  /** Veces que cada tipo de actividad ya dio XP hoy (para los límites diarios). */
+  rewardedToday: Record<string, number>;
   refresh: () => Promise<void>;
   setName: (name: string) => Promise<void>;
   /** Recarga el progreso y muestra avisos (+XP, bono, subida de nivel). */
@@ -24,6 +28,7 @@ type ProgressState = {
 
 export const useProgress = create<ProgressState>((set, get) => ({
   loaded: false,
+  day: gameDay(),
   name: "",
   totalXp: 0,
   todayXp: 0,
@@ -31,6 +36,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
   level: levelFromXp(0),
   streak: computeStreak([], gameDay()),
   missions: missionProgress(new Set()),
+  rewardedToday: {},
 
   refresh: async () => {
     const day = gameDay();
@@ -44,6 +50,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
     ]);
     set({
       loaded: true,
+      day,
       name,
       totalXp,
       todayXp,
@@ -51,6 +58,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
       level: levelFromXp(totalXp),
       streak: computeStreak(activeDays, day),
       missions: missionProgress(dayActivity.doneTypes),
+      rewardedToday: dayActivity.rewarded,
     });
   },
 
@@ -75,3 +83,9 @@ export const useProgress = create<ProgressState>((set, get) => ({
     if (level.level > levelBefore) toast(`Llegaste al nivel ${level.level}`, "level");
   },
 }));
+
+/** XP que daría ahora mismo una actividad (0 si ya se llegó al límite de hoy). */
+export function useXpFor(type: ActivityType): number {
+  const rewarded = useProgress((s) => s.rewardedToday[type] ?? 0);
+  return xpFor(type, rewarded);
+}

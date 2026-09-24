@@ -1,7 +1,7 @@
 name: Release
 
 # Crea el instalador de Windows y lo publica como borrador en GitHub Releases.
-# Uso:  git tag v0.1.0 && git push origin v0.1.0
+# Uso:  git tag v1.0.0 && git push origin v1.0.0
 on:
   push:
     tags: ["v*"]

@@ -6,6 +6,7 @@ export type ActivityType =
   | "chapter_read"
   | "bonus_5_chapters"
   | "daily_verse"
+  | "short_reading"
   | "reflection"
   | "prayer"
   | "application"
@@ -17,6 +18,8 @@ export const XP_RULES: Record<ActivityType, Rule> = {
   chapter_read: { xp: 20, dailyCap: null },
   bonus_5_chapters: { xp: 50, dailyCap: 1 },
   daily_verse: { xp: 10, dailyCap: 1 },
+  /** Lectura corta de "Tengo 5 minutos" cuando el versículo del día ya se leyó. */
+  short_reading: { xp: 5, dailyCap: 2 },
   reflection: { xp: 15, dailyCap: 3 },
   prayer: { xp: 10, dailyCap: 2 },
   application: { xp: 10, dailyCap: 2 },

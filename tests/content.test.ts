@@ -69,6 +69,9 @@ describe("books_meta.json", () => {
       expect(zoneIds.has(b.zone)).toBe(true);
     });
   });
+  it("tiene un versículo del día para cada día del año", () => {
+    expect(dailyVerses.verses).toHaveLength(366);
+  });
   it("no repite versículos del día", () => {
     expect(new Set(dailyVerses.verses).size).toBe(dailyVerses.verses.length);
   });

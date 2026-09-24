@@ -4,6 +4,7 @@ import { XpBar } from "../components/XpBar";
 import { Toaster } from "../components/Toaster";
 import { BookIcon, FlameIcon, JournalIcon, LogoMark, PeakIcon, SlidersIcon, SunriseIcon } from "../components/icons";
 import { useProgress } from "../stores/progressStore";
+import { useDailyReminder } from "../hooks/useDailyReminder";
 
 type NavItem = { to: string; label: string; icon: ComponentType<{ size?: number }>; end?: boolean };
 
@@ -33,6 +34,7 @@ function NavItemLink({ to, label, icon: Icon, end }: NavItem) {
 export function Layout() {
   const level = useProgress((s) => s.level);
   const streak = useProgress((s) => s.streak.current);
+  useDailyReminder();
 
   return (
     <div className="flex h-full">

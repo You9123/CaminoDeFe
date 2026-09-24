@@ -1,17 +1,17 @@
 import { useEffect, useState, type ComponentType, type ReactNode } from "react";
-import { CandleIcon, QuillIcon, SproutIcon } from "./icons";
+import { BookIcon, CandleIcon, CheckIcon, QuillIcon, SproutIcon } from "./icons";
 import { Modal } from "./Modal";
 import { addJournalEntry } from "../data/journalRepo";
 import { recordActivity } from "../data/progressRepo";
-import { missionXp } from "../domain/missions";
-import { useProgress } from "../stores/progressStore";
+import type { ActivityType } from "../domain/xp";
+import { useProgress, useXpFor } from "../stores/progressStore";
 
 /**
  * Flujo "Leer → Reflexionar → Orar → Aplicar" (Documento Maestro §2.4).
  * Todos los pasos son opcionales. Se usa después de leer un capítulo
  * y también desde las misiones del día (con un solo paso).
  */
-export type FlowStep = "reflection" | "prayer" | "application";
+export type FlowStep = "verse" | "reflection" | "prayer" | "application";
 
 type Props = {
   steps: FlowStep[];
@@ -19,16 +19,23 @@ type Props = {
   refId: string | null;
   /** Texto para mostrar (ej. "Juan 3"). */
   refLabel: string;
+  /** Solo para el paso "verse": el texto a leer y qué actividad registra al terminar. */
+  verse?: { text: string; activity: ActivityType };
+  /** Título opcional arriba (ej. "Tengo 5 minutos"). */
+  title?: string;
+  /** Temporizador de oración preseleccionado (0 = sin temporizador). */
+  prayerMinutes?: number;
   onClose: () => void;
 };
 
-export function PostReadingFlow({ steps, refId, refLabel, onClose }: Props) {
+export function PostReadingFlow({ steps, refId, refLabel, verse, title, prayerMinutes = 0, onClose }: Props) {
   const [index, setIndex] = useState(0);
   const step = steps[index];
   const next = () => (index + 1 < steps.length ? setIndex(index + 1) : onClose());
 
   return (
-    <Modal onClose={onClose} label="Reflexión, oración y aplicación">
+    <Modal onClose={onClose} label={title ?? "Reflexión, oración y aplicación"}>
+      {title && <p className="mb-3 text-xs font-semibold tracking-wide text-muted uppercase">{title}</p>}
       {steps.length > 1 && (
         <div className="mb-5 flex gap-1.5">
           {steps.map((s, i) => (
@@ -36,11 +43,17 @@ export function PostReadingFlow({ steps, refId, refLabel, onClose }: Props) {
           ))}
         </div>
       )}
+      {step === "verse" && verse && <VerseStep refId={refId} refLabel={refLabel} verse={verse} onNext={next} />}
       {step === "reflection" && <ReflectionStep refId={refId} refLabel={refLabel} onNext={next} />}
-      {step === "prayer" && <PrayerStep refId={refId} onNext={next} />}
+      {step === "prayer" && <PrayerStep refId={refId} defaultMinutes={prayerMinutes} onNext={next} />}
       {step === "application" && <ApplicationStep refId={refId} onNext={next} />}
     </Modal>
   );
+}
+
+/** "Guardar (+15 XP)" o solo "Guardar" si ya se alcanzó el límite de hoy. */
+function withXp(label: string, xp: number): string {
+  return xp > 0 ? `${label} (+${xp} XP)` : label;
 }
 
 type StepProps = { refId: string | null; onNext: () => void };
@@ -86,11 +99,35 @@ function StepLabel({ icon: Icon, children }: { icon: ComponentType<{ size?: numb
   );
 }
 
+// ---------- Lectura corta ----------
+
+function VerseStep({
+  refId,
+  refLabel,
+  verse,
+  onNext,
+}: StepProps & { refLabel: string; verse: { text: string; activity: ActivityType } }) {
+  const { saving, run } = useSaver();
+  const xp = useXpFor(verse.activity);
+  const save = () => run(async () => (await recordActivity(verse.activity, { ref: refId })).awards, onNext);
+
+  return (
+    <>
+      <StepLabel icon={BookIcon}>Lee con calma</StepLabel>
+      <blockquote className="selectable mt-4 font-reading text-[1.45rem] leading-relaxed">«{verse.text}»</blockquote>
+      <p className="mt-3 font-display text-muted italic">{refLabel}</p>
+      <p className="mt-4 text-sm text-muted">Léelo dos veces, despacio. Fíjate en la palabra que más te toque.</p>
+      <StepFooter onSkip={onNext} onSave={save} disabled={saving} saveLabel={withXp("Lo leí", xp)} />
+    </>
+  );
+}
+
 // ---------- Reflexión ----------
 
 function ReflectionStep({ refId, refLabel, onNext }: StepProps & { refLabel: string }) {
   const [text, setText] = useState("");
   const { saving, run } = useSaver();
+  const xp = useXpFor("reflection");
 
   const save = () =>
     run(async () => {
@@ -118,7 +155,7 @@ function ReflectionStep({ refId, refLabel, onNext }: StepProps & { refLabel: str
         onSkip={onNext}
         onSave={save}
         disabled={saving || text.trim().length === 0}
-        saveLabel={`Guardar (+${missionXp("reflection")} XP)`}
+        saveLabel={withXp("Guardar", xp)}
       />
     </>
   );
@@ -128,11 +165,12 @@ function ReflectionStep({ refId, refLabel, onNext }: StepProps & { refLabel: str
 
 const PRAYER_OPTIONS = [0, 1, 3, 5] as const;
 
-function PrayerStep({ refId, onNext }: StepProps) {
-  const [minutes, setMinutes] = useState<number>(0);
-  const [remaining, setRemaining] = useState(0);
+function PrayerStep({ refId, defaultMinutes, onNext }: StepProps & { defaultMinutes: number }) {
+  const [minutes, setMinutes] = useState<number>(defaultMinutes);
+  const [remaining, setRemaining] = useState(defaultMinutes * 60);
   const [started] = useState(() => Date.now());
   const { saving, run } = useSaver();
+  const xp = useXpFor("prayer");
 
   useEffect(() => {
     if (minutes === 0) return;
@@ -186,12 +224,7 @@ function PrayerStep({ refId, onNext }: StepProps) {
         </p>
       )}
 
-      <StepFooter
-        onSkip={onNext}
-        onSave={save}
-        disabled={saving}
-        saveLabel={`He terminado (+${missionXp("prayer")} XP)`}
-      />
+      <StepFooter onSkip={onNext} onSave={save} disabled={saving} saveLabel={withXp("He terminado", xp)} />
     </>
   );
 }
@@ -211,6 +244,7 @@ function ApplicationStep({ refId, onNext }: StepProps) {
   const [other, setOther] = useState("");
   const [showOther, setShowOther] = useState(false);
   const { saving, run } = useSaver();
+  const xp = useXpFor("application");
 
   const toggle = (opt: string) => {
     const s = new Set(selected);
@@ -243,7 +277,7 @@ function ApplicationStep({ refId, onNext }: StepProps) {
                 : "border-border hover:border-accent"
             }`}
           >
-            {selected.has(opt) ? "✓ " : ""}
+            {selected.has(opt) && <CheckIcon size={14} className="mr-1 -mt-0.5 inline" />}
             {opt}
           </button>
         ))}
@@ -272,7 +306,7 @@ function ApplicationStep({ refId, onNext }: StepProps) {
         onSkip={onNext}
         onSave={save}
         disabled={saving || choices.length === 0}
-        saveLabel={`Me comprometo (+${missionXp("application")} XP)`}
+        saveLabel={withXp("Me comprometo", xp)}
       />
     </>
   );

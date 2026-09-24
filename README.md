@@ -5,7 +5,7 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 
 > 📄 La idea completa, las reglas y el roadmap están en [`docs/Documento_Maestro.md`](docs/Documento_Maestro.md).
 
-**Estado actual:** Sprint 1B ✅ (lector RV1909 con resaltados y favoritos, buscador, XP y niveles, rachas, misiones, reflexión → oración → aplicación, diario y ajustes).
+**Estado actual:** V1 completa ✅ (v1.0.0). Lector RV1909 con buscador, resaltados y favoritos; XP, niveles, rachas y misiones; reflexión, oración y aplicación; "Tengo 5 minutos"; diario; ajustes con recordatorio diario y respaldo.
 
 ---
 
@@ -76,6 +76,11 @@ camino-de-fe/
 Puedes abrir `user.db` con la extensión **SQLite Viewer** de VS Code para ver tu progreso.
 Para "empezar de cero" en desarrollo, cierra la app y borra `user.db` de esa carpeta.
 
+## Respaldo y recordatorio
+
+- **Ajustes → Respaldo** exporta un `.json` con todo el progreso (XP, diario, favoritos, ajustes). Al importar, la app guarda antes una copia automática en `%APPDATA%\com.youfrend.caminodefe\respaldos\`.
+- **Ajustes → Recordatorio** muestra una notificación de Windows a la hora elegida si ese día todavía no hiciste nada. Funciona mientras la app esté abierta (aunque esté minimizada). La opción "Abrir al iniciar Windows" la abre minimizada al encender la PC.
+
 ## La Biblia (RV1909)
 
 - Texto de **dominio público**. Fuente: [scrollmapper/bible_databases](https://github.com/scrollmapper/bible_databases) (módulo _SpaRV_ de CrossWire), fijada a un commit concreto.
@@ -85,5 +90,5 @@ Para "empezar de cero" en desarrollo, cierra la app y borra `user.db` de esa car
 ## Publicar una versión
 
 1. Sube la versión en `package.json`, `src-tauri/tauri.conf.json` y `src-tauri/Cargo.toml`.
-2. `git tag v0.1.0 && git push origin v0.1.0`
+2. `git tag v1.0.0 && git push origin v1.0.0`
 3. GitHub Actions compila el instalador y crea un **borrador** en _Releases_.

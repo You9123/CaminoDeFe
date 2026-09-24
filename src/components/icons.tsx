@@ -236,3 +236,35 @@ export function CopyIcon(p: IconProps) {
     </Svg>
   );
 }
+
+export function HourglassIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M6.4 3.3c3.7-.2 7.4-.2 11.2 0M6.4 20.7c3.7.2 7.4.2 11.2 0" />
+      <path d="M7.6 3.5c-.2 3.6 1.5 5.9 4.4 8.5 2.9-2.6 4.6-4.9 4.4-8.5M7.6 20.5c-.2-3.6 1.5-5.9 4.4-8.5 2.9 2.6 4.6 4.9 4.4 8.5" />
+      <path className="duo" d="M9 20c.3-2 1.4-3.2 3-4.4 1.6 1.2 2.7 2.4 3 4.4z" />
+    </Svg>
+  );
+}
+
+export function BellIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path
+        className="duo"
+        d="M6.3 16.6c.9-1.3 1-2.8 1-4.6 0-3.1 2-5.4 4.7-5.4s4.7 2.3 4.7 5.4c0 1.8.1 3.3 1 4.6-3.8.3-7.6.3-11.4 0z"
+      />
+      <path d="M12 3.4v3.1M10 19.3c.5 1 1.2 1.4 2 1.4s1.5-.4 2-1.4" />
+    </Svg>
+  );
+}
+
+export function ArchiveIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M3.6 4.6c5.6-.2 11.2-.2 16.8 0 .1 1.3.1 2.6 0 3.9-5.6.2-11.2.2-16.8 0-.1-1.3-.1-2.6 0-3.9z" />
+      <path className="duo" d="M5 8.6c.1 3.8.2 7.5.4 10.8 4.4.2 8.8.2 13.2 0 .2-3.3.3-7 .4-10.8" />
+      <path d="M9.8 12.3c1.5.1 2.9.1 4.4 0" />
+    </Svg>
+  );
+}

@@ -13,13 +13,16 @@ import { XpBar } from "../components/XpBar";
 import { StreakCard } from "../components/StreakCard";
 import { MissionsCard } from "../components/MissionsCard";
 import { PostReadingFlow, type FlowStep } from "../components/PostReadingFlow";
-import { BookIcon, CheckIcon, PeakIcon, SparkIcon, SunriseIcon } from "../components/icons";
+import { QuickSession } from "../components/QuickSession";
+import { pickQuickVerse } from "../domain/quickSession";
+import { BookIcon, CheckIcon, HourglassIcon, PeakIcon, SparkIcon, SunriseIcon } from "../components/icons";
 
 export function TodayScreen() {
   const navigate = useNavigate();
   const { loaded, name, level, todayXp, chaptersRead, totalXp, streak, missions, celebrate } = useProgress();
   const day = gameDay();
   const [flowStep, setFlowStep] = useState<FlowStep | null>(null);
+  const [quick, setQuick] = useState<{ ref: string; isDaily: boolean } | null>(null);
 
   const verse = useAsync(() => getVerseByRef(pickDailyVerse(dailyVerses.verses, day)), day);
   const verseRead = missions.missions.find((m) => m.id === "daily_verse")?.done ?? false;
@@ -82,13 +85,25 @@ export function TodayScreen() {
         )}
       </section>
 
-      <button
-        onClick={continueReading}
-        className="animate-rise mb-10 flex w-full items-center justify-center gap-3 rounded-2xl bg-accent px-6 py-4 text-lg font-semibold text-accent-ink shadow-sm transition hover:brightness-105 active:scale-[0.99]"
-      >
-        <BookIcon size={22} duo={false} />
-        Continuar mi camino
-      </button>
+      <div className="animate-rise mb-10 grid grid-cols-[2fr_1fr] gap-3">
+        <button
+          onClick={continueReading}
+          className="flex items-center justify-center gap-3 rounded-2xl bg-accent px-6 py-4 text-lg font-semibold text-accent-ink shadow-sm transition hover:brightness-105 active:scale-[0.99]"
+        >
+          <BookIcon size={22} duo={false} />
+          Continuar mi camino
+        </button>
+        <button
+          onClick={() =>
+            setQuick(pickQuickVerse(dailyVerses.verses, pickDailyVerse(dailyVerses.verses, day), verseRead))
+          }
+          className="flex items-center justify-center gap-2.5 rounded-2xl border border-accent bg-surface px-5 py-4 text-lg font-semibold text-accent transition hover:bg-accent-soft/60 active:scale-[0.99]"
+          title="Un versículo, una reflexión y un minuto de oración"
+        >
+          <HourglassIcon size={22} />
+          Tengo 5 minutos
+        </button>
+      </div>
 
       <section className="animate-rise mb-4 grid grid-cols-[3fr_2fr] gap-4">
         <MissionsCard progress={missions} onAction={onMission} />
@@ -104,6 +119,8 @@ export function TodayScreen() {
         <Stat label="XP de hoy" value={todayXp} icon={SparkIcon} hint={`${totalXp} XP en total`} />
         <Stat label="Capítulos leídos" value={chaptersRead} icon={BookIcon} />
       </section>
+
+      {quick && <QuickSession verseRef={quick.ref} isDaily={quick.isDaily} onClose={() => setQuick(null)} />}
 
       {flowStep && verse.data && (
         <PostReadingFlow

@@ -563,25 +563,26 @@ pnpm tauri add fs
 
 ## 8. Plan por versiones (roadmap)
 
-### 🟢 V1 — MVP: "El hábito" (objetivo: usarla yo todos los días)
+### 🟢 V1 — MVP: "El hábito" (objetivo: usarla yo todos los días) · ✅ completa (v1.0.0)
 
-- [ ] Proyecto Tauri + React + TS + Tailwind funcionando
-- [ ] Importar RV1909 a `bible.db` con un script
-- [ ] Lector: libro → capítulo, tamaño de letra, tema claro/oscuro, recordar posición
-- [ ] Buscador (FTS5)
-- [ ] Favoritos y resaltados
-- [ ] Versículo del día
-- [ ] Botón "Terminé este capítulo" con tiempo mínimo
-- [ ] Flujo post-lectura: reflexión → oración → aplicación
-- [ ] "Tengo 5 minutos"
-- [ ] XP, niveles y barra de progreso
-- [ ] Rachas con día de gracia y récord
-- [ ] 4 misiones diarias + bono
-- [ ] Diario (crear, editar, listar, buscar)
-- [ ] Configuración + recordatorio diario
-- [ ] Respaldo: exportar / importar
-- [ ] Pruebas unitarias del dominio (XP, rachas, misiones)
-- [ ] Instalador de Windows generado por GitHub Actions
+- [x] Proyecto Tauri + React + TS + Tailwind funcionando
+- [x] Importar RV1909 a `bible.db` con un script
+- [x] Lector: libro → capítulo, tamaño de letra, tema claro/oscuro, recordar posición
+- [x] Buscador (FTS5)
+- [x] Favoritos y resaltados
+- [x] Versículo del día
+- [x] Botón "Terminé este capítulo" con tiempo mínimo
+- [x] Flujo post-lectura: reflexión → oración → aplicación
+- [x] "Tengo 5 minutos"
+- [x] XP, niveles y barra de progreso
+- [x] Rachas con día de gracia y récord
+- [x] 4 misiones diarias + bono
+- [x] Diario (crear, editar, listar, buscar)
+- [x] Configuración + recordatorio diario
+- [x] Respaldo: exportar / importar
+- [x] Pruebas unitarias del dominio (XP, rachas, misiones)
+- [x] Instalador de Windows generado por GitHub Actions (al publicar el tag `v1.0.0`)
+- [x] 366 versículos del día · ícono propio de la app · abrir al iniciar Windows
 
 ### 🟡 V2 — Gamificación
 
