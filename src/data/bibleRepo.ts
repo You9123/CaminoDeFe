@@ -133,3 +133,13 @@ export function refPath(ref: string): string {
   const [code, chapter, verse] = ref.split(".");
   return `/biblia/${code}/${chapter}${verse ? `?v=${verse}` : ""}`;
 }
+
+/** Palabras de cada capítulo de un libro (para estimar el tiempo de lectura). Índice 0 = capítulo 1. */
+export async function getBookChapterWords(bookId: number): Promise<number[]> {
+  const db = await bibleDb();
+  const rows = await db.select<{ chapter: number; words: number }[]>(
+    "SELECT chapter, words FROM chapters WHERE translation_id = $1 AND book_id = $2 ORDER BY chapter",
+    [TRANSLATION_ID, bookId],
+  );
+  return rows.map((r) => Number(r.words));
+}

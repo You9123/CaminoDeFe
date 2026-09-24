@@ -5,7 +5,8 @@ import { z } from "zod";
  * Guarda TODAS las tablas de user.db. La Biblia no se incluye: viene con la app.
  */
 export const BACKUP_APP = "camino-de-fe";
-export const BACKUP_FORMAT = 1;
+/** 2: agrega challenge_runs (Sprint 2B). Los respaldos de formato 1 se siguen pudiendo importar. */
+export const BACKUP_FORMAT = 2;
 
 const text = z.string();
 const nullableText = z.string().nullable();
@@ -47,6 +48,14 @@ export const BACKUP_TABLES = {
     created_at: text,
     updated_at: text,
   }),
+  challenge_runs: z.object({
+    id: int,
+    challenge_id: text,
+    started_at: text,
+    started_day: text,
+    status: text,
+    ended_at: nullableText,
+  }),
 } as const;
 
 export type BackupTable = keyof typeof BACKUP_TABLES;
@@ -54,7 +63,7 @@ export const TABLE_NAMES = Object.keys(BACKUP_TABLES) as BackupTable[];
 
 export const backupSchema = z.object({
   app: z.literal(BACKUP_APP),
-  format: z.literal(BACKUP_FORMAT),
+  format: z.union([z.literal(1), z.literal(BACKUP_FORMAT)]),
   exported_at: text,
   app_version: text.optional(),
   tables: z.object({
@@ -64,10 +73,14 @@ export const backupSchema = z.object({
     settings: z.array(BACKUP_TABLES.settings),
     journal_entries: z.array(BACKUP_TABLES.journal_entries),
     verse_marks: z.array(BACKUP_TABLES.verse_marks),
+    /** No existe en los respaldos de formato 1. */
+    challenge_runs: z.array(BACKUP_TABLES.challenge_runs).default([]),
   }),
 });
 
 export type Backup = z.infer<typeof backupSchema>;
+/** Lo que puede venir en el archivo (antes de completar valores por defecto). */
+export type BackupInput = z.input<typeof backupSchema>;
 
 /** Lee y valida un respaldo. Lanza un Error con un mensaje claro si algo no cuadra. */
 export function parseBackup(json: string): Backup {

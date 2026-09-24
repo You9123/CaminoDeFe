@@ -1,18 +1,16 @@
 import { useState, type ComponentType, type ReactNode } from "react";
 import { useNavigate } from "react-router";
 import dailyVerses from "../../content/daily_verses.json";
-import { gameDay, greeting } from "../domain/day";
+import { greeting } from "../domain/day";
 import { pickDailyVerse } from "../domain/dailyVerse";
 import { parseChapterRef } from "../domain/refs";
-import type { MissionActivity } from "../domain/missions";
-import { getVerseByRef } from "../data/bibleRepo";
-import { getSetting, LAST_POSITION_KEY, recordActivity } from "../data/progressRepo";
-import { useAsync } from "../hooks/useAsync";
+import { getSetting, LAST_POSITION_KEY } from "../data/progressRepo";
+import { useDailyVerse } from "../hooks/useDailyVerse";
 import { useProgress } from "../stores/progressStore";
 import { XpBar } from "../components/XpBar";
 import { StreakCard } from "../components/StreakCard";
-import { MissionsCard } from "../components/MissionsCard";
-import { PostReadingFlow, type FlowStep } from "../components/PostReadingFlow";
+import { DailyMissionsCard } from "../components/DailyMissionsCard";
+import { SurpriseCard } from "../components/SurpriseCard";
 import { QuickSession } from "../components/QuickSession";
 import { pickQuickVerse } from "../domain/quickSession";
 import { BookIcon, CheckIcon, HourglassIcon, OliveIcon, PeakIcon, SparkIcon, SunriseIcon } from "../components/icons";
@@ -21,25 +19,11 @@ import { useSettings } from "../stores/settingsStore";
 
 export function TodayScreen() {
   const navigate = useNavigate();
-  const { loaded, name, level, rank, todayXp, chaptersRead, totalXp, streak, missions, celebrate } = useProgress();
+  const { loaded, name, level, rank, todayXp, chaptersRead, totalXp, streak } = useProgress();
   const cosmeticsOff = useSettings((s) => s.cosmeticsOff);
   const olive = isCosmeticActive("olive_branch", streak.best, cosmeticsOff);
-  const day = gameDay();
-  const [flowStep, setFlowStep] = useState<FlowStep | null>(null);
   const [quick, setQuick] = useState<{ ref: string; isDaily: boolean } | null>(null);
-
-  const verse = useAsync(() => getVerseByRef(pickDailyVerse(dailyVerses.verses, day)), day);
-  const verseRead = missions.missions.find((m) => m.id === "daily_verse")?.done ?? false;
-
-  const markVerseRead = async () => {
-    if (!verse.data) return;
-    await celebrate((await recordActivity("daily_verse", { ref: verse.data.ref })).awards);
-  };
-
-  const onMission = (m: MissionActivity) => {
-    if (m === "daily_verse") void markVerseRead();
-    else setFlowStep(m);
-  };
+  const { day, verse, verseRead, markVerseRead } = useDailyVerse();
 
   const continueReading = async () => {
     const last = parseChapterRef((await getSetting(LAST_POSITION_KEY)) ?? "");
@@ -117,8 +101,12 @@ export function TodayScreen() {
       </div>
 
       <section className="animate-rise mb-4 grid grid-cols-[3fr_2fr] gap-4">
-        <MissionsCard progress={missions} onAction={onMission} />
+        <DailyMissionsCard />
         <StreakCard streak={streak} />
+      </section>
+
+      <section className="animate-rise mb-4">
+        <SurpriseCard compact />
       </section>
 
       <section className="animate-rise grid grid-cols-3 gap-4">
@@ -132,15 +120,6 @@ export function TodayScreen() {
       </section>
 
       {quick && <QuickSession verseRef={quick.ref} isDaily={quick.isDaily} onClose={() => setQuick(null)} />}
-
-      {flowStep && verse.data && (
-        <PostReadingFlow
-          steps={[flowStep]}
-          refId={verse.data.ref}
-          refLabel={verse.data.label}
-          onClose={() => setFlowStep(null)}
-        />
-      )}
     </div>
   );
 }

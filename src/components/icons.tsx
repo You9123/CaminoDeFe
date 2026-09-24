@@ -424,3 +424,36 @@ export function SealIcon(p: IconProps) {
     </Svg>
   );
 }
+
+// ---------- V2 · Sprint 2B: mapa y misiones ----------
+
+/** Mapa plegado en tres partes, con un camino punteado. */
+export function MapIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path className="duo" d="M9 4.6 3.4 6.5c-.2 4.6-.2 9.2 0 13.7L9 18.4l6 2 5.6-1.9c.2-4.6.2-9.1 0-13.7L15 6.6z" />
+      <path d="M9 4.6 3.4 6.5c-.2 4.6-.2 9.2 0 13.7L9 18.4l6 2 5.6-1.9c.2-4.6.2-9.1 0-13.7L15 6.6zM9 4.6c.2 4.6.2 9.2 0 13.8M15 6.6c-.2 4.6-.2 9.2 0 13.8" />
+    </Svg>
+  );
+}
+
+/** Brújula: misiones y desafíos. */
+export function CompassIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M12 3.2c4.9-.1 8.8 3.8 8.8 8.7.1 4.9-3.9 8.9-8.8 8.9-4.8 0-8.8-4-8.8-8.8 0-4.8 4-8.7 8.8-8.8z" />
+      <path className="duo" d="M15.6 8.3 13.4 13.4 8.4 15.6l2.2-5.1z" />
+      <path d="M15.6 8.3 13.4 13.4 8.4 15.6l2.2-5.1zM12 5.4v1.2M12 17.4v1.2M5.4 12h1.2M17.4 12h1.2" />
+    </Svg>
+  );
+}
+
+/** Corona sencilla: la zona de los reyes. */
+export function CrownIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path className="duo" d="M4.2 17.6 3.4 8.1l4.6 3.7L12 5.2l4 6.6 4.6-3.7-.8 9.5c-5.2.3-10.4.3-15.6 0z" />
+      <path d="M4.2 17.6 3.4 8.1l4.6 3.7L12 5.2l4 6.6 4.6-3.7-.8 9.5c-5.2.3-10.4.3-15.6 0zM4.6 20.4c4.9.2 9.9.2 14.8 0" />
+    </Svg>
+  );
+}

@@ -11,6 +11,8 @@ import { JournalScreen } from "../screens/JournalScreen";
 import { SettingsScreen } from "../screens/SettingsScreen";
 import { AchievementsScreen } from "../screens/AchievementsScreen";
 import { StatsScreen } from "../screens/StatsScreen";
+import { MapScreen } from "../screens/MapScreen";
+import { MissionsScreen } from "../screens/MissionsScreen";
 import { NotInTauriScreen } from "../screens/NotInTauriScreen";
 import { isTauri } from "../data/db";
 import { useProgress } from "../stores/progressStore";
@@ -44,6 +46,8 @@ export default function App() {
           <Route path="biblia/:code" element={<ChaptersScreen />} />
           <Route path="biblia/:code/:chapter" element={<ReaderScreen />} />
           <Route path="diario" element={<JournalScreen />} />
+          <Route path="mapa" element={<MapScreen />} />
+          <Route path="misiones" element={<MissionsScreen />} />
           <Route path="logros" element={<AchievementsScreen />} />
           <Route path="estadisticas" element={<StatsScreen />} />
           <Route path="ajustes" element={<SettingsScreen />} />

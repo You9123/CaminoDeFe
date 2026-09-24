@@ -8,6 +8,8 @@ import { rankForLevel, type RankInfo } from "../domain/ranks";
 import { xpFor, type ActivityType, type Award } from "../domain/xp";
 import type { Achievement } from "../domain/achievements";
 import { checkAchievements } from "../data/achievementsRepo";
+import { checkChallenges } from "../data/challengesRepo";
+import type { Challenge } from "../domain/challenges";
 import { toast } from "./toastStore";
 
 type ProgressState = {
@@ -28,9 +30,29 @@ type ProgressState = {
   setName: (name: string) => Promise<void>;
   /** Recarga el progreso y muestra avisos (+XP, bono, subida de nivel, logros). */
   celebrate: (awards: Award[]) => Promise<void>;
-  /** Revisa logros sin una actividad nueva (al abrir la app, por ejemplo tras actualizar). */
+  /** Revisa desafíos y logros sin una actividad nueva (al abrir la app, al entrar a Misiones...). */
   checkAchievements: () => Promise<void>;
 };
+
+function announceChallenges(list: Challenge[]) {
+  for (const c of list) toast(`Desafío completado: ${c.title} · +${c.xp} XP`, "achievement");
+}
+
+/**
+ * Revisa desafíos y después logros (un logro puede depender de un desafío completado).
+ * Si algo falla, no se interrumpe la actividad que el usuario ya guardó.
+ */
+async function checkRewards(): Promise<{ challenges: Challenge[]; achievements: Achievement[] }> {
+  const challenges = await checkChallenges().catch((e: unknown) => {
+    console.error("No se pudieron revisar los desafíos", e);
+    return [] as Challenge[];
+  });
+  const achievements = await checkAchievements().catch((e: unknown) => {
+    console.error("No se pudieron revisar los logros", e);
+    return [] as Achievement[];
+  });
+  return { challenges, achievements };
+}
 
 /** Avisos de logros: uno por logro si son pocos; si son muchos (al actualizar a la V2), uno solo. */
 function announceAchievements(list: Achievement[]) {
@@ -90,10 +112,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
     const levelBefore = get().level.level;
     const rankBefore = get().rank.rank.id;
     const streakBefore = get().streak.current;
-    const unlocked = await checkAchievements().catch((e: unknown) => {
-      console.error("No se pudieron revisar los logros", e);
-      return [] as Achievement[];
-    });
+    const rewards = await checkRewards();
     await get().refresh();
     const { level, rank, streak } = get();
 
@@ -106,16 +125,18 @@ export const useProgress = create<ProgressState>((set, get) => ({
     if (streak.current > streakBefore && streak.current > 1) toast(`${streak.current} días seguidos`, "streak");
     if (level.level > levelBefore) toast(`Llegaste al nivel ${level.level}`, "level");
     if (rank.rank.id !== rankBefore) toast(`Nuevo rango: ${rank.rank.title}`, "level");
-    announceAchievements(unlocked);
+    announceChallenges(rewards.challenges);
+    announceAchievements(rewards.achievements);
   },
 
   checkAchievements: async () => {
     const levelBefore = get().level.level;
-    const unlocked = await checkAchievements();
-    if (unlocked.length === 0) return;
+    const { challenges, achievements } = await checkRewards();
+    if (challenges.length === 0 && achievements.length === 0) return;
     await get().refresh();
     if (get().level.level > levelBefore) toast(`Llegaste al nivel ${get().level.level}`, "level");
-    announceAchievements(unlocked);
+    announceChallenges(challenges);
+    announceAchievements(achievements);
   },
 }));
 

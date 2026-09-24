@@ -7,7 +7,10 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 
 **Estado actual:** V1 completa ✅ (v1.0.1). Lector RV1909 con buscador, resaltados y favoritos; XP, niveles, rachas y misiones; reflexión, oración y aplicación; "Tengo 5 minutos"; diario; ajustes con recordatorio diario y respaldo.
 
-**V2 en curso** · Sprint 2A (v1.1.0): rangos, logros e insignias (motor de reglas en `content/achievements.json`), recompensas por racha y la pantalla Mi camino con estadísticas y heatmap.
+**V2 en curso**
+
+- Sprint 2A (v1.1.0): rangos, logros e insignias (motor de reglas en `content/achievements.json`), recompensas por racha y la pantalla Mi camino con estadísticas y heatmap.
+- Sprint 2B (v1.2.0): mapa de la Biblia interactivo, desafíos de varios días (`content/challenges.json`) y misión sorpresa diaria (`content/random_missions.json`).
 
 ---
 
@@ -36,6 +39,8 @@ pnpm import-bible     # regenerar src-tauri/resources/bible.db (solo si cambias 
 ```
 
 > `pnpm dev` a secas abre solo la interfaz en el navegador, sin base de datos. Para usar la app, siempre `pnpm tauri dev`.
+>
+> `pnpm tauri dev` usa su propia base de datos (`user-dev.db`, "Datos de prueba" en la barra lateral), separada del progreso real de la app instalada (`user.db`). Para probar con tus datos: exporta un respaldo en la app instalada e impórtalo en `tauri dev` (ADR-0005).
 
 ## Estructura
 
@@ -43,15 +48,15 @@ pnpm import-bible     # regenerar src-tauri/resources/bible.db (solo si cambias 
 camino-de-fe/
 ├─ src/
 │  ├─ app/          # App (rutas) y Layout (barra lateral)
-│  ├─ screens/      # Hoy, Biblia, Lector, Diario, Logros, Mi camino, Ajustes
+│  ├─ screens/      # Hoy, Biblia, Lector, Mapa, Misiones, Diario, Logros, Mi camino, Ajustes
 │  ├─ components/   # piezas reutilizables (XpBar…)
-│  ├─ domain/       # LÓGICA PURA: xp, niveles, rangos, rachas, misiones, logros, estadísticas
+│  ├─ domain/       # LÓGICA PURA: xp, niveles, rangos, rachas, misiones, logros, desafíos, mapa, estadísticas
 │  ├─ content/      # carga y valida con Zod los JSON de /content
 │  ├─ data/         # repositorios: única capa que habla con SQLite
 │  ├─ stores/       # estado global (Zustand)
 │  ├─ hooks/
 │  └─ styles/       # Tailwind + colores (claro/oscuro)
-├─ content/         # JSON editables: libros/zonas, versículos del día, logros
+├─ content/         # JSON editables: libros/zonas, resúmenes, versículos del día, logros, desafíos, misiones sorpresa
 ├─ scripts/         # import-bible.ts (+ normalize.ts)
 ├─ tests/           # Vitest
 ├─ src-tauri/

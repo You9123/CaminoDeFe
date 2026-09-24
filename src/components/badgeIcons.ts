@@ -7,6 +7,7 @@ import {
   BookmarkIcon,
   CandleIcon,
   CheckIcon,
+  CompassIcon,
   CrossIcon,
   DoveIcon,
   FlameIcon,
@@ -17,6 +18,7 @@ import {
   PathIcon,
   QuillIcon,
   ScrollIcon,
+  SparkIcon,
   SproutIcon,
   SunriseIcon,
 } from "./icons";
@@ -41,6 +43,8 @@ export const ACHIEVEMENT_ICON: Record<AchievementIcon, BadgeIcon> = {
   candle: CandleIcon,
   olive: OliveIcon,
   path: PathIcon,
+  compass: CompassIcon,
+  spark: SparkIcon,
 };
 
 export const RANK_ICON: Record<RankId, BadgeIcon> = {

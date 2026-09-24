@@ -10,7 +10,8 @@ export type ActivityType =
   | "reflection"
   | "prayer"
   | "application"
-  | "daily_missions_bonus";
+  | "daily_missions_bonus"
+  | "surprise_mission";
 
 type Rule = { xp: number; dailyCap: number | null };
 
@@ -24,7 +25,15 @@ export const XP_RULES: Record<ActivityType, Rule> = {
   prayer: { xp: 10, dailyCap: 2 },
   application: { xp: 10, dailyCap: 2 },
   daily_missions_bonus: { xp: 60, dailyCap: 1 },
+  /** Misión sorpresa del día (V2). */
+  surprise_mission: { xp: 20, dailyCap: 1 },
 };
+
+/**
+ * Filas de activity_log que son RECOMPENSAS (logros, desafíos) y no algo que el usuario hizo.
+ * No cuentan para la racha ni como "día con actividad" (ADR-0004).
+ */
+export const REWARD_TYPES = ["achievement", "challenge"] as const;
 
 /** XP que da una actividad, considerando cuántas veces ya se recompensó hoy. */
 export function xpFor(type: ActivityType, rewardedTimesToday: number): number {

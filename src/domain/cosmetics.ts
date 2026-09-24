@@ -13,7 +13,7 @@ export type StreakReward = {
   title: string;
   description: string;
   /** Si todavía no se puede usar porque su función llega en otro sprint. */
-  comingWith?: "la mascota" | "el mapa";
+  comingWith?: "la mascota";
   /** Se puede prender y apagar. */
   toggle?: boolean;
 };
@@ -45,7 +45,7 @@ export const STREAK_REWARDS: readonly StreakReward[] = [
     days: 30,
     title: "Marco del mapa",
     description: "Un marco especial para el mapa de la Biblia.",
-    comingWith: "el mapa",
+    toggle: true,
   },
   {
     id: "golden_seal",

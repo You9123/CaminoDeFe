@@ -1,0 +1,193 @@
+{
+  "missions": [
+    {
+      "id": "leer_salmo",
+      "title": "Lee un Salmo",
+      "description": "Cualquiera. Si no sabes cuál, prueba el 23 o el 91.",
+      "check": { "type": "read_chapter", "books": ["PSA"] },
+      "link": { "label": "Abrir Salmos", "to": "/biblia/PSA" }
+    },
+    {
+      "id": "leer_proverbio",
+      "title": "Un capítulo de sabiduría",
+      "description": "Lee un capítulo de Proverbios y quédate con una frase.",
+      "check": { "type": "read_chapter", "books": ["PRO"] },
+      "link": { "label": "Abrir Proverbios", "to": "/biblia/PRO" }
+    },
+    {
+      "id": "leer_evangelio",
+      "title": "Con Jesús hoy",
+      "description": "Lee un capítulo de cualquiera de los cuatro Evangelios.",
+      "check": { "type": "read_chapter", "books": ["MAT", "MRK", "LUK", "JHN"] },
+      "link": { "label": "Abrir Juan", "to": "/biblia/JHN" }
+    },
+    {
+      "id": "leer_carta",
+      "title": "Una carta antigua",
+      "description": "Lee un capítulo de alguna de las cartas del Nuevo Testamento, de Romanos a Judas.",
+      "check": {
+        "type": "read_chapter",
+        "books": [
+          "ROM",
+          "1CO",
+          "2CO",
+          "GAL",
+          "EPH",
+          "PHP",
+          "COL",
+          "1TH",
+          "2TH",
+          "1TI",
+          "2TI",
+          "TIT",
+          "PHM",
+          "HEB",
+          "JAS",
+          "1PE",
+          "2PE",
+          "1JN",
+          "2JN",
+          "3JN",
+          "JUD"
+        ]
+      },
+      "link": { "label": "Abrir Filipenses", "to": "/biblia/PHP" }
+    },
+    {
+      "id": "leer_profeta",
+      "title": "La voz de un profeta",
+      "description": "Lee un capítulo de algún profeta, de Isaías a Malaquías.",
+      "check": {
+        "type": "read_chapter",
+        "books": [
+          "ISA",
+          "JER",
+          "LAM",
+          "EZK",
+          "DAN",
+          "HOS",
+          "JOL",
+          "AMO",
+          "OBA",
+          "JON",
+          "MIC",
+          "NAM",
+          "HAB",
+          "ZEP",
+          "HAG",
+          "ZEC",
+          "MAL"
+        ]
+      },
+      "link": { "label": "Abrir Isaías", "to": "/biblia/ISA" }
+    },
+    {
+      "id": "leer_historia",
+      "title": "Una historia de antes",
+      "description": "Lee un capítulo de los libros históricos, de Josué a Ester.",
+      "check": {
+        "type": "read_chapter",
+        "books": ["JOS", "JDG", "RUT", "1SA", "2SA", "1KI", "2KI", "1CH", "2CH", "EZR", "NEH", "EST"]
+      },
+      "link": { "label": "Abrir Rut", "to": "/biblia/RUT" }
+    },
+    {
+      "id": "fav_perdon",
+      "title": "Un versículo sobre el perdón",
+      "description": "Búscalo (prueba con la palabra «perdonad») y guárdalo en tus favoritos.",
+      "check": { "type": "favorite" },
+      "link": { "label": "Buscar", "to": "/biblia/buscar" }
+    },
+    {
+      "id": "fav_paz",
+      "title": "Un versículo para la ansiedad",
+      "description": "Busca uno que te dé paz (prueba con «afanosos» o «paz») y guárdalo en favoritos.",
+      "check": { "type": "favorite" },
+      "link": { "label": "Buscar", "to": "/biblia/buscar" }
+    },
+    {
+      "id": "fav_promesa",
+      "title": "Una promesa",
+      "description": "Encuentra una promesa de Dios que quieras recordar y márcala como favorita.",
+      "check": { "type": "favorite" },
+      "link": { "label": "Buscar", "to": "/biblia/buscar" }
+    },
+    {
+      "id": "resaltar",
+      "title": "Subraya lo que te toque",
+      "description": "Mientras lees, resalta con color al menos un versículo.",
+      "check": { "type": "highlight" },
+      "link": { "label": "Ir a la Biblia", "to": "/biblia" }
+    },
+    {
+      "id": "orar_3",
+      "title": "Tres minutos de oración",
+      "description": "Usa el temporizador de 3 minutos (o más) en un momento de oración.",
+      "check": { "type": "prayer_minutes", "minutes": 3 }
+    },
+    {
+      "id": "orar_5",
+      "title": "Cinco minutos en silencio",
+      "description": "Un momento de oración con el temporizador de 5 minutos. Sin prisa.",
+      "check": { "type": "prayer_minutes", "minutes": 5 }
+    },
+    {
+      "id": "diario_gratitud",
+      "title": "Tres gracias",
+      "description": "Escribe en tu diario tres cosas por las que estás agradecido hoy.",
+      "check": { "type": "journal_free" },
+      "link": { "label": "Abrir el diario", "to": "/diario" }
+    },
+    {
+      "id": "diario_pedir",
+      "title": "Pídele algo concreto",
+      "description": "Escribe en tu diario algo que quieras pedirle a Dios. Así después podrás ver cómo respondió.",
+      "check": { "type": "journal_free" },
+      "link": { "label": "Abrir el diario", "to": "/diario" }
+    },
+    {
+      "id": "agradecer_alguien",
+      "title": "Da las gracias",
+      "description": "Agradécele hoy a alguien por algo específico. En persona o con un mensaje.",
+      "check": { "type": "manual" }
+    },
+    {
+      "id": "ayudar",
+      "title": "Una mano",
+      "description": "Haz algo por alguien sin que te lo pida.",
+      "check": { "type": "manual" }
+    },
+    {
+      "id": "orar_por_otro",
+      "title": "Ora por otra persona",
+      "description": "Piensa en alguien que la esté pasando mal y ora por esa persona con nombre y apellido.",
+      "check": { "type": "manual" }
+    },
+    {
+      "id": "compartir_versiculo",
+      "title": "Comparte un versículo",
+      "description": "Envíale a alguien un versículo que te haya servido. Sin sermón, solo el versículo.",
+      "check": { "type": "manual" }
+    },
+    {
+      "id": "memorizar",
+      "title": "Apréndete uno",
+      "description": "Memoriza el versículo del día. Repítelo en voz alta tres veces en distintos momentos.",
+      "check": { "type": "manual" }
+    },
+    {
+      "id": "leer_genesis",
+      "title": "Desde el principio",
+      "description": "Lee un capítulo de Génesis. Ahí empiezan casi todas las historias.",
+      "check": { "type": "read_chapter", "books": ["GEN"] },
+      "link": { "label": "Abrir Génesis", "to": "/biblia/GEN" }
+    },
+    {
+      "id": "leer_hechos",
+      "title": "Los primeros cristianos",
+      "description": "Lee un capítulo de Hechos.",
+      "check": { "type": "read_chapter", "books": ["ACT"] },
+      "link": { "label": "Abrir Hechos", "to": "/biblia/ACT" }
+    }
+  ]
+}

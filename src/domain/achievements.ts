@@ -32,6 +32,8 @@ export const ACHIEVEMENT_ICONS = [
   "candle",
   "olive",
   "path",
+  "compass",
+  "spark",
 ] as const;
 export type AchievementIcon = (typeof ACHIEVEMENT_ICONS)[number];
 
@@ -44,6 +46,9 @@ export const COUNTABLE_ACTIVITIES = [
   "prayer",
   "application",
   "daily_missions_bonus",
+  "surprise_mission",
+  /** Desafíos completados (filas de recompensa). */
+  "challenge",
 ] as const;
 
 const count = z.number().int().positive();

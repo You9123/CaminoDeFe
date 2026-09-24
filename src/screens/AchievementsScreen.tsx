@@ -11,7 +11,7 @@ import { useProgress } from "../stores/progressStore";
 import { useSettings } from "../stores/settingsStore";
 import { ACHIEVEMENT_ICON, RANK_ICON } from "../components/badgeIcons";
 import { Medallion } from "../components/Medallion";
-import { OliveIcon, PathIcon, SealIcon, SparkIcon, SproutIcon } from "../components/icons";
+import { MapIcon, OliveIcon, SealIcon, SparkIcon, SproutIcon } from "../components/icons";
 import { Toggle } from "./settings/ui";
 
 type Icon = ComponentType<{ size?: number; className?: string; duo?: boolean }>;
@@ -20,7 +20,7 @@ const REWARD_ICON: Record<CosmeticId, Icon> = {
   olive_branch: OliveIcon,
   pet_scarf: SparkIcon,
   leaves_background: SproutIcon,
-  map_frame: PathIcon,
+  map_frame: MapIcon,
   golden_seal: SealIcon,
 };
 

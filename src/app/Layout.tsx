@@ -5,10 +5,12 @@ import { Toaster } from "../components/Toaster";
 import {
   BookIcon,
   ChartIcon,
+  CompassIcon,
   FlameIcon,
   JournalIcon,
   LaurelIcon,
   LogoMark,
+  MapIcon,
   PeakIcon,
   SealIcon,
   SlidersIcon,
@@ -16,6 +18,8 @@ import {
 } from "../components/icons";
 import { RANK_ICON } from "../components/badgeIcons";
 import { isCosmeticActive } from "../domain/cosmetics";
+import { isDevDatabase } from "../data/db";
+import { useAsync } from "../hooks/useAsync";
 import { useProgress } from "../stores/progressStore";
 import { useSettings } from "../stores/settingsStore";
 import { useDailyReminder } from "../hooks/useDailyReminder";
@@ -25,6 +29,8 @@ type NavItem = { to: string; label: string; icon: ComponentType<{ size?: number 
 const NAV: NavItem[] = [
   { to: "/", label: "Hoy", icon: SunriseIcon, end: true },
   { to: "/biblia", label: "Biblia", icon: BookIcon },
+  { to: "/mapa", label: "Mapa", icon: MapIcon },
+  { to: "/misiones", label: "Misiones", icon: CompassIcon },
   { to: "/diario", label: "Diario", icon: JournalIcon },
   { to: "/logros", label: "Logros", icon: LaurelIcon },
   { to: "/estadisticas", label: "Estadísticas", icon: ChartIcon },
@@ -56,6 +62,7 @@ export function Layout() {
   const leaves = isCosmeticActive("leaves_background", best, cosmeticsOff);
   const goldSeal = isCosmeticActive("golden_seal", best, cosmeticsOff);
   const RankIcon = RANK_ICON[rank.id];
+  const devDb = useAsync(isDevDatabase, "db").data;
   useDailyReminder();
 
   // Cada pantalla empieza arriba (antes se conservaba el scroll de la pantalla anterior).
@@ -78,6 +85,14 @@ export function Layout() {
           <LogoMark size={30} />
           <span className="font-display text-[1.35rem] leading-none font-semibold">Camino de Fe</span>
         </div>
+        {devDb && (
+          <p
+            className="-mt-6 mb-5 ml-2 self-start rounded-full border border-dashed border-accent/60 px-2.5 py-0.5 text-[11px] font-semibold text-accent"
+            title="Estás en modo desarrollo (pnpm tauri dev): se usa user-dev.db y no se toca tu progreso real."
+          >
+            Datos de prueba
+          </p>
+        )}
 
         <nav className="flex flex-col gap-1">
           {NAV.map((item) => (

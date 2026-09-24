@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { parseTime, reminderMessage, shouldRemind } from "../src/domain/reminder";
-import { backupFileName, parseBackup, summarizeBackup, type Backup } from "../src/domain/backup";
+import { backupFileName, parseBackup, summarizeBackup, type BackupInput } from "../src/domain/backup";
 import { pickQuickVerse } from "../src/domain/quickSession";
 import { xpFor } from "../src/domain/xp";
 
@@ -39,7 +39,8 @@ describe("recordatorio diario", () => {
 });
 
 describe("respaldo", () => {
-  const sample: Backup = {
+  // Respaldo de formato 1 (V1): no trae challenge_runs.
+  const sample: BackupInput = {
     app: "camino-de-fe",
     format: 1,
     exported_at: "2026-09-24T12:00:00.000Z",
@@ -81,6 +82,7 @@ describe("respaldo", () => {
 
   it("lee un respaldo válido y lo resume", () => {
     const b = parseBackup(JSON.stringify(sample));
+    expect(b.tables.challenge_runs).toEqual([]);
     expect(summarizeBackup(b)).toEqual({
       exportedAt: "2026-09-24T12:00:00.000Z",
       activities: 2,

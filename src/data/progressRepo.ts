@@ -1,6 +1,6 @@
 import { userDb } from "./db";
 import { gameDay } from "../domain/day";
-import { chapterReadAwards, type ActivityType, type Award } from "../domain/xp";
+import { chapterReadAwards, REWARD_TYPES, type ActivityType, type Award } from "../domain/xp";
 import { activityAwards } from "../domain/missions";
 import { chapterRef } from "../domain/refs";
 
@@ -46,12 +46,12 @@ export async function getReadCountByBook(): Promise<Record<number, number>> {
 
 /**
  * Días (de juego) con al menos una actividad. Base para calcular rachas.
- * Los logros no cuentan: se desbloquean solos y no son algo que el usuario hizo ese día.
+ * Las recompensas (logros, desafíos) no cuentan: no son algo que el usuario hizo ese día.
  */
 export async function getActiveDays(): Promise<string[]> {
   const db = await userDb();
   const rows = await db.select<{ day: string }[]>(
-    "SELECT DISTINCT day FROM activity_log WHERE type <> 'achievement' ORDER BY day",
+    `SELECT DISTINCT day FROM activity_log WHERE type NOT IN (${REWARD_TYPES.map((t) => `'${t}'`).join(", ")}) ORDER BY day`,
   );
   return rows.map((r) => r.day);
 }

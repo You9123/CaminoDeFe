@@ -1,0 +1,108 @@
+{
+  "challenges": [
+    {
+      "id": "salmos_5",
+      "title": "Los Salmos",
+      "description": "Cinco Salmos, a tu ritmo. Oraciones de hace tres mil años que siguen sonando actuales.",
+      "icon": "harp",
+      "days": null,
+      "xp": 100,
+      "requirements": [{ "type": "chapters_in_books", "books": ["PSA"], "count": 5, "label": "Salmos leídos" }]
+    },
+    {
+      "id": "semana_reflexiva",
+      "title": "Semana reflexiva",
+      "description": "Escribe una reflexión cada día durante una semana. No importa si es corta.",
+      "icon": "quill",
+      "days": 7,
+      "xp": 150,
+      "requirements": [{ "type": "activity_days", "activity": "reflection", "days": 7, "label": "Días con reflexión" }]
+    },
+    {
+      "id": "sabiduria_semana",
+      "title": "Una semana de sabiduría",
+      "description": "Siete capítulos de Proverbios en siete días. Consejos cortos para la vida de todos los días.",
+      "icon": "lamp",
+      "days": 7,
+      "xp": 150,
+      "requirements": [
+        { "type": "chapters_in_books", "books": ["PRO"], "count": 7, "label": "Capítulos de Proverbios" }
+      ]
+    },
+    {
+      "id": "oracion_constante",
+      "title": "Constancia en oración",
+      "description": "Dedica un momento a orar en cinco días distintos de esta semana.",
+      "icon": "candle",
+      "days": 7,
+      "xp": 120,
+      "requirements": [{ "type": "activity_days", "activity": "prayer", "days": 5, "label": "Días con oración" }]
+    },
+    {
+      "id": "semana_practica",
+      "title": "Semana práctica",
+      "description": "Cinco días eligiendo algo concreto para poner en práctica lo que leíste.",
+      "icon": "sprout",
+      "days": 7,
+      "xp": 120,
+      "requirements": [
+        { "type": "activity_days", "activity": "application", "days": 5, "label": "Días con una aplicación" }
+      ]
+    },
+    {
+      "id": "marcos",
+      "title": "Marcos de corrido",
+      "description": "El Evangelio más corto y más directo, completo. Dieciséis capítulos.",
+      "icon": "path",
+      "days": null,
+      "xp": 200,
+      "requirements": [{ "type": "books_read", "books": ["MRK"], "label": "Capítulos de Marcos" }]
+    },
+    {
+      "id": "rut_ester",
+      "title": "Dos mujeres valientes",
+      "description": "Lee las historias completas de Rut y de Ester.",
+      "icon": "olive",
+      "days": null,
+      "xp": 150,
+      "requirements": [
+        { "type": "books_read", "books": ["RUT"], "label": "Capítulos de Rut" },
+        { "type": "books_read", "books": ["EST"], "label": "Capítulos de Ester" }
+      ]
+    },
+    {
+      "id": "la_iglesia",
+      "title": "La Iglesia naciente",
+      "description": "Lee Hechos completo: cómo empezó todo después de la resurrección.",
+      "icon": "flame",
+      "days": null,
+      "xp": 250,
+      "requirements": [{ "type": "books_read", "books": ["ACT"], "label": "Capítulos de Hechos" }]
+    },
+    {
+      "id": "conocer_a_jesus",
+      "title": "Conocer a Jesús",
+      "description": "Los cuatro Evangelios completos. Un desafío largo: tómalo con calma.",
+      "icon": "cross",
+      "days": null,
+      "xp": 500,
+      "requirements": [
+        { "type": "books_read", "books": ["MAT"], "label": "Mateo" },
+        { "type": "books_read", "books": ["MRK"], "label": "Marcos" },
+        { "type": "books_read", "books": ["LUK"], "label": "Lucas" },
+        { "type": "books_read", "books": ["JHN"], "label": "Juan" }
+      ]
+    },
+    {
+      "id": "semana_completa",
+      "title": "Una semana completa",
+      "description": "Completa las cuatro misiones del día en cinco días de esta semana.",
+      "icon": "check",
+      "days": 7,
+      "xp": 150,
+      "requirements": [
+        { "type": "activity_days", "activity": "daily_missions_bonus", "days": 5, "label": "Días con las 4 misiones" }
+      ]
+    }
+  ]
+}

@@ -19,6 +19,21 @@ fn sql(text: &'static str) -> &'static str {
     }
 }
 
+/// Base de datos del usuario.
+/// En desarrollo (`pnpm tauri dev`) se usa otra, `user-dev.db`, para que las pruebas no toquen
+/// el progreso real ni apliquen migraciones que la app instalada todavía no conoce.
+const USER_DB: &str = if cfg!(debug_assertions) {
+    "sqlite:user-dev.db"
+} else {
+    "sqlite:user.db"
+};
+
+/// Dirección de la base de datos del usuario (la usa el frontend para abrirla).
+#[tauri::command]
+fn user_db_url() -> &'static str {
+    USER_DB
+}
+
 /// Migraciones de la base de datos del usuario (user.db).
 /// Regla: NUNCA editar una migración ya publicada; siempre agregar una nueva.
 fn user_db_migrations() -> Vec<Migration> {
@@ -39,6 +54,12 @@ fn user_db_migrations() -> Vec<Migration> {
             version: 3,
             description: "verse_marks",
             sql: sql(include_str!("../migrations/0003_verse_marks.sql")),
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 4,
+            description: "challenges",
+            sql: sql(include_str!("../migrations/0004_challenges.sql")),
             kind: MigrationKind::Up,
         },
     ]
@@ -124,13 +145,14 @@ pub fn run() {
     let result = builder
         .plugin(
             tauri_plugin_sql::Builder::default()
-                .add_migrations("sqlite:user.db", user_db_migrations())
+                .add_migrations(USER_DB, user_db_migrations())
                 .build(),
         )
         .invoke_handler(tauri::generate_handler![
             write_backup_file,
             read_backup_file,
-            auto_backups_dir
+            auto_backups_dir,
+            user_db_url
         ])
         .setup(|app| {
             if let Err(err) = install_bible_db(app) {

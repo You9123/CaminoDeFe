@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 1.1 · 24/09/2026
+> **Versión del documento:** 1.2 · 24/09/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -330,17 +330,18 @@ Ni los archivos de `/content` ni `user.db` guardan el texto de los versículos, 
 
 La mayor parte del trabajo del proyecto es **escribir contenido**, no programar. Por eso el contenido va separado del código, en archivos JSON con un esquema validado con **Zod**:
 
-| Archivo                                           | Contenido                                                          | Versión |
-| ------------------------------------------------- | ------------------------------------------------------------------ | ------- |
-| `daily_verses.json`                               | 366 referencias de versículos del día                              | V1      |
-| `books_meta.json`                                 | Nombre, zona, capítulos, resumen corto y tiempo estimado por libro | V1      |
-| `emotions.json`                                   | Emoción → lista de versículos                                      | V2      |
-| `random_missions.json`                            | Misiones sorpresa                                                  | V2      |
-| `challenges.json`                                 | Desafíos y requisitos                                              | V2      |
-| `achievements.json`                               | Logros y reglas                                                    | V2      |
-| `timeline.json`                                   | Eventos de la línea temporal                                       | V3      |
-| `characters.json` / `places.json` / `events.json` | Coleccionables                                                     | V3      |
-| `quiz/<libro>.json`                               | Preguntas por libro                                                | V3      |
+| Archivo                                           | Contenido                                                                                            | Versión |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `daily_verses.json`                               | 366 referencias de versículos del día                                                                | V1      |
+| `books_meta.json`                                 | Nombre, abreviatura, testamento y zona de cada libro (los capítulos y el tiempo salen de `bible.db`) | V1      |
+| `book_summaries.json`                             | Resumen corto de cada libro (ficha del mapa)                                                         | V2      |
+| `emotions.json`                                   | Emoción → lista de versículos                                                                        | V2      |
+| `random_missions.json`                            | Misiones sorpresa                                                                                    | V2      |
+| `challenges.json`                                 | Desafíos y requisitos                                                                                | V2      |
+| `achievements.json`                               | Logros y reglas                                                                                      | V2      |
+| `timeline.json`                                   | Eventos de la línea temporal                                                                         | V3      |
+| `characters.json` / `places.json` / `events.json` | Coleccionables                                                                                       | V3      |
+| `quiz/<libro>.json`                               | Preguntas por libro                                                                                  | V3      |
 
 > Se puede usar IA para generar borradores de estos archivos, pero **todo contenido debe ser revisado por mí** antes de subirlo (referencias correctas y tono adecuado).
 
@@ -444,7 +445,7 @@ streak_days(day TEXT PK, source TEXT)            -- 'activity' | 'grace'
 verse_marks(ref TEXT PK, color TEXT NULL, favorite INTEGER, created_at TEXT, updated_at TEXT)  -- resaltado y/o favorito
 
 -- Logros: NO tienen tabla propia. Son filas de activity_log con type='achievement' y ref=<id> (ADR-0004).
-challenges_progress(challenge_id TEXT PK, started_at TEXT, completed_at TEXT NULL, data TEXT)  -- JSON
+challenge_runs(id INTEGER PK, challenge_id TEXT, started_at TEXT, started_day TEXT, status TEXT, ended_at TEXT NULL)  -- un intento por fila; el XP va en activity_log (ADR-0005)
 -- Recompensas por racha: se calculan con el récord de racha; solo se guarda settings.cosmetics_off (ADR-0004).
 emotions_log(day TEXT PK, emotion TEXT)
 schema_migrations(version INTEGER PK, applied_at TEXT)
@@ -586,15 +587,15 @@ pnpm tauri add fs
 
 ### 🟡 V2 — Gamificación · en curso
 
-Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, estadísticas) ✅ v1.1.0 · **2B Mapa** (mapa, desafíos, misiones sorpresa) · **2C Cuidado y audio** (emociones, modo escuchar, sesiones de 5/10/15/30 min, exportar diario) · **2D Mascota**.
+Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, estadísticas) ✅ v1.1.0 · **2B Mapa** (mapa, desafíos, misiones sorpresa) ✅ v1.2.0 · **2C Cuidado y audio** (emociones, modo escuchar, sesiones de 5/10/15/30 min, exportar diario) · **2D Mascota**.
 
 - [ ] Mascota (opcional), con evolución y animaciones
 - [x] Rangos (Sprint 2A)
-- [ ] Mapa de la Biblia interactivo (SVG)
+- [x] Mapa de la Biblia interactivo (SVG) (Sprint 2B)
 - [x] Logros / insignias (motor de reglas) (Sprint 2A)
-- [ ] Desafíos
-- [ ] Misiones sorpresa
-- [x] Recompensas cosméticas por rachas (Sprint 2A; la de 7 días llega con la mascota y la de 30 con el mapa)
+- [x] Desafíos (Sprint 2B)
+- [x] Misiones sorpresa (Sprint 2B)
+- [x] Recompensas cosméticas por rachas (Sprint 2A; la de 7 días llega con la mascota)
 - [x] Estadísticas y gráficos + heatmap (Sprint 2A; la distribución de emociones llega con "¿Cómo me siento hoy?")
 - [ ] ¿Cómo me siento hoy?
 - [ ] Modo escuchar (TTS)
