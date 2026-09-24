@@ -5,7 +5,7 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 
 > 📄 La idea completa, las reglas y el roadmap están en [`docs/Documento_Maestro.md`](docs/Documento_Maestro.md).
 
-**Estado actual:** Sprint 0 ✅ (lector de la Biblia RV1909, XP y niveles, guardado local).
+**Estado actual:** Sprint 1B ✅ (lector RV1909 con resaltados y favoritos, buscador, XP y niveles, rachas, misiones, reflexión → oración → aplicación, diario y ajustes).
 
 ---
 

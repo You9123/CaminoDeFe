@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { countWords, fixDropCap, modernizeSpelling, normalizeVerse } from "../scripts/normalize";
+import { buildProperNounCheck, countWords, fixDropCap, modernizeSpelling, normalizeVerse } from "../scripts/normalize";
 
 describe("normalización RV1909", () => {
   it("quita tildes antiguas en palabras sueltas", () => {
@@ -18,6 +18,26 @@ describe("normalización RV1909", () => {
     expect(fixDropCap("DE SIETE años era Joas")).toBe("De siete años era Joas");
     expect(fixDropCap("¡OH Jehová")).toBe("¡Oh Jehová");
   });
+  it("en medio de una oración usa minúscula, salvo nombres propios", () => {
+    const proper = (w: string) => ["jehová", "jesús", "moisés"].includes(w);
+    expect(fixDropCap("Y ACONTECIÓ en los días", proper)).toBe("Y aconteció en los días");
+    expect(fixDropCap("Y JEHOVÁ dijo a Noé", proper)).toBe("Y Jehová dijo a Noé");
+    expect(fixDropCap("Salmo de David. A TI, oh Jehová", proper)).toBe("Salmo de David. A ti, oh Jehová");
+    expect(fixDropCap("Salmo de David. JEHOVÁ es mi pastor", proper)).toBe("Salmo de David. Jehová es mi pastor");
+  });
+
+  it("detecta nombres propios por cómo aparecen en el texto", () => {
+    const check = buildProperNounCheck([
+      "y dijo Moisés al pueblo",
+      "entonces Moisés subió",
+      "y habló Moisés otra vez",
+      "y aconteció que Moisés",
+      "y aconteció así",
+    ]);
+    expect(check("moisés")).toBe(true);
+    expect(check("aconteció")).toBe(false);
+  });
+
   it("solo corrige la capital en el versículo 1", () => {
     expect(normalizeVerse("JAH es su nombre", 4)).toBe("JAH es su nombre");
     expect(normalizeVerse("  EN   el principio ", 1)).toBe("En el principio");

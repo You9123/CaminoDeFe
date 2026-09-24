@@ -1,9 +1,11 @@
+import { LogoMark } from "../components/icons";
+
 export function NotInTauriScreen() {
   return (
     <div className="flex h-full items-center justify-center p-8">
       <div className="max-w-md rounded-2xl border border-border bg-surface p-8 text-center">
-        <p className="mb-3 text-3xl">✝️</p>
-        <h1 className="mb-2 text-xl font-semibold">Camino de Fe</h1>
+        <LogoMark size={44} className="mx-auto mb-3" />
+        <h1 className="mb-2 font-display text-2xl font-semibold">Camino de Fe</h1>
         <p className="text-muted">
           Esta vista necesita la base de datos local, que solo existe dentro de la app de escritorio. Ábrela con:
         </p>

@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import * as progress from "../data/progressRepo";
+import { gameDay } from "../domain/day";
 import { levelFromXp, type LevelInfo } from "../domain/levels";
+import { computeStreak, type StreakInfo } from "../domain/streaks";
+import { missionProgress, type MissionProgress } from "../domain/missions";
+import type { Award } from "../domain/xp";
+import { toast } from "./toastStore";
 
 type ProgressState = {
   loaded: boolean;
@@ -9,8 +14,12 @@ type ProgressState = {
   todayXp: number;
   chaptersRead: number;
   level: LevelInfo;
+  streak: StreakInfo;
+  missions: MissionProgress;
   refresh: () => Promise<void>;
   setName: (name: string) => Promise<void>;
+  /** Recarga el progreso y muestra avisos (+XP, bono, subida de nivel). */
+  celebrate: (awards: Award[]) => Promise<void>;
 };
 
 export const useProgress = create<ProgressState>((set, get) => ({
@@ -20,19 +29,49 @@ export const useProgress = create<ProgressState>((set, get) => ({
   todayXp: 0,
   chaptersRead: 0,
   level: levelFromXp(0),
+  streak: computeStreak([], gameDay()),
+  missions: missionProgress(new Set()),
 
   refresh: async () => {
-    const [name, totalXp, todayXp, chaptersRead] = await Promise.all([
+    const day = gameDay();
+    const [name, totalXp, todayXp, chaptersRead, activeDays, dayActivity] = await Promise.all([
       progress.getProfileName(),
       progress.getTotalXp(),
-      progress.getXpForDay(),
+      progress.getXpForDay(day),
       progress.getChaptersReadCount(),
+      progress.getActiveDays(),
+      progress.getDayActivity(day),
     ]);
-    set({ loaded: true, name, totalXp, todayXp, chaptersRead, level: levelFromXp(totalXp) });
+    set({
+      loaded: true,
+      name,
+      totalXp,
+      todayXp,
+      chaptersRead,
+      level: levelFromXp(totalXp),
+      streak: computeStreak(activeDays, day),
+      missions: missionProgress(dayActivity.doneTypes),
+    });
   },
 
   setName: async (name) => {
     await progress.setProfileName(name);
     await get().refresh();
+  },
+
+  celebrate: async (awards) => {
+    const levelBefore = get().level.level;
+    const streakBefore = get().streak.current;
+    await get().refresh();
+    const { level, streak } = get();
+
+    const main = awards.filter((a) => a.type !== "daily_missions_bonus" && a.type !== "bonus_5_chapters");
+    const mainXp = main.reduce((s, a) => s + a.xp, 0);
+    if (mainXp > 0) toast(`+${mainXp} XP`, "xp");
+
+    if (awards.some((a) => a.type === "bonus_5_chapters")) toast("Cinco capítulos hoy · +50 XP", "bonus");
+    if (awards.some((a) => a.type === "daily_missions_bonus")) toast("Misiones de hoy completas · +60 XP", "bonus");
+    if (streak.current > streakBefore && streak.current > 1) toast(`${streak.current} días seguidos`, "streak");
+    if (level.level > levelBefore) toast(`Llegaste al nivel ${level.level}`, "level");
   },
 }));

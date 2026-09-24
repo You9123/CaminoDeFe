@@ -10,7 +10,7 @@ import { DatabaseSync } from "node:sqlite";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { countWords, normalizeVerse } from "./normalize.ts";
+import { buildProperNounCheck, countWords, normalizeVerse } from "./normalize.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, "scripts", ".cache");
@@ -25,7 +25,7 @@ const SOURCE_URL = `https://raw.githubusercontent.com/scrollmapper/bible_databas
  * Cambia este valor cuando cambie el contenido de bible.db.
  * La app lo compara al iniciar y, si es distinto, reemplaza su copia de la Biblia.
  */
-const BIBLE_DB_VERSION = "rv1909-2026.09-1";
+const BIBLE_DB_VERSION = "rv1909-2026.09-2";
 
 const TRANSLATION = {
   id: "RV1909",
@@ -106,6 +106,10 @@ async function main() {
   const insChapter = db.prepare("INSERT INTO chapters VALUES (?, ?, ?, ?, ?)");
   const insVerse = db.prepare("INSERT INTO verses VALUES (?, ?, ?, ?, ?)");
 
+  const isProperNoun = buildProperNounCheck(
+    source.books.flatMap((b) => b.chapters.flatMap((c) => c.verses.map((v) => v.text))),
+  );
+
   let totalVerses = 0;
   let skippedEmpty = 0;
   db.exec("BEGIN");
@@ -123,7 +127,7 @@ async function main() {
           skippedEmpty++;
           continue;
         }
-        const text = normalizeVerse(v.text, v.verse);
+        const text = normalizeVerse(v.text, v.verse, isProperNoun);
         insVerse.run(TRANSLATION.id, book.id, ch.chapter, v.verse, text);
         verses++;
         words += countWords(text);

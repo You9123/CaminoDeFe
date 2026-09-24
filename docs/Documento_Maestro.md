@@ -156,7 +156,7 @@ Son títulos de juego que representan el avance en el **hábito**:
 ### 2.7 Rachas [V1]
 
 - Un día cuenta para la racha si se completa **al menos una** actividad: leer un capítulo, leer el versículo del día o completar la sesión de 5 minutos.
-- **Día de gracia**: 1 por semana (se recarga cada lunes). Si se falta un día y hay un día de gracia disponible, la racha se mantiene.
+- **Día de gracia**: 1 por semana (se recarga cada lunes). Si se falta **un solo día** y hay un día de gracia disponible, la racha se mantiene (el día de gracia protege la racha, pero no suma un día). Dos días seguidos sin actividad la cortan. La racha se calcula siempre a partir de `activity_log`.
 - Si la racha se rompe: `🔥 Racha actual: 0 días · 🏆 Récord personal: 53 días`, sin mensajes negativos.
 - Calendario semanal visible (L M M J V S D).
 - Hitos cosméticos [V2]: 3 días → decoración, 7 días → aspecto de la mascota, 14 días → fondo nuevo, 30 días → marco especial del mapa, 100 días → insignia dorada.
@@ -169,9 +169,9 @@ Cada día se generan **4 misiones**:
 1. 📖 Leer el versículo del día (+10)
 2. 💭 Escribir una reflexión (+15)
 3. 🙏 Momento de oración (+10)
-4. ❤️ Ponerlo en práctica (+25)
+4. ❤️ Ponerlo en práctica (+10)
 
-Al completar las 4 se gana un **bono de +60 XP**.
+Al completar las 4 se gana un **bono de +60 XP**. El XP de cada misión es el de su actividad (tabla 2.5); una misión se cumple con que exista esa actividad hoy, aunque haya dado 0 XP por el límite diario. Las misiones se pueden hacer desde la pantalla Hoy (sobre el versículo del día) o después de leer un capítulo.
 
 **Misiones sorpresa** [V2]: una misión aleatoria extra al día, tomada de `content/random_missions.json`. Ejemplos:
 
@@ -300,7 +300,7 @@ Barra lateral fija a la izquierda (en móvil será una barra inferior):
 
 **Primer uso (onboarding):** bienvenida → nombre → elegir mascota (o ninguna) [V2] → hora del recordatorio → primer versículo.
 
-**Estilo visual propuesto:** cálido e ilustrado, tipo "cozy game": colores tierra y pastel, esquinas redondeadas, animaciones suaves y buena tipografía para leer. Hay que evitar que parezca infantil, porque la lectura debe verse seria y cómoda.
+**Estilo visual (decidido, ver ADR-0003):** cálido y editorial. Paleta pergamino + terracota con modo oscuro, textura de papel sutil, títulos en Fraunces, texto bíblico en Literata e íconos SVG propios con trazo a mano. **Sin emojis en la interfaz**: tienen que verse naturales y no genéricos. La lectura debe verse seria y cómoda, nunca infantil.
 
 ---
 
@@ -441,7 +441,7 @@ daily_missions(day TEXT, mission_id TEXT, completed_at TEXT NULL, PRIMARY KEY(da
 
 streak_days(day TEXT PK, source TEXT)            -- 'activity' | 'grace'
 
-favorites(id INTEGER PK, ref TEXT, color TEXT NULL, tag TEXT NULL, note TEXT NULL, created_at TEXT)
+verse_marks(ref TEXT PK, color TEXT NULL, favorite INTEGER, created_at TEXT, updated_at TEXT)  -- resaltado y/o favorito
 
 achievements_unlocked(achievement_id TEXT PK, unlocked_at TEXT)
 challenges_progress(challenge_id TEXT PK, started_at TEXT, completed_at TEXT NULL, data TEXT)  -- JSON

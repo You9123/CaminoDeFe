@@ -17,6 +17,8 @@
     "import-bible": "tsx scripts/import-bible.ts"
   },
   "dependencies": {
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/literata": "^5.3.0",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-sql": "^2.4.1",
     "date-fns": "^4.4.0",

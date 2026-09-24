@@ -1,37 +1,75 @@
 @import "tailwindcss";
+@import "@fontsource-variable/fraunces/soft.css";
+@import "@fontsource-variable/literata/index.css";
+@import "@fontsource-variable/literata/wght-italic.css";
 
 /* ---------------------------------------------------------------
-   Tokens de color (estilo "cozy": pergamino cálido + terracota).
+   Tokens de color: pergamino cálido + terracota.
    Se usan en Tailwind como bg-bg, text-ink, bg-accent, etc.
+   Tema: [data-theme="light" | "dark"] en <html>; sin atributo = sistema.
    --------------------------------------------------------------- */
 :root {
-  --bg: #f6efe3;
-  --surface: #fffaf1;
-  --surface-2: #f0e6d6;
-  --ink: #2c2219;
-  --muted: #7b6a57;
-  --border: #e4d6c0;
-  --accent: #b4622a;
-  --accent-ink: #ffffff;
-  --accent-soft: #f3dcc3;
-  --success: #5b8a47;
-  --success-soft: #dfead3;
+  --bg: #f5eee2;
+  --surface: #fdf8ef;
+  --surface-2: #efe5d4;
+  --ink: #2b2119;
+  --muted: #7a6956;
+  --border: #e2d3bb;
+  --accent: #a9582a;
+  --accent-ink: #fffaf2;
+  --accent-soft: #f1dcc3;
+  --success: #56803f;
+  --success-soft: #e0e9d2;
+
+  /* Resaltados de versículos */
+  --hl-yellow: #f6e3a1;
+  --hl-green: #d5e6c3;
+  --hl-blue: #cfe0ec;
+  --hl-rose: #f1d0cc;
+
+  --grain-opacity: 0.35;
+  --reading-size: 1.3rem;
   color-scheme: light;
 }
 
+:root[data-theme="dark"] {
+  --bg: #1a1511;
+  --surface: #231c16;
+  --surface-2: #2d241c;
+  --ink: #efe4d3;
+  --muted: #a8967e;
+  --border: #3a3027;
+  --accent: #df9658;
+  --accent-ink: #1a1511;
+  --accent-soft: #3d2b1c;
+  --success: #93bf7a;
+  --success-soft: #253220;
+  --hl-yellow: #4d4222;
+  --hl-green: #2f3f26;
+  --hl-blue: #26394a;
+  --hl-rose: #4a2e2b;
+  --grain-opacity: 0.18;
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #1a1511;
-    --surface: #241d17;
-    --surface-2: #2e251d;
-    --ink: #f1e6d6;
-    --muted: #a9977f;
-    --border: #3b3128;
-    --accent: #e3995a;
+    --surface: #231c16;
+    --surface-2: #2d241c;
+    --ink: #efe4d3;
+    --muted: #a8967e;
+    --border: #3a3027;
+    --accent: #df9658;
     --accent-ink: #1a1511;
     --accent-soft: #3d2b1c;
-    --success: #8fbf76;
-    --success-soft: #26331f;
+    --success: #93bf7a;
+    --success-soft: #253220;
+    --hl-yellow: #4d4222;
+    --hl-green: #2f3f26;
+    --hl-blue: #26394a;
+    --hl-rose: #4a2e2b;
+    --grain-opacity: 0.18;
     color-scheme: dark;
   }
 }
@@ -49,8 +87,9 @@
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
 
-  --font-ui: "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-reading: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-ui: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-reading: "Literata Variable", "Iowan Old Style", Georgia, serif;
 }
 
 html,
@@ -61,15 +100,44 @@ body,
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--ink);
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
-  user-select: none; /* sensación de app; el texto bíblico sí se puede seleccionar */
+  user-select: none; /* sensación de app; el texto bíblico y lo que escribes sí se pueden seleccionar */
 }
 
-.selectable {
+/* Grano de papel muy sutil sobre el fondo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .35 0 0 0 0 .25 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Títulos con carácter (Fraunces, eje "suave") */
+.font-display {
+  font-variation-settings: "SOFT" 60;
+  letter-spacing: -0.01em;
+}
+
+.selectable,
+textarea,
+input {
   user-select: text;
+}
+
+/* Parte rellena de los íconos a dos tonos */
+.duo {
+  fill: var(--accent-soft);
 }
 
 @keyframes rise {
@@ -84,4 +152,25 @@ body {
 }
 .animate-rise {
   animation: rise 0.35s ease-out both;
+}
+
+@keyframes flash {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+  30% {
+    background-color: var(--accent-soft);
+  }
+}
+.animate-flash {
+  animation: flash 2.2s ease-in-out;
+  border-radius: 4px;
+}
+
+mark {
+  background: var(--hl-yellow);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
 }

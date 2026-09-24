@@ -10,12 +10,26 @@ const BIBLE_DB_VERSION: &str = include_str!("../resources/bible.version");
 /// Migraciones de la base de datos del usuario (user.db).
 /// Regla: NUNCA editar una migración ya publicada; siempre agregar una nueva.
 fn user_db_migrations() -> Vec<Migration> {
-    vec![Migration {
-        version: 1,
-        description: "init",
-        sql: include_str!("../migrations/0001_init.sql"),
-        kind: MigrationKind::Up,
-    }]
+    vec![
+        Migration {
+            version: 1,
+            description: "init",
+            sql: include_str!("../migrations/0001_init.sql"),
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 2,
+            description: "journal",
+            sql: include_str!("../migrations/0002_journal.sql"),
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 3,
+            description: "verse_marks",
+            sql: include_str!("../migrations/0003_verse_marks.sql"),
+            kind: MigrationKind::Up,
+        },
+    ]
 }
 
 /// Copia bible.db (solo lectura, viene con el instalador) a la carpeta de datos de la app,

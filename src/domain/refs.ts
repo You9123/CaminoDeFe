@@ -21,3 +21,11 @@ export function parseChapterRef(ref: string): ChapterRef | null {
 export function chapterRef(bookCode: string, chapter: number): string {
   return `${bookCode}.${chapter}`;
 }
+
+/** Números de versículo para mostrar: [16] → "16" · [16,17,18] → "16-18" · [16,18] → "16, 18". */
+export function versesLabel(verses: number[]): string {
+  const v = [...verses].sort((a, b) => a - b);
+  if (v.length === 1) return String(v[0]);
+  const contiguous = v.every((n, i) => i === 0 || n === v[i - 1] + 1);
+  return contiguous ? `${v[0]}-${v[v.length - 1]}` : v.join(", ");
+}

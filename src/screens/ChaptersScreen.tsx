@@ -21,7 +21,7 @@ export function ChaptersScreen() {
       <Link to="/biblia" className="mb-6 inline-flex items-center gap-2 text-sm text-muted hover:text-accent">
         <ArrowLeft size={16} /> Todos los libros
       </Link>
-      <h1 className="mb-1 text-3xl font-semibold tracking-tight">{book.name}</h1>
+      <h1 className="mb-1 font-display text-4xl font-semibold">{book.name}</h1>
       <p className="mb-8 text-muted">
         {read.size} de {book.chapters} capítulos leídos
       </p>

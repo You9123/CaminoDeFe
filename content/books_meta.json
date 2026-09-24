@@ -1,13 +1,13 @@
 {
   "zones": [
-    { "id": 1, "name": "Los comienzos", "icon": "🌱" },
-    { "id": 2, "name": "La Tierra Prometida", "icon": "🏜️" },
-    { "id": 3, "name": "Los reyes", "icon": "👑" },
-    { "id": 4, "name": "Sabiduría y poesía", "icon": "🎵" },
-    { "id": 5, "name": "Los profetas", "icon": "🕊️" },
-    { "id": 6, "name": "La vida de Jesús", "icon": "✝️" },
-    { "id": 7, "name": "La Iglesia", "icon": "🔥" },
-    { "id": 8, "name": "Revelación", "icon": "🌅" }
+    { "id": 1, "name": "Los comienzos" },
+    { "id": 2, "name": "La Tierra Prometida" },
+    { "id": 3, "name": "Los reyes" },
+    { "id": 4, "name": "Sabiduría y poesía" },
+    { "id": 5, "name": "Los profetas" },
+    { "id": 6, "name": "La vida de Jesús" },
+    { "id": 7, "name": "La Iglesia" },
+    { "id": 8, "name": "Revelación" }
   ],
   "books": [
     { "id": 1, "code": "GEN", "name": "Génesis", "abbr": "Gn", "testament": "AT", "zone": 1 },

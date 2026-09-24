@@ -1,6 +1,7 @@
 import { userDb } from "./db";
 import { gameDay } from "../domain/day";
-import { chapterReadAwards, type Award } from "../domain/xp";
+import { chapterReadAwards, type ActivityType, type Award } from "../domain/xp";
+import { activityAwards } from "../domain/missions";
 import { chapterRef } from "../domain/refs";
 
 const nowIso = () => new Date().toISOString();
@@ -43,7 +44,65 @@ export async function getReadCountByBook(): Promise<Record<number, number>> {
   return Object.fromEntries(rows.map((r) => [r.book_id, Number(r.n)]));
 }
 
+/** Días (de juego) con al menos una actividad. Base para calcular rachas. */
+export async function getActiveDays(): Promise<string[]> {
+  const db = await userDb();
+  const rows = await db.select<{ day: string }[]>("SELECT DISTINCT day FROM activity_log ORDER BY day");
+  return rows.map((r) => r.day);
+}
+
+export type DayActivity = {
+  /** Tipos de actividad registrados en el día (aunque hayan dado 0 XP). */
+  doneTypes: Set<string>;
+  /** Veces que cada tipo dio XP en el día (para los límites diarios). */
+  rewarded: Record<string, number>;
+};
+
+export async function getDayActivity(day: string = gameDay()): Promise<DayActivity> {
+  const db = await userDb();
+  const rows = await db.select<{ type: string; total: number; rewarded: number }[]>(
+    `SELECT type, COUNT(*) AS total, SUM(CASE WHEN xp > 0 THEN 1 ELSE 0 END) AS rewarded
+     FROM activity_log WHERE day = $1 GROUP BY type`,
+    [day],
+  );
+  return {
+    doneTypes: new Set(rows.map((r) => r.type)),
+    rewarded: Object.fromEntries(rows.map((r) => [r.type, Number(r.rewarded)])),
+  };
+}
+
 // ---------- Escrituras ----------
+
+export type ActivityResult = { awards: Award[]; xpGained: number };
+
+/**
+ * Registra una actividad (versículo del día, reflexión, oración, aplicación) y su XP.
+ * Si con ella se completan las 4 misiones del día, agrega el bono.
+ */
+export async function recordActivity(
+  type: ActivityType,
+  opts: { ref?: string | null; durationSec?: number | null } = {},
+): Promise<ActivityResult> {
+  const db = await userDb();
+  const day = gameDay();
+  const now = nowIso();
+  const today = await getDayActivity(day);
+
+  const awards = activityAwards(type, {
+    rewardedTimesToday: today.rewarded[type] ?? 0,
+    doneTypesToday: today.doneTypes,
+    bonusAlreadyGiven: today.doneTypes.has("daily_missions_bonus"),
+  });
+
+  for (const a of awards) {
+    const main = a.type === type;
+    await db.execute(
+      "INSERT INTO activity_log (type, ref, xp, day, duration_sec, created_at) VALUES ($1, $2, $3, $4, $5, $6)",
+      [a.type, main ? (opts.ref ?? null) : null, a.xp, day, main ? (opts.durationSec ?? null) : null, now],
+    );
+  }
+  return { awards, xpGained: awards.reduce((s, a) => s + a.xp, 0) };
+}
 
 export type ChapterReadResult = { awards: Award[]; xpGained: number };
 
