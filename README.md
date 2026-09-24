@@ -11,6 +11,7 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 
 - Sprint 2A (v1.1.0): rangos, logros e insignias (motor de reglas en `content/achievements.json`), recompensas por racha y la pantalla Mi camino con estadísticas y heatmap.
 - Sprint 2B (v1.2.0): mapa de la Biblia interactivo, desafíos de varios días (`content/challenges.json`) y misión sorpresa diaria (`content/random_missions.json`).
+- Sprint 2C (v1.3.0): ¿Cómo me siento hoy? (`content/emotions.json`), modo escuchar (texto a voz), sesiones de 5/10/15/30 minutos y exportar el diario a Markdown o PDF.
 
 ---
 
@@ -56,7 +57,7 @@ camino-de-fe/
 │  ├─ stores/       # estado global (Zustand)
 │  ├─ hooks/
 │  └─ styles/       # Tailwind + colores (claro/oscuro)
-├─ content/         # JSON editables: libros/zonas, resúmenes, versículos del día, logros, desafíos, misiones sorpresa
+├─ content/         # JSON editables: libros/zonas, resúmenes, versículos del día, logros, desafíos, misiones sorpresa, emociones
 ├─ scripts/         # import-bible.ts (+ normalize.ts)
 ├─ tests/           # Vitest
 ├─ src-tauri/

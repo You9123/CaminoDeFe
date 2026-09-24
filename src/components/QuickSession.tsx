@@ -19,7 +19,7 @@ export function QuickSession({
   if (!data) return null;
   return (
     <PostReadingFlow
-      title="Tengo 5 minutos · unos 4 minutos en total"
+      title="Sesión de 5 minutos · unos 4 minutos en total"
       steps={["verse", "reflection", "prayer"]}
       refId={data.ref}
       refLabel={data.label}

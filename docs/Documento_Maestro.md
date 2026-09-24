@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 1.2 · 24/09/2026
+> **Versión del documento:** 1.3 · 24/09/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -447,7 +447,7 @@ verse_marks(ref TEXT PK, color TEXT NULL, favorite INTEGER, created_at TEXT, upd
 -- Logros: NO tienen tabla propia. Son filas de activity_log con type='achievement' y ref=<id> (ADR-0004).
 challenge_runs(id INTEGER PK, challenge_id TEXT, started_at TEXT, started_day TEXT, status TEXT, ended_at TEXT NULL)  -- un intento por fila; el XP va en activity_log (ADR-0005)
 -- Recompensas por racha: se calculan con el récord de racha; solo se guarda settings.cosmetics_off (ADR-0004).
-emotions_log(day TEXT PK, emotion TEXT)
+emotions_log(day TEXT PK, emotion TEXT, created_at TEXT, updated_at TEXT)  -- migración 5 (ADR-0006)
 schema_migrations(version INTEGER PK, applied_at TEXT)
 ```
 
@@ -587,7 +587,7 @@ pnpm tauri add fs
 
 ### 🟡 V2 — Gamificación · en curso
 
-Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, estadísticas) ✅ v1.1.0 · **2B Mapa** (mapa, desafíos, misiones sorpresa) ✅ v1.2.0 · **2C Cuidado y audio** (emociones, modo escuchar, sesiones de 5/10/15/30 min, exportar diario) · **2D Mascota**.
+Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, estadísticas) ✅ v1.1.0 · **2B Mapa** (mapa, desafíos, misiones sorpresa) ✅ v1.2.0 · **2C Cuidado y audio** (emociones, modo escuchar, sesiones de 5/10/15/30 min, exportar diario) ✅ v1.3.0 · **2D Mascota**.
 
 - [ ] Mascota (opcional), con evolución y animaciones
 - [x] Rangos (Sprint 2A)
@@ -596,11 +596,11 @@ Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, 
 - [x] Desafíos (Sprint 2B)
 - [x] Misiones sorpresa (Sprint 2B)
 - [x] Recompensas cosméticas por rachas (Sprint 2A; la de 7 días llega con la mascota)
-- [x] Estadísticas y gráficos + heatmap (Sprint 2A; la distribución de emociones llega con "¿Cómo me siento hoy?")
-- [ ] ¿Cómo me siento hoy?
-- [ ] Modo escuchar (TTS)
-- [ ] Sesiones de 5 / 10 / 15 / 30 minutos
-- [ ] Exportar el diario a Markdown o PDF
+- [x] Estadísticas y gráficos + heatmap (Sprint 2A; la distribución de emociones, Sprint 2C)
+- [x] ¿Cómo me siento hoy? (Sprint 2C)
+- [x] Modo escuchar (TTS) (Sprint 2C)
+- [x] Sesiones de 5 / 10 / 15 / 30 minutos (Sprint 2C)
+- [x] Exportar el diario a Markdown o PDF (Sprint 2C)
 
 ### 🟠 V3 — Experiencia bíblica
 

@@ -23,9 +23,12 @@ export async function addJournalEntry(input: {
   if (!content) return;
   const db = await userDb();
   const now = new Date().toISOString();
+  const day = gameDay();
+  // Si hoy se eligió cómo se siente, la entrada lo recuerda (V2: "¿Cómo me siento hoy?").
   await db.execute(
-    "INSERT INTO journal_entries (day, ref, kind, content, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $5)",
-    [gameDay(), input.ref ?? null, input.kind, content, now],
+    `INSERT INTO journal_entries (day, ref, kind, content, emotion, created_at, updated_at)
+     VALUES ($1, $2, $3, $4, (SELECT emotion FROM emotions_log WHERE day = $1), $5, $5)`,
+    [day, input.ref ?? null, input.kind, content, now],
   );
 }
 

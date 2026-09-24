@@ -62,6 +62,12 @@ fn user_db_migrations() -> Vec<Migration> {
             sql: sql(include_str!("../migrations/0004_challenges.sql")),
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 5,
+            description: "emotions",
+            sql: sql(include_str!("../migrations/0005_emotions.sql")),
+            kind: MigrationKind::Up,
+        },
     ]
 }
 
@@ -109,6 +115,15 @@ fn read_backup_file(path: String) -> Result<String, String> {
     fs::read_to_string(&path).map_err(|e| format!("No se pudo leer el respaldo: {e}"))
 }
 
+/// Guarda el diario exportado. Solo acepta archivos .md (el usuario elige la ruta en el diálogo).
+#[tauri::command]
+fn write_markdown_file(path: String, contents: String) -> Result<(), String> {
+    if !path.to_lowercase().ends_with(".md") {
+        return Err("El archivo debe terminar en .md".into());
+    }
+    fs::write(&path, contents).map_err(|e| format!("No se pudo guardar el archivo: {e}"))
+}
+
 /// Carpeta donde se guardan las copias automáticas (antes de importar un respaldo).
 #[tauri::command]
 fn auto_backups_dir(app: tauri::AppHandle) -> Result<String, String> {
@@ -152,7 +167,8 @@ pub fn run() {
             write_backup_file,
             read_backup_file,
             auto_backups_dir,
-            user_db_url
+            user_db_url,
+            write_markdown_file
         ])
         .setup(|app| {
             if let Err(err) = install_bible_db(app) {

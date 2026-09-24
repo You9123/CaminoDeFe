@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router";
-import { ArrowLeft, ChevronLeft, ChevronRight, Clock, X } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Clock, Pause, Play, Square, X } from "lucide-react";
 import { getChapter, listBooks, type Book } from "../data/bibleRepo";
 import {
   getReadChapters,
@@ -16,7 +16,11 @@ import { useAsync } from "../hooks/useAsync";
 import { useProgress } from "../stores/progressStore";
 import { toast } from "../stores/toastStore";
 import { PostReadingFlow } from "../components/PostReadingFlow";
-import { BookmarkIcon, CheckIcon, CopyIcon, QuillIcon } from "../components/icons";
+import { BookmarkIcon, CheckIcon, CopyIcon, HourglassIcon, QuillIcon, SpeakerIcon } from "../components/icons";
+import { speech, speechSupported, useSpeechState } from "../hooks/useSpeech";
+import { SPEECH_RATES } from "../domain/speech";
+import { useSettings } from "../stores/settingsStore";
+import { useSession } from "../stores/sessionStore";
 
 type Nav = { code: string; chapter: number; label: string } | null;
 
@@ -55,8 +59,17 @@ export function ReaderScreen() {
   const { code = "", chapter = "1" } = useParams();
   const [params] = useSearchParams();
   const target = Number(params.get("v")) || null;
+  const autoListen = params.get("escuchar") === "1";
   // La `key` hace que React cree un lector nuevo (estado y temporizador en cero) al cambiar de capítulo.
-  return <ChapterReader key={`${code}.${chapter}`} code={code} chapterNum={Number(chapter)} targetVerse={target} />;
+  return (
+    <ChapterReader
+      key={`${code}.${chapter}`}
+      code={code}
+      chapterNum={Number(chapter)}
+      targetVerse={target}
+      autoListen={autoListen}
+    />
+  );
 }
 
 const SWATCH: Record<HighlightColor, string> = {
@@ -70,10 +83,12 @@ function ChapterReader({
   code,
   chapterNum,
   targetVerse,
+  autoListen,
 }: {
   code: string;
   chapterNum: number;
   targetVerse: number | null;
+  autoListen: boolean;
 }) {
   const key = `${code}.${chapterNum}`;
   const navigate = useNavigate();
@@ -93,7 +108,39 @@ function ChapterReader({
   const [result, setResult] = useState<(ChapterReadResult & { levelUp: number | null }) | null>(null);
   const [saving, setSaving] = useState(false);
   const [showFlow, setShowFlow] = useState(false);
+  const [listenedAll, setListenedAll] = useState(false);
   const celebrate = useProgress((s) => s.celebrate);
+
+  // ---------- Sesión por tiempo (si este capítulo es parte de una) ----------
+  const session = useSession();
+  // Se busca por capítulo (no por índice) para seguir sabiendo la posición después de avanzar.
+  const sessionPos = session.plan?.chapters.findIndex((c) => c.code === code && c.chapter === chapterNum) ?? -1;
+  const inSession = sessionPos >= 0;
+  const sessionLast = inSession && sessionPos === (session.plan?.chapters.length ?? 1) - 1;
+  const nextInSession = inSession && !sessionLast ? session.plan?.chapters[sessionPos + 1] : undefined;
+
+  // ---------- Modo escuchar ----------
+  const speechState = useSpeechState();
+  const rate = useSettings((s) => s.ttsRate);
+  const voiceURI = useSettings((s) => s.ttsVoice);
+  const setTts = useSettings((s) => s.setTts);
+  const listenLabel = data?.chapter ? `${data.chapter.book.name} ${data.chapter.chapter}` : key;
+  const listening = speechState.label === listenLabel && speechState.status !== "idle";
+  const currentVerse = listening ? speechState.current : null;
+
+  // Al salir del capítulo, se detiene la lectura en voz alta.
+  useEffect(
+    () => () => {
+      if (speech.state.label === listenLabel) speech.stop();
+    },
+    [listenLabel],
+  );
+
+  // Mientras se escucha, la vista sigue al versículo que se está leyendo.
+  useEffect(() => {
+    if (currentVerse)
+      document.getElementById(`v-${currentVerse}`)?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }, [currentVerse]);
 
   useEffect(() => {
     if (code) void setSetting(LAST_POSITION_KEY, chapterRef(code, chapterNum));
@@ -108,12 +155,38 @@ function ChapterReader({
     else main?.scrollTo({ top: 0 });
   }, [data, targetVerse]);
 
+  const startListening = (from?: number) => {
+    if (!data?.chapter) return;
+    void speech.play(
+      data.chapter.verses.map((v) => ({ id: v.verse, text: v.text })),
+      {
+        label: listenLabel,
+        rate,
+        voiceURI,
+        from,
+        // Escuchar el capítulo completo cuenta igual que leerlo (Documento Maestro §2.11).
+        onFinish: () => setListenedAll(true),
+      },
+    );
+  };
+
+  // Si se llegó con ?escuchar=1 (desde "Escuchar el siguiente"), empieza solo.
+  const autoStarted = useRef(false);
+  useEffect(() => {
+    if (autoListen && data?.chapter && !autoStarted.current && speechSupported()) {
+      autoStarted.current = true;
+      startListening();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoListen, data]);
+
   if (loading && !data) return null;
   if (!data) return <p className="p-10 text-muted">No se encontró ese capítulo.</p>;
 
   const { chapter, prev, next, alreadyRead } = data;
   const minSeconds = minSecondsToCount(chapter.words);
-  const remaining = Math.max(0, minSeconds - elapsed);
+  // Si lo escuchó completo, ya puede marcarlo (escuchar cuenta igual que leer).
+  const remaining = listenedAll ? 0 : Math.max(0, minSeconds - elapsed);
   const selectedList = [...selected].sort((a, b) => a - b);
   const selectedRefs = selectedList.map((v) => `${chapter.book.code}.${chapter.chapter}.${v}`);
   const allFavorite = selectedList.length > 0 && selectedList.every((v) => marks?.get(v)?.favorite);
@@ -158,7 +231,9 @@ function ChapterReader({
       await celebrate(res.awards);
       const after = useProgress.getState().level.level;
       setResult({ ...res, levelUp: after > before ? after : null });
-      setShowFlow(true);
+      if (inSession && !sessionLast) session.advance();
+      // En una sesión, la reflexión y la oración van al final, después del último capítulo.
+      else setShowFlow(true);
     } finally {
       setSaving(false);
     }
@@ -170,10 +245,46 @@ function ChapterReader({
         <Link to={`/biblia/${chapter.book.code}`} className="inline-flex items-center gap-2 hover:text-accent">
           <ArrowLeft size={16} /> {chapter.book.name}
         </Link>
-        <span className="inline-flex items-center gap-1.5">
-          <Clock size={14} /> {formatMinutes(estimatedReadSeconds(chapter.words))} de lectura
+        <span className="inline-flex items-center gap-3">
+          <span className="inline-flex items-center gap-1.5">
+            <Clock size={14} /> {formatMinutes(estimatedReadSeconds(chapter.words))} de lectura
+          </span>
+          {speechSupported() && !listening && (
+            <button
+              onClick={() => startListening()}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2.5 py-1 font-medium hover:border-accent hover:text-accent"
+              title="Escuchar el capítulo en voz alta"
+            >
+              <SpeakerIcon size={16} /> Escuchar
+            </button>
+          )}
         </span>
       </div>
+
+      {inSession && session.plan && (
+        <div className="mb-8 flex items-center gap-3 rounded-2xl border border-dashed border-accent/60 bg-accent-soft/35 px-4 py-3 text-sm">
+          <HourglassIcon size={20} className="shrink-0 text-accent" />
+          <p className="flex-1">
+            <span className="font-semibold">Sesión de {session.plan.minutes} minutos</span>
+            {session.plan.chapters.length > 1 && (
+              <>
+                {" "}
+                · capítulo {sessionPos + 1} de {session.plan.chapters.length}
+              </>
+            )}
+            <span className="text-muted">
+              {" "}
+              ·{" "}
+              {sessionLast
+                ? `después, reflexión y ${session.plan.prayerMinutes} min de oración`
+                : `luego ${nextInSession?.label}`}
+            </span>
+          </p>
+          <button onClick={session.end} className="text-muted hover:text-ink">
+            Terminar sesión
+          </button>
+        </div>
+      )}
 
       <h1 className="mb-8 text-center font-display text-5xl font-semibold">
         {chapter.book.name} <span className="text-accent">{chapter.chapter}</span>
@@ -190,7 +301,9 @@ function ChapterReader({
               onClick={() => toggleVerse(v.verse)}
               className={`cursor-pointer rounded-[3px] transition-colors ${
                 isSelected ? "underline decoration-accent decoration-2 underline-offset-[6px]" : ""
-              } ${v.verse === targetVerse ? "animate-flash" : ""}`}
+              } ${v.verse === targetVerse ? "animate-flash" : ""} ${
+                v.verse === currentVerse ? "bg-accent-soft shadow-[0_0_0_4px_var(--accent-soft)]" : ""
+              }`}
               style={mark?.color ? { backgroundColor: SWATCH[mark.color] } : undefined}
             >
               <sup className="mr-1 ml-0.5 font-ui text-[0.6em] font-semibold text-accent">
@@ -277,13 +390,53 @@ function ChapterReader({
       <div className="fixed right-0 bottom-0 left-60 z-20 border-t border-border bg-surface/95 px-8 py-4 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
           <div className="min-w-0">
-            {result ? (
+            {listening ? (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => (speechState.status === "playing" ? speech.pause() : void speech.resume())}
+                  className="rounded-full bg-accent p-2 text-accent-ink"
+                  aria-label={speechState.status === "playing" ? "Pausar" : "Seguir"}
+                  title={speechState.status === "playing" ? "Pausar" : "Seguir"}
+                >
+                  {speechState.status === "playing" ? <Pause size={16} /> : <Play size={16} />}
+                </button>
+                <button
+                  onClick={() => speech.stop()}
+                  className="rounded-full p-2 text-muted hover:bg-surface-2 hover:text-ink"
+                  aria-label="Detener"
+                  title="Detener"
+                >
+                  <Square size={14} />
+                </button>
+                <span className="text-sm text-muted tabular-nums">
+                  Versículo {currentVerse ?? "·"} de {chapter.verses.length}
+                </span>
+                <span className="ml-1 flex rounded-lg border border-border p-0.5">
+                  {SPEECH_RATES.map((r) => (
+                    <button
+                      key={r}
+                      onClick={() => {
+                        void setTts({ rate: r });
+                        void speech.setRate(r);
+                      }}
+                      className={`rounded-md px-1.5 py-0.5 text-xs tabular-nums ${
+                        rate === r ? "bg-accent-soft font-semibold text-accent" : "text-muted hover:text-ink"
+                      }`}
+                    >
+                      {r}x
+                    </button>
+                  ))}
+                </span>
+              </div>
+            ) : result ? (
               <ResultMessage result={result} />
             ) : (
               <p className="text-sm text-muted">
-                {alreadyRead
-                  ? "Ya habías leído este capítulo. Releer también cuenta."
-                  : "Lee con calma. Cuando termines, márcalo."}
+                {listenedAll
+                  ? "Lo escuchaste completo: ya puedes marcarlo."
+                  : alreadyRead
+                    ? "Ya habías leído este capítulo. Releer también cuenta."
+                    : "Lee con calma. Cuando termines, márcalo."}
               </p>
             )}
           </div>
@@ -298,13 +451,23 @@ function ChapterReader({
               Reflexionar, orar, aplicar
             </button>
             {result ? (
-              next && (
+              nextInSession ? (
                 <button
-                  onClick={() => navigate(`/biblia/${next.code}/${next.chapter}`)}
+                  onClick={() => navigate(`/biblia/${nextInSession.code}/${nextInSession.chapter}`)}
                   className="rounded-xl bg-accent px-5 py-2.5 font-semibold text-accent-ink"
                 >
-                  Siguiente: {next.label}
+                  Sigue la sesión: {nextInSession.label}
                 </button>
+              ) : (
+                next && (
+                  <button
+                    onClick={() => navigate(`/biblia/${next.code}/${next.chapter}${listenedAll ? "?escuchar=1" : ""}`)}
+                    className="rounded-xl bg-accent px-5 py-2.5 font-semibold text-accent-ink"
+                    title={listenedAll ? "Escuchar el siguiente capítulo" : undefined}
+                  >
+                    {listenedAll ? "Escuchar" : "Siguiente"}: {next.label}
+                  </button>
+                )
               )
             ) : (
               <button
@@ -323,10 +486,18 @@ function ChapterReader({
 
       {showFlow && (
         <PostReadingFlow
-          steps={["reflection", "prayer", "application"]}
+          title={inSession && session.plan ? `Sesión de ${session.plan.minutes} minutos` : undefined}
+          steps={inSession && session.plan ? session.plan.steps : ["reflection", "prayer", "application"]}
+          prayerMinutes={inSession && session.plan ? session.plan.prayerMinutes : 0}
           refId={chapterRef(chapter.book.code, chapter.chapter)}
           refLabel={`${chapter.book.name} ${chapter.chapter}`}
-          onClose={() => setShowFlow(false)}
+          onClose={() => {
+            setShowFlow(false);
+            if (inSession && sessionLast && result) {
+              session.end();
+              toast("Sesión completa. Bien hecho.", "bonus");
+            }
+          }}
         />
       )}
     </div>

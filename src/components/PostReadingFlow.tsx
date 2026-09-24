@@ -166,7 +166,7 @@ function ReflectionStep({ refId, refLabel, onNext }: StepProps & { refLabel: str
 
 // ---------- Oración ----------
 
-const PRAYER_OPTIONS = [0, 1, 3, 5] as const;
+const PRAYER_OPTIONS = [0, 1, 2, 3, 5] as const;
 
 function PrayerStep({ refId, defaultMinutes, onNext }: StepProps & { defaultMinutes: number }) {
   const [minutes, setMinutes] = useState<number>(defaultMinutes);

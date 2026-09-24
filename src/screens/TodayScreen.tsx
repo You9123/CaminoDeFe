@@ -11,7 +11,10 @@ import { XpBar } from "../components/XpBar";
 import { StreakCard } from "../components/StreakCard";
 import { DailyMissionsCard } from "../components/DailyMissionsCard";
 import { SurpriseCard } from "../components/SurpriseCard";
+import { EmotionCard } from "../components/EmotionCard";
+import { ListenButton } from "../components/ListenButton";
 import { QuickSession } from "../components/QuickSession";
+import { SessionPicker } from "../components/SessionPicker";
 import { pickQuickVerse } from "../domain/quickSession";
 import { BookIcon, CheckIcon, HourglassIcon, OliveIcon, PeakIcon, SparkIcon, SunriseIcon } from "../components/icons";
 import { isCosmeticActive } from "../domain/cosmetics";
@@ -23,6 +26,7 @@ export function TodayScreen() {
   const cosmeticsOff = useSettings((s) => s.cosmeticsOff);
   const olive = isCosmeticActive("olive_branch", streak.best, cosmeticsOff);
   const [quick, setQuick] = useState<{ ref: string; isDaily: boolean } | null>(null);
+  const [picking, setPicking] = useState(false);
   const { day, verse, verseRead, markVerseRead } = useDailyVerse();
 
   const continueReading = async () => {
@@ -49,6 +53,8 @@ export function TodayScreen() {
 
       {loaded && !name && <NamePrompt />}
 
+      {loaded && <EmotionCard />}
+
       <section className="animate-rise relative mb-6 overflow-hidden rounded-3xl border border-border bg-surface px-9 py-8 shadow-sm">
         <SunriseIcon size={140} className="pointer-events-none absolute -top-6 -right-6 text-accent opacity-[0.08]" />
         <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-accent">
@@ -61,6 +67,8 @@ export function TodayScreen() {
             </blockquote>
             <div className="mt-5 flex items-center justify-between gap-4">
               <p className="font-display text-lg text-muted italic">{verse.data.label}</p>
+              <span className="ml-auto" />
+              <ListenButton text={verse.data.text} label={verse.data.label} />
               {verseRead ? (
                 <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-success">
                   <CheckIcon size={16} /> Leído hoy
@@ -80,7 +88,7 @@ export function TodayScreen() {
         )}
       </section>
 
-      <div className="animate-rise mb-10 grid grid-cols-[2fr_1fr] gap-3">
+      <div className="animate-rise mb-10 grid grid-cols-[3fr_2fr] gap-3">
         <button
           onClick={continueReading}
           className="flex items-center justify-center gap-3 rounded-2xl bg-accent px-6 py-4 text-lg font-semibold text-accent-ink shadow-sm transition hover:brightness-105 active:scale-[0.99]"
@@ -89,14 +97,12 @@ export function TodayScreen() {
           Continuar mi camino
         </button>
         <button
-          onClick={() =>
-            setQuick(pickQuickVerse(dailyVerses.verses, pickDailyVerse(dailyVerses.verses, day), verseRead))
-          }
+          onClick={() => setPicking(true)}
           className="flex items-center justify-center gap-2.5 rounded-2xl border border-accent bg-surface px-5 py-4 text-lg font-semibold text-accent transition hover:bg-accent-soft/60 active:scale-[0.99]"
-          title="Un versículo, una reflexión y un minuto de oración"
+          title="Una sesión de 5, 10, 15 o 30 minutos"
         >
           <HourglassIcon size={22} />
-          Tengo 5 minutos
+          Tengo unos minutos
         </button>
       </div>
 
@@ -118,6 +124,15 @@ export function TodayScreen() {
         <Stat label="XP de hoy" value={todayXp} icon={SparkIcon} hint={`${totalXp} XP en total`} />
         <Stat label="Capítulos leídos" value={chaptersRead} icon={BookIcon} />
       </section>
+
+      {picking && (
+        <SessionPicker
+          onClose={() => setPicking(false)}
+          onQuick={() =>
+            setQuick(pickQuickVerse(dailyVerses.verses, pickDailyVerse(dailyVerses.verses, day), verseRead))
+          }
+        />
+      )}
 
       {quick && <QuickSession verseRef={quick.ref} isDaily={quick.isDaily} onClose={() => setQuick(null)} />}
     </div>

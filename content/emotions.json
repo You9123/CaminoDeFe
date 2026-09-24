@@ -1,0 +1,92 @@
+{
+  "_nota": "¿Cómo me siento hoy? (Documento Maestro §2.10). Cada emoción tiene versículos (solo referencias). `cuidado` marca las emociones que, repetidas varios días, muestran un mensaje amable.",
+  "emotions": [
+    {
+      "id": "bien",
+      "label": "Bien",
+      "line": "Qué bueno. Disfrútalo.",
+      "verses": ["PSA.118.24", "PHP.4.4", "PSA.16.11", "PSA.100.2", "PSA.126.3", "JAS.1.17", "PSA.92.4"]
+    },
+    {
+      "id": "normal",
+      "label": "Normal",
+      "line": "Un día más, que también cuenta.",
+      "verses": ["LAM.3.22", "LAM.3.23", "PSA.90.12", "PRO.3.5", "PRO.3.6", "MIC.6.8", "PSA.37.5", "COL.3.23"]
+    },
+    {
+      "id": "triste",
+      "label": "Triste",
+      "line": "Gracias por decirlo. No estás solo.",
+      "cuidado": true,
+      "verses": [
+        "PSA.34.18",
+        "MAT.5.4",
+        "PSA.30.5",
+        "PSA.147.3",
+        "ISA.41.10",
+        "PSA.42.11",
+        "JHN.14.1",
+        "2CO.1.3",
+        "REV.21.4",
+        "ROM.8.28"
+      ]
+    },
+    {
+      "id": "enojado",
+      "label": "Enojado",
+      "line": "Está bien sentirlo. Respira antes de responder.",
+      "verses": [
+        "EPH.4.26",
+        "JAS.1.19",
+        "PRO.15.1",
+        "PSA.4.4",
+        "PRO.16.32",
+        "COL.3.13",
+        "EPH.4.32",
+        "PRO.29.11",
+        "MAT.5.9"
+      ]
+    },
+    {
+      "id": "ansioso",
+      "label": "Ansioso",
+      "line": "Vamos despacio. Un paso a la vez.",
+      "cuidado": true,
+      "verses": [
+        "PHP.4.6",
+        "PHP.4.7",
+        "1PE.5.7",
+        "MAT.6.34",
+        "MAT.11.28",
+        "JHN.14.27",
+        "PSA.94.19",
+        "ISA.26.3",
+        "PSA.56.3",
+        "MAT.6.26"
+      ]
+    },
+    {
+      "id": "cansado",
+      "label": "Cansado",
+      "line": "Hoy basta con poco. Descansa también.",
+      "verses": [
+        "MAT.11.28",
+        "ISA.40.29",
+        "ISA.40.31",
+        "PSA.23.2",
+        "PSA.23.3",
+        "2CO.12.9",
+        "GAL.6.9",
+        "PSA.4.8",
+        "PSA.127.2",
+        "MRK.6.31"
+      ]
+    },
+    {
+      "id": "agradecido",
+      "label": "Agradecido",
+      "line": "Qué bonito. Dale gracias con tus palabras.",
+      "verses": ["PSA.107.1", "1TH.5.18", "PSA.103.2", "COL.3.15", "EPH.5.20", "PSA.100.4", "JAS.1.17", "PSA.118.29"]
+    }
+  ]
+}

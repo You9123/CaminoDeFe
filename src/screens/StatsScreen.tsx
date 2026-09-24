@@ -11,6 +11,10 @@ import {
   type WeekPoint,
 } from "../domain/stats";
 import { formatDayLong, gameDay } from "../domain/day";
+import { emotionDistribution, type EmotionCount } from "../domain/emotions";
+import { getEmotionLog } from "../data/emotionsRepo";
+import { EMOTION_BY_ID } from "../content/emotions";
+import { EMOTION_ICON } from "../components/emotionIcons";
 import { getDayTypeRows, getVersesReadCount } from "../data/statsRepo";
 import { getReadCountByBook } from "../data/progressRepo";
 import { listBooks } from "../data/bibleRepo";
@@ -28,6 +32,7 @@ import {
 } from "../components/icons";
 
 const HEAT_WEEKS = 39;
+const EMOTION_DAYS = 30;
 const BAR_WEEKS = 12;
 
 export function StatsScreen() {
@@ -35,11 +40,12 @@ export function StatsScreen() {
   const today = gameDay();
 
   const data = useAsync(async () => {
-    const [rows, verses, books, readById] = await Promise.all([
+    const [rows, verses, books, readById, emotionLog] = await Promise.all([
       getDayTypeRows(),
       getVersesReadCount(),
       listBooks(),
       getReadCountByBook(),
+      getEmotionLog(),
     ]);
     const readByCode = Object.fromEntries(books.map((b) => [b.code, readById[b.id] ?? 0]));
     return {
@@ -48,6 +54,7 @@ export function StatsScreen() {
       heat: heatmap(rows, today, HEAT_WEEKS),
       weeks: weeklySeries(rows, today, BAR_WEEKS),
       zones: zoneProgress(booksMeta.zones, books, readByCode),
+      emotions: emotionDistribution(emotionLog, today, EMOTION_DAYS),
     };
   }, `${today}-${totalXp}`);
 
@@ -95,6 +102,8 @@ export function StatsScreen() {
           {d ? <Bars points={d.weeks} value={(p) => p.minutes} unit={() => "min"} /> : <Placeholder h={170} />}
         </ChartCard>
       </section>
+
+      {d && <EmotionsSection data={d.emotions} />}
 
       <section className="animate-rise rounded-3xl border border-border bg-surface p-6">
         <h2 className="mb-4 font-display text-xl font-semibold">Por zonas de la Biblia</h2>
@@ -302,5 +311,50 @@ function Bars({
         <span>esta semana</span>
       </div>
     </div>
+  );
+}
+
+// ---------- Emociones ----------
+
+/** Cómo te has sentido: una barra por emoción (todas en el mismo tono; el nombre y el ícono la identifican). */
+function EmotionsSection({ data }: { data: { counts: EmotionCount[]; total: number } }) {
+  const max = Math.max(...data.counts.map((c) => c.count), 1);
+  return (
+    <section className="animate-rise mb-8 rounded-3xl border border-border bg-surface p-6">
+      <div className="mb-4 flex items-baseline justify-between">
+        <h2 className="font-display text-xl font-semibold">Cómo te has sentido</h2>
+        <p className="text-sm text-muted">
+          Últimos {EMOTION_DAYS} días · {data.total} {data.total === 1 ? "día registrado" : "días registrados"}
+        </p>
+      </div>
+      {data.total === 0 ? (
+        <p className="text-sm text-muted">
+          Todavía no hay nada aquí. En la pantalla Hoy puedes contar cómo te sientes, si quieres.
+        </p>
+      ) : (
+        <ul className="grid grid-cols-[auto_1fr_auto] items-center gap-x-4 gap-y-2.5">
+          {data.counts.map((c) => {
+            const Icon = EMOTION_ICON[c.id];
+            return (
+              <li key={c.id} className="contents">
+                <span className="flex items-center gap-2 text-sm">
+                  <Icon size={20} className="text-accent" />
+                  {EMOTION_BY_ID.get(c.id)?.label}
+                </span>
+                <span className="h-2.5 overflow-hidden rounded-full bg-surface-2">
+                  <span
+                    className="block h-full rounded-full bg-accent"
+                    style={{ width: `${c.count ? Math.max((c.count / max) * 100, 3) : 0}%` }}
+                  />
+                </span>
+                <span className="w-14 text-right text-sm text-muted tabular-nums">
+                  {c.count} {c.count === 1 ? "día" : "días"}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
   );
 }

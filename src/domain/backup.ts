@@ -5,8 +5,11 @@ import { z } from "zod";
  * Guarda TODAS las tablas de user.db. La Biblia no se incluye: viene con la app.
  */
 export const BACKUP_APP = "camino-de-fe";
-/** 2: agrega challenge_runs (Sprint 2B). Los respaldos de formato 1 se siguen pudiendo importar. */
-export const BACKUP_FORMAT = 2;
+/**
+ * 2: agrega challenge_runs (Sprint 2B). 3: agrega emotions_log (Sprint 2C).
+ * Los respaldos anteriores se siguen pudiendo importar (las tablas nuevas quedan vacías).
+ */
+export const BACKUP_FORMAT = 3;
 
 const text = z.string();
 const nullableText = z.string().nullable();
@@ -56,6 +59,7 @@ export const BACKUP_TABLES = {
     status: text,
     ended_at: nullableText,
   }),
+  emotions_log: z.object({ day: text, emotion: text, created_at: text, updated_at: text }),
 } as const;
 
 export type BackupTable = keyof typeof BACKUP_TABLES;
@@ -63,7 +67,7 @@ export const TABLE_NAMES = Object.keys(BACKUP_TABLES) as BackupTable[];
 
 export const backupSchema = z.object({
   app: z.literal(BACKUP_APP),
-  format: z.union([z.literal(1), z.literal(BACKUP_FORMAT)]),
+  format: z.union([z.literal(1), z.literal(2), z.literal(BACKUP_FORMAT)]),
   exported_at: text,
   app_version: text.optional(),
   tables: z.object({
@@ -75,6 +79,8 @@ export const backupSchema = z.object({
     verse_marks: z.array(BACKUP_TABLES.verse_marks),
     /** No existe en los respaldos de formato 1. */
     challenge_runs: z.array(BACKUP_TABLES.challenge_runs).default([]),
+    /** No existe en los respaldos de formato 1 y 2. */
+    emotions_log: z.array(BACKUP_TABLES.emotions_log).default([]),
   }),
 });
 

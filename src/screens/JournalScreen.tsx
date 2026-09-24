@@ -13,6 +13,10 @@ import {
 } from "../data/journalRepo";
 import { formatDayLong } from "../domain/day";
 import { useAsync } from "../hooks/useAsync";
+import { EMOTION_BY_ID } from "../content/emotions";
+import type { EmotionId } from "../domain/emotions";
+import { EMOTION_ICON } from "../components/emotionIcons";
+import { JournalExportButton } from "../components/JournalExport";
 import { JournalIcon, PenIcon, QuillIcon, SearchIcon, SproutIcon, TrashIcon } from "../components/icons";
 
 const KINDS: Record<JournalKind, { label: string; icon: ComponentType<{ size?: number; className?: string }> }> = {
@@ -60,14 +64,17 @@ export function JournalScreen() {
             Tus reflexiones, compromisos y notas. Solo se guardan en esta computadora.
           </p>
         </div>
-        {!composing && (
-          <button
-            onClick={() => setComposing(true)}
-            className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent px-4 py-2.5 font-semibold text-accent-ink"
-          >
-            <PenIcon size={18} /> Escribir
-          </button>
-        )}
+        <div className="flex shrink-0 gap-2">
+          <JournalExportButton />
+          {!composing && (
+            <button
+              onClick={() => setComposing(true)}
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent px-4 py-2.5 font-semibold text-accent-ink"
+            >
+              <PenIcon size={18} /> Escribir
+            </button>
+          )}
+        </div>
       </header>
 
       {composing && (
@@ -204,6 +211,8 @@ function EntryCard({ entry, books, onChanged }: { entry: JournalEntry; books: Bo
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [text, setText] = useState(entry.content);
   const { label, icon: Icon } = KINDS[entry.kind] ?? KINDS.free;
+  const emotion = entry.emotion ? EMOTION_BY_ID.get(entry.emotion as EmotionId) : undefined;
+  const EmotionIcon = emotion ? EMOTION_ICON[emotion.id] : null;
 
   const save = async () => {
     if (!text.trim()) return;
@@ -230,7 +239,18 @@ function EntryCard({ entry, books, onChanged }: { entry: JournalEntry; books: Bo
             </Link>
           </>
         )}
-        <span className="ml-auto text-xs text-muted">{format(new Date(entry.created_at), "HH:mm")}</span>
+        {emotion && (
+          <span
+            className="ml-auto inline-flex items-center gap-1 rounded-full bg-surface-2 px-2 py-0.5 text-xs text-muted"
+            title="Cómo te sentías ese día"
+          >
+            {EmotionIcon && <EmotionIcon size={14} className="text-accent" duo={false} />}
+            {emotion.label}
+          </span>
+        )}
+        <span className={`${emotion ? "" : "ml-auto "}text-xs text-muted`}>
+          {format(new Date(entry.created_at), "HH:mm")}
+        </span>
         {!editing && !confirmDelete && (
           <span className="flex gap-1 opacity-0 transition group-hover:opacity-100">
             <button

@@ -457,3 +457,107 @@ export function CrownIcon(p: IconProps) {
     </Svg>
   );
 }
+
+// ---------- V2 · Sprint 2C: emociones (metáforas del clima, sin caras) ----------
+
+const CLOUD =
+  "M7.2 16.4c-2.2 0-3.8-1.5-3.8-3.4 0-1.8 1.4-3.3 3.3-3.4.6-2.4 2.6-4 5-4 2.6 0 4.6 1.8 5 4.2 2 .1 3.6 1.6 3.6 3.4 0 1.8-1.6 3.2-3.6 3.2-3.2.1-6.3.1-9.5 0z";
+
+/** Bien: un sol. */
+export function SunIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path
+        className="duo"
+        d="M12 7.4c2.6-.1 4.6 2 4.6 4.6 0 2.6-2 4.6-4.6 4.6-2.6.1-4.6-2-4.6-4.6 0-2.5 2-4.5 4.6-4.6z"
+      />
+      <path d="M12 7.4c2.6-.1 4.6 2 4.6 4.6 0 2.6-2 4.6-4.6 4.6-2.6.1-4.6-2-4.6-4.6 0-2.5 2-4.5 4.6-4.6z" />
+      <path d="M12 2.8v2M12 19.2v2M2.8 12h2M19.2 12h2M5.5 5.5l1.4 1.4M17.1 17.1l1.4 1.4M5.5 18.5l1.4-1.4M17.1 6.9l1.4-1.4" />
+    </Svg>
+  );
+}
+
+/** Normal: sol detrás de una nube. */
+export function CloudSunIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M9.4 6.1c.9-1.4 2.4-2.3 4.1-2.3 2.7 0 4.9 2.1 4.9 4.8M13.5 1.6v1M19.6 4.3l-.7.7M21.5 9.6h-1" />
+      <path className="duo" d={CLOUD} transform="translate(-1 3)" />
+      <path d={CLOUD} transform="translate(-1 3)" />
+    </Svg>
+  );
+}
+
+/** Triste: nube con lluvia. */
+export function RainIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path className="duo" d={CLOUD} transform="translate(0 -2.4)" />
+      <path d={CLOUD} transform="translate(0 -2.4)" />
+      <path d="M8.3 17.4 7.4 19.8M12.3 17.4l-.9 2.4M16.3 17.4l-.9 2.4" />
+    </Svg>
+  );
+}
+
+/** Enojado: nube de tormenta con un rayo. */
+export function StormIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path className="duo" d={CLOUD} transform="translate(0 -2.4)" />
+      <path d={CLOUD} transform="translate(0 -2.4)" />
+      <path d="M12.8 14.8 10.6 18.2h3l-1.8 3.4" />
+    </Svg>
+  );
+}
+
+/** Ansioso: viento que da vueltas. */
+export function WindIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path d="M3.2 9.1c4.6.1 9.2.1 12.7-.1 1.6-.1 2.6-1.1 2.6-2.4 0-1.3-1-2.3-2.3-2.3-1.1 0-1.9.7-2.2 1.6" />
+      <path d="M3.2 13c5.5.1 11 .1 15.1 0 1.5 0 2.5 1 2.5 2.3 0 1.4-1.1 2.4-2.4 2.4-1.1 0-2-.7-2.3-1.7" />
+      <path d="M4.8 16.8c2.6.1 5.2.1 7.7 0" />
+    </Svg>
+  );
+}
+
+/** Cansado: luna y estrellas. */
+export function MoonIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path
+        className="duo"
+        d="M15.6 18.9c-4.2 1.5-8.8-.7-10.3-4.9-1.4-3.9.3-8.1 3.9-10 -.8 2.6-.4 5.4 1.3 7.6 1.6 2.3 4.3 3.6 7.1 3.6-.5 1.5-1.2 2.7-2 3.7z"
+      />
+      <path d="M15.6 18.9c-4.2 1.5-8.8-.7-10.3-4.9-1.4-3.9.3-8.1 3.9-10-.8 2.6-.4 5.4 1.3 7.6 1.6 2.3 4.3 3.6 7.1 3.6-.5 1.5-1.2 2.7-2 3.7z" />
+      <path d="M17.3 4.1c.2.9.6 1.3 1.5 1.5-.9.2-1.3.6-1.5 1.5-.2-.9-.6-1.3-1.5-1.5.9-.2 1.3-.6 1.5-1.5zM20.3 9.3v.1" />
+    </Svg>
+  );
+}
+
+/** Agradecido: un corazón. */
+export function HeartIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path
+        className="duo"
+        d="M12 20.1c-4.4-3-8.4-6.3-8.6-10.3-.1-2.7 1.8-4.8 4.3-4.8 1.9 0 3.3 1.1 4.3 2.7 1-1.6 2.4-2.7 4.3-2.7 2.5 0 4.4 2.1 4.3 4.8-.2 4-4.2 7.3-8.6 10.3z"
+      />
+      <path d="M12 20.1c-4.4-3-8.4-6.3-8.6-10.3-.1-2.7 1.8-4.8 4.3-4.8 1.9 0 3.3 1.1 4.3 2.7 1-1.6 2.4-2.7 4.3-2.7 2.5 0 4.4 2.1 4.3 4.8-.2 4-4.2 7.3-8.6 10.3z" />
+    </Svg>
+  );
+}
+
+/** Altavoz: modo escuchar. */
+export function SpeakerIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path
+        className="duo"
+        d="M4 9.2c1.3-.1 2.6-.1 3.9 0L12.6 5c.2 4.7.2 9.3 0 14l-4.7-4.2c-1.3.1-2.6.1-3.9 0-.2-1.9-.2-3.7 0-5.6z"
+      />
+      <path d="M4 9.2c1.3-.1 2.6-.1 3.9 0L12.6 5c.2 4.7.2 9.3 0 14l-4.7-4.2c-1.3.1-2.6.1-3.9 0-.2-1.9-.2-3.7 0-5.6z" />
+      <path d="M15.8 9.1c.8.8 1.2 1.8 1.2 2.9s-.4 2.1-1.2 2.9M18.4 6.6c1.5 1.5 2.3 3.4 2.3 5.4s-.8 3.9-2.3 5.4" />
+    </Svg>
+  );
+}
