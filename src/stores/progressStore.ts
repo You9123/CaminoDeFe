@@ -26,6 +26,10 @@ type ProgressState = {
   missions: MissionProgress;
   /** Veces que cada tipo de actividad ya dio XP hoy (para los límites diarios). */
   rewardedToday: Record<string, number>;
+  /** Último día (de juego) con actividad propia, o null si nunca hubo. */
+  lastActiveDay: string | null;
+  /** Cambia cada vez que hay algo que celebrar (subir de nivel, un logro, un desafío): la mascota salta. */
+  celebrationKey: number;
   refresh: () => Promise<void>;
   setName: (name: string) => Promise<void>;
   /** Recarga el progreso y muestra avisos (+XP, bono, subida de nivel, logros). */
@@ -77,6 +81,8 @@ export const useProgress = create<ProgressState>((set, get) => ({
   streak: computeStreak([], gameDay()),
   missions: missionProgress(new Set()),
   rewardedToday: {},
+  lastActiveDay: null,
+  celebrationKey: 0,
 
   refresh: async () => {
     const day = gameDay();
@@ -100,6 +106,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
       streak: computeStreak(activeDays, day),
       missions: missionProgress(dayActivity.doneTypes),
       rewardedToday: dayActivity.rewarded,
+      lastActiveDay: activeDays.length > 0 ? activeDays[activeDays.length - 1] : null,
     });
   },
 
@@ -127,6 +134,9 @@ export const useProgress = create<ProgressState>((set, get) => ({
     if (rank.rank.id !== rankBefore) toast(`Nuevo rango: ${rank.rank.title}`, "level");
     announceChallenges(rewards.challenges);
     announceAchievements(rewards.achievements);
+    if (level.level > levelBefore || rewards.challenges.length > 0 || rewards.achievements.length > 0) {
+      set({ celebrationKey: get().celebrationKey + 1 });
+    }
   },
 
   checkAchievements: async () => {
@@ -137,6 +147,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
     if (get().level.level > levelBefore) toast(`Llegaste al nivel ${get().level.level}`, "level");
     announceChallenges(challenges);
     announceAchievements(achievements);
+    set({ celebrationKey: get().celebrationKey + 1 });
   },
 }));
 

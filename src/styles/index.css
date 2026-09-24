@@ -258,3 +258,129 @@ mark {
     color: #7a6956;
   }
 }
+
+/* ---------------------------------------------------------------
+   Mascota (PetArt.tsx): colores y animaciones suaves.
+   Las animaciones se apagan si el sistema pide "reducir movimiento".
+   --------------------------------------------------------------- */
+:root {
+  --pet-ink: #3a2c22;
+  --pet-light: #fffaf0;
+  --pet-dark: #5d4638;
+  --pet-tan: #e8bc7e;
+  --pet-mane: #b8652f;
+  --pet-cheek: #f2b8a8;
+  --pet-wing: #ece3d4;
+  --pet-beak: #e0943f;
+  --pet-fish: #8fc1c4;
+  --pet-leather: #8a5a36;
+  --pet-tunic: #b9cba0;
+  --pet-scarf: #c0503c;
+  --pet-leaf: #a9c48c;
+  --pet-leaf-ink: #56803f;
+  --pet-flower-a: #f3c0cc;
+  --pet-flower-b: #fbe7a1;
+  --pet-glow: #ffe3a0;
+  --pet-shadow: rgba(80, 55, 30, 0.13);
+}
+:root[data-theme="dark"] {
+  --pet-shadow: rgba(0, 0, 0, 0.35);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pet-shadow: rgba(0, 0, 0, 0.35);
+  }
+}
+
+.pet .pet-breathe,
+.pet .pet-float,
+.pet .pet-jump,
+.pet .pet-blink {
+  transform-box: fill-box;
+}
+.pet .pet-breathe {
+  transform-origin: 50% 100%;
+  animation: pet-breathe 3.8s ease-in-out infinite;
+}
+.pet .pet-float {
+  animation: pet-float 3.2s ease-in-out infinite;
+}
+.pet .pet-jump {
+  transform-origin: 50% 100%;
+  animation: pet-jump 0.7s ease-in-out 3;
+}
+.pet .pet-blink {
+  transform-origin: 50% 50%;
+  animation: pet-blink 5.5s infinite;
+}
+.pet .pet-zzz {
+  animation: pet-zzz 2.8s ease-in-out infinite;
+}
+.pet .pet-sparkles {
+  animation: pet-sparkle 0.7s ease-in-out 3;
+}
+@keyframes pet-breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.012, 1.03);
+  }
+}
+@keyframes pet-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+@keyframes pet-jump {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  15% {
+    transform: translateY(0) scale(1.05, 0.93);
+  }
+  50% {
+    transform: translateY(-14px) scale(0.97, 1.04);
+  }
+}
+@keyframes pet-blink {
+  0%,
+  93%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes pet-zzz {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(2px);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-3px);
+  }
+}
+@keyframes pet-sparkle {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pet * {
+    animation: none !important;
+  }
+}

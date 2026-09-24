@@ -8,6 +8,7 @@ import { toast } from "../stores/toastStore";
 import { ReminderFields, AutostartField, BackupFields } from "./settings/SystemFields";
 import { Field } from "./settings/ui";
 import { EmotionPromptField, SpeechFields } from "./settings/SpeechFields";
+import { PetFields } from "./settings/PetFields";
 
 const THEMES: { value: Theme; label: string }[] = [
   { value: "system", label: "Como el sistema" },
@@ -73,6 +74,10 @@ export function SettingsScreen() {
             ))}
           </select>
         </Field>
+      </Section>
+
+      <Section title="Mi compañero">
+        <PetFields />
       </Section>
 
       <Section title="Escuchar">

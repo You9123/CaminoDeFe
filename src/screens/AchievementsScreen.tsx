@@ -189,8 +189,8 @@ function RewardCard({ reward: r }: { reward: StreakRewardView }) {
       <div className="mt-auto pt-3 text-[12px] text-muted">
         {!r.unlocked ? (
           <span className="tabular-nums">{r.daysLeft === 1 ? "Falta 1 día" : `Faltan ${r.daysLeft} días`}</span>
-        ) : r.comingWith ? (
-          <span>Ganada · llega con {r.comingWith}</span>
+        ) : r.usedIn ? (
+          <span>Ganada · {r.usedIn}</span>
         ) : r.toggle ? (
           <Toggle checked={!off} onChange={(v) => void setCosmetic(r.id, v)} label={off ? "Guardada" : "En uso"} />
         ) : null}

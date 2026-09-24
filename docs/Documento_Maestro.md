@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 1.3 · 24/09/2026
+> **Versión del documento:** 2.0 · 24/09/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -358,7 +358,7 @@ La mayor parte del trabajo del proyecto es **escribir contenido**, no programar.
 | Framework de UI          | **React** + **Vite**                                  | Lo más usado, rápido y con mucha documentación.                                                                                                                         |
 | Estilos                  | **Tailwind CSS**                                      | Diseño rápido y consistente, con temas claro y oscuro.                                                                                                                  |
 | Componentes              | **shadcn/ui** (sobre Radix)                           | Componentes accesibles que se copian al proyecto y se pueden modificar.                                                                                                 |
-| Animaciones              | **Motion** (antes Framer Motion)                      | Mascota, subidas de nivel y transiciones.                                                                                                                               |
+| Animaciones              | **Motion** (antes Framer Motion)                      | Mascota, subidas de nivel y transiciones. **En la V2 se usó CSS** (`@keyframes`): alcanzó y no suma peso (ADR-0007).                                                    |
 | Íconos                   | **Lucide**                                            | Consistentes y ligeros.                                                                                                                                                 |
 | Estado global            | **Zustand**                                           | Más simple que Redux.                                                                                                                                                   |
 | Rutas                    | **React Router**                                      | Navegación entre pantallas.                                                                                                                                             |
@@ -424,8 +424,9 @@ verses_fts  -- tabla virtual FTS5 para búsqueda
 **`user.db`**
 
 ```sql
-profile(id INTEGER PK CHECK(id=1), name TEXT, created_at TEXT, pet_species TEXT NULL,
-        total_xp INTEGER DEFAULT 0, grace_days_left INTEGER DEFAULT 1)
+profile(id INTEGER PK CHECK(id=1), name TEXT, created_at TEXT)
+-- La mascota se guarda en settings (pet_species, pet_name, pet_accessory), ADR-0007.
+-- El XP total y los días de gracia no se guardan: se calculan desde activity_log.
 
 activity_log(id INTEGER PK, type TEXT,          -- 'chapter_read','reflection','prayer','application','daily_verse','quiz','listen'
              ref TEXT NULL,                      -- ej. 'JHN.3'
@@ -585,17 +586,17 @@ pnpm tauri add fs
 - [x] Instalador de Windows generado por GitHub Actions (al publicar el tag `v1.0.0`)
 - [x] 366 versículos del día · ícono propio de la app · abrir al iniciar Windows
 
-### 🟡 V2 — Gamificación · en curso
+### 🟢 V2 — Gamificación · ✅ completa (v2.0.0)
 
-Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, estadísticas) ✅ v1.1.0 · **2B Mapa** (mapa, desafíos, misiones sorpresa) ✅ v1.2.0 · **2C Cuidado y audio** (emociones, modo escuchar, sesiones de 5/10/15/30 min, exportar diario) ✅ v1.3.0 · **2D Mascota**.
+Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, estadísticas) ✅ v1.1.0 · **2B Mapa** (mapa, desafíos, misiones sorpresa) ✅ v1.2.0 · **2C Cuidado y audio** (emociones, modo escuchar, sesiones de 5/10/15/30 min, exportar diario) ✅ v1.3.0 · **2D Mascota** ✅ v2.0.0.
 
-- [ ] Mascota (opcional), con evolución y animaciones
+- [x] Mascota (opcional), con evolución y animaciones (Sprint 2D)
 - [x] Rangos (Sprint 2A)
 - [x] Mapa de la Biblia interactivo (SVG) (Sprint 2B)
 - [x] Logros / insignias (motor de reglas) (Sprint 2A)
 - [x] Desafíos (Sprint 2B)
 - [x] Misiones sorpresa (Sprint 2B)
-- [x] Recompensas cosméticas por rachas (Sprint 2A; la de 7 días llega con la mascota)
+- [x] Recompensas cosméticas por rachas (Sprint 2A; la bufanda de 7 días se usa con la mascota desde el 2D)
 - [x] Estadísticas y gráficos + heatmap (Sprint 2A; la distribución de emociones, Sprint 2C)
 - [x] ¿Cómo me siento hoy? (Sprint 2C)
 - [x] Modo escuchar (TTS) (Sprint 2C)

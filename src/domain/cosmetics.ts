@@ -12,8 +12,8 @@ export type StreakReward = {
   days: number;
   title: string;
   description: string;
-  /** Si todavía no se puede usar porque su función llega en otro sprint. */
-  comingWith?: "la mascota";
+  /** Si no se prende aquí sino en otro lugar (la bufanda se le pone a la mascota en Ajustes). */
+  usedIn?: string;
   /** Se puede prender y apagar. */
   toggle?: boolean;
 };
@@ -30,8 +30,8 @@ export const STREAK_REWARDS: readonly StreakReward[] = [
     id: "pet_scarf",
     days: 7,
     title: "Bufanda de lana",
-    description: "Un aspecto nuevo para tu mascota.",
-    comingWith: "la mascota",
+    description: "Una bufanda para tu mascota.",
+    usedIn: "pónsela en Ajustes",
   },
   {
     id: "leaves_background",
@@ -74,5 +74,5 @@ export function nextStreakReward(bestStreak: number): StreakRewardView | null {
 /** ¿Está activo un adorno? Tiene que estar ganado y no apagado por el usuario. */
 export function isCosmeticActive(id: CosmeticId, bestStreak: number, disabled: ReadonlySet<string>): boolean {
   const reward = STREAK_REWARDS.find((r) => r.id === id);
-  return !!reward && !reward.comingWith && bestStreak >= reward.days && !disabled.has(id);
+  return !!reward && !reward.usedIn && bestStreak >= reward.days && !disabled.has(id);
 }

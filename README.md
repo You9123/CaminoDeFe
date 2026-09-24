@@ -7,11 +7,12 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 
 **Estado actual:** V1 completa ✅ (v1.0.1). Lector RV1909 con buscador, resaltados y favoritos; XP, niveles, rachas y misiones; reflexión, oración y aplicación; "Tengo 5 minutos"; diario; ajustes con recordatorio diario y respaldo.
 
-**V2 en curso**
+**V2 completa** ✅ (v2.0.0)
 
 - Sprint 2A (v1.1.0): rangos, logros e insignias (motor de reglas en `content/achievements.json`), recompensas por racha y la pantalla Mi camino con estadísticas y heatmap.
 - Sprint 2B (v1.2.0): mapa de la Biblia interactivo, desafíos de varios días (`content/challenges.json`) y misión sorpresa diaria (`content/random_missions.json`).
 - Sprint 2C (v1.3.0): ¿Cómo me siento hoy? (`content/emotions.json`), modo escuchar (texto a voz), sesiones de 5/10/15/30 minutos y exportar el diario a Markdown o PDF.
+- Sprint 2D (v2.0.0): mascota opcional (oveja, león, paloma o pez) que crece con tu nivel, con accesorios y animaciones.
 
 ---
 

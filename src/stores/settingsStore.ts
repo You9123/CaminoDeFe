@@ -28,6 +28,10 @@ type SettingsState = {
   ttsVoice: string;
   /** Velocidad del modo escuchar (0.75 a 1.5). */
   ttsRate: number;
+  /** Mascota: especie, "none" si prefiere no tener, o null si todavía no eligió. */
+  petSpecies: string | null;
+  petName: string;
+  petAccessory: string | null;
   load: () => Promise<void>;
   setTheme: (t: Theme) => Promise<void>;
   setReadingSize: (s: ReadingSize) => Promise<void>;
@@ -36,6 +40,7 @@ type SettingsState = {
   setCosmetic: (id: string, on: boolean) => Promise<void>;
   setEmotionPrompt: (on: boolean) => Promise<void>;
   setTts: (change: { voice?: string; rate?: number }) => Promise<void>;
+  setPet: (change: { species?: string; name?: string; accessory?: string | null }) => Promise<void>;
 };
 
 function applyTheme(theme: Theme) {
@@ -66,20 +71,38 @@ export const useSettings = create<SettingsState>((set, get) => ({
   emotionPrompt: true,
   ttsVoice: "",
   ttsRate: 1,
+  petSpecies: null,
+  petName: "",
+  petAccessory: null,
 
   load: async () => {
-    const [theme, size, hour, reminderOn, reminderAt, cosmeticsOff, emotionPrompt, ttsVoice, ttsRate] =
-      await Promise.all([
-        getSetting("theme"),
-        getSetting("reading_size"),
-        getSetting("day_end_hour"),
-        getSetting("reminder_enabled"),
-        getSetting("reminder_time"),
-        getSetting("cosmetics_off"),
-        getSetting("emotion_prompt"),
-        getSetting("tts_voice"),
-        getSetting("tts_rate"),
-      ]);
+    const [
+      theme,
+      size,
+      hour,
+      reminderOn,
+      reminderAt,
+      cosmeticsOff,
+      emotionPrompt,
+      ttsVoice,
+      ttsRate,
+      pet,
+      petName,
+      petAcc,
+    ] = await Promise.all([
+      getSetting("theme"),
+      getSetting("reading_size"),
+      getSetting("day_end_hour"),
+      getSetting("reminder_enabled"),
+      getSetting("reminder_time"),
+      getSetting("cosmetics_off"),
+      getSetting("emotion_prompt"),
+      getSetting("tts_voice"),
+      getSetting("tts_rate"),
+      getSetting("pet_species"),
+      getSetting("pet_name"),
+      getSetting("pet_accessory"),
+    ]);
     const t = isTheme(theme) ? theme : "system";
     const s = isSize(size) ? size : "md";
     const h = hour !== null ? Number(hour) : DEFAULT_DAY_END_HOUR;
@@ -97,6 +120,9 @@ export const useSettings = create<SettingsState>((set, get) => ({
       emotionPrompt: emotionPrompt !== "0",
       ttsVoice: ttsVoice ?? "",
       ttsRate: clampRate(Number(ttsRate ?? 1)),
+      petSpecies: pet,
+      petName: petName ?? "",
+      petAccessory: petAcc || null,
     });
   },
 
@@ -146,6 +172,22 @@ export const useSettings = create<SettingsState>((set, get) => ({
       const r = clampRate(rate);
       set({ ttsRate: r });
       await setSetting("tts_rate", String(r));
+    }
+  },
+
+  setPet: async ({ species, name, accessory }) => {
+    if (species !== undefined) {
+      set({ petSpecies: species });
+      await setSetting("pet_species", species);
+    }
+    if (name !== undefined) {
+      const n = name.trim().slice(0, 24);
+      set({ petName: n });
+      await setSetting("pet_name", n);
+    }
+    if (accessory !== undefined) {
+      set({ petAccessory: accessory });
+      await setSetting("pet_accessory", accessory ?? "");
     }
   },
 }));

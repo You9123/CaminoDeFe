@@ -13,6 +13,8 @@ import { DailyMissionsCard } from "../components/DailyMissionsCard";
 import { SurpriseCard } from "../components/SurpriseCard";
 import { EmotionCard } from "../components/EmotionCard";
 import { ListenButton } from "../components/ListenButton";
+import { PetCompanion } from "../components/pet/PetCompanion";
+import { PetChooser } from "../components/pet/PetChooser";
 import { QuickSession } from "../components/QuickSession";
 import { SessionPicker } from "../components/SessionPicker";
 import { pickQuickVerse } from "../domain/quickSession";
@@ -24,6 +26,8 @@ export function TodayScreen() {
   const navigate = useNavigate();
   const { loaded, name, level, rank, todayXp, chaptersRead, totalXp, streak } = useProgress();
   const cosmeticsOff = useSettings((s) => s.cosmeticsOff);
+  const petSpecies = useSettings((s) => s.petSpecies);
+  const settingsLoaded = useSettings((s) => s.loaded);
   const olive = isCosmeticActive("olive_branch", streak.best, cosmeticsOff);
   const [quick, setQuick] = useState<{ ref: string; isDaily: boolean } | null>(null);
   const [picking, setPicking] = useState(false);
@@ -36,8 +40,8 @@ export function TodayScreen() {
 
   return (
     <div className="mx-auto max-w-4xl px-10 py-12">
-      <header className="animate-rise mb-8">
-        <h1 className="flex items-center gap-3 font-display text-4xl font-semibold">
+      <header className="animate-rise mb-8 flex items-center justify-between gap-6">
+        <h1 className="flex shrink-0 items-center gap-3 font-display text-4xl font-semibold whitespace-nowrap">
           <span>
             {greeting()}
             {name ? `, ${name}` : ""}.
@@ -48,10 +52,12 @@ export function TodayScreen() {
             </span>
           )}
         </h1>
-        <p className="mt-1.5 text-muted">Tu camino continúa.</p>
+        <PetCompanion />
       </header>
 
       {loaded && !name && <NamePrompt />}
+
+      {loaded && name && settingsLoaded && petSpecies === null && <PetChooser />}
 
       {loaded && <EmotionCard />}
 

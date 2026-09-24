@@ -171,7 +171,7 @@ describe("recompensas por racha", () => {
     expect(isCosmeticActive("olive_branch", 2, new Set())).toBe(false);
     expect(isCosmeticActive("olive_branch", 3, new Set())).toBe(true);
     expect(isCosmeticActive("olive_branch", 3, new Set(["olive_branch"]))).toBe(false);
-    // La bufanda llega con la mascota (sprint 2D)
+    // La bufanda no se "prende" aquí: se le pone a la mascota en Ajustes
     expect(isCosmeticActive("pet_scarf", 50, new Set())).toBe(false);
   });
 });
