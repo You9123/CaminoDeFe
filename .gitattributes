@@ -1,0 +1,10 @@
+# Siempre saltos de línea LF en el repositorio y al hacer checkout (también en Windows).
+# Evita que cambie el checksum de las migraciones SQL entre tu PC y GitHub Actions.
+* text=auto eol=lf
+
+# Archivos binarios: nunca tocarlos.
+*.png binary
+*.ico binary
+*.icns binary
+*.db binary
+*.woff2 binary

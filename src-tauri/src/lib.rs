@@ -2,10 +2,22 @@ use std::fs;
 
 use tauri::path::BaseDirectory;
 use tauri::Manager;
+use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
 use tauri_plugin_sql::{Migration, MigrationKind};
 
 /// Versión de bible.db. La genera `pnpm import-bible` en resources/bible.version.
 const BIBLE_DB_VERSION: &str = include_str!("../resources/bible.version");
+
+/// El SQL de una migración con saltos de línea normalizados (CRLF → LF).
+/// Importante: la base de datos guarda un checksum de cada migración aplicada. Si Git en Windows
+/// cambia los saltos de línea al hacer checkout, el checksum cambiaría y la app no podría iniciar.
+fn sql(text: &'static str) -> &'static str {
+    if text.contains('\r') {
+        Box::leak(text.replace("\r\n", "\n").into_boxed_str())
+    } else {
+        text
+    }
+}
 
 /// Migraciones de la base de datos del usuario (user.db).
 /// Regla: NUNCA editar una migración ya publicada; siempre agregar una nueva.
@@ -14,19 +26,19 @@ fn user_db_migrations() -> Vec<Migration> {
         Migration {
             version: 1,
             description: "init",
-            sql: include_str!("../migrations/0001_init.sql"),
+            sql: sql(include_str!("../migrations/0001_init.sql")),
             kind: MigrationKind::Up,
         },
         Migration {
             version: 2,
             description: "journal",
-            sql: include_str!("../migrations/0002_journal.sql"),
+            sql: sql(include_str!("../migrations/0002_journal.sql")),
             kind: MigrationKind::Up,
         },
         Migration {
             version: 3,
             description: "verse_marks",
-            sql: include_str!("../migrations/0003_verse_marks.sql"),
+            sql: sql(include_str!("../migrations/0003_verse_marks.sql")),
             kind: MigrationKind::Up,
         },
     ]
@@ -93,6 +105,11 @@ const AUTOSTART_ARG: &str = "--autostart";
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // Si algo falla de forma inesperada, avisar con una ventana en vez de cerrarse sin decir nada.
+    std::panic::set_hook(Box::new(|info| {
+        report_error("Camino de Fe se cerró por un error", &info.to_string());
+    }));
+
     let builder = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_notification::init());
@@ -104,7 +121,7 @@ pub fn run() {
             .build(),
     );
 
-    builder
+    let result = builder
         .plugin(
             tauri_plugin_sql::Builder::default()
                 .add_migrations("sqlite:user.db", user_db_migrations())
@@ -116,7 +133,24 @@ pub fn run() {
             auto_backups_dir
         ])
         .setup(|app| {
-            install_bible_db(app)?;
+            if let Err(err) = install_bible_db(app) {
+                // Se muestra con el diálogo de Tauri (funciona en todas las plataformas) y luego se cierra.
+                let message = format!("No se pudo preparar la Biblia: {err}");
+                let log = write_error_log(&message);
+                if let Some(window) = app.get_webview_window("main") {
+                    let _ = window.hide();
+                }
+                let handle = app.handle().clone();
+                app.dialog()
+                    .message(format!(
+                        "{message}\n\nEl detalle quedó guardado en:\n{}",
+                        log.display()
+                    ))
+                    .title("Camino de Fe no pudo iniciar")
+                    .kind(MessageDialogKind::Error)
+                    .show(move |_| handle.exit(1));
+                return Ok(());
+            }
             // Si Windows abrió la app al iniciar sesión, empieza minimizada para no molestar.
             if std::env::args().any(|a| a == AUTOSTART_ARG) {
                 if let Some(window) = app.get_webview_window("main") {
@@ -125,6 +159,44 @@ pub fn run() {
             }
             Ok(())
         })
-        .run(tauri::generate_context!())
-        .expect("error al iniciar Camino de Fe");
+        .run(tauri::generate_context!());
+
+    if let Err(err) = result {
+        report_error("Camino de Fe no pudo iniciar", &err.to_string());
+        std::process::exit(1);
+    }
+}
+
+/// Guarda el detalle de un error en `error.log`, en la carpeta de datos de la app. Devuelve la ruta.
+fn write_error_log(error: &str) -> std::path::PathBuf {
+    let dir = std::env::var_os("APPDATA")
+        .map(std::path::PathBuf::from)
+        .unwrap_or_else(std::env::temp_dir)
+        .join("com.youfrend.caminodefe");
+    let _ = fs::create_dir_all(&dir);
+    let log = dir.join("error.log");
+    let _ = fs::write(
+        &log,
+        format!("Camino de Fe {}\n{}\n", env!("CARGO_PKG_VERSION"), error),
+    );
+    eprintln!("{error}");
+    log
+}
+
+/// Para errores fuera del ciclo normal de la app (al iniciar o inesperados):
+/// en Windows muestra una ventana de error en vez de cerrarse sin avisar.
+fn report_error(title: &str, error: &str) {
+    let log = write_error_log(error);
+    #[cfg(windows)]
+    let _ = rfd::MessageDialog::new()
+        .set_level(rfd::MessageLevel::Error)
+        .set_title(title)
+        .set_description(format!(
+            "{error}\n\nEl detalle quedó guardado en:\n{}",
+            log.display()
+        ))
+        .set_buttons(rfd::MessageButtons::Ok)
+        .show();
+    #[cfg(not(windows))]
+    let _ = (title, log);
 }
