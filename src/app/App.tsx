@@ -9,6 +9,8 @@ import { SearchScreen } from "../screens/SearchScreen";
 import { FavoritesScreen } from "../screens/FavoritesScreen";
 import { JournalScreen } from "../screens/JournalScreen";
 import { SettingsScreen } from "../screens/SettingsScreen";
+import { AchievementsScreen } from "../screens/AchievementsScreen";
+import { StatsScreen } from "../screens/StatsScreen";
 import { NotInTauriScreen } from "../screens/NotInTauriScreen";
 import { isTauri } from "../data/db";
 import { useProgress } from "../stores/progressStore";
@@ -16,12 +18,18 @@ import { useSettings } from "../stores/settingsStore";
 
 export default function App() {
   const refresh = useProgress((s) => s.refresh);
+  const checkAchievements = useProgress((s) => s.checkAchievements);
   const loadSettings = useSettings((s) => s.load);
 
   useEffect(() => {
     // Primero los ajustes (la hora de fin del día afecta a la racha y las misiones).
-    if (isTauri()) void loadSettings().then(refresh);
-  }, [loadSettings, refresh]);
+    // Después se revisan los logros: al actualizar a la V2 se desbloquean los que ya se cumplían.
+    if (isTauri())
+      void loadSettings()
+        .then(refresh)
+        .then(checkAchievements)
+        .catch((e: unknown) => console.error(e));
+  }, [loadSettings, refresh, checkAchievements]);
 
   if (!isTauri()) return <NotInTauriScreen />;
 
@@ -36,6 +44,8 @@ export default function App() {
           <Route path="biblia/:code" element={<ChaptersScreen />} />
           <Route path="biblia/:code/:chapter" element={<ReaderScreen />} />
           <Route path="diario" element={<JournalScreen />} />
+          <Route path="logros" element={<AchievementsScreen />} />
+          <Route path="estadisticas" element={<StatsScreen />} />
           <Route path="ajustes" element={<SettingsScreen />} />
         </Route>
       </Routes>

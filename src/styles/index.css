@@ -20,6 +20,8 @@
   --accent-soft: #f1dcc3;
   --success: #56803f;
   --success-soft: #e0e9d2;
+  --gold: #a87a1c;
+  --gold-soft: #f3e3b5;
 
   /* Resaltados de versículos */
   --hl-yellow: #f6e3a1;
@@ -44,6 +46,8 @@
   --accent-soft: #3d2b1c;
   --success: #93bf7a;
   --success-soft: #253220;
+  --gold: #e0b453;
+  --gold-soft: #3d3219;
   --hl-yellow: #4d4222;
   --hl-green: #2f3f26;
   --hl-blue: #26394a;
@@ -65,6 +69,8 @@
     --accent-soft: #3d2b1c;
     --success: #93bf7a;
     --success-soft: #253220;
+    --gold: #e0b453;
+    --gold-soft: #3d3219;
     --hl-yellow: #4d4222;
     --hl-green: #2f3f26;
     --hl-blue: #26394a;
@@ -86,6 +92,8 @@
   --color-accent-soft: var(--accent-soft);
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
 
   --font-ui: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-display: "Fraunces Variable", Georgia, serif;
@@ -133,6 +141,20 @@ body::before {
 textarea,
 input {
   user-select: text;
+}
+
+/* Fondo de hojas: recompensa por 14 días de racha (se activa con data-bg="leaves" en <html>). */
+:root[data-bg="leaves"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--leaves-opacity, 0.1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' fill='none' stroke='%23a9582a' stroke-width='1.3' stroke-linecap='round'%3E%3Cpath d='M40 60c3-3.2 8.3-3.2 11.3 0-3 3.2-8.3 3.2-11.3 0zM46 60c3-1 6-1 9 0' transform='rotate(-30 46 60)'/%3E%3Cpath d='M210 40c3-3.2 8.3-3.2 11.3 0-3 3.2-8.3 3.2-11.3 0zM216 40c3-1 6-1 9 0' transform='rotate(25 216 40)'/%3E%3Cpath d='M120 170c3-3.2 8.3-3.2 11.3 0-3 3.2-8.3 3.2-11.3 0zM126 170c3-1 6-1 9 0' transform='rotate(70 126 170)'/%3E%3Cpath d='M260 200c3-3.2 8.3-3.2 11.3 0-3 3.2-8.3 3.2-11.3 0zM266 200c3-1 6-1 9 0' transform='rotate(-60 266 200)'/%3E%3Cpath d='M60 270c3-3.2 8.3-3.2 11.3 0-3 3.2-8.3 3.2-11.3 0zM66 270c3-1 6-1 9 0' transform='rotate(15 66 270)'/%3E%3Cpath d='M190 290c3-3.2 8.3-3.2 11.3 0-3 3.2-8.3 3.2-11.3 0zM196 290c3-1 6-1 9 0' transform='rotate(-15 196 290)'/%3E%3Cpath d='M150 80c6 4 10 10 12 18M290 110c-5 5-7 11-7 18' /%3E%3C/svg%3E");
+}
+:root[data-theme="dark"][data-bg="leaves"] {
+  --leaves-opacity: 0.16;
 }
 
 /* Parte rellena de los íconos a dos tonos */

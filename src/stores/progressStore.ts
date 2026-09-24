@@ -4,7 +4,10 @@ import { gameDay } from "../domain/day";
 import { levelFromXp, type LevelInfo } from "../domain/levels";
 import { computeStreak, type StreakInfo } from "../domain/streaks";
 import { missionProgress, type MissionProgress } from "../domain/missions";
+import { rankForLevel, type RankInfo } from "../domain/ranks";
 import { xpFor, type ActivityType, type Award } from "../domain/xp";
+import type { Achievement } from "../domain/achievements";
+import { checkAchievements } from "../data/achievementsRepo";
 import { toast } from "./toastStore";
 
 type ProgressState = {
@@ -16,15 +19,29 @@ type ProgressState = {
   todayXp: number;
   chaptersRead: number;
   level: LevelInfo;
+  rank: RankInfo;
   streak: StreakInfo;
   missions: MissionProgress;
   /** Veces que cada tipo de actividad ya dio XP hoy (para los límites diarios). */
   rewardedToday: Record<string, number>;
   refresh: () => Promise<void>;
   setName: (name: string) => Promise<void>;
-  /** Recarga el progreso y muestra avisos (+XP, bono, subida de nivel). */
+  /** Recarga el progreso y muestra avisos (+XP, bono, subida de nivel, logros). */
   celebrate: (awards: Award[]) => Promise<void>;
+  /** Revisa logros sin una actividad nueva (al abrir la app, por ejemplo tras actualizar). */
+  checkAchievements: () => Promise<void>;
 };
+
+/** Avisos de logros: uno por logro si son pocos; si son muchos (al actualizar a la V2), uno solo. */
+function announceAchievements(list: Achievement[]) {
+  if (list.length === 0) return;
+  if (list.length > 2) {
+    const xp = list.reduce((s, a) => s + a.xp, 0);
+    toast(`Desbloqueaste ${list.length} logros${xp > 0 ? ` · +${xp} XP` : ""}`, "achievement");
+    return;
+  }
+  for (const a of list) toast(`Logro: ${a.title}${a.xp > 0 ? ` · +${a.xp} XP` : ""}`, "achievement");
+}
 
 export const useProgress = create<ProgressState>((set, get) => ({
   loaded: false,
@@ -34,6 +51,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
   todayXp: 0,
   chaptersRead: 0,
   level: levelFromXp(0),
+  rank: rankForLevel(1),
   streak: computeStreak([], gameDay()),
   missions: missionProgress(new Set()),
   rewardedToday: {},
@@ -56,6 +74,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
       todayXp,
       chaptersRead,
       level: levelFromXp(totalXp),
+      rank: rankForLevel(levelFromXp(totalXp).level),
       streak: computeStreak(activeDays, day),
       missions: missionProgress(dayActivity.doneTypes),
       rewardedToday: dayActivity.rewarded,
@@ -69,9 +88,14 @@ export const useProgress = create<ProgressState>((set, get) => ({
 
   celebrate: async (awards) => {
     const levelBefore = get().level.level;
+    const rankBefore = get().rank.rank.id;
     const streakBefore = get().streak.current;
+    const unlocked = await checkAchievements().catch((e: unknown) => {
+      console.error("No se pudieron revisar los logros", e);
+      return [] as Achievement[];
+    });
     await get().refresh();
-    const { level, streak } = get();
+    const { level, rank, streak } = get();
 
     const main = awards.filter((a) => a.type !== "daily_missions_bonus" && a.type !== "bonus_5_chapters");
     const mainXp = main.reduce((s, a) => s + a.xp, 0);
@@ -81,6 +105,17 @@ export const useProgress = create<ProgressState>((set, get) => ({
     if (awards.some((a) => a.type === "daily_missions_bonus")) toast("Misiones de hoy completas · +60 XP", "bonus");
     if (streak.current > streakBefore && streak.current > 1) toast(`${streak.current} días seguidos`, "streak");
     if (level.level > levelBefore) toast(`Llegaste al nivel ${level.level}`, "level");
+    if (rank.rank.id !== rankBefore) toast(`Nuevo rango: ${rank.rank.title}`, "level");
+    announceAchievements(unlocked);
+  },
+
+  checkAchievements: async () => {
+    const levelBefore = get().level.level;
+    const unlocked = await checkAchievements();
+    if (unlocked.length === 0) return;
+    await get().refresh();
+    if (get().level.level > levelBefore) toast(`Llegaste al nivel ${get().level.level}`, "level");
+    announceAchievements(unlocked);
   },
 }));
 

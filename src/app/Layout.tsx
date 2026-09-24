@@ -1,9 +1,23 @@
-import { NavLink, Outlet } from "react-router";
-import type { ComponentType } from "react";
+import { NavLink, Outlet, useLocation } from "react-router";
+import { useEffect, useRef, type ComponentType } from "react";
 import { XpBar } from "../components/XpBar";
 import { Toaster } from "../components/Toaster";
-import { BookIcon, FlameIcon, JournalIcon, LogoMark, PeakIcon, SlidersIcon, SunriseIcon } from "../components/icons";
+import {
+  BookIcon,
+  ChartIcon,
+  FlameIcon,
+  JournalIcon,
+  LaurelIcon,
+  LogoMark,
+  PeakIcon,
+  SealIcon,
+  SlidersIcon,
+  SunriseIcon,
+} from "../components/icons";
+import { RANK_ICON } from "../components/badgeIcons";
+import { isCosmeticActive } from "../domain/cosmetics";
 import { useProgress } from "../stores/progressStore";
+import { useSettings } from "../stores/settingsStore";
 import { useDailyReminder } from "../hooks/useDailyReminder";
 
 type NavItem = { to: string; label: string; icon: ComponentType<{ size?: number }>; end?: boolean };
@@ -12,6 +26,8 @@ const NAV: NavItem[] = [
   { to: "/", label: "Hoy", icon: SunriseIcon, end: true },
   { to: "/biblia", label: "Biblia", icon: BookIcon },
   { to: "/diario", label: "Diario", icon: JournalIcon },
+  { to: "/logros", label: "Logros", icon: LaurelIcon },
+  { to: "/estadisticas", label: "Estadísticas", icon: ChartIcon },
 ];
 
 function NavItemLink({ to, label, icon: Icon, end }: NavItem) {
@@ -33,8 +49,27 @@ function NavItemLink({ to, label, icon: Icon, end }: NavItem) {
 
 export function Layout() {
   const level = useProgress((s) => s.level);
+  const rank = useProgress((s) => s.rank.rank);
   const streak = useProgress((s) => s.streak.current);
+  const best = useProgress((s) => s.streak.best);
+  const cosmeticsOff = useSettings((s) => s.cosmeticsOff);
+  const leaves = isCosmeticActive("leaves_background", best, cosmeticsOff);
+  const goldSeal = isCosmeticActive("golden_seal", best, cosmeticsOff);
+  const RankIcon = RANK_ICON[rank.id];
   useDailyReminder();
+
+  // Cada pantalla empieza arriba (antes se conservaba el scroll de la pantalla anterior).
+  const main = useRef<HTMLElement>(null);
+  const { pathname } = useLocation();
+  useEffect(() => {
+    main.current?.scrollTo(0, 0);
+  }, [pathname]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (leaves) root.dataset.bg = "leaves";
+    else delete root.dataset.bg;
+  }, [leaves]);
 
   return (
     <div className="flex h-full">
@@ -64,11 +99,20 @@ export function Layout() {
               </span>
             </div>
             <XpBar level={level} compact />
+            <NavLink
+              to="/logros"
+              className="mt-2 flex items-center gap-1.5 text-[13px] text-muted hover:text-accent"
+              title="Tu rango"
+            >
+              <RankIcon size={16} className="shrink-0 text-accent" />
+              <span className="leading-tight">{rank.title}</span>
+              {goldSeal && <SealIcon size={16} className="ml-auto shrink-0 text-gold" duo={false} />}
+            </NavLink>
           </div>
         </div>
       </aside>
 
-      <main className="flex-1 overflow-y-auto">
+      <main ref={main} className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
       <Toaster />

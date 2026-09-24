@@ -5,7 +5,9 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 
 > 📄 La idea completa, las reglas y el roadmap están en [`docs/Documento_Maestro.md`](docs/Documento_Maestro.md).
 
-**Estado actual:** V1 completa ✅ (v1.0.0). Lector RV1909 con buscador, resaltados y favoritos; XP, niveles, rachas y misiones; reflexión, oración y aplicación; "Tengo 5 minutos"; diario; ajustes con recordatorio diario y respaldo.
+**Estado actual:** V1 completa ✅ (v1.0.1). Lector RV1909 con buscador, resaltados y favoritos; XP, niveles, rachas y misiones; reflexión, oración y aplicación; "Tengo 5 minutos"; diario; ajustes con recordatorio diario y respaldo.
+
+**V2 en curso** · Sprint 2A (v1.1.0): rangos, logros e insignias (motor de reglas en `content/achievements.json`), recompensas por racha y la pantalla Mi camino con estadísticas y heatmap.
 
 ---
 
@@ -41,14 +43,15 @@ pnpm import-bible     # regenerar src-tauri/resources/bible.db (solo si cambias 
 camino-de-fe/
 ├─ src/
 │  ├─ app/          # App (rutas) y Layout (barra lateral)
-│  ├─ screens/      # Hoy, Libros, Capítulos, Lector
+│  ├─ screens/      # Hoy, Biblia, Lector, Diario, Logros, Mi camino, Ajustes
 │  ├─ components/   # piezas reutilizables (XpBar…)
-│  ├─ domain/       # LÓGICA PURA: xp, niveles, día de juego, lectura, referencias
+│  ├─ domain/       # LÓGICA PURA: xp, niveles, rangos, rachas, misiones, logros, estadísticas
+│  ├─ content/      # carga y valida con Zod los JSON de /content
 │  ├─ data/         # repositorios: única capa que habla con SQLite
 │  ├─ stores/       # estado global (Zustand)
 │  ├─ hooks/
 │  └─ styles/       # Tailwind + colores (claro/oscuro)
-├─ content/         # JSON editables: libros/zonas, versículos del día
+├─ content/         # JSON editables: libros/zonas, versículos del día, logros
 ├─ scripts/         # import-bible.ts (+ normalize.ts)
 ├─ tests/           # Vitest
 ├─ src-tauri/

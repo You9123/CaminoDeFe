@@ -15,11 +15,15 @@ import { MissionsCard } from "../components/MissionsCard";
 import { PostReadingFlow, type FlowStep } from "../components/PostReadingFlow";
 import { QuickSession } from "../components/QuickSession";
 import { pickQuickVerse } from "../domain/quickSession";
-import { BookIcon, CheckIcon, HourglassIcon, PeakIcon, SparkIcon, SunriseIcon } from "../components/icons";
+import { BookIcon, CheckIcon, HourglassIcon, OliveIcon, PeakIcon, SparkIcon, SunriseIcon } from "../components/icons";
+import { isCosmeticActive } from "../domain/cosmetics";
+import { useSettings } from "../stores/settingsStore";
 
 export function TodayScreen() {
   const navigate = useNavigate();
-  const { loaded, name, level, todayXp, chaptersRead, totalXp, streak, missions, celebrate } = useProgress();
+  const { loaded, name, level, rank, todayXp, chaptersRead, totalXp, streak, missions, celebrate } = useProgress();
+  const cosmeticsOff = useSettings((s) => s.cosmeticsOff);
+  const olive = isCosmeticActive("olive_branch", streak.best, cosmeticsOff);
   const day = gameDay();
   const [flowStep, setFlowStep] = useState<FlowStep | null>(null);
   const [quick, setQuick] = useState<{ ref: string; isDaily: boolean } | null>(null);
@@ -45,9 +49,16 @@ export function TodayScreen() {
   return (
     <div className="mx-auto max-w-4xl px-10 py-12">
       <header className="animate-rise mb-8">
-        <h1 className="font-display text-4xl font-semibold">
-          {greeting()}
-          {name ? `, ${name}` : ""}.
+        <h1 className="flex items-center gap-3 font-display text-4xl font-semibold">
+          <span>
+            {greeting()}
+            {name ? `, ${name}` : ""}.
+          </span>
+          {olive && (
+            <span title="Ramita de olivo · recompensa por 3 días de racha">
+              <OliveIcon size={34} className="-rotate-12 text-success [&_.duo]:fill-success-soft" />
+            </span>
+          )}
         </h1>
         <p className="mt-1.5 text-muted">Tu camino continúa.</p>
       </header>
@@ -111,7 +122,7 @@ export function TodayScreen() {
       </section>
 
       <section className="animate-rise grid grid-cols-3 gap-4">
-        <Stat label="Nivel" value={level.level} icon={PeakIcon}>
+        <Stat label="Nivel" value={level.level} icon={PeakIcon} hint={rank.rank.title}>
           <div className="mt-3">
             <XpBar level={level} compact />
           </div>

@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 1.0 · 23/09/2026
+> **Versión del documento:** 1.1 · 24/09/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -443,9 +443,9 @@ streak_days(day TEXT PK, source TEXT)            -- 'activity' | 'grace'
 
 verse_marks(ref TEXT PK, color TEXT NULL, favorite INTEGER, created_at TEXT, updated_at TEXT)  -- resaltado y/o favorito
 
-achievements_unlocked(achievement_id TEXT PK, unlocked_at TEXT)
+-- Logros: NO tienen tabla propia. Son filas de activity_log con type='achievement' y ref=<id> (ADR-0004).
 challenges_progress(challenge_id TEXT PK, started_at TEXT, completed_at TEXT NULL, data TEXT)  -- JSON
-cosmetics_unlocked(item_id TEXT PK, unlocked_at TEXT)
+-- Recompensas por racha: se calculan con el récord de racha; solo se guarda settings.cosmetics_off (ADR-0004).
 emotions_log(day TEXT PK, emotion TEXT)
 schema_migrations(version INTEGER PK, applied_at TEXT)
 ```
@@ -584,16 +584,18 @@ pnpm tauri add fs
 - [x] Instalador de Windows generado por GitHub Actions (al publicar el tag `v1.0.0`)
 - [x] 366 versículos del día · ícono propio de la app · abrir al iniciar Windows
 
-### 🟡 V2 — Gamificación
+### 🟡 V2 — Gamificación · en curso
+
+Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, estadísticas) ✅ v1.1.0 · **2B Mapa** (mapa, desafíos, misiones sorpresa) · **2C Cuidado y audio** (emociones, modo escuchar, sesiones de 5/10/15/30 min, exportar diario) · **2D Mascota**.
 
 - [ ] Mascota (opcional), con evolución y animaciones
-- [ ] Rangos
+- [x] Rangos (Sprint 2A)
 - [ ] Mapa de la Biblia interactivo (SVG)
-- [ ] Logros / insignias (motor de reglas)
+- [x] Logros / insignias (motor de reglas) (Sprint 2A)
 - [ ] Desafíos
 - [ ] Misiones sorpresa
-- [ ] Recompensas cosméticas por rachas
-- [ ] Estadísticas y gráficos + heatmap
+- [x] Recompensas cosméticas por rachas (Sprint 2A; la de 7 días llega con la mascota y la de 30 con el mapa)
+- [x] Estadísticas y gráficos + heatmap (Sprint 2A; la distribución de emociones llega con "¿Cómo me siento hoy?")
 - [ ] ¿Cómo me siento hoy?
 - [ ] Modo escuchar (TTS)
 - [ ] Sesiones de 5 / 10 / 15 / 30 minutos
@@ -643,7 +645,7 @@ Con esto ya existe una app "fea pero funcional" sobre la que se construye todo l
 | --- | ----------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | 1   | ¿La app será solo para mí o se publicará? | Personal / publicarla gratis                                | Diseñarla como si se fuera a publicar (usar la RV1909).                                               |
 | 2   | Estilo visual                             | Cozy ilustrado / pixel art / minimalista moderno            | Cozy ilustrado.                                                                                       |
-| 3   | Estilo de la mascota                      | Pixel art (más fácil de dibujar) / vectorial / Rive animado | Pixel art para la V2.                                                                                 |
+| 3   | Estilo de la mascota                      | Pixel art (más fácil de dibujar) / vectorial / Rive animado | **Decidido:** vectorial con trazo a mano (como los íconos de ADR-0003).                               |
 | 4   | Licencia del código                       | MIT / GPL / privado                                         | MIT si el repositorio es público.                                                                     |
 | 5   | Idiomas                                   | Solo español / español + inglés                             | Solo español en V1, pero con los textos de la interfaz en un archivo `i18n` para no cerrar la puerta. |
 | 6   | Backend de la V4                          | API propia / Supabase / Firebase                            | Se decide al llegar a la V4.                                                                          |

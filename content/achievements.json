@@ -1,0 +1,298 @@
+{
+  "groups": [
+    { "id": "lectura", "title": "Lectura" },
+    { "id": "constancia", "title": "Constancia" },
+    { "id": "corazon", "title": "Reflexión, oración y práctica" },
+    { "id": "camino", "title": "El camino" }
+  ],
+  "achievements": [
+    {
+      "id": "first_chapter",
+      "group": "lectura",
+      "title": "Primer paso",
+      "description": "Lee tu primer capítulo.",
+      "icon": "book",
+      "rule": { "type": "chapters_read_count", "count": 1 },
+      "xp": 20
+    },
+    {
+      "id": "chapters_10",
+      "group": "lectura",
+      "title": "Diez capítulos",
+      "description": "Lee 10 capítulos distintos.",
+      "icon": "book",
+      "rule": { "type": "chapters_read_count", "count": 10 },
+      "xp": 30
+    },
+    {
+      "id": "chapters_50",
+      "group": "lectura",
+      "title": "Cincuenta capítulos",
+      "description": "Lee 50 capítulos distintos.",
+      "icon": "scroll",
+      "rule": { "type": "chapters_read_count", "count": 50 },
+      "xp": 60
+    },
+    {
+      "id": "chapters_100",
+      "group": "lectura",
+      "title": "Cien capítulos",
+      "description": "Lee 100 capítulos distintos.",
+      "icon": "scroll",
+      "rule": { "type": "chapters_read_count", "count": 100 },
+      "xp": 100
+    },
+    {
+      "id": "chapters_300",
+      "group": "lectura",
+      "title": "Trescientos capítulos",
+      "description": "Lee 300 capítulos distintos.",
+      "icon": "lamp",
+      "rule": { "type": "chapters_read_count", "count": 300 },
+      "xp": 150
+    },
+    {
+      "id": "first_book",
+      "group": "lectura",
+      "title": "Libro completo",
+      "description": "Termina un libro entero, del primer al último capítulo.",
+      "icon": "bookmark",
+      "rule": { "type": "books_completed_count", "count": 1 },
+      "xp": 50
+    },
+    {
+      "id": "books_10",
+      "group": "lectura",
+      "title": "Diez libros",
+      "description": "Termina 10 libros de la Biblia.",
+      "icon": "bookmark",
+      "rule": { "type": "books_completed_count", "count": 10 },
+      "xp": 120
+    },
+    {
+      "id": "pentateuch",
+      "group": "lectura",
+      "title": "Los comienzos",
+      "description": "Lee el Pentateuco completo, de Génesis a Deuteronomio.",
+      "icon": "sprout",
+      "rule": { "type": "books_completed", "books": ["GEN", "EXO", "LEV", "NUM", "DEU"] },
+      "xp": 150
+    },
+    {
+      "id": "gospels",
+      "group": "lectura",
+      "title": "Conocedor de los Evangelios",
+      "description": "Lee Mateo, Marcos, Lucas y Juan completos.",
+      "icon": "cross",
+      "rule": { "type": "books_completed", "books": ["MAT", "MRK", "LUK", "JHN"] },
+      "xp": 150
+    },
+    {
+      "id": "psalms_book",
+      "group": "lectura",
+      "title": "El libro de los Salmos",
+      "description": "Lee los 150 Salmos.",
+      "icon": "harp",
+      "rule": { "type": "books_completed", "books": ["PSA"] },
+      "xp": 150
+    },
+    {
+      "id": "new_testament",
+      "group": "lectura",
+      "title": "Nuevo Testamento",
+      "description": "Lee todo el Nuevo Testamento.",
+      "icon": "dove",
+      "rule": { "type": "books_completed", "testament": "NT" },
+      "xp": 300
+    },
+    {
+      "id": "whole_bible",
+      "group": "lectura",
+      "title": "Toda la Biblia",
+      "description": "Lee los 1189 capítulos de la Biblia.",
+      "icon": "sunrise",
+      "rule": { "type": "books_completed", "testament": "ALL" },
+      "xp": 500
+    },
+    {
+      "id": "streak_3",
+      "group": "constancia",
+      "title": "Tres días",
+      "description": "Llega a una racha de 3 días.",
+      "icon": "flame",
+      "rule": { "type": "streak_reached", "days": 3 },
+      "xp": 15
+    },
+    {
+      "id": "streak_7",
+      "group": "constancia",
+      "title": "Una semana",
+      "description": "Llega a una racha de 7 días.",
+      "icon": "flame",
+      "rule": { "type": "streak_reached", "days": 7 },
+      "xp": 30
+    },
+    {
+      "id": "streak_30",
+      "group": "constancia",
+      "title": "Un mes",
+      "description": "Llega a una racha de 30 días.",
+      "icon": "anchor",
+      "rule": { "type": "streak_reached", "days": 30 },
+      "xp": 80
+    },
+    {
+      "id": "streak_100",
+      "group": "constancia",
+      "title": "Cien días",
+      "description": "Llega a una racha de 100 días.",
+      "icon": "anchor",
+      "rule": { "type": "streak_reached", "days": 100 },
+      "xp": 200
+    },
+    {
+      "id": "streak_365",
+      "group": "constancia",
+      "title": "Un año",
+      "description": "Llega a una racha de 365 días.",
+      "icon": "sunrise",
+      "rule": { "type": "streak_reached", "days": 365 },
+      "xp": 400
+    },
+    {
+      "id": "full_day_1",
+      "group": "constancia",
+      "title": "Día completo",
+      "description": "Completa las cuatro misiones de un día.",
+      "icon": "check",
+      "rule": { "type": "activity_count", "activity": "daily_missions_bonus", "count": 1 },
+      "xp": 20
+    },
+    {
+      "id": "full_day_30",
+      "group": "constancia",
+      "title": "Treinta días completos",
+      "description": "Completa las cuatro misiones en 30 días distintos.",
+      "icon": "check",
+      "rule": { "type": "activity_count", "activity": "daily_missions_bonus", "count": 30 },
+      "xp": 100
+    },
+    {
+      "id": "reflection_1",
+      "group": "corazon",
+      "title": "Primera reflexión",
+      "description": "Escribe tu primera reflexión.",
+      "icon": "quill",
+      "rule": { "type": "activity_count", "activity": "reflection", "count": 1 },
+      "xp": 10
+    },
+    {
+      "id": "reflections_10",
+      "group": "corazon",
+      "title": "Diez reflexiones",
+      "description": "Escribe 10 reflexiones.",
+      "icon": "quill",
+      "rule": { "type": "activity_count", "activity": "reflection", "count": 10 },
+      "xp": 30
+    },
+    {
+      "id": "reflections_50",
+      "group": "corazon",
+      "title": "Cincuenta reflexiones",
+      "description": "Escribe 50 reflexiones.",
+      "icon": "journal",
+      "rule": { "type": "activity_count", "activity": "reflection", "count": 50 },
+      "xp": 100
+    },
+    {
+      "id": "prayers_10",
+      "group": "corazon",
+      "title": "Tiempo de oración",
+      "description": "Dedica 10 momentos a orar.",
+      "icon": "candle",
+      "rule": { "type": "activity_count", "activity": "prayer", "count": 10 },
+      "xp": 30
+    },
+    {
+      "id": "prayers_100",
+      "group": "corazon",
+      "title": "Cien oraciones",
+      "description": "Dedica 100 momentos a orar.",
+      "icon": "candle",
+      "rule": { "type": "activity_count", "activity": "prayer", "count": 100 },
+      "xp": 120
+    },
+    {
+      "id": "applications_10",
+      "group": "corazon",
+      "title": "Manos a la obra",
+      "description": "Elige 10 veces cómo poner en práctica lo que leíste.",
+      "icon": "sprout",
+      "rule": { "type": "activity_count", "activity": "application", "count": 10 },
+      "xp": 30
+    },
+    {
+      "id": "applications_50",
+      "group": "corazon",
+      "title": "Fruto",
+      "description": "Elige 50 veces cómo poner en práctica lo que leíste.",
+      "icon": "olive",
+      "rule": { "type": "activity_count", "activity": "application", "count": 50 },
+      "xp": 100
+    },
+    {
+      "id": "level_5",
+      "group": "camino",
+      "title": "Caminante",
+      "description": "Llega al nivel 5.",
+      "icon": "path",
+      "rule": { "type": "level_reached", "level": 5 },
+      "xp": 0
+    },
+    {
+      "id": "level_10",
+      "group": "camino",
+      "title": "Buscador",
+      "description": "Llega al nivel 10.",
+      "icon": "lamp",
+      "rule": { "type": "level_reached", "level": 10 },
+      "xp": 0
+    },
+    {
+      "id": "level_20",
+      "group": "camino",
+      "title": "Discípulo",
+      "description": "Llega al nivel 20.",
+      "icon": "flame",
+      "rule": { "type": "level_reached", "level": 20 },
+      "xp": 0
+    },
+    {
+      "id": "level_30",
+      "group": "camino",
+      "title": "Perseverante",
+      "description": "Llega al nivel 30.",
+      "icon": "anchor",
+      "rule": { "type": "level_reached", "level": 30 },
+      "xp": 0
+    },
+    {
+      "id": "level_40",
+      "group": "camino",
+      "title": "Siervo",
+      "description": "Llega al nivel 40.",
+      "icon": "dove",
+      "rule": { "type": "level_reached", "level": 40 },
+      "xp": 0
+    },
+    {
+      "id": "level_50",
+      "group": "camino",
+      "title": "Peregrino",
+      "description": "Llega al nivel 50.",
+      "icon": "sunrise",
+      "rule": { "type": "level_reached", "level": 50 },
+      "xp": 0
+    }
+  ]
+}

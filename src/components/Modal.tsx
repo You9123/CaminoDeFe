@@ -16,10 +16,10 @@ export function Modal({ onClose, children, label }: { onClose: () => void; child
       aria-modal="true"
       aria-label={label}
     >
-      <div className="animate-rise relative w-full max-w-lg rounded-3xl border border-border bg-surface p-8 shadow-xl">
+      <div className="animate-rise relative w-full max-w-[34rem] rounded-3xl border border-border bg-surface p-8 shadow-xl">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 rounded-lg p-1.5 text-muted hover:bg-surface-2 hover:text-ink"
+          className="absolute top-3 right-3 rounded-lg p-1.5 text-muted hover:bg-surface-2 hover:text-ink"
           aria-label="Cerrar"
         >
           <X size={18} />

@@ -1,12 +1,13 @@
 import type { ComponentType } from "react";
 import { useToasts, type ToastKind } from "../stores/toastStore";
-import { CheckIcon, FlameIcon, PeakIcon, SparkIcon } from "./icons";
+import { CheckIcon, FlameIcon, LaurelIcon, PeakIcon, SparkIcon } from "./icons";
 
 const STYLES: Record<ToastKind, { box: string; icon: ComponentType<{ size?: number; duo?: boolean }> }> = {
   xp: { box: "bg-success text-white", icon: SparkIcon },
   bonus: { box: "bg-accent text-accent-ink", icon: SparkIcon },
   streak: { box: "bg-accent text-accent-ink", icon: FlameIcon },
   level: { box: "bg-ink text-bg", icon: PeakIcon },
+  achievement: { box: "bg-ink text-bg", icon: LaurelIcon },
   info: { box: "bg-surface text-ink border border-border", icon: CheckIcon },
 };
 

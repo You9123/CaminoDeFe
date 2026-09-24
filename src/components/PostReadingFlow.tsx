@@ -35,14 +35,17 @@ export function PostReadingFlow({ steps, refId, refLabel, verse, title, prayerMi
 
   return (
     <Modal onClose={onClose} label={title ?? "Reflexión, oración y aplicación"}>
-      {title && <p className="mb-3 text-xs font-semibold tracking-wide text-muted uppercase">{title}</p>}
-      {steps.length > 1 && (
-        <div className="mb-5 flex gap-1.5">
-          {steps.map((s, i) => (
-            <span key={s} className={`h-1.5 flex-1 rounded-full ${i <= index ? "bg-accent" : "bg-border"}`} />
-          ))}
-        </div>
-      )}
+      {/* pr-10: deja aire entre la barra de pasos y la X de cerrar. */}
+      <div className="pr-10">
+        {title && <p className="mb-3 text-xs font-semibold tracking-wide text-muted uppercase">{title}</p>}
+        {steps.length > 1 && (
+          <div className="mb-5 flex gap-1.5">
+            {steps.map((s, i) => (
+              <span key={s} className={`h-1.5 flex-1 rounded-full ${i <= index ? "bg-accent" : "bg-border"}`} />
+            ))}
+          </div>
+        )}
+      </div>
       {step === "verse" && verse && <VerseStep refId={refId} refLabel={refLabel} verse={verse} onNext={next} />}
       {step === "reflection" && <ReflectionStep refId={refId} refLabel={refLabel} onNext={next} />}
       {step === "prayer" && <PrayerStep refId={refId} defaultMinutes={prayerMinutes} onNext={next} />}

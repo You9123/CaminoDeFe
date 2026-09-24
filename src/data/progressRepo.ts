@@ -44,10 +44,15 @@ export async function getReadCountByBook(): Promise<Record<number, number>> {
   return Object.fromEntries(rows.map((r) => [r.book_id, Number(r.n)]));
 }
 
-/** Días (de juego) con al menos una actividad. Base para calcular rachas. */
+/**
+ * Días (de juego) con al menos una actividad. Base para calcular rachas.
+ * Los logros no cuentan: se desbloquean solos y no son algo que el usuario hizo ese día.
+ */
 export async function getActiveDays(): Promise<string[]> {
   const db = await userDb();
-  const rows = await db.select<{ day: string }[]>("SELECT DISTINCT day FROM activity_log ORDER BY day");
+  const rows = await db.select<{ day: string }[]>(
+    "SELECT DISTINCT day FROM activity_log WHERE type <> 'achievement' ORDER BY day",
+  );
   return rows.map((r) => r.day);
 }
 
