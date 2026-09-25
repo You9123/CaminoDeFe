@@ -4,7 +4,7 @@ import { gameDay } from "../domain/day";
 import {
   challengeState,
   evaluateChallenge,
-  MAX_ACTIVE_CHALLENGES,
+  maxActive,
   type Challenge,
   type ChallengeEvent,
   type ChallengeProgress,
@@ -68,8 +68,15 @@ export async function startChallenge(id: string): Promise<void> {
   const runs = await listRuns();
   const s = challengeState(runs, id);
   if (s.state !== "available") return;
-  if (runs.filter((r) => r.status === "active").length >= MAX_ACTIVE_CHALLENGES) {
-    throw new ChallengeLimitError(`Puedes tener hasta ${MAX_ACTIVE_CHALLENGES} desafíos a la vez.`);
+  const tier = CHALLENGES.find((c) => c.id === id)?.tier ?? "normal";
+  const tierOf = (cid: string) => CHALLENGES.find((c) => c.id === cid)?.tier ?? "normal";
+  const activeSameTier = runs.filter((r) => r.status === "active" && tierOf(r.challenge_id) === tier).length;
+  if (activeSameTier >= maxActive(tier)) {
+    throw new ChallengeLimitError(
+      tier === "mayor"
+        ? `Puedes tener hasta ${maxActive(tier)} desafíos mayores a la vez.`
+        : `Puedes tener hasta ${maxActive(tier)} desafíos a la vez.`,
+    );
   }
   const db = await userDb();
   await db.execute(

@@ -147,7 +147,12 @@ function AchievementCard({ a }: { a: AchievementView }) {
     <div
       className={`flex gap-3.5 rounded-2xl border p-4 ${unlocked ? "border-border bg-surface" : "border-border/70 bg-surface/50"}`}
     >
-      <Medallion icon={ACHIEVEMENT_ICON[a.icon]} unlocked={unlocked} size={52} />
+      <Medallion
+        icon={ACHIEVEMENT_ICON[a.icon]}
+        unlocked={unlocked}
+        gold={unlocked && a.group === "mayores"}
+        size={52}
+      />
       <div className="min-w-0 flex-1">
         <p className={`font-semibold leading-snug ${unlocked ? "" : "text-ink/75"}`}>{a.title}</p>
         <p className="mt-0.5 text-[13px] leading-snug text-muted">{a.description}</p>

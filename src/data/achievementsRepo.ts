@@ -23,10 +23,11 @@ export async function getUnlockedAchievements(): Promise<Map<string, string>> {
 /** Foto del progreso para evaluar las reglas de los logros. */
 export async function getProgressSnapshot(): Promise<ProgressSnapshot> {
   const db = await userDb();
-  const [books, perBook, counts, activeDays, totalXp] = await Promise.all([
+  const [books, perBook, counts, challengeRows, activeDays, totalXp] = await Promise.all([
     listBooks(),
     db.select<{ book_id: number; n: number }[]>("SELECT book_id, COUNT(*) AS n FROM chapter_progress GROUP BY book_id"),
     db.select<{ type: string; n: number }[]>("SELECT type, COUNT(*) AS n FROM activity_log GROUP BY type"),
+    db.select<{ ref: string }[]>("SELECT DISTINCT ref FROM activity_log WHERE type = 'challenge' AND ref IS NOT NULL"),
     getActiveDays(),
     getTotalXp(),
   ]);
@@ -42,6 +43,7 @@ export async function getProgressSnapshot(): Promise<ProgressSnapshot> {
     bestStreak: computeStreak(activeDays, gameDay()).best,
     activityCounts: Object.fromEntries(counts.map((c) => [c.type, Number(c.n)])),
     level: levelFromXp(totalXp).level,
+    completedChallenges: challengeRows.map((r) => r.ref),
   };
 }
 

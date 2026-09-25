@@ -1,0 +1,72 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "PHP",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Desde dónde escribió Pablo esta carta?",
+      "options": ["Desde la prisión", "Desde un barco", "Desde Jerusalén", "Desde su casa en Tarso"],
+      "verse": "PHP.1.13",
+      "check": "prisiones"
+    },
+    {
+      "id": "1b",
+      "chapter": 1,
+      "q": "¿Qué es para Pablo el vivir?",
+      "options": ["Cristo", "El trabajo", "La familia", "Los viajes"],
+      "verse": "PHP.1.21",
+      "check": "Cristo"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Hasta dónde fue obediente Cristo, según Filipenses 2?",
+      "options": ["Hasta la muerte, y muerte de cruz", "Hasta ser rey", "Hasta los treinta años", "Hasta Galilea"],
+      "verse": "PHP.2.8",
+      "check": "cruz"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Qué hace Pablo con lo que queda atrás?",
+      "options": ["Lo olvida y se extiende a lo que está delante", "Lo recuerda cada día", "Lo escribe", "Lo lamenta"],
+      "verse": "PHP.3.13",
+      "check": "olvidando"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Qué dice Pablo que hagamos siempre?",
+      "options": ["Gozarnos en el Señor", "Trabajar sin parar", "Ayunar", "Callar"],
+      "verse": "PHP.4.4",
+      "check": "Gozaos"
+    },
+    {
+      "id": "4b",
+      "chapter": 4,
+      "q": "¿Qué dice Pablo que hagamos en vez de afanarnos?",
+      "options": [
+        "Presentar nuestras peticiones a Dios en oración",
+        "Ignorar los problemas",
+        "Trabajar más",
+        "Esperar a que pase"
+      ],
+      "verse": "PHP.4.6",
+      "check": "oración"
+    },
+    {
+      "id": "4c",
+      "chapter": 4,
+      "q": "¿Qué puede Pablo en Cristo que lo fortalece?",
+      "options": ["Todo", "Casi nada", "Solo lo fácil", "Lo que otros le permiten"],
+      "verse": "PHP.4.13",
+      "check": "Todo"
+    },
+    {
+      "id": "4d",
+      "chapter": 4,
+      "reflect": "Pablo aprendió a estar contento en toda situación. ¿Por qué cosas puedes dar gracias hoy?"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "1KI",
+  "questions": [
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Qué le pidió Salomón a Dios?",
+      "options": ["Un corazón para juzgar bien al pueblo", "Riquezas", "Una larga vida", "La muerte de sus enemigos"],
+      "verse": "1KI.3.9",
+      "check": "corazón"
+    },
+    {
+      "id": "3b",
+      "chapter": 3,
+      "q": "¿Qué propuso Salomón para saber quién era la verdadera madre?",
+      "options": ["Partir al niño en dos", "Echar suertes", "Preguntarle al niño", "Esperar un año"],
+      "verse": "1KI.3.25",
+      "check": "Partid"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿Qué construyó Salomón en Jerusalén?",
+      "options": ["La casa de Jehová, el templo", "Un arca", "Una torre", "Un muro nuevo"],
+      "verse": "1KI.6.1",
+      "check": "casa"
+    },
+    {
+      "id": "10a",
+      "chapter": 10,
+      "q": "¿Qué reina vino a probar a Salomón con preguntas difíciles?",
+      "options": ["La reina de Seba (Sabá)", "La reina Ester", "La reina de Egipto", "Jezabel"],
+      "verse": "1KI.10.1",
+      "check": "Seba"
+    },
+    {
+      "id": "12a",
+      "chapter": 12,
+      "q": "¿Quién era rey cuando el reino se dividió?",
+      "options": ["Roboam", "Salomón", "David", "Acab"],
+      "verse": "1KI.12.3",
+      "check": "Roboam"
+    },
+    {
+      "id": "17a",
+      "chapter": 17,
+      "q": "¿Qué animales le llevaban comida a Elías junto al arroyo?",
+      "options": ["Los cuervos", "Las palomas", "Los leones", "Los perros"],
+      "verse": "1KI.17.6",
+      "check": "cuervos"
+    },
+    {
+      "id": "17b",
+      "chapter": 17,
+      "q": "¿Qué no le faltó a la viuda de Sarepta durante la sequía?",
+      "options": ["La harina y el aceite", "El agua", "Las ovejas", "El vino"],
+      "verse": "1KI.17.16",
+      "check": "harina"
+    },
+    {
+      "id": "18a",
+      "chapter": 18,
+      "q": "¿Cómo respondió Dios a Elías en el monte Carmelo?",
+      "options": ["Con fuego del cielo", "Con un terremoto", "Con lluvia de piedras", "Con un ángel"],
+      "verse": "1KI.18.38",
+      "check": "fuego"
+    },
+    {
+      "id": "19a",
+      "chapter": 19,
+      "q": "¿Cómo le habló Dios a Elías en el monte Horeb?",
+      "options": ["En un silbo apacible y delicado", "En el terremoto", "En el fuego", "En el viento fuerte"],
+      "verse": "1KI.19.12",
+      "check": "silbo"
+    },
+    {
+      "id": "19b",
+      "chapter": 19,
+      "reflect": "Elías estaba agotado y Dios lo dejó comer y dormir. ¿Qué descanso necesitas pedirle a Dios?"
+    }
+  ]
+}

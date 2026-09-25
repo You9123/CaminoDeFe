@@ -1,0 +1,93 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "DAN",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Qué decidió Daniel sobre la comida del rey?",
+      "options": ["No contaminarse con ella", "Comer solo la carne", "Venderla", "Dársela a sus amigos"],
+      "verse": "DAN.1.8",
+      "check": "contaminarse"
+    },
+    {
+      "id": "1b",
+      "chapter": 1,
+      "q": "¿Qué pidió Daniel comer durante diez días?",
+      "options": ["Legumbres y agua", "Pan y vino", "Carne asada", "Frutas del palacio"],
+      "verse": "DAN.1.12",
+      "check": "legumbres"
+    },
+    {
+      "id": "1c",
+      "chapter": 1,
+      "reflect": "Daniel decidió en su corazón no contaminarse. ¿Qué decisión quieres tomar tú desde el corazón?"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿De qué era la cabeza de la estatua del sueño?",
+      "options": ["De oro fino", "De plata", "De bronce", "De hierro"],
+      "verse": "DAN.2.32",
+      "check": "oro"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Qué respondieron los tres jóvenes al rey?",
+      "options": [
+        "Que su Dios podía librarlos, y aunque no, no adorarían la estatua",
+        "Que adorarían la estatua",
+        "Que huirían del país",
+        "Que pedirían perdón"
+      ],
+      "verse": "DAN.3.17",
+      "check": "librar"
+    },
+    {
+      "id": "3b",
+      "chapter": 3,
+      "q": "¿Cuántos hombres vio el rey dentro del horno?",
+      "options": ["Cuatro", "Tres", "Dos", "Siete"],
+      "verse": "DAN.3.25",
+      "check": "cuatro"
+    },
+    {
+      "id": "5a",
+      "chapter": 5,
+      "q": "¿Qué apareció escribiendo en la pared durante el banquete de Belsasar?",
+      "options": ["Los dedos de una mano", "Un ángel", "Una sombra", "Fuego"],
+      "verse": "DAN.5.5",
+      "check": "dedos"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿Cuántas veces al día oraba Daniel?",
+      "options": ["Tres", "Una", "Siete", "Dos"],
+      "verse": "DAN.6.10",
+      "check": "tres veces"
+    },
+    {
+      "id": "6b",
+      "chapter": 6,
+      "q": "¿Qué hizo Daniel cuando supo que estaba prohibido orar?",
+      "options": [
+        "Siguió orando como antes, con las ventanas abiertas",
+        "Dejó de orar",
+        "Oró solo de noche",
+        "Huyó de Babilonia"
+      ],
+      "verse": "DAN.6.10",
+      "check": "ventanas"
+    },
+    {
+      "id": "6c",
+      "chapter": 6,
+      "q": "¿Quién cerró la boca de los leones?",
+      "options": ["El ángel de Dios", "El rey Darío", "Los soldados", "Daniel mismo"],
+      "verse": "DAN.6.22",
+      "check": "ángel"
+    }
+  ]
+}

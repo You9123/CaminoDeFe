@@ -1,0 +1,104 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "MRK",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Dónde bautizaba Juan?",
+      "options": ["En el río Jordán", "En el mar de Galilea", "En el templo", "En un pozo"],
+      "verse": "MRK.1.5",
+      "check": "Jordán"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Por dónde bajaron al paralítico para llegar a Jesús?",
+      "options": ["Por el techo", "Por la ventana", "Por la puerta de atrás", "Por un túnel"],
+      "verse": "MRK.2.4",
+      "check": "techo"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Qué hacía Jesús durante la tempestad en el mar?",
+      "options": ["Dormía en la popa", "Remaba", "Oraba en la orilla", "Pescaba"],
+      "verse": "MRK.4.38",
+      "check": "popa"
+    },
+    {
+      "id": "4b",
+      "chapter": 4,
+      "q": "¿Qué le dijo Jesús al mar?",
+      "options": ["Calla, enmudece", "Detente", "Vuelve atrás", "Ábrete"],
+      "verse": "MRK.4.39",
+      "check": "Calla"
+    },
+    {
+      "id": "5a",
+      "chapter": 5,
+      "q": "¿Qué le dijo Jesús a la hija de Jairo?",
+      "options": ["Talitha cumi: niña, levántate", "Duerme en paz", "Ve a tu casa", "Tu fe te ha salvado"],
+      "verse": "MRK.5.41",
+      "check": "Talitha"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿Con cuántos panes y peces alimentó Jesús a cinco mil?",
+      "options": [
+        "Cinco panes y dos peces",
+        "Siete panes y un pez",
+        "Doce panes y tres peces",
+        "Dos panes y cinco peces"
+      ],
+      "verse": "MRK.6.41",
+      "check": "cinco panes"
+    },
+    {
+      "id": "10a",
+      "chapter": 10,
+      "q": "¿Qué dijo Jesús cuando los discípulos no dejaban venir a los niños?",
+      "options": ["Dejad a los niños venir a mí", "Llévenlos a su casa", "Que esperen afuera", "Que traigan ofrendas"],
+      "verse": "MRK.10.14",
+      "check": "niños"
+    },
+    {
+      "id": "10b",
+      "chapter": 10,
+      "q": "¿Qué le pidió el ciego Bartimeo a Jesús?",
+      "options": ["Recobrar la vista", "Dinero", "Comida", "Un lugar entre sus discípulos"],
+      "verse": "MRK.10.51",
+      "check": "vista"
+    },
+    {
+      "id": "12a",
+      "chapter": 12,
+      "q": "¿Cuánto echó la viuda pobre en el arca de las ofrendas?",
+      "options": ["Dos blancas", "Una moneda de oro", "Diez denarios", "Nada"],
+      "verse": "MRK.12.42",
+      "check": "blancas"
+    },
+    {
+      "id": "12b",
+      "chapter": 12,
+      "reflect": "La viuda dio todo lo que tenía. ¿Qué podrías darle a Dios esta semana, aunque sea pequeño?"
+    },
+    {
+      "id": "14a",
+      "chapter": 14,
+      "q": "¿Cuántas veces dijo Jesús que Pedro lo negaría?",
+      "options": ["Tres", "Una", "Siete", "Dos"],
+      "verse": "MRK.14.30",
+      "check": "tres"
+    },
+    {
+      "id": "16a",
+      "chapter": 16,
+      "q": "¿Qué le dijo el joven a las mujeres en el sepulcro?",
+      "options": ["Ha resucitado, no está aquí", "Esperen aquí", "Él vendrá mañana", "Vayan al templo"],
+      "verse": "MRK.16.6",
+      "check": "resucitado"
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "GEN",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Qué creó Dios el primer día?",
+      "options": ["La luz", "Los peces", "El sol y la luna", "El ser humano"],
+      "verse": "GEN.1.3",
+      "check": "luz"
+    },
+    {
+      "id": "1b",
+      "chapter": 1,
+      "q": "¿A imagen de quién creó Dios al ser humano?",
+      "options": [
+        "A su propia imagen",
+        "A imagen de los ángeles",
+        "A imagen de los animales",
+        "A imagen de las estrellas"
+      ],
+      "verse": "GEN.1.27",
+      "check": "imagen"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Qué hizo Dios el séptimo día?",
+      "options": ["Reposó", "Creó los peces", "Creó a Eva", "Plantó el huerto"],
+      "verse": "GEN.2.2",
+      "check": "reposó"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Quién convenció a Eva de comer del fruto?",
+      "options": ["La serpiente", "Adán", "Un ángel", "Caín"],
+      "verse": "GEN.3.4",
+      "check": "serpiente"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Quién mató a Abel?",
+      "options": ["Caín", "Set", "Lamec", "Enoc"],
+      "verse": "GEN.4.8",
+      "check": "Caín"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿De qué madera hizo Noé el arca?",
+      "options": ["De gofer", "De cedro", "De olivo", "De acacia"],
+      "verse": "GEN.6.14",
+      "check": "Gopher"
+    },
+    {
+      "id": "7a",
+      "chapter": 7,
+      "q": "¿Cuántos días y noches llovió sobre la tierra?",
+      "options": ["Cuarenta", "Siete", "Cien", "Doce"],
+      "verse": "GEN.7.12",
+      "check": "cuarenta"
+    },
+    {
+      "id": "8a",
+      "chapter": 8,
+      "q": "¿Qué traía la paloma en el pico cuando volvió al arca?",
+      "options": ["Una hoja de olivo", "Una espiga", "Una piedra", "Una rama de higuera"],
+      "verse": "GEN.8.11",
+      "check": "oliv"
+    },
+    {
+      "id": "9a",
+      "chapter": 9,
+      "q": "¿Qué señal puso Dios después del diluvio?",
+      "options": ["Su arco en las nubes", "Una estrella", "Una columna de fuego", "Un altar de piedra"],
+      "verse": "GEN.9.13",
+      "check": "arco"
+    },
+    {
+      "id": "11a",
+      "chapter": 11,
+      "q": "¿Por qué se llamó Babel aquella ciudad?",
+      "options": [
+        "Porque allí Dios confundió el lenguaje",
+        "Porque allí nació Abraham",
+        "Porque tenía una torre de oro",
+        "Porque allí terminó el diluvio"
+      ],
+      "verse": "GEN.11.9",
+      "check": "confundió"
+    },
+    {
+      "id": "12a",
+      "chapter": 12,
+      "q": "¿Qué le pidió Dios a Abram?",
+      "options": [
+        "Que saliera de su tierra",
+        "Que construyera un arca",
+        "Que fuera a Egipto a comprar trigo",
+        "Que ofreciera a su hijo"
+      ],
+      "verse": "GEN.12.1",
+      "check": "tierra"
+    },
+    {
+      "id": "15a",
+      "chapter": 15,
+      "q": "¿Qué le pidió Dios a Abram que contara?",
+      "options": ["Las estrellas", "La arena del mar", "Sus ovejas", "Los granos de trigo"],
+      "verse": "GEN.15.5",
+      "check": "estrellas"
+    },
+    {
+      "id": "15b",
+      "chapter": 15,
+      "reflect": "Abram creyó una promesa que tardó años en cumplirse. ¿Qué promesa de Dios te cuesta esperar?"
+    },
+    {
+      "id": "21a",
+      "chapter": 21,
+      "q": "¿Qué edad tenía Abraham cuando nació Isaac?",
+      "options": ["Cien años", "Setenta y cinco años", "Noventa años", "Ciento veinte años"],
+      "verse": "GEN.21.5",
+      "check": "cien"
+    },
+    {
+      "id": "22a",
+      "chapter": 22,
+      "q": "¿Qué animal proveyó Dios en lugar de Isaac?",
+      "options": ["Un carnero", "Un cordero", "Un becerro", "Una paloma"],
+      "verse": "GEN.22.13",
+      "check": "carnero"
+    },
+    {
+      "id": "25a",
+      "chapter": 25,
+      "q": "¿Por qué vendió Esaú su primogenitura?",
+      "options": ["Por un guiso de lentejas", "Por una túnica", "Por un camello", "Por un pozo"],
+      "verse": "GEN.25.34",
+      "check": "lentejas"
+    },
+    {
+      "id": "28a",
+      "chapter": 28,
+      "q": "¿Qué vio Jacob en su sueño?",
+      "options": ["Una escalera que llegaba al cielo", "Siete vacas", "Una zarza ardiendo", "Once estrellas"],
+      "verse": "GEN.28.12",
+      "check": "escala"
+    },
+    {
+      "id": "32a",
+      "chapter": 32,
+      "q": "¿Qué nombre nuevo recibió Jacob?",
+      "options": ["Israel", "Abraham", "Judá", "Benjamín"],
+      "verse": "GEN.32.28",
+      "check": "Israel"
+    },
+    {
+      "id": "37a",
+      "chapter": 37,
+      "q": "¿Qué le hizo Jacob a José que dio envidia a sus hermanos?",
+      "options": ["Una ropa de colores", "Un anillo de oro", "Un arco nuevo", "Un camello"],
+      "verse": "GEN.37.3",
+      "check": "colores"
+    },
+    {
+      "id": "37b",
+      "chapter": 37,
+      "q": "¿Por cuánto vendieron a José sus hermanos?",
+      "options": ["Veinte piezas de plata", "Treinta piezas de plata", "Diez piezas de oro", "Un camello"],
+      "verse": "GEN.37.28",
+      "check": "veinte"
+    },
+    {
+      "id": "41a",
+      "chapter": 41,
+      "q": "¿Qué significaban las siete vacas gordas del sueño del faraón?",
+      "options": ["Siete años de abundancia", "Siete reyes", "Siete plagas", "Siete días de fiesta"],
+      "verse": "GEN.41.26",
+      "check": "siete años"
+    },
+    {
+      "id": "45a",
+      "chapter": 45,
+      "reflect": "José perdonó a quienes le hicieron mucho daño. ¿Hay alguien a quien te cueste perdonar?"
+    },
+    {
+      "id": "50a",
+      "chapter": 50,
+      "q": "¿Qué dijo José a sus hermanos sobre el mal que le hicieron?",
+      "options": [
+        "Que Dios lo encaminó a bien",
+        "Que nunca los perdonaría",
+        "Que ya lo había olvidado",
+        "Que el faraón los castigaría"
+      ],
+      "verse": "GEN.50.20",
+      "check": "bien"
+    }
+  ]
+}

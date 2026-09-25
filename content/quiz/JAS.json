@@ -1,0 +1,77 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "JAS",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Qué debe hacer el que tiene falta de sabiduría?",
+      "options": ["Pedirla a Dios", "Leer más libros", "Callar", "Preguntar a los ancianos"],
+      "verse": "JAS.1.5",
+      "check": "demándela"
+    },
+    {
+      "id": "1b",
+      "chapter": 1,
+      "q": "¿Cómo debe ser todo hombre, según Santiago?",
+      "options": [
+        "Pronto para oír, tardío para hablar",
+        "Pronto para hablar",
+        "Tardío para oír",
+        "Rápido para enojarse"
+      ],
+      "verse": "JAS.1.19",
+      "check": "oír"
+    },
+    {
+      "id": "1c",
+      "chapter": 1,
+      "q": "¿A qué se parece el que oye la palabra pero no la hace?",
+      "options": [
+        "A quien se mira al espejo y se olvida de cómo es",
+        "A un sabio",
+        "A un árbol firme",
+        "A un buen maestro"
+      ],
+      "verse": "JAS.1.23",
+      "check": "espejo"
+    },
+    {
+      "id": "1d",
+      "chapter": 1,
+      "reflect": "¿Qué enseñanza has escuchado muchas veces y todavía te cuesta poner en práctica?"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Cómo es la fe sin obras?",
+      "options": ["Muerta", "Fuerte", "Suficiente", "Secreta"],
+      "verse": "JAS.2.17",
+      "check": "muerta"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Qué parte pequeña del cuerpo compara Santiago con un fuego?",
+      "options": ["La lengua", "La mano", "El ojo", "El pie"],
+      "verse": "JAS.3.6",
+      "check": "lengua"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Qué pasa si nos acercamos a Dios?",
+      "options": ["Él se acercará a nosotros", "Nos castigará", "Nos olvidará", "Nada cambia"],
+      "verse": "JAS.4.8",
+      "check": "Allegaos"
+    },
+    {
+      "id": "5a",
+      "chapter": 5,
+      "q": "¿Qué dice Santiago que haga el que está afligido?",
+      "options": ["Que haga oración", "Que se aísle", "Que se queje", "Que espere en silencio"],
+      "verse": "JAS.5.13",
+      "check": "oración"
+    }
+  ]
+}

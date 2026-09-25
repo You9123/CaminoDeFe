@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import booksMeta from "../../content/books_meta.json";
 import summaries from "../../content/book_summaries.json";
@@ -7,7 +8,11 @@ import { getBookChapterWords, type Book } from "../data/bibleRepo";
 import { getReadChapters } from "../data/progressRepo";
 import { useAsync } from "../hooks/useAsync";
 import { Modal } from "./Modal";
-import { BookIcon } from "./icons";
+import { BookIcon, LampIcon } from "./icons";
+import { QuizModal } from "./QuizModal";
+import { quizFor } from "../content/quiz";
+import { buildBookQuiz } from "../data/bookQuiz";
+import type { QuizItem } from "../domain/quiz";
 
 const SUMMARIES: Record<string, string> = summaries.summaries;
 
@@ -29,6 +34,9 @@ export function BookSheet({ book, read, onClose }: { book: Book; read: number; o
   const pct = (read / book.chapters) * 100;
 
   const go = (chapter: number) => navigate(`/biblia/${book.code}/${chapter}`);
+  const [quiz, setQuiz] = useState<QuizItem[] | null>(null);
+  const hasQuiz = quizFor(book.code).length > 0;
+  if (quiz) return <QuizModal items={quiz} title={`Quiz de ${book.name}`} onClose={onClose} />;
 
   return (
     <Modal onClose={onClose} label={book.name}>
@@ -74,9 +82,20 @@ export function BookSheet({ book, read, onClose }: { book: Book; read: number; o
       )}
 
       <div className="mt-6 flex justify-end gap-3">
-        <button onClick={onClose} className="rounded-xl px-4 py-2.5 text-muted hover:bg-surface-2 hover:text-ink">
-          Cerrar
-        </button>
+        {hasQuiz ? (
+          <button
+            onClick={() => void buildBookQuiz(book.code).then(setQuiz)}
+            className="mr-auto inline-flex items-center gap-2 rounded-xl border border-accent px-4 py-2.5 font-semibold text-accent hover:bg-accent-soft"
+            title={read > 0 ? "Preguntas de los capítulos que ya leíste" : "Preguntas de todo el libro"}
+          >
+            <LampIcon size={18} duo={false} />
+            Quiz del libro
+          </button>
+        ) : (
+          <button onClick={onClose} className="rounded-xl px-4 py-2.5 text-muted hover:bg-surface-2 hover:text-ink">
+            Cerrar
+          </button>
+        )}
         <button
           onClick={() => go(firstUnread)}
           className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 font-semibold text-accent-ink"

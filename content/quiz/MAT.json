@@ -1,0 +1,130 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "MAT",
+  "questions": [
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Qué siguieron los magos para encontrar al niño?",
+      "options": ["Una estrella", "Un ángel", "Una nube", "Un pastor"],
+      "verse": "MAT.2.2",
+      "check": "estrella"
+    },
+    {
+      "id": "2b",
+      "chapter": 2,
+      "q": "¿Qué regalos le ofrecieron los magos?",
+      "options": ["Oro, incienso y mirra", "Pan, vino y aceite", "Plata y joyas", "Ovejas y corderos"],
+      "verse": "MAT.2.11",
+      "check": "incienso"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Cuántos días ayunó Jesús en el desierto?",
+      "options": ["Cuarenta", "Siete", "Tres", "Doce"],
+      "verse": "MAT.4.2",
+      "check": "cuarenta"
+    },
+    {
+      "id": "4b",
+      "chapter": 4,
+      "q": "¿A qué hermanos pescadores llamó Jesús primero?",
+      "options": ["Pedro y Andrés", "Juan y Mateo", "Felipe y Tomás", "Judas y Simón"],
+      "verse": "MAT.4.18",
+      "check": "Andrés"
+    },
+    {
+      "id": "5a",
+      "chapter": 5,
+      "q": "¿Cómo llama Jesús a sus discípulos en el Sermón del monte?",
+      "options": [
+        "La sal de la tierra y la luz del mundo",
+        "Los reyes del mundo",
+        "Los jueces de Israel",
+        "Los sabios del templo"
+      ],
+      "verse": "MAT.5.13",
+      "check": "sal"
+    },
+    {
+      "id": "5b",
+      "chapter": 5,
+      "q": "¿Qué dice Jesús que hagamos con nuestros enemigos?",
+      "options": ["Amarlos", "Evitarlos", "Vencerlos", "Olvidarlos"],
+      "verse": "MAT.5.44",
+      "check": "Amad"
+    },
+    {
+      "id": "5c",
+      "chapter": 5,
+      "reflect": "De las bienaventuranzas, ¿cuál te habla más hoy y por qué?"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿Con qué palabras empieza la oración que Jesús enseñó?",
+      "options": [
+        "Padre nuestro que estás en los cielos",
+        "Señor, ten piedad",
+        "Dios de Abraham",
+        "Santo, santo, santo"
+      ],
+      "verse": "MAT.6.9",
+      "check": "Padre nuestro"
+    },
+    {
+      "id": "6b",
+      "chapter": 6,
+      "q": "¿Qué dice Jesús que busquemos primero?",
+      "options": ["El reino de Dios y su justicia", "Las riquezas", "La salud", "La aprobación de los demás"],
+      "verse": "MAT.6.33",
+      "check": "reino"
+    },
+    {
+      "id": "7a",
+      "chapter": 7,
+      "q": "¿Sobre qué edificó su casa el hombre prudente?",
+      "options": ["Sobre la peña", "Sobre la arena", "Junto al río", "En el monte"],
+      "verse": "MAT.7.24",
+      "check": "peña"
+    },
+    {
+      "id": "14a",
+      "chapter": 14,
+      "q": "¿Qué le pasó a Pedro cuando caminaba sobre el agua y tuvo miedo?",
+      "options": ["Comenzó a hundirse", "Salió volando", "Volvió a la barca solo", "Se desmayó"],
+      "verse": "MAT.14.30",
+      "check": "hundir"
+    },
+    {
+      "id": "16a",
+      "chapter": 16,
+      "q": "¿Qué respondió Pedro cuando Jesús preguntó quién era él?",
+      "options": [
+        "Tú eres el Cristo, el Hijo del Dios viviente",
+        "Eres un profeta",
+        "Eres Juan el Bautista",
+        "Eres Elías"
+      ],
+      "verse": "MAT.16.16",
+      "check": "Cristo"
+    },
+    {
+      "id": "22a",
+      "chapter": 22,
+      "q": "¿Cuál es el primero y grande mandamiento, según Jesús?",
+      "options": ["Amar a Dios con todo el corazón", "No matar", "Guardar el sábado", "Dar el diezmo"],
+      "verse": "MAT.22.37",
+      "check": "corazón"
+    },
+    {
+      "id": "28a",
+      "chapter": 28,
+      "q": "¿Qué mandó Jesús a sus discípulos antes de irse?",
+      "options": ["Enseñar a todas las naciones", "Quedarse en Galilea", "Construir un templo", "Esperar en silencio"],
+      "verse": "MAT.28.19",
+      "check": "Gentiles"
+    }
+  ]
+}

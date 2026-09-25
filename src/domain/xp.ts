@@ -11,7 +11,8 @@ export type ActivityType =
   | "prayer"
   | "application"
   | "daily_missions_bonus"
-  | "surprise_mission";
+  | "surprise_mission"
+  | "quiz";
 
 type Rule = { xp: number; dailyCap: number | null };
 
@@ -27,6 +28,8 @@ export const XP_RULES: Record<ActivityType, Rule> = {
   daily_missions_bonus: { xp: 60, dailyCap: 1 },
   /** Misión sorpresa del día (V2). */
   surprise_mission: { xp: 20, dailyCap: 1 },
+  /** Respuesta correcta en el quiz (V3). Solo la primera vez que aciertas cada pregunta. */
+  quiz: { xp: 5, dailyCap: 20 },
 };
 
 /**

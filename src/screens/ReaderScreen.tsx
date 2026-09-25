@@ -20,6 +20,7 @@ import { CollectibleSheet, RelatedChip } from "../components/CollectibleSheet";
 import { getReadChapterMap } from "../data/collectiblesRepo";
 import { toast } from "../stores/toastStore";
 import { PostReadingFlow } from "../components/PostReadingFlow";
+import { ChapterQuizCard } from "../components/ChapterQuizCard";
 import { BookmarkIcon, CheckIcon, CopyIcon, HourglassIcon, QuillIcon, SpeakerIcon } from "../components/icons";
 import { speech, speechSupported, useSpeechState } from "../hooks/useSpeech";
 import { SPEECH_RATES } from "../domain/speech";
@@ -321,6 +322,12 @@ function ChapterReader({
         })}
       </article>
 
+      <ChapterQuizCard
+        book={chapter.book.code}
+        bookName={chapter.book.name}
+        chapter={chapter.chapter}
+        enabled={alreadyRead || result !== null}
+      />
       <ChapterCollectibles chapterRef={chapterRef(chapter.book.code, chapter.chapter)} />
 
       <div className="mt-14 flex justify-between gap-4 text-sm">

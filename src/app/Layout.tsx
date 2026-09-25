@@ -2,6 +2,7 @@ import { NavLink, Outlet, useLocation } from "react-router";
 import { useEffect, useRef, type ComponentType } from "react";
 import { XpBar } from "../components/XpBar";
 import { Toaster } from "../components/Toaster";
+import { ChallengeCelebration } from "../components/ChallengeCelebration";
 import {
   BookIcon,
   ChartIcon,
@@ -133,6 +134,7 @@ export function Layout() {
         <Outlet />
       </main>
       <Toaster />
+      <ChallengeCelebration />
     </div>
   );
 }

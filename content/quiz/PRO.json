@@ -1,0 +1,75 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "PRO",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Cuál es el principio de la sabiduría?",
+      "options": ["El temor de Jehová", "La riqueza", "La edad", "Los libros"],
+      "verse": "PRO.1.7",
+      "check": "principio"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿En qué no debemos apoyarnos, según Proverbios 3?",
+      "options": ["En nuestra propia prudencia", "En Dios", "En la Ley", "En los consejos sabios"],
+      "verse": "PRO.3.5",
+      "check": "prudencia"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Qué debemos guardar sobre toda cosa guardada?",
+      "options": ["El corazón", "El dinero", "La casa", "El nombre"],
+      "verse": "PRO.4.23",
+      "check": "corazón"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿A qué animal manda mirar al perezoso?",
+      "options": ["La hormiga", "La abeja", "El león", "La paloma"],
+      "verse": "PRO.6.6",
+      "check": "hormiga"
+    },
+    {
+      "id": "15a",
+      "chapter": 15,
+      "q": "¿Qué hace la blanda respuesta?",
+      "options": ["Quita la ira", "Aumenta el enojo", "Esconde la verdad", "Da miedo"],
+      "verse": "PRO.15.1",
+      "check": "ira"
+    },
+    {
+      "id": "15b",
+      "chapter": 15,
+      "reflect": "¿En qué conversación de esta semana podrías usar una respuesta blanda?"
+    },
+    {
+      "id": "16a",
+      "chapter": 16,
+      "q": "¿Qué va antes del quebrantamiento?",
+      "options": ["La soberbia", "La pobreza", "La tristeza", "La juventud"],
+      "verse": "PRO.16.18",
+      "check": "soberbia"
+    },
+    {
+      "id": "22a",
+      "chapter": 22,
+      "q": "¿Qué es de más estima que las muchas riquezas?",
+      "options": ["La buena fama", "El oro fino", "La fuerza", "La belleza"],
+      "verse": "PRO.22.1",
+      "check": "fama"
+    },
+    {
+      "id": "31a",
+      "chapter": 31,
+      "q": "¿Cuánto vale la mujer virtuosa?",
+      "options": ["Mucho más que las piedras preciosas", "Lo mismo que la plata", "Lo que una casa", "Lo que un campo"],
+      "verse": "PRO.31.10",
+      "check": "piedras"
+    }
+  ]
+}

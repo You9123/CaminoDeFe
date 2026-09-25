@@ -1,0 +1,122 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "PSA",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿A qué se parece el que medita en la ley de Jehová?",
+      "options": [
+        "A un árbol plantado junto a arroyos",
+        "A una casa sobre la arena",
+        "A una estrella",
+        "A un río caudaloso"
+      ],
+      "verse": "PSA.1.3",
+      "check": "árbol"
+    },
+    {
+      "id": "8a",
+      "chapter": 8,
+      "q": "¿Qué se pregunta el salmista al mirar los cielos?",
+      "options": [
+        "¿Qué es el hombre para que de él te acuerdes?",
+        "¿Quién hizo las estrellas?",
+        "¿Cuándo vendrá el Mesías?",
+        "¿Por qué sufre el justo?"
+      ],
+      "verse": "PSA.8.4",
+      "check": "hombre"
+    },
+    {
+      "id": "19a",
+      "chapter": 19,
+      "q": "¿Qué cuentan los cielos, según el Salmo 19?",
+      "options": ["La gloria de Dios", "El paso del tiempo", "Los secretos del futuro", "La historia de Israel"],
+      "verse": "PSA.19.1",
+      "check": "gloria"
+    },
+    {
+      "id": "23a",
+      "chapter": 23,
+      "q": "¿Con qué palabras empieza el Salmo 23?",
+      "options": [
+        "Jehová es mi pastor; nada me faltará",
+        "Alabad a Jehová",
+        "Dios es nuestro amparo",
+        "Jehová es mi luz"
+      ],
+      "verse": "PSA.23.1",
+      "check": "pastor"
+    },
+    {
+      "id": "23b",
+      "chapter": 23,
+      "q": "¿Qué no temerá el salmista aunque ande en valle de sombra de muerte?",
+      "options": ["Mal alguno", "A sus enemigos", "La noche", "La soledad"],
+      "verse": "PSA.23.4",
+      "check": "mal"
+    },
+    {
+      "id": "23c",
+      "chapter": 23,
+      "reflect": "Si Dios es tu pastor, ¿en qué parte de tu vida necesitas dejarte guiar?"
+    },
+    {
+      "id": "46a",
+      "chapter": 46,
+      "q": "¿Qué dice el Salmo 46 que es Dios para nosotros?",
+      "options": ["Nuestro amparo y fortaleza", "Un juez lejano", "Un rey extranjero", "Un misterio"],
+      "verse": "PSA.46.1",
+      "check": "amparo"
+    },
+    {
+      "id": "51a",
+      "chapter": 51,
+      "q": "¿Qué le pide David a Dios en el Salmo 51?",
+      "options": ["Un corazón limpio", "Riquezas", "Una victoria", "Un hijo"],
+      "verse": "PSA.51.10",
+      "check": "limpio"
+    },
+    {
+      "id": "91a",
+      "chapter": 91,
+      "q": "¿Bajo la sombra de quién mora el que habita al abrigo del Altísimo?",
+      "options": ["Del Omnipotente", "De un gran árbol", "De los ángeles", "Del templo"],
+      "verse": "PSA.91.1",
+      "check": "Omnipotente"
+    },
+    {
+      "id": "103a",
+      "chapter": 103,
+      "q": "¿Qué le dice el salmista a su alma?",
+      "options": ["Bendice, alma mía, a Jehová", "Descansa, alma mía", "Llora, alma mía", "Espera en el rey"],
+      "verse": "PSA.103.1",
+      "check": "Bendice"
+    },
+    {
+      "id": "119a",
+      "chapter": 119,
+      "q": "¿Qué es la palabra de Dios para el salmista?",
+      "options": ["Lámpara a sus pies", "Un peso sobre él", "Una espada", "Un misterio"],
+      "verse": "PSA.119.105",
+      "check": "Lámpara"
+    },
+    {
+      "id": "121a",
+      "chapter": 121,
+      "q": "¿De dónde viene el socorro del salmista?",
+      "options": ["De Jehová, que hizo los cielos y la tierra", "De los montes", "De su ejército", "De sus amigos"],
+      "verse": "PSA.121.2",
+      "check": "socorro"
+    },
+    {
+      "id": "139a",
+      "chapter": 139,
+      "q": "¿Adónde puede ir el salmista lejos del Espíritu de Dios?",
+      "options": ["A ninguna parte: Dios está en todo lugar", "Al mar", "Al cielo", "A la noche"],
+      "verse": "PSA.139.7",
+      "check": "espíritu"
+    }
+  ]
+}

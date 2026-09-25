@@ -1,0 +1,67 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "JOS",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Qué le repitió Dios a Josué antes de entrar a la tierra?",
+      "options": ["Esfuérzate y sé valiente", "Espera un año más", "Vuelve a Egipto", "Construye un templo"],
+      "verse": "JOS.1.9",
+      "check": "esfuerces"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Qué colgó Rahab de su ventana como señal?",
+      "options": ["Un cordón de grana", "Una bandera blanca", "Una lámpara", "Un ramo de olivo"],
+      "verse": "JOS.2.18",
+      "check": "grana"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Qué pasó con el río Jordán cuando los sacerdotes entraron con el arca?",
+      "options": ["Las aguas se detuvieron", "Se desbordó", "Se secó por un año", "Se volvió sangre"],
+      "verse": "JOS.3.16",
+      "check": "aguas"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿Cuántas veces rodearon Jericó el séptimo día?",
+      "options": ["Siete", "Una", "Tres", "Doce"],
+      "verse": "JOS.6.15",
+      "check": "siete veces"
+    },
+    {
+      "id": "6b",
+      "chapter": 6,
+      "q": "¿Qué pasó cuando el pueblo gritó?",
+      "options": ["El muro cayó", "Se abrieron las puertas", "Llovió fuego", "El rey salió a rendirse"],
+      "verse": "JOS.6.20",
+      "check": "muro"
+    },
+    {
+      "id": "10a",
+      "chapter": 10,
+      "q": "¿Qué le pidió Josué al sol en la batalla de Gabaón?",
+      "options": ["Que se detuviera", "Que se ocultara", "Que brillara más", "Que saliera antes"],
+      "verse": "JOS.10.12",
+      "check": "detente"
+    },
+    {
+      "id": "24a",
+      "chapter": 24,
+      "q": "¿Qué dijo Josué que harían él y su casa?",
+      "options": ["Servir a Jehová", "Volver a Egipto", "Construir una ciudad", "Ir al desierto"],
+      "verse": "JOS.24.15",
+      "check": "serviremos"
+    },
+    {
+      "id": "24b",
+      "chapter": 24,
+      "reflect": "Josué eligió a quién servir. ¿Qué decisión concreta te ayudaría a elegir a Dios esta semana?"
+    }
+  ]
+}

@@ -33,16 +33,22 @@ type ProgressState = {
   lastActiveDay: string | null;
   /** Cambia cada vez que hay algo que celebrar (subir de nivel, un logro, un desafío): la mascota salta. */
   celebrationKey: number;
+  /** Desafío mayor recién completado: se muestra la animación grande (ver ChallengeCelebration). */
+  bigCelebration: Challenge | null;
+  dismissCelebration: () => void;
   refresh: () => Promise<void>;
   setName: (name: string) => Promise<void>;
-  /** Recarga el progreso y muestra avisos (+XP, bono, subida de nivel, logros). */
-  celebrate: (awards: Award[]) => Promise<void>;
+  /** Recarga el progreso y muestra avisos (+XP, bono, subida de nivel, logros). `quietXp`: sin el aviso de +XP. */
+  celebrate: (awards: Award[], opts?: { quietXp?: boolean }) => Promise<void>;
   /** Revisa desafíos y logros sin una actividad nueva (al abrir la app, al entrar a Misiones...). */
   checkAchievements: () => Promise<void>;
 };
 
 function announceChallenges(list: Challenge[]) {
-  for (const c of list) toast(`Desafío completado: ${c.title} · +${c.xp} XP`, "achievement");
+  for (const c of list) {
+    if (c.tier === "mayor") useProgress.setState({ bigCelebration: c });
+    else toast(`Desafío completado: ${c.title} · +${c.xp} XP`, "achievement");
+  }
 }
 
 /**
@@ -86,6 +92,8 @@ export const useProgress = create<ProgressState>((set, get) => ({
   rewardedToday: {},
   lastActiveDay: null,
   celebrationKey: 0,
+  bigCelebration: null,
+  dismissCelebration: () => set({ bigCelebration: null }),
 
   refresh: async () => {
     const day = gameDay();
@@ -118,7 +126,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
     await get().refresh();
   },
 
-  celebrate: async (awards) => {
+  celebrate: async (awards, opts) => {
     const levelBefore = get().level.level;
     const rankBefore = get().rank.rank.id;
     const streakBefore = get().streak.current;
@@ -128,7 +136,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
 
     const main = awards.filter((a) => a.type !== "daily_missions_bonus" && a.type !== "bonus_5_chapters");
     const mainXp = main.reduce((s, a) => s + a.xp, 0);
-    if (mainXp > 0) toast(`+${mainXp} XP`, "xp");
+    if (mainXp > 0 && !opts?.quietXp) toast(`+${mainXp} XP`, "xp");
 
     if (awards.some((a) => a.type === "bonus_5_chapters")) toast("Cinco capítulos hoy · +50 XP", "bonus");
     if (awards.some((a) => a.type === "daily_missions_bonus")) toast("Misiones de hoy completas · +60 XP", "bonus");

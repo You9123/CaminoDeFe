@@ -24,6 +24,7 @@ export const CHALLENGE_ACTIVITIES = [
   "application",
   "daily_missions_bonus",
   "surprise_mission",
+  "quiz",
 ] as const;
 
 export const requirementSchema = z.discriminatedUnion("type", [
@@ -31,10 +32,18 @@ export const requirementSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("chapters_in_books"), books: z.array(code).min(1), count, label }),
   /** TODOS los capítulos de esos libros. */
   z.object({ type: z.literal("books_read"), books: z.array(code).min(1), label }),
-  /** Veces que se registró una actividad. */
-  z.object({ type: z.literal("activity_count"), activity: z.enum(CHALLENGE_ACTIVITIES), count, label }),
+  /** Veces que se registró una actividad (opcional: solo las hechas sobre esos libros). */
+  z.object({
+    type: z.literal("activity_count"),
+    activity: z.enum(CHALLENGE_ACTIVITIES),
+    count,
+    label,
+    books: z.array(code).min(1).optional(),
+  }),
   /** Días DISTINTOS con esa actividad. */
   z.object({ type: z.literal("activity_days"), activity: z.enum(CHALLENGE_ACTIVITIES), days: count, label }),
+  /** Preguntas DISTINTAS del quiz respondidas bien (opcional: de esos libros). */
+  z.object({ type: z.literal("quiz_correct"), count, label, books: z.array(code).min(1).optional() }),
 ]);
 export type Requirement = z.infer<typeof requirementSchema>;
 
@@ -46,6 +55,8 @@ export const challengeSchema = z.object({
   /** Plazo en días (el día en que se empieza es el día 1), o null si no tiene plazo. */
   days: z.number().int().positive().nullable(),
   xp: z.number().int().min(50).max(500),
+  /** "mayor": los desafíos grandes de la V3 (un libro completo con requisitos combinados). */
+  tier: z.enum(["normal", "mayor"]).default("normal"),
   requirements: z.array(requirementSchema).min(1),
 });
 export type Challenge = z.infer<typeof challengeSchema>;
@@ -100,7 +111,17 @@ function requirementProgress(
       return make(chaptersOf(r.books), Math.max(target, 1));
     }
     case "activity_count":
-      return make(events.filter((e) => e.type === r.activity).length, r.count);
+      return make(
+        events.filter((e) => e.type === r.activity && (!r.books || r.books.includes(bookOf(e.ref)))).length,
+        r.count,
+      );
+    case "quiz_correct":
+      return make(
+        new Set(
+          events.filter((e) => e.type === "quiz" && (!r.books || r.books.includes(bookOf(e.ref)))).map((e) => e.ref),
+        ).size,
+        r.count,
+      );
     case "activity_days":
       return make(new Set(events.filter((e) => e.type === r.activity).map((e) => e.day)).size, r.days);
   }
@@ -144,8 +165,14 @@ export function overallProgress(p: ChallengeProgress): number {
   return p.requirements.reduce((s, r) => s + r.current / r.target, 0) / p.requirements.length;
 }
 
-/** Cuántos desafíos se pueden tener en curso a la vez. */
+/** Cuántos desafíos se pueden tener en curso a la vez (los mayores se cuentan aparte). */
 export const MAX_ACTIVE_CHALLENGES = 3;
+export const MAX_ACTIVE_MAJOR = 2;
+
+export type ChallengeTier = "normal" | "mayor";
+
+/** Límite de desafíos en curso según el tipo. */
+export const maxActive = (tier: ChallengeTier) => (tier === "mayor" ? MAX_ACTIVE_MAJOR : MAX_ACTIVE_CHALLENGES);
 
 export type RunStatus = "active" | "completed" | "abandoned" | "expired";
 export type ChallengeRun = {

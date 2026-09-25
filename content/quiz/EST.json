@@ -1,0 +1,67 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "EST",
+  "questions": [
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Quién crió a Ester?",
+      "options": ["Su primo Mardoqueo", "Amán", "El rey Asuero", "La reina Vasti"],
+      "verse": "EST.2.7",
+      "check": "Mardoch"
+    },
+    {
+      "id": "2b",
+      "chapter": 2,
+      "q": "¿Quién fue elegida reina en lugar de Vasti?",
+      "options": ["Ester", "Rut", "Débora", "Mical"],
+      "verse": "EST.2.17",
+      "check": "Esther"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Qué quería hacer Amán con los judíos?",
+      "options": ["Destruirlos", "Hacerlos ricos", "Enviarlos a Jerusalén", "Hacerlos soldados"],
+      "verse": "EST.3.6",
+      "check": "destruir"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Qué pidió Ester a los judíos antes de presentarse al rey?",
+      "options": ["Que ayunaran por ella", "Que huyeran", "Que le enviaran oro", "Que prepararan un banquete"],
+      "verse": "EST.4.16",
+      "check": "ayunad"
+    },
+    {
+      "id": "4b",
+      "chapter": 4,
+      "reflect": "Ester arriesgó algo por otros. ¿A quién podrías ayudar aunque te cueste un poco?"
+    },
+    {
+      "id": "5a",
+      "chapter": 5,
+      "q": "¿Qué hizo el rey cuando vio a Ester en el patio?",
+      "options": ["Le extendió el cetro de oro", "La mandó a la cárcel", "La ignoró", "Llamó a Amán"],
+      "verse": "EST.5.2",
+      "check": "cetro"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿Qué le leyeron al rey la noche que no podía dormir?",
+      "options": ["El libro de las memorias", "Una carta de Amán", "Los salmos de David", "Un decreto nuevo"],
+      "verse": "EST.6.1",
+      "check": "memorias"
+    },
+    {
+      "id": "7a",
+      "chapter": 7,
+      "q": "¿Dónde colgaron a Amán?",
+      "options": ["En la horca que preparó para Mardoqueo", "En la plaza", "En el templo", "En su casa"],
+      "verse": "EST.7.10",
+      "check": "horca"
+    }
+  ]
+}

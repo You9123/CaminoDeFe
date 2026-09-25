@@ -1,0 +1,120 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "ACT",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Qué pasó cuando Jesús subió al cielo?",
+      "options": ["Una nube lo ocultó", "Llegó un carro de fuego", "Apareció una escalera", "Se vio una estrella"],
+      "verse": "ACT.1.9",
+      "check": "nube"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Cómo se vieron las lenguas en Pentecostés?",
+      "options": ["Como de fuego", "Como de agua", "Como de humo", "Como de luz de luna"],
+      "verse": "ACT.2.3",
+      "check": "fuego"
+    },
+    {
+      "id": "2b",
+      "chapter": 2,
+      "q": "¿Cuántas personas se añadieron a la iglesia ese día?",
+      "options": ["Como tres mil", "Doce", "Ciento veinte", "Cinco mil"],
+      "verse": "ACT.2.41",
+      "check": "tres mil"
+    },
+    {
+      "id": "2c",
+      "chapter": 2,
+      "reflect": "La primera iglesia compartía lo que tenía. ¿Qué podrías compartir con alguien esta semana?"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Qué le dio Pedro al cojo en la puerta del templo?",
+      "options": ["Sanidad en el nombre de Jesús", "Plata", "Oro", "Comida"],
+      "verse": "ACT.3.6",
+      "check": "nombre"
+    },
+    {
+      "id": "7a",
+      "chapter": 7,
+      "q": "¿Qué pidió Esteban mientras lo apedreaban?",
+      "options": ["Que no les tomaran en cuenta ese pecado", "Venganza", "Que llegara un ejército", "Que lo soltaran"],
+      "verse": "ACT.7.60",
+      "check": "imputes"
+    },
+    {
+      "id": "8a",
+      "chapter": 8,
+      "q": "¿Qué libro leía el eunuco etíope?",
+      "options": ["El profeta Isaías", "Los Salmos", "Génesis", "Proverbios"],
+      "verse": "ACT.8.28",
+      "check": "Isaías"
+    },
+    {
+      "id": "9a",
+      "chapter": 9,
+      "q": "¿Qué le pasó a Saulo camino a Damasco?",
+      "options": ["Lo rodeó una luz del cielo", "Lo atacaron ladrones", "Se perdió", "Se le murió el caballo"],
+      "verse": "ACT.9.3",
+      "check": "luz"
+    },
+    {
+      "id": "9b",
+      "chapter": 9,
+      "q": "¿Quién oró por Saulo para que recobrara la vista?",
+      "options": ["Ananías", "Pedro", "Bernabé", "Esteban"],
+      "verse": "ACT.9.17",
+      "check": "Ananías"
+    },
+    {
+      "id": "11a",
+      "chapter": 11,
+      "q": "¿Dónde llamaron cristianos a los discípulos por primera vez?",
+      "options": ["En Antioquía", "En Jerusalén", "En Roma", "En Damasco"],
+      "verse": "ACT.11.26",
+      "check": "Antioquía"
+    },
+    {
+      "id": "12a",
+      "chapter": 12,
+      "q": "¿Quién sacó a Pedro de la cárcel?",
+      "options": ["Un ángel", "Sus amigos", "El rey Herodes", "Un soldado"],
+      "verse": "ACT.12.7",
+      "check": "ángel"
+    },
+    {
+      "id": "16a",
+      "chapter": 16,
+      "q": "¿Qué hacían Pablo y Silas a medianoche en la cárcel?",
+      "options": ["Oraban y cantaban himnos", "Dormían", "Planeaban escapar", "Lloraban"],
+      "verse": "ACT.16.25",
+      "check": "himnos"
+    },
+    {
+      "id": "16b",
+      "chapter": 16,
+      "q": "¿Qué le preguntó el carcelero de Filipos a Pablo y Silas?",
+      "options": [
+        "¿Qué debo hacer para ser salvo?",
+        "¿Quiénes son ustedes?",
+        "¿Por qué no huyeron?",
+        "¿Dónde está su Dios?"
+      ],
+      "verse": "ACT.16.30",
+      "check": "salvo"
+    },
+    {
+      "id": "27a",
+      "chapter": 27,
+      "q": "¿Qué le pasó al barco en que Pablo iba a Roma?",
+      "options": ["Encalló y se deshizo", "Llegó sin problemas", "Volvió a Jerusalén", "Lo atacaron piratas"],
+      "verse": "ACT.27.41",
+      "check": "nave"
+    }
+  ]
+}

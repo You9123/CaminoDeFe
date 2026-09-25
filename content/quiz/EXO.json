@@ -1,0 +1,133 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "EXO",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Qué ordenó el faraón hacer con los niños varones hebreos?",
+      "options": ["Echarlos al río", "Enviarlos al desierto", "Hacerlos soldados", "Llevarlos al palacio"],
+      "verse": "EXO.1.22",
+      "check": "río"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Dónde puso la madre de Moisés al bebé?",
+      "options": ["En una arquilla de juncos en el río", "En un pozo", "En una cueva", "En el templo"],
+      "verse": "EXO.2.3",
+      "check": "arquilla"
+    },
+    {
+      "id": "2b",
+      "chapter": 2,
+      "q": "¿Quién encontró a Moisés en el río?",
+      "options": ["La hija del faraón", "Su hermana María", "Una pastora", "La reina"],
+      "verse": "EXO.2.5",
+      "check": "hija"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Desde dónde le habló Dios a Moisés?",
+      "options": ["Desde una zarza que ardía", "Desde una nube", "Desde el mar", "Desde un pozo"],
+      "verse": "EXO.3.4",
+      "check": "zarza"
+    },
+    {
+      "id": "3b",
+      "chapter": 3,
+      "q": "¿Qué nombre se dio Dios a sí mismo ante Moisés?",
+      "options": ["YO SOY EL QUE SOY", "El Dios del cielo", "El Señor de los ejércitos", "El Altísimo"],
+      "verse": "EXO.3.14",
+      "check": "YO SOY"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Quién iba a hablar por Moisés?",
+      "options": ["Su hermano Aarón", "Josué", "Jetro", "Su hermana María"],
+      "verse": "EXO.4.14",
+      "check": "Aarón"
+    },
+    {
+      "id": "7a",
+      "chapter": 7,
+      "q": "¿En qué se convirtió el agua del río en la primera plaga?",
+      "options": ["En sangre", "En hielo", "En arena", "En leche"],
+      "verse": "EXO.7.20",
+      "check": "sangre"
+    },
+    {
+      "id": "12a",
+      "chapter": 12,
+      "q": "¿Con qué marcaron los israelitas sus puertas la noche de la Pascua?",
+      "options": ["Con la sangre del cordero", "Con aceite", "Con ceniza", "Con una cinta roja"],
+      "verse": "EXO.12.7",
+      "check": "sangre"
+    },
+    {
+      "id": "13a",
+      "chapter": 13,
+      "q": "¿Cómo guiaba Dios al pueblo de día y de noche?",
+      "options": [
+        "Con una columna de nube y una de fuego",
+        "Con una estrella",
+        "Con un ángel visible",
+        "Con un mapa de Moisés"
+      ],
+      "verse": "EXO.13.21",
+      "check": "columna"
+    },
+    {
+      "id": "14a",
+      "chapter": 14,
+      "q": "¿Qué extendió Moisés sobre el mar para que se abriera?",
+      "options": ["Su mano", "Su manto", "Una red", "Las tablas de la Ley"],
+      "verse": "EXO.14.21",
+      "check": "mano"
+    },
+    {
+      "id": "16a",
+      "chapter": 16,
+      "q": "¿Cómo se llamó el pan que Dios envió del cielo?",
+      "options": ["Maná", "Pan ázimo", "Codorniz", "Miel"],
+      "verse": "EXO.16.31",
+      "check": "Maná"
+    },
+    {
+      "id": "17a",
+      "chapter": 17,
+      "q": "¿Qué hizo Moisés para que saliera agua en el desierto?",
+      "options": ["Golpeó la peña", "Cavó un pozo", "Oró toda la noche", "Rompió un cántaro"],
+      "verse": "EXO.17.6",
+      "check": "peña"
+    },
+    {
+      "id": "20a",
+      "chapter": 20,
+      "q": "¿Cuál es el primer mandamiento?",
+      "options": [
+        "No tendrás dioses ajenos delante de mí",
+        "Honra a tu padre y a tu madre",
+        "No matarás",
+        "Acuérdate del sábado"
+      ],
+      "verse": "EXO.20.3",
+      "check": "dioses"
+    },
+    {
+      "id": "20b",
+      "chapter": 20,
+      "reflect": "De los diez mandamientos, ¿cuál sientes que Dios te está pidiendo cuidar más hoy?"
+    },
+    {
+      "id": "32a",
+      "chapter": 32,
+      "q": "¿Qué hizo el pueblo mientras Moisés estaba en el monte?",
+      "options": ["Un becerro de oro", "Una torre", "Un templo de piedra", "Un arca nueva"],
+      "verse": "EXO.32.4",
+      "check": "becerro"
+    }
+  ]
+}

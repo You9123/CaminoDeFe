@@ -1,0 +1,56 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "JOB",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Cómo describe la Biblia a Job?",
+      "options": ["Perfecto y recto, temeroso de Dios", "Rico y orgulloso", "Un rey poderoso", "Un profeta de Israel"],
+      "verse": "JOB.1.1",
+      "check": "recto"
+    },
+    {
+      "id": "1b",
+      "chapter": 1,
+      "q": "¿Qué dijo Job cuando lo perdió todo?",
+      "options": [
+        "Jehová dio, y Jehová quitó: sea el nombre de Jehová bendito",
+        "Esto es injusto",
+        "Voy a vengarme",
+        "Nunca más oraré"
+      ],
+      "verse": "JOB.1.21",
+      "check": "bendito"
+    },
+    {
+      "id": "1c",
+      "chapter": 1,
+      "reflect": "Job hizo preguntas difíciles sin soltar a Dios. ¿Qué pregunta le harías tú hoy?"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Cuántos amigos vinieron a consolar a Job?",
+      "options": ["Tres", "Uno", "Siete", "Doce"],
+      "verse": "JOB.2.11",
+      "check": "tres"
+    },
+    {
+      "id": "38a",
+      "chapter": 38,
+      "q": "¿Desde dónde le respondió Jehová a Job?",
+      "options": ["Desde un torbellino", "Desde una zarza", "Desde el templo", "Desde una nube de fuego"],
+      "verse": "JOB.38.1",
+      "check": "torbellino"
+    },
+    {
+      "id": "42a",
+      "chapter": 42,
+      "q": "¿Cómo terminó la historia de Job?",
+      "options": ["Dios lo bendijo más que al principio", "Murió solo", "Perdió aún más", "Se fue a otra tierra"],
+      "verse": "JOB.42.12",
+      "check": "bendijo"
+    }
+  ]
+}

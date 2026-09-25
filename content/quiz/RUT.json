@@ -1,0 +1,77 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "RUT",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Qué respondió Rut cuando Noemí le pidió que volviera a su pueblo?",
+      "options": [
+        "Tu pueblo será mi pueblo, y tu Dios mi Dios",
+        "Volveré a Moab mañana",
+        "Iré con Orfa",
+        "Me quedaré con mi familia"
+      ],
+      "verse": "RUT.1.16",
+      "check": "tu Dios mi Dios"
+    },
+    {
+      "id": "1b",
+      "chapter": 1,
+      "q": "¿Cómo pidió Noemí que la llamaran por su dolor?",
+      "options": ["Mara", "Rut", "Orfa", "Ana"],
+      "verse": "RUT.1.20",
+      "check": "Mara"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Qué hacía Rut en el campo de Booz?",
+      "options": ["Recogía espigas detrás de los segadores", "Cuidaba ovejas", "Vendía pan", "Sacaba agua del pozo"],
+      "verse": "RUT.2.3",
+      "check": "espig"
+    },
+    {
+      "id": "2b",
+      "chapter": 2,
+      "q": "¿De qué familia era Booz?",
+      "options": [
+        "De la familia de Elimelec, el esposo de Noemí",
+        "De la familia del rey",
+        "Era moabita",
+        "Era sacerdote"
+      ],
+      "verse": "RUT.2.1",
+      "check": "Elimelech"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Dónde se acostó Rut aquella noche en la era?",
+      "options": ["A los pies de Booz", "En la casa de Noemí", "En el campo", "Junto al pozo"],
+      "verse": "RUT.3.7",
+      "check": "pies"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Qué entregó el pariente como señal de que renunciaba a su derecho?",
+      "options": ["Su zapato", "Su anillo", "Su manto", "Su bastón"],
+      "verse": "RUT.4.8",
+      "check": "zapato"
+    },
+    {
+      "id": "4b",
+      "chapter": 4,
+      "q": "¿Cómo se llamó el hijo de Rut y Booz?",
+      "options": ["Obed", "Isaí", "David", "Samuel"],
+      "verse": "RUT.4.17",
+      "check": "Obed"
+    },
+    {
+      "id": "4c",
+      "chapter": 4,
+      "reflect": "Rut fue leal cuando era difícil. ¿Con quién puedes ser leal esta semana?"
+    }
+  ]
+}

@@ -17,6 +17,10 @@
       "title": "Desafíos y sorpresas"
     },
     {
+      "id": "mayores",
+      "title": "Desafíos mayores"
+    },
+    {
       "id": "camino",
       "title": "El camino"
     }
@@ -464,6 +468,92 @@
       "rule": {
         "type": "level_reached",
         "level": 50
+      },
+      "xp": 0
+    },
+    {
+      "id": "quiz_10",
+      "group": "desafios",
+      "title": "Buena memoria",
+      "description": "Responde bien 10 preguntas del quiz.",
+      "icon": "check",
+      "rule": {
+        "type": "activity_count",
+        "activity": "quiz",
+        "count": 10
+      },
+      "xp": 20
+    },
+    {
+      "id": "quiz_100",
+      "group": "desafios",
+      "title": "Conocedor de la Palabra",
+      "description": "Responde bien 100 preguntas del quiz.",
+      "icon": "lamp",
+      "rule": {
+        "type": "activity_count",
+        "activity": "quiz",
+        "count": 100
+      },
+      "xp": 100
+    },
+    {
+      "id": "insignia_mayor_jonas",
+      "group": "mayores",
+      "title": "Jonás, de principio a fin",
+      "description": "Completa el desafío mayor «Jonás, de principio a fin».",
+      "icon": "compass",
+      "rule": {
+        "type": "challenge_completed",
+        "challenge": "mayor_jonas"
+      },
+      "xp": 0
+    },
+    {
+      "id": "insignia_mayor_daniel",
+      "group": "mayores",
+      "title": "Fiel en Babilonia",
+      "description": "Completa el desafío mayor «Fiel en Babilonia».",
+      "icon": "candle",
+      "rule": {
+        "type": "challenge_completed",
+        "challenge": "mayor_daniel"
+      },
+      "xp": 0
+    },
+    {
+      "id": "insignia_mayor_juan",
+      "group": "mayores",
+      "title": "El Evangelio de Juan",
+      "description": "Completa el desafío mayor «El Evangelio de Juan».",
+      "icon": "dove",
+      "rule": {
+        "type": "challenge_completed",
+        "challenge": "mayor_juan"
+      },
+      "xp": 0
+    },
+    {
+      "id": "insignia_mayor_hechos",
+      "group": "mayores",
+      "title": "La Iglesia en marcha",
+      "description": "Completa el desafío mayor «La Iglesia en marcha».",
+      "icon": "flame",
+      "rule": {
+        "type": "challenge_completed",
+        "challenge": "mayor_hechos"
+      },
+      "xp": 0
+    },
+    {
+      "id": "insignia_mayor_genesis",
+      "group": "mayores",
+      "title": "Los comienzos",
+      "description": "Completa el desafío mayor «Los comienzos».",
+      "icon": "sunrise",
+      "rule": {
+        "type": "challenge_completed",
+        "challenge": "mayor_genesis"
       },
       "xp": 0
     }

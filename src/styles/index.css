@@ -412,3 +412,65 @@ mark {
     transform: scale(1.08) translate(-1%, -0.5%);
   }
 }
+
+/* "Desafío completado" (desafíos mayores): rayos que giran, el medallón que aparece y chispas. */
+.celebrate-card {
+  animation: celebrate-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+.celebrate-rays {
+  animation: celebrate-spin 18s linear infinite;
+}
+.celebrate-medal {
+  animation: celebrate-pop 0.7s 0.15s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+.celebrate-spark {
+  transform: translate(-50%, -50%);
+  animation: celebrate-twinkle 1.8s ease-in-out infinite;
+}
+@keyframes celebrate-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes celebrate-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes celebrate-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3) rotate(-20deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes celebrate-twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .celebrate-card,
+  .celebrate-rays,
+  .celebrate-medal,
+  .celebrate-spark {
+    animation: none !important;
+  }
+  .celebrate-spark {
+    opacity: 0.8;
+  }
+}

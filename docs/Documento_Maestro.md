@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 2.1 · 24/09/2026
+> **Versión del documento:** 2.2 · 24/09/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -109,17 +109,17 @@ Después de leer, se muestran tres pasos. Todos son **opcionales** y se pueden s
 
 **Tabla de XP**
 
-| Actividad                            |        XP | Límite diario de XP      |
-| ------------------------------------ | --------: | ------------------------ |
-| Leer el versículo del día            |        10 | 1 vez                    |
-| Leer un capítulo                     |        20 | sin límite (ver la nota) |
-| Bono: 5 capítulos en un día          |        50 | 1 vez                    |
-| Escribir una reflexión               |        15 | 3 veces                  |
-| Momento de oración                   |        10 | 2 veces                  |
-| Marcar una aplicación práctica       |        10 | 2 veces                  |
-| Completar todas las misiones diarias | 60 (bono) | 1 vez                    |
-| Respuesta correcta en el quiz [V3]   |         5 | 20 veces                 |
-| Desafío completado [V2]              |   100–500 | —                        |
+| Actividad                            |        XP | Límite diario de XP                                       |
+| ------------------------------------ | --------: | --------------------------------------------------------- |
+| Leer el versículo del día            |        10 | 1 vez                                                     |
+| Leer un capítulo                     |        20 | sin límite (ver la nota)                                  |
+| Bono: 5 capítulos en un día          |        50 | 1 vez                                                     |
+| Escribir una reflexión               |        15 | 3 veces                                                   |
+| Momento de oración                   |        10 | 2 veces                                                   |
+| Marcar una aplicación práctica       |        10 | 2 veces                                                   |
+| Completar todas las misiones diarias | 60 (bono) | 1 vez                                                     |
+| Respuesta correcta en el quiz [V3]   |         5 | 20 veces (solo la primera vez que aciertas cada pregunta) |
+| Desafío completado [V2]              |   100–500 | —                                                         |
 
 > **Nota:** leer capítulos no tiene límite porque leer más siempre es bueno. Para que el botón no se use sin leer, un capítulo solo cuenta como leído si estuvo abierto un tiempo mínimo (≈ 40 % del tiempo estimado de lectura).
 > Los límites diarios en oración, reflexión y aplicación evitan que se gane XP solo por hacer clic repetidamente.
@@ -244,7 +244,7 @@ Son "misiones secundarias" de varios días. Se definen en `content/challenges.js
 - ✝️ **Conocer a Jesús**: lee los 4 Evangelios → insignia _Conocedor de los Evangelios_.
 - 🧠 **Semana reflexiva**: escribe 7 reflexiones en 7 días.
 
-**Desafíos mayores** [V3], la versión adaptada de los "jefes finales": completar un libro o una zona con requisitos combinados. Por ejemplo, para el **Evangelio de Juan**: leer Juan 1–21, escribir 5 reflexiones, completar 3 oraciones, marcar 3 aplicaciones y responder 10 preguntas → +500 XP, una insignia y una animación de "Desafío completado".
+**Desafíos mayores** [V3], la versión adaptada de los "jefes finales": completar un libro o una zona con requisitos combinados. Por ejemplo, para el **Evangelio de Juan**: leer Juan 1–21, escribir 5 reflexiones, completar 3 oraciones, marcar 3 aplicaciones y responder 10 preguntas → +500 XP, una insignia y una animación de "Desafío completado". **Hecho en el Sprint 3B** (ADR-0009): Jonás, Daniel, Juan, Hechos y Génesis; sin plazo y hasta 2 a la vez.
 
 ### 2.15 Logros / insignias [V2]
 
@@ -271,6 +271,7 @@ Una línea horizontal interactiva: Creación → Diluvio → Abraham → Isaac �
 - Preguntas de opción múltiple por capítulo o por libro (`content/quiz/*.json`).
 - Aparece de forma opcional después de leer.
 - También hay preguntas reflexivas sin respuesta correcta, que se guardan en el diario.
+- **Hecho en el Sprint 3B** (ADR-0009): 20 libros clave y 230 preguntas. Cada pregunta dice en qué versículo está la respuesta (la app lo muestra al responder). Solo la primera respuesta correcta de cada pregunta da XP. Equivocarse no resta ni queda registrado. También hay un "Quiz del libro" en el mapa.
 
 ### 2.19 Coleccionables [V3]
 
@@ -605,12 +606,12 @@ Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, 
 
 ### 🟠 V3 — Experiencia bíblica · en curso
 
-Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v2.1.0 · **3B Quiz y desafíos mayores** · **3C Privacidad y actualizaciones** (PIN del diario, actualizaciones automáticas) · **3D Voces Piper** (opcional).
+Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v2.1.0 · **3B Quiz y desafíos mayores** ✅ v2.2.0 · **3C Privacidad y actualizaciones** (PIN del diario, actualizaciones automáticas) · **3D Voces Piper** (opcional).
 
 - [x] Línea temporal interactiva (Sprint 3A)
-- [ ] Quiz por libro (Sprint 3B)
+- [x] Quiz por libro (Sprint 3B)
 - [x] Coleccionables: personajes, lugares, eventos (Sprint 3A)
-- [ ] Desafíos mayores (los "jefes finales") (Sprint 3B)
+- [x] Desafíos mayores (los "jefes finales") (Sprint 3B)
 - [ ] PIN para el diario (Sprint 3C)
 - [ ] Actualizaciones automáticas (Sprint 3C)
 - [ ] Voces neuronales offline (Piper), opcional (Sprint 3D)

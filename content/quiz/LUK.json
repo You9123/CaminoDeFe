@@ -1,0 +1,99 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "LUK",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Qué ángel le anunció a María que sería la madre de Jesús?",
+      "options": ["Gabriel", "Miguel", "Rafael", "Uno sin nombre"],
+      "verse": "LUK.1.26",
+      "check": "Gabriel"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Dónde acostaron a Jesús al nacer?",
+      "options": ["En un pesebre", "En una cuna de oro", "En el templo", "En casa de Zacarías"],
+      "verse": "LUK.2.7",
+      "check": "pesebre"
+    },
+    {
+      "id": "2b",
+      "chapter": 2,
+      "q": "¿A quiénes anunciaron primero los ángeles el nacimiento?",
+      "options": ["A unos pastores", "A los sacerdotes", "Al rey Herodes", "A los magos"],
+      "verse": "LUK.2.8",
+      "check": "pastores"
+    },
+    {
+      "id": "2c",
+      "chapter": 2,
+      "q": "¿Dónde encontraron José y María a Jesús a los doce años?",
+      "options": ["En el templo, con los doctores", "En el mercado", "En Nazaret", "Junto al Jordán"],
+      "verse": "LUK.2.46",
+      "check": "templo"
+    },
+    {
+      "id": "10a",
+      "chapter": 10,
+      "q": "¿Quién ayudó al hombre herido en el camino?",
+      "options": ["Un samaritano", "Un sacerdote", "Un levita", "Un soldado"],
+      "verse": "LUK.10.33",
+      "check": "Samaritano"
+    },
+    {
+      "id": "10b",
+      "chapter": 10,
+      "q": "¿Qué eligió María, la hermana de Marta?",
+      "options": ["La buena parte: escuchar a Jesús", "Preparar la cena", "Ir al mercado", "Limpiar la casa"],
+      "verse": "LUK.10.42",
+      "check": "buena parte"
+    },
+    {
+      "id": "15a",
+      "chapter": 15,
+      "q": "¿Cuántas ovejas dejó el pastor para buscar a la perdida?",
+      "options": ["Noventa y nueve", "Diez", "Cincuenta", "Ninguna"],
+      "verse": "LUK.15.4",
+      "check": "noventa"
+    },
+    {
+      "id": "15b",
+      "chapter": 15,
+      "q": "¿Qué hizo el padre cuando vio volver al hijo pródigo?",
+      "options": ["Corrió y lo abrazó", "Lo castigó", "Lo hizo esperar afuera", "Lo mandó a trabajar"],
+      "verse": "LUK.15.20",
+      "check": "corrió"
+    },
+    {
+      "id": "15c",
+      "chapter": 15,
+      "reflect": "El padre corrió hacia su hijo. ¿Qué te dice esta historia sobre cómo te recibe Dios?"
+    },
+    {
+      "id": "19a",
+      "chapter": 19,
+      "q": "¿Adónde subió Zaqueo para ver a Jesús?",
+      "options": ["A un árbol sicómoro", "Al techo de su casa", "A un monte", "A una torre"],
+      "verse": "LUK.19.4",
+      "check": "sicómoro"
+    },
+    {
+      "id": "23a",
+      "chapter": 23,
+      "q": "¿Qué le dijo Jesús al ladrón arrepentido?",
+      "options": ["Hoy estarás conmigo en el paraíso", "Pagarás por tus pecados", "Espera el juicio", "No te conozco"],
+      "verse": "LUK.23.43",
+      "check": "paraíso"
+    },
+    {
+      "id": "24a",
+      "chapter": 24,
+      "q": "¿En qué momento reconocieron a Jesús los discípulos de Emaús?",
+      "options": ["Al partir el pan", "Al ver sus manos", "Al escuchar su voz", "Al entrar a Jerusalén"],
+      "verse": "LUK.24.30",
+      "check": "pan"
+    }
+  ]
+}

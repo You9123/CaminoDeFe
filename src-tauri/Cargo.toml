@@ -1,6 +1,6 @@
 [package]
 name = "camino-de-fe"
-version = "2.1.0"
+version = "2.2.0"
 description = "Camino de Fe — app bíblica para crear el hábito de leer la Biblia"
 authors = ["Youfrend"]
 edition = "2021"

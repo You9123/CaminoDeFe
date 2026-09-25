@@ -24,6 +24,7 @@ export const USER_ACTIVITIES = new Set([
   "prayer",
   "application",
   "surprise_mission",
+  "quiz",
 ]);
 
 /** Tipos cuyo tiempo se suma al "tiempo dedicado". */

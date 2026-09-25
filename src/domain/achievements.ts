@@ -47,6 +47,8 @@ export const COUNTABLE_ACTIVITIES = [
   "application",
   "daily_missions_bonus",
   "surprise_mission",
+  /** Respuestas correctas del quiz. */
+  "quiz",
   /** Desafíos completados (filas de recompensa). */
   "challenge",
 ] as const;
@@ -76,6 +78,8 @@ export const ruleSchema = z.discriminatedUnion("type", [
   /** Veces que se registró una actividad (aunque haya dado 0 XP por el límite diario). */
   z.object({ type: z.literal("activity_count"), activity: z.enum(COUNTABLE_ACTIVITIES), count }),
   z.object({ type: z.literal("level_reached"), level: count }),
+  /** Completar un desafío concreto (la insignia de los desafíos mayores). */
+  z.object({ type: z.literal("challenge_completed"), challenge: z.string().regex(/^[a-z0-9_]+$/) }),
 ]);
 export type AchievementRule = z.infer<typeof ruleSchema>;
 
@@ -117,6 +121,8 @@ export type ProgressSnapshot = {
   /** Veces que se registró cada tipo de actividad. */
   activityCounts: Record<string, number>;
   level: number;
+  /** Ids de los desafíos completados alguna vez. */
+  completedChallenges: readonly string[];
 };
 
 export type RuleProgress = { current: number; target: number; done: boolean };
@@ -164,6 +170,8 @@ export function ruleProgress(rule: AchievementRule, s: ProgressSnapshot): RulePr
       return progress(s.activityCounts[rule.activity] ?? 0, rule.count);
     case "level_reached":
       return progress(s.level, rule.level);
+    case "challenge_completed":
+      return progress(s.completedChallenges.includes(rule.challenge) ? 1 : 0, 1);
   }
 }
 

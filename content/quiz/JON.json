@@ -1,0 +1,67 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "JON",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Adónde huyó Jonás en lugar de ir a Nínive?",
+      "options": ["A Tarsis", "A Egipto", "A Jerusalén", "A Babilonia"],
+      "verse": "JON.1.3",
+      "check": "Tarsis"
+    },
+    {
+      "id": "1b",
+      "chapter": 1,
+      "q": "¿Qué pasó en el mar mientras Jonás dormía?",
+      "options": ["Una gran tempestad", "Una sequía", "Un eclipse", "Un terremoto"],
+      "verse": "JON.1.4",
+      "check": "tempestad"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿Cuánto tiempo estuvo Jonás en el vientre del pez?",
+      "options": ["Tres días y tres noches", "Un día", "Cuarenta días", "Siete días"],
+      "verse": "JON.2.1",
+      "check": "tres días"
+    },
+    {
+      "id": "2b",
+      "chapter": 2,
+      "q": "¿Con qué palabras termina la oración de Jonás?",
+      "options": ["La salvación pertenece a Jehová", "Quiero volver a casa", "Nunca iré a Nínive", "Sálvame del mar"],
+      "verse": "JON.2.10",
+      "check": "salvación"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Cuántos días le dio Jonás a Nínive en su mensaje?",
+      "options": ["Cuarenta", "Tres", "Siete", "Cien"],
+      "verse": "JON.3.4",
+      "check": "cuarenta"
+    },
+    {
+      "id": "3b",
+      "chapter": 3,
+      "q": "¿Qué hizo Nínive al escuchar a Jonás?",
+      "options": ["Creyó a Dios y proclamó ayuno", "Se burló de él", "Lo echó de la ciudad", "Construyó un muro"],
+      "verse": "JON.3.5",
+      "check": "ayuno"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Qué planta hizo crecer Dios para dar sombra a Jonás?",
+      "options": ["Una calabacera", "Una vid", "Una palmera", "Una higuera"],
+      "verse": "JON.4.6",
+      "check": "calabacera"
+    },
+    {
+      "id": "4b",
+      "chapter": 4,
+      "reflect": "Jonás no quería que Dios perdonara a sus enemigos. ¿A quién te cuesta desearle el bien?"
+    }
+  ]
+}

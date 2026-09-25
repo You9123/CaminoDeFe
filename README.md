@@ -17,6 +17,7 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 **V3 en curso**
 
 - Sprint 3A (v2.1.0): línea temporal interactiva (15 etapas, `content/timeline.json`) y coleccionables de personajes, lugares y eventos (`content/characters.json`, `places.json`, `events.json`), que se desbloquean al leer.
+- Sprint 3B (v2.2.0): quiz por libro (`content/quiz/*.json`, 20 libros y 230 preguntas) después de leer y desde el mapa, y cinco desafíos mayores con insignia y animación.
 
 ---
 
@@ -62,7 +63,7 @@ camino-de-fe/
 │  ├─ stores/       # estado global (Zustand)
 │  ├─ hooks/
 │  └─ styles/       # Tailwind + colores (claro/oscuro)
-├─ content/         # JSON editables: libros/zonas, resúmenes, versículos del día, logros, desafíos, misiones sorpresa, emociones, línea temporal y coleccionables
+├─ content/         # JSON editables: libros/zonas, resúmenes, versículos del día, logros, desafíos, misiones sorpresa, emociones, línea temporal, coleccionables y quiz/
 ├─ scripts/         # import-bible.ts (+ normalize.ts)
 ├─ tests/           # Vitest
 ├─ src-tauri/

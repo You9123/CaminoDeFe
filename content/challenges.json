@@ -7,7 +7,14 @@
       "icon": "harp",
       "days": null,
       "xp": 100,
-      "requirements": [{ "type": "chapters_in_books", "books": ["PSA"], "count": 5, "label": "Salmos leídos" }]
+      "requirements": [
+        {
+          "type": "chapters_in_books",
+          "books": ["PSA"],
+          "count": 5,
+          "label": "Salmos leídos"
+        }
+      ]
     },
     {
       "id": "semana_reflexiva",
@@ -16,7 +23,14 @@
       "icon": "quill",
       "days": 7,
       "xp": 150,
-      "requirements": [{ "type": "activity_days", "activity": "reflection", "days": 7, "label": "Días con reflexión" }]
+      "requirements": [
+        {
+          "type": "activity_days",
+          "activity": "reflection",
+          "days": 7,
+          "label": "Días con reflexión"
+        }
+      ]
     },
     {
       "id": "sabiduria_semana",
@@ -26,7 +40,12 @@
       "days": 7,
       "xp": 150,
       "requirements": [
-        { "type": "chapters_in_books", "books": ["PRO"], "count": 7, "label": "Capítulos de Proverbios" }
+        {
+          "type": "chapters_in_books",
+          "books": ["PRO"],
+          "count": 7,
+          "label": "Capítulos de Proverbios"
+        }
       ]
     },
     {
@@ -36,7 +55,14 @@
       "icon": "candle",
       "days": 7,
       "xp": 120,
-      "requirements": [{ "type": "activity_days", "activity": "prayer", "days": 5, "label": "Días con oración" }]
+      "requirements": [
+        {
+          "type": "activity_days",
+          "activity": "prayer",
+          "days": 5,
+          "label": "Días con oración"
+        }
+      ]
     },
     {
       "id": "semana_practica",
@@ -46,7 +72,12 @@
       "days": 7,
       "xp": 120,
       "requirements": [
-        { "type": "activity_days", "activity": "application", "days": 5, "label": "Días con una aplicación" }
+        {
+          "type": "activity_days",
+          "activity": "application",
+          "days": 5,
+          "label": "Días con una aplicación"
+        }
       ]
     },
     {
@@ -56,7 +87,13 @@
       "icon": "path",
       "days": null,
       "xp": 200,
-      "requirements": [{ "type": "books_read", "books": ["MRK"], "label": "Capítulos de Marcos" }]
+      "requirements": [
+        {
+          "type": "books_read",
+          "books": ["MRK"],
+          "label": "Capítulos de Marcos"
+        }
+      ]
     },
     {
       "id": "rut_ester",
@@ -66,8 +103,16 @@
       "days": null,
       "xp": 150,
       "requirements": [
-        { "type": "books_read", "books": ["RUT"], "label": "Capítulos de Rut" },
-        { "type": "books_read", "books": ["EST"], "label": "Capítulos de Ester" }
+        {
+          "type": "books_read",
+          "books": ["RUT"],
+          "label": "Capítulos de Rut"
+        },
+        {
+          "type": "books_read",
+          "books": ["EST"],
+          "label": "Capítulos de Ester"
+        }
       ]
     },
     {
@@ -77,7 +122,13 @@
       "icon": "flame",
       "days": null,
       "xp": 250,
-      "requirements": [{ "type": "books_read", "books": ["ACT"], "label": "Capítulos de Hechos" }]
+      "requirements": [
+        {
+          "type": "books_read",
+          "books": ["ACT"],
+          "label": "Capítulos de Hechos"
+        }
+      ]
     },
     {
       "id": "conocer_a_jesus",
@@ -87,10 +138,26 @@
       "days": null,
       "xp": 500,
       "requirements": [
-        { "type": "books_read", "books": ["MAT"], "label": "Mateo" },
-        { "type": "books_read", "books": ["MRK"], "label": "Marcos" },
-        { "type": "books_read", "books": ["LUK"], "label": "Lucas" },
-        { "type": "books_read", "books": ["JHN"], "label": "Juan" }
+        {
+          "type": "books_read",
+          "books": ["MAT"],
+          "label": "Mateo"
+        },
+        {
+          "type": "books_read",
+          "books": ["MRK"],
+          "label": "Marcos"
+        },
+        {
+          "type": "books_read",
+          "books": ["LUK"],
+          "label": "Lucas"
+        },
+        {
+          "type": "books_read",
+          "books": ["JHN"],
+          "label": "Juan"
+        }
       ]
     },
     {
@@ -101,7 +168,185 @@
       "days": 7,
       "xp": 150,
       "requirements": [
-        { "type": "activity_days", "activity": "daily_missions_bonus", "days": 5, "label": "Días con las 4 misiones" }
+        {
+          "type": "activity_days",
+          "activity": "daily_missions_bonus",
+          "days": 5,
+          "label": "Días con las 4 misiones"
+        }
+      ]
+    },
+    {
+      "id": "mayor_jonas",
+      "title": "Jonás, de principio a fin",
+      "description": "Un libro corto para tu primer desafío mayor: léelo completo, responde sus preguntas y escribe qué te enseñó.",
+      "icon": "compass",
+      "days": null,
+      "xp": 200,
+      "tier": "mayor",
+      "requirements": [
+        {
+          "type": "books_read",
+          "books": ["JON"],
+          "label": "Capítulos de Jonás"
+        },
+        {
+          "type": "quiz_correct",
+          "books": ["JON"],
+          "count": 5,
+          "label": "Preguntas de Jonás respondidas"
+        },
+        {
+          "type": "activity_count",
+          "activity": "reflection",
+          "books": ["JON"],
+          "count": 1,
+          "label": "Reflexión sobre Jonás"
+        }
+      ]
+    },
+    {
+      "id": "mayor_daniel",
+      "title": "Fiel en Babilonia",
+      "description": "Los doce capítulos de Daniel: sueños, leones y una fe que no se dobla.",
+      "icon": "candle",
+      "days": null,
+      "xp": 300,
+      "tier": "mayor",
+      "requirements": [
+        {
+          "type": "books_read",
+          "books": ["DAN"],
+          "label": "Capítulos de Daniel"
+        },
+        {
+          "type": "quiz_correct",
+          "books": ["DAN"],
+          "count": 6,
+          "label": "Preguntas de Daniel respondidas"
+        },
+        {
+          "type": "activity_count",
+          "activity": "reflection",
+          "books": ["DAN"],
+          "count": 2,
+          "label": "Reflexiones sobre Daniel"
+        },
+        {
+          "type": "activity_count",
+          "activity": "prayer",
+          "books": ["DAN"],
+          "count": 3,
+          "label": "Oraciones después de leer Daniel"
+        }
+      ]
+    },
+    {
+      "id": "mayor_juan",
+      "title": "El Evangelio de Juan",
+      "description": "Los 21 capítulos del discípulo amado, con tiempo para reflexionar, orar y ponerlo en práctica.",
+      "icon": "dove",
+      "days": null,
+      "xp": 500,
+      "tier": "mayor",
+      "requirements": [
+        {
+          "type": "books_read",
+          "books": ["JHN"],
+          "label": "Capítulos de Juan"
+        },
+        {
+          "type": "activity_count",
+          "activity": "reflection",
+          "books": ["JHN"],
+          "count": 5,
+          "label": "Reflexiones sobre Juan"
+        },
+        {
+          "type": "activity_count",
+          "activity": "prayer",
+          "books": ["JHN"],
+          "count": 3,
+          "label": "Oraciones después de leer Juan"
+        },
+        {
+          "type": "activity_count",
+          "activity": "application",
+          "books": ["JHN"],
+          "count": 3,
+          "label": "Aplicaciones de Juan"
+        },
+        {
+          "type": "quiz_correct",
+          "books": ["JHN"],
+          "count": 10,
+          "label": "Preguntas de Juan respondidas"
+        }
+      ]
+    },
+    {
+      "id": "mayor_hechos",
+      "title": "La Iglesia en marcha",
+      "description": "Hechos completo: de Pentecostés hasta Roma. Lee, responde y aplica lo que vivieron los primeros cristianos.",
+      "icon": "flame",
+      "days": null,
+      "xp": 400,
+      "tier": "mayor",
+      "requirements": [
+        {
+          "type": "books_read",
+          "books": ["ACT"],
+          "label": "Capítulos de Hechos"
+        },
+        {
+          "type": "activity_count",
+          "activity": "reflection",
+          "books": ["ACT"],
+          "count": 4,
+          "label": "Reflexiones sobre Hechos"
+        },
+        {
+          "type": "activity_count",
+          "activity": "application",
+          "books": ["ACT"],
+          "count": 3,
+          "label": "Aplicaciones de Hechos"
+        },
+        {
+          "type": "quiz_correct",
+          "books": ["ACT"],
+          "count": 8,
+          "label": "Preguntas de Hechos respondidas"
+        }
+      ]
+    },
+    {
+      "id": "mayor_genesis",
+      "title": "Los comienzos",
+      "description": "Los cincuenta capítulos de Génesis: la creación, los patriarcas y José. El desafío más largo.",
+      "icon": "sunrise",
+      "days": null,
+      "xp": 500,
+      "tier": "mayor",
+      "requirements": [
+        {
+          "type": "books_read",
+          "books": ["GEN"],
+          "label": "Capítulos de Génesis"
+        },
+        {
+          "type": "activity_count",
+          "activity": "reflection",
+          "books": ["GEN"],
+          "count": 5,
+          "label": "Reflexiones sobre Génesis"
+        },
+        {
+          "type": "quiz_correct",
+          "books": ["GEN"],
+          "count": 12,
+          "label": "Preguntas de Génesis respondidas"
+        }
       ]
     }
   ]

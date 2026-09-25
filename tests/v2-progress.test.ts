@@ -53,6 +53,7 @@ const snap = (over: Partial<ProgressSnapshot> = {}): ProgressSnapshot => ({
   books,
   bestStreak: 0,
   activityCounts: {},
+  completedChallenges: [],
   level: 1,
   ...over,
 });

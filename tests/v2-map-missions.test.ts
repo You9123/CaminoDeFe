@@ -98,6 +98,7 @@ const reflexiva: Challenge = {
   icon: "quill",
   days: 7,
   xp: 150,
+  tier: "normal",
   requirements: [{ type: "activity_days", activity: "reflection", days: 3, label: "Días" }],
 };
 
@@ -186,7 +187,7 @@ describe("desafíos", () => {
     expect(file.challenges.length).toBeGreaterThanOrEqual(8);
     for (const c of file.challenges) {
       for (const r of c.requirements) {
-        if ("books" in r) for (const b of r.books) expect(codes, `${c.id}: ${b}`).toContain(b);
+        if ("books" in r) for (const b of r.books ?? []) expect(codes, `${c.id}: ${b}`).toContain(b);
         if (r.type === "activity_days" && c.days !== null) expect(r.days).toBeLessThanOrEqual(c.days);
       }
     }

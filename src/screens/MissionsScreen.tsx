@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
-import { MAX_ACTIVE_CHALLENGES, overallProgress } from "../domain/challenges";
+import { MAX_ACTIVE_CHALLENGES, MAX_ACTIVE_MAJOR, overallProgress } from "../domain/challenges";
 import {
   abandonChallenge,
   ChallengeLimitError,
@@ -40,9 +40,12 @@ export function MissionsScreen() {
       cancelled = true;
     };
   }, [totalXp, version]);
-  const active = views.filter((v) => v.state === "active");
-  const available = views.filter((v) => v.state === "available");
-  const completed = views.filter((v) => v.state === "completed");
+  const normal = views.filter((v) => v.tier !== "mayor");
+  const majors = views.filter((v) => v.tier === "mayor");
+  const active = normal.filter((v) => v.state === "active");
+  const available = normal.filter((v) => v.state === "available");
+  const completed = normal.filter((v) => v.state === "completed");
+  const majorsActive = majors.filter((v) => v.state === "active").length;
 
   const start = async (id: string) => {
     try {
@@ -69,6 +72,35 @@ export function MissionsScreen() {
         <DailyMissionsCard />
         <SurpriseCard />
       </section>
+
+      {majors.length > 0 && (
+        <section className="animate-rise mb-12">
+          <div className="mb-1 flex items-baseline justify-between">
+            <h2 className="font-display text-2xl font-semibold">Desafíos mayores</h2>
+            <p className="text-sm text-muted tabular-nums">
+              {majorsActive} de {MAX_ACTIVE_MAJOR} en curso
+            </p>
+          </div>
+          <p className="mb-5 text-sm text-muted">
+            Un libro completo, con reflexiones, oración y preguntas. Sin plazo: son para recorrerlos con calma. Al
+            terminarlos ganas una insignia.
+          </p>
+          <div className="flex flex-col gap-3">
+            {majors
+              .filter((c) => c.state === "active")
+              .map((c) => (
+                <ActiveChallenge key={c.id} c={c} onAbandon={abandon} major />
+              ))}
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {majors
+              .filter((c) => c.state !== "active")
+              .map((c) => (
+                <MajorCard key={c.id} c={c} full={majorsActive >= MAX_ACTIVE_MAJOR} onStart={() => void start(c.id)} />
+              ))}
+          </div>
+        </section>
+      )}
 
       <section className="animate-rise">
         <div className="mb-1 flex items-baseline justify-between">
@@ -130,6 +162,66 @@ export function MissionsScreen() {
   );
 }
 
+/** Tarjeta de un desafío mayor disponible o completado: los requisitos se ven desde antes de empezar. */
+function MajorCard({ c, full, onStart }: { c: ChallengeView; full: boolean; onStart: () => void }) {
+  const done = c.state === "completed";
+  return (
+    <div
+      className={`flex flex-col rounded-2xl border p-5 ${done ? "border-gold/60 bg-gold-soft/40" : "border-gold/40 bg-surface"}`}
+    >
+      <div className="flex items-start gap-4">
+        <Medallion icon={ACHIEVEMENT_ICON[c.icon]} unlocked={done} gold={done} size={60} />
+        <div className="min-w-0 flex-1">
+          <p className="font-display text-lg leading-tight font-semibold">{c.title}</p>
+          <p className="mt-1 text-[13px] leading-snug text-muted">{c.description}</p>
+        </div>
+      </div>
+      <ul className="mt-3 flex flex-col gap-1 text-[13px]">
+        {c.requirements.map((r) => (
+          <li key={r.label} className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
+            {requirementText(r)}
+          </li>
+        ))}
+      </ul>
+      <div className="mt-auto flex items-center justify-between gap-2 pt-4">
+        <span className="rounded-full bg-gold-soft px-2.5 py-0.5 text-xs font-semibold text-gold">
+          +{c.xp} XP · insignia
+        </span>
+        {done ? (
+          <span className="text-xs font-semibold text-gold">
+            Completado{c.run?.ended_at ? ` el ${shortDate(c.run.ended_at)}` : ""}
+          </span>
+        ) : (
+          <button
+            onClick={onStart}
+            disabled={full}
+            title={full ? `Puedes tener hasta ${MAX_ACTIVE_MAJOR} desafíos mayores a la vez` : undefined}
+            className="shrink-0 rounded-lg border border-gold px-3.5 py-1.5 text-sm font-semibold whitespace-nowrap text-gold hover:bg-gold-soft disabled:opacity-40 disabled:hover:bg-transparent"
+          >
+            {c.previousTries > 0 ? "Volver a empezar" : "Empezar"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/** "Leer Juan completo", "5 reflexiones sobre Juan"… para mostrar antes de empezar. */
+function requirementText(r: ChallengeView["requirements"][number]): string {
+  const lowerFirst = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
+  switch (r.type) {
+    case "books_read":
+      return `Leer ${r.label.replace(/^Capítulos de /, "")} completo`;
+    case "quiz_correct":
+    case "activity_count":
+    case "chapters_in_books":
+      return `${r.count} ${lowerFirst(r.label)}`;
+    case "activity_days":
+      return `${r.days} ${lowerFirst(r.label)}`;
+  }
+}
+
 const shortDate = (iso: string) => format(parseISO(iso), "d MMM yyyy", { locale: es }).replace(".", "");
 
 function Meta({ c }: { c: ChallengeView }) {
@@ -168,7 +260,15 @@ function AvailableChallenge({ c, full, onStart }: { c: ChallengeView; full: bool
   );
 }
 
-function ActiveChallenge({ c, onAbandon }: { c: ChallengeView; onAbandon: (runId: number) => void }) {
+function ActiveChallenge({
+  c,
+  onAbandon,
+  major = false,
+}: {
+  c: ChallengeView;
+  onAbandon: (runId: number) => void;
+  major?: boolean;
+}) {
   const [confirming, setConfirming] = useState(false);
   const p = c.progress;
   if (!p || !c.run) return null;
@@ -181,9 +281,9 @@ function ActiveChallenge({ c, onAbandon }: { c: ChallengeView; onAbandon: (runId
         : `Quedan ${p.daysLeft} días`;
 
   return (
-    <div className="rounded-2xl border border-accent/40 bg-surface p-5 shadow-sm">
+    <div className={`rounded-2xl border bg-surface p-5 shadow-sm ${major ? "border-gold/60" : "border-accent/40"}`}>
       <div className="flex items-start gap-4">
-        <Medallion icon={ACHIEVEMENT_ICON[c.icon]} unlocked size={56} />
+        <Medallion icon={ACHIEVEMENT_ICON[c.icon]} unlocked gold={major} size={56} />
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline justify-between gap-3">
             <p className="font-display text-lg font-semibold">{c.title}</p>

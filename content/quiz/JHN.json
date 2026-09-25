@@ -1,0 +1,194 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "JHN",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Cómo empieza el evangelio de Juan?",
+      "options": [
+        "En el principio era el Verbo",
+        "En el principio creó Dios",
+        "Libro de la generación de Jesucristo",
+        "Principio del evangelio"
+      ],
+      "verse": "JHN.1.1",
+      "check": "Verbo"
+    },
+    {
+      "id": "1b",
+      "chapter": 1,
+      "q": "¿Cómo llamó Juan el Bautista a Jesús?",
+      "options": ["El Cordero de Dios", "El Rey de Israel", "El gran profeta", "El Hijo de David"],
+      "verse": "JHN.1.29",
+      "check": "Cordero"
+    },
+    {
+      "id": "2a",
+      "chapter": 2,
+      "q": "¿En qué convirtió Jesús el agua en las bodas de Caná?",
+      "options": ["En vino", "En aceite", "En leche", "En miel"],
+      "verse": "JHN.2.9",
+      "check": "vino"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿A qué hora visitó Nicodemo a Jesús?",
+      "options": ["De noche", "Al amanecer", "Al mediodía", "En la tarde"],
+      "verse": "JHN.3.2",
+      "check": "noche"
+    },
+    {
+      "id": "3b",
+      "chapter": 3,
+      "q": "¿Qué dice Juan 3:16 que hizo Dios por amor al mundo?",
+      "options": ["Dio a su Hijo unigénito", "Envió un diluvio", "Escribió la Ley", "Construyó un templo"],
+      "verse": "JHN.3.16",
+      "check": "Hijo"
+    },
+    {
+      "id": "3c",
+      "chapter": 3,
+      "reflect": "¿Qué significa para ti nacer otra vez?"
+    },
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Qué le ofreció Jesús a la mujer samaritana?",
+      "options": ["Agua viva", "Pan del cielo", "Una casa", "Dinero"],
+      "verse": "JHN.4.10",
+      "check": "agua viva"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿Quién tenía los cinco panes y los dos peces?",
+      "options": ["Un muchacho", "Pedro", "Una viuda", "Felipe"],
+      "verse": "JHN.6.9",
+      "check": "muchacho"
+    },
+    {
+      "id": "6b",
+      "chapter": 6,
+      "q": "¿Qué dijo Jesús de sí mismo en Juan 6?",
+      "options": ["Yo soy el pan de vida", "Yo soy el rey de Roma", "Yo soy un maestro más", "Yo soy Elías"],
+      "verse": "JHN.6.35",
+      "check": "pan de vida"
+    },
+    {
+      "id": "8a",
+      "chapter": 8,
+      "q": "¿Qué dijo Jesús que nos hará libres?",
+      "options": ["La verdad", "La Ley", "El dinero", "La fuerza"],
+      "verse": "JHN.8.32",
+      "check": "verdad"
+    },
+    {
+      "id": "9a",
+      "chapter": 9,
+      "q": "¿Qué usó Jesús para sanar al ciego de nacimiento?",
+      "options": ["Lodo hecho con saliva", "Aceite", "Agua del Jordán", "Solo una palabra"],
+      "verse": "JHN.9.6",
+      "check": "lodo"
+    },
+    {
+      "id": "10a",
+      "chapter": 10,
+      "q": "¿Qué hace el buen pastor por sus ovejas?",
+      "options": ["Da su vida", "Las vende", "Las deja solas", "Las cuenta"],
+      "verse": "JHN.10.11",
+      "check": "vida"
+    },
+    {
+      "id": "11a",
+      "chapter": 11,
+      "q": "¿Cuántos días llevaba Lázaro en el sepulcro cuando llegó Jesús?",
+      "options": ["Cuatro", "Uno", "Tres", "Siete"],
+      "verse": "JHN.11.17",
+      "check": "cuatro"
+    },
+    {
+      "id": "11b",
+      "chapter": 11,
+      "q": "¿Qué hizo Jesús ante la tumba de Lázaro?",
+      "options": ["Lloró", "Se fue", "Se enojó", "Cantó"],
+      "verse": "JHN.11.35",
+      "check": "lloró"
+    },
+    {
+      "id": "13a",
+      "chapter": 13,
+      "q": "¿Qué les lavó Jesús a sus discípulos?",
+      "options": ["Los pies", "Las manos", "La ropa", "La cara"],
+      "verse": "JHN.13.5",
+      "check": "pies"
+    },
+    {
+      "id": "13b",
+      "chapter": 13,
+      "q": "¿Qué mandamiento nuevo dio Jesús?",
+      "options": ["Que se amen unos a otros", "Que ayunen", "Que no trabajen el sábado", "Que construyan un templo"],
+      "verse": "JHN.13.34",
+      "check": "améis"
+    },
+    {
+      "id": "14a",
+      "chapter": 14,
+      "q": "¿Qué dijo Jesús que es él?",
+      "options": [
+        "El camino, la verdad y la vida",
+        "Un camino entre muchos",
+        "El rey de los judíos solamente",
+        "Un profeta"
+      ],
+      "verse": "JHN.14.6",
+      "check": "camino"
+    },
+    {
+      "id": "15a",
+      "chapter": 15,
+      "q": "¿Con qué planta se compara Jesús en Juan 15?",
+      "options": ["Con la vid verdadera", "Con un olivo", "Con una higuera", "Con un cedro"],
+      "verse": "JHN.15.1",
+      "check": "vid"
+    },
+    {
+      "id": "15b",
+      "chapter": 15,
+      "reflect": "Jesús dice que sin él nada podemos hacer. ¿En qué parte de tu día quieres depender más de él?"
+    },
+    {
+      "id": "19a",
+      "chapter": 19,
+      "q": "¿Qué dijo Jesús antes de morir en la cruz?",
+      "options": ["Consumado es", "Tengo miedo", "Adiós", "Volveré mañana"],
+      "verse": "JHN.19.30",
+      "check": "Consumado"
+    },
+    {
+      "id": "20a",
+      "chapter": 20,
+      "q": "¿Quién llegó al sepulcro vacío muy de mañana?",
+      "options": ["María Magdalena", "Pedro", "Tomás", "Nicodemo"],
+      "verse": "JHN.20.1",
+      "check": "María"
+    },
+    {
+      "id": "20b",
+      "chapter": 20,
+      "q": "¿Qué dijo Tomás al ver las heridas de Jesús?",
+      "options": ["¡Señor mío, y Dios mío!", "No lo creo", "Tengo miedo", "¿Eres un fantasma?"],
+      "verse": "JHN.20.28",
+      "check": "Señor mío"
+    },
+    {
+      "id": "21a",
+      "chapter": 21,
+      "q": "¿Cuántas veces le preguntó Jesús a Pedro si lo amaba?",
+      "options": ["Tres", "Una", "Siete", "Dos"],
+      "verse": "JHN.21.17",
+      "check": "tercera"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "1SA",
+  "questions": [
+    {
+      "id": "1a",
+      "chapter": 1,
+      "q": "¿Qué prometió Ana si Dios le daba un hijo?",
+      "options": ["Dedicarlo a Jehová toda su vida", "Llamarlo como su padre", "Llevarlo a Egipto", "Hacerlo rey"],
+      "verse": "1SA.1.11",
+      "check": "Jehová"
+    },
+    {
+      "id": "3a",
+      "chapter": 3,
+      "q": "¿Qué respondió Samuel cuando entendió que Dios lo llamaba?",
+      "options": ["Habla, que tu siervo oye", "Aquí estoy, Elí", "Tengo miedo", "Mañana te escucho"],
+      "verse": "1SA.3.10",
+      "check": "Habla"
+    },
+    {
+      "id": "3b",
+      "chapter": 3,
+      "q": "¿Cuántas veces fue Samuel a donde Elí antes de entender que era Dios?",
+      "options": ["Tres", "Una", "Siete", "Dos"],
+      "verse": "1SA.3.8",
+      "check": "tercera"
+    },
+    {
+      "id": "8a",
+      "chapter": 8,
+      "q": "¿Qué le pidió el pueblo a Samuel?",
+      "options": ["Un rey como las demás naciones", "Un templo nuevo", "Volver a Egipto", "Más sacerdotes"],
+      "verse": "1SA.8.5",
+      "check": "rey"
+    },
+    {
+      "id": "10a",
+      "chapter": 10,
+      "q": "¿Quién fue el primer rey de Israel?",
+      "options": ["Saúl", "David", "Salomón", "Samuel"],
+      "verse": "1SA.10.21",
+      "check": "Saúl"
+    },
+    {
+      "id": "15a",
+      "chapter": 15,
+      "q": "¿Qué le dijo Samuel a Saúl que es mejor que los sacrificios?",
+      "options": ["El obedecer", "El ayunar", "El cantar", "El dar ofrendas"],
+      "verse": "1SA.15.22",
+      "check": "obedecer"
+    },
+    {
+      "id": "16a",
+      "chapter": 16,
+      "q": "¿Qué mira Jehová, según le dijo a Samuel?",
+      "options": ["El corazón", "La estatura", "La fuerza", "La riqueza"],
+      "verse": "1SA.16.7",
+      "check": "corazón"
+    },
+    {
+      "id": "16b",
+      "chapter": 16,
+      "q": "¿Qué hacía David cuando Samuel lo mandó llamar?",
+      "options": ["Apacentaba las ovejas", "Estaba en la guerra", "Tocaba en el palacio", "Estudiaba la Ley"],
+      "verse": "1SA.16.11",
+      "check": "ovejas"
+    },
+    {
+      "id": "17a",
+      "chapter": 17,
+      "q": "¿Cuántas piedras escogió David del arroyo?",
+      "options": ["Cinco", "Una", "Tres", "Siete"],
+      "verse": "1SA.17.40",
+      "check": "cinco"
+    },
+    {
+      "id": "17b",
+      "chapter": 17,
+      "q": "¿En nombre de quién dijo David que iba contra Goliat?",
+      "options": ["De Jehová de los ejércitos", "Del rey Saúl", "De su padre Isaí", "De sus hermanos"],
+      "verse": "1SA.17.45",
+      "check": "nombre"
+    },
+    {
+      "id": "17c",
+      "chapter": 17,
+      "reflect": "David enfrentó a un gigante confiando en Dios. ¿Cuál es el gigante que enfrentas ahora?"
+    },
+    {
+      "id": "18a",
+      "chapter": 18,
+      "q": "¿Cómo quería Jonatán a David?",
+      "options": ["Como a su alma", "Como a un siervo", "Como a un rival", "Como a un extraño"],
+      "verse": "1SA.18.1",
+      "check": "alma"
+    },
+    {
+      "id": "24a",
+      "chapter": 24,
+      "q": "¿Qué le cortó David a Saúl en la cueva en vez de hacerle daño?",
+      "options": ["La orilla del manto", "Un mechón de pelo", "La espada", "La correa del zapato"],
+      "verse": "1SA.24.5",
+      "check": "manto"
+    }
+  ]
+}

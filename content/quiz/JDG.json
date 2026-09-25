@@ -1,0 +1,67 @@
+{
+  "_nota": "Preguntas del libro. La PRIMERA opción es la correcta (la app las mezcla). 'verse' es donde está la respuesta y 'check' una palabra que debe aparecer en ese versículo (la prueba lo revisa). Las preguntas con 'reflect' no tienen respuesta correcta y van al diario. No cambies los 'id' de preguntas ya publicadas.",
+  "book": "JDG",
+  "questions": [
+    {
+      "id": "4a",
+      "chapter": 4,
+      "q": "¿Bajo qué árbol juzgaba Débora a Israel?",
+      "options": ["Una palma", "Un roble", "Una higuera", "Un olivo"],
+      "verse": "JDG.4.5",
+      "check": "palma"
+    },
+    {
+      "id": "6a",
+      "chapter": 6,
+      "q": "¿Cómo llamó el ángel a Gedeón?",
+      "options": ["Varón esforzado", "Rey de Israel", "Siervo fiel", "Hijo de David"],
+      "verse": "JDG.6.12",
+      "check": "esforzado"
+    },
+    {
+      "id": "6b",
+      "chapter": 6,
+      "q": "¿Qué puso Gedeón para pedir una señal a Dios?",
+      "options": ["Un vellón de lana", "Una piedra", "Una vara", "Una lámpara"],
+      "verse": "JDG.6.37",
+      "check": "vellón"
+    },
+    {
+      "id": "7a",
+      "chapter": 7,
+      "q": "¿Con cuántos hombres venció Gedeón a los madianitas?",
+      "options": ["Trescientos", "Tres mil", "Diez mil", "Treinta y dos mil"],
+      "verse": "JDG.7.7",
+      "check": "trescientos"
+    },
+    {
+      "id": "13a",
+      "chapter": 13,
+      "q": "¿Qué no debía pasar nunca sobre la cabeza de Sansón?",
+      "options": ["Una navaja", "Una corona", "Aceite", "Agua"],
+      "verse": "JDG.13.5",
+      "check": "navaja"
+    },
+    {
+      "id": "14a",
+      "chapter": 14,
+      "q": "¿Qué animal mató Sansón con sus propias manos?",
+      "options": ["Un cachorro de león", "Un oso", "Un toro", "Un lobo"],
+      "verse": "JDG.14.5",
+      "check": "león"
+    },
+    {
+      "id": "16a",
+      "chapter": 16,
+      "q": "¿Quién descubrió el secreto de la fuerza de Sansón?",
+      "options": ["Dalila", "Rut", "Débora", "Mical"],
+      "verse": "JDG.16.18",
+      "check": "Dalila"
+    },
+    {
+      "id": "16b",
+      "chapter": 16,
+      "reflect": "Sansón se dejó llevar por sus impulsos. ¿Qué impulso te gustaría entregarle a Dios?"
+    }
+  ]
+}
