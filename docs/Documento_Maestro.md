@@ -187,7 +187,7 @@ La misión sorpresa del día se elige con una semilla basada en la fecha, igual 
 - Campos opcionales: "Hoy leí…", "Me llamó la atención…", "Estoy agradecido por…" y "Quiero pedirle a Dios…".
 - Búsqueda y filtro por fecha, libro o emoción.
 - **Exportar** el diario a Markdown o PDF [V2].
-- Todo se guarda localmente. Más adelante se podría proteger con PIN [V3].
+- Todo se guarda localmente. Se puede proteger con un **PIN** de 4 a 6 números [V3, Sprint 3C]: se pide para abrir el diario y para exportar el respaldo; si lo olvidas, se quita esperando 24 horas sin perder nada (ADR-0010).
 
 ### 2.10 ¿Cómo me siento hoy? [V2]
 
@@ -279,7 +279,7 @@ Fichas de **Personajes**, **Lugares** y **Eventos**. Cada ficha tiene una lista 
 
 ### 2.20 Configuración [V1]
 
-Nombre, tema (claro / oscuro / sistema), tamaño de letra, versión de la Biblia, mascota encendida o apagada, pregunta de emoción encendida o apagada, recordatorio diario (notificación de Windows a una hora elegida), hora de fin del día, y **exportar / importar un respaldo** (archivo `.json` o una copia de la base de datos).
+Nombre, tema (claro / oscuro / sistema), tamaño de letra, versión de la Biblia, mascota encendida o apagada, pregunta de emoción encendida o apagada, recordatorio diario (notificación de Windows a una hora elegida), hora de fin del día, **exportar / importar un respaldo** (archivo `.json` o una copia de la base de datos), **PIN del diario** [V3] y **buscar actualizaciones** [V3].
 
 ---
 
@@ -373,7 +373,7 @@ La mayor parte del trabajo del proyecto es **escribir contenido**, no programar.
 | Pruebas                  | **Vitest** + Testing Library; **Playwright** para E2E | Lógica de XP y rachas bien probada.                                                                                                                                     |
 | Calidad                  | ESLint + Prettier                                     | Estilo uniforme.                                                                                                                                                        |
 | CI/CD                    | **GitHub Actions** + `tauri-action`                   | Compila el instalador automáticamente al crear un tag.                                                                                                                  |
-| Actualizaciones          | `tauri-plugin-updater` [V3+]                          | Actualizaciones automáticas desde GitHub Releases.                                                                                                                      |
+| Actualizaciones          | `tauri-plugin-updater` [V3] ✅                        | Actualizaciones automáticas y firmadas desde GitHub Releases.                                                                                                           |
 
 > **Sobre Rust:** Tauri está hecho en Rust, pero casi toda la app se programa en TypeScript. Solo hay que instalar Rust. Si en algún momento hace falta algo nativo, se escribe un "comando" pequeño en Rust (`src-tauri/src/`).
 
@@ -606,14 +606,14 @@ Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, 
 
 ### 🟠 V3 — Experiencia bíblica · en curso
 
-Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v2.1.0 · **3B Quiz y desafíos mayores** ✅ v2.2.0 · **3C Privacidad y actualizaciones** (PIN del diario, actualizaciones automáticas) · **3D Voces Piper** (opcional).
+Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v2.1.0 · **3B Quiz y desafíos mayores** ✅ v2.2.0 · **3C Privacidad y actualizaciones** (PIN del diario, actualizaciones automáticas) ✅ v2.3.0 · **3D Voces Piper** (opcional).
 
 - [x] Línea temporal interactiva (Sprint 3A)
 - [x] Quiz por libro (Sprint 3B)
 - [x] Coleccionables: personajes, lugares, eventos (Sprint 3A)
 - [x] Desafíos mayores (los "jefes finales") (Sprint 3B)
-- [ ] PIN para el diario (Sprint 3C)
-- [ ] Actualizaciones automáticas (Sprint 3C)
+- [x] PIN para el diario (Sprint 3C)
+- [x] Actualizaciones automáticas (Sprint 3C)
 - [ ] Voces neuronales offline (Piper), opcional (Sprint 3D)
 
 ### 🔴 V4 — Nube y móvil

@@ -754,3 +754,32 @@ export function LadderIcon(p: IconProps) {
     </Svg>
   );
 }
+
+/** Candado: el diario protegido con PIN. */
+export function LockIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path
+        className="duo"
+        d="M5.3 10.6c4.5-.3 8.9-.3 13.4 0 .3 3.3.3 6.6 0 9.9-4.5.3-8.9.3-13.4 0-.3-3.3-.3-6.6 0-9.9z"
+      />
+      <path d="M5.3 10.6c4.5-.3 8.9-.3 13.4 0 .3 3.3.3 6.6 0 9.9-4.5.3-8.9.3-13.4 0-.3-3.3-.3-6.6 0-9.9z" />
+      <path d="M8.1 10.5V7.7c0-2.5 1.7-4.2 3.9-4.2s3.9 1.7 3.9 4.2v2.8" />
+      <path d="M12 14.2v2.6" />
+    </Svg>
+  );
+}
+
+/** Nube con una flecha hacia abajo: una versión nueva de la app. */
+export function UpdateIcon(p: IconProps) {
+  return (
+    <Svg {...p}>
+      <path
+        className="duo"
+        d="M6.6 18.4c-2.2-.1-3.8-1.6-3.8-3.6 0-1.9 1.4-3.4 3.3-3.6.4-3 2.9-5.2 6-5.2 2.8 0 5.1 1.8 5.8 4.4 2.1.2 3.6 1.9 3.6 4 0 2.2-1.7 3.9-3.9 4-3.7.2-7.3.2-11 0z"
+      />
+      <path d="M6.6 18.4c-2.2-.1-3.8-1.6-3.8-3.6 0-1.9 1.4-3.4 3.3-3.6.4-3 2.9-5.2 6-5.2 2.8 0 5.1 1.8 5.8 4.4 2.1.2 3.6 1.9 3.6 4 0 2.2-1.7 3.9-3.9 4" />
+      <path d="M12 11.2v8.6M9.2 17.1l2.8 2.9 2.8-2.9" />
+    </Svg>
+  );
+}

@@ -9,6 +9,8 @@ import { ReminderFields, AutostartField, BackupFields } from "./settings/SystemF
 import { Field } from "./settings/ui";
 import { EmotionPromptField, SpeechFields } from "./settings/SpeechFields";
 import { PetFields } from "./settings/PetFields";
+import { PrivacyFields } from "./settings/PrivacyFields";
+import { UpdateFields } from "./settings/UpdateFields";
 import { allCollectibleImages } from "../content/collectibleImages";
 import { CATALOG } from "../content/collectibles";
 import { creditLine } from "../domain/collectibles";
@@ -96,6 +98,10 @@ export function SettingsScreen() {
         <AutostartField />
       </Section>
 
+      <Section title="Privacidad">
+        <PrivacyFields />
+      </Section>
+
       <Section title="Respaldo">
         <BackupFields />
       </Section>
@@ -107,13 +113,14 @@ export function SettingsScreen() {
           <dt className="text-muted">Biblia</dt>
           <dd>Reina-Valera 1909 (dominio público)</dd>
           <dt className="text-muted">Tus datos</dt>
-          <dd>Se guardan solo en esta computadora. Nada se envía a internet.</dd>
+          <dd>Se guardan solo en esta computadora. Nada de tus datos se envía a internet.</dd>
           <dt className="text-muted">Imágenes</dt>
           <dd>
             Obras de dominio público y fotos con licencia libre de Wikimedia Commons.
             <ImageCredits />
           </dd>
         </dl>
+        <UpdateFields />
       </Section>
     </div>
   );

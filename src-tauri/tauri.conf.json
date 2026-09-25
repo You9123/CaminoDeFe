@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Camino de Fe",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "identifier": "com.youfrend.caminodefe",
   "build": {
     "beforeDevCommand": "pnpm dev",
@@ -45,6 +45,13 @@
   "plugins": {
     "sql": {
       "preload": ["sqlite:user.db"]
+    },
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDY2QUVEODVFOUNCQkMwMEIKUldRTHdMdWNYdGl1WnR6emZlWVRlT005eStBNDFuOUJnTmwwd2JVSXZxNmdRYU56UGxKVjR4Y3gK",
+      "endpoints": ["https://github.com/You9123/CaminoDeFe/releases/latest/download/latest.json"],
+      "windows": {
+        "installMode": "passive"
+      }
     }
   }
 }

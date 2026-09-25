@@ -13,6 +13,7 @@ import { useProgress } from "../../stores/progressStore";
 import { useSettings } from "../../stores/settingsStore";
 import { toast } from "../../stores/toastStore";
 import { ArchiveIcon, BellIcon } from "../../components/icons";
+import { usePinGuard } from "../../hooks/usePinGuard";
 import { Field, Toggle } from "./ui";
 
 // ---------- Recordatorio ----------
@@ -90,6 +91,7 @@ export function BackupFields() {
   const loadSettings = useSettings((s) => s.load);
   const [pending, setPending] = useState<Backup | null>(null);
   const [busy, setBusy] = useState(false);
+  const pin = usePinGuard("Exportar respaldo", "El respaldo incluye tu diario. Escribe tu PIN para continuar.");
 
   const exportBackup = async () => {
     const path = await save({ defaultPath: backupFileName(), filters: FILTERS, title: "Guardar respaldo" });
@@ -141,7 +143,7 @@ export function BackupFields() {
     >
       <div className="flex flex-wrap gap-2">
         <button
-          onClick={exportBackup}
+          onClick={() => pin.guard(() => void exportBackup())}
           disabled={busy}
           className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 font-semibold text-accent-ink disabled:opacity-50"
         >
@@ -155,6 +157,7 @@ export function BackupFields() {
           Importar respaldo…
         </button>
       </div>
+      {pin.prompt}
 
       {summary && (
         <div className="animate-rise mt-4 rounded-xl border border-accent/50 bg-accent-soft/40 p-4 text-sm">

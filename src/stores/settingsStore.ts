@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { getSetting, setSetting } from "../data/progressRepo";
 import { DEFAULT_DAY_END_HOUR, setDayEndHour } from "../domain/day";
 import { DEFAULT_REMINDER_TIME, parseTime } from "../domain/reminder";
+import { usePin } from "./pinStore";
 
 export type Theme = "system" | "light" | "dark";
 export type ReadingSize = "sm" | "md" | "lg" | "xl";
@@ -102,6 +103,8 @@ export const useSettings = create<SettingsState>((set, get) => ({
       getSetting("pet_species"),
       getSetting("pet_name"),
       getSetting("pet_accessory"),
+      // El PIN del diario también vive en settings (y cambia al importar un respaldo).
+      usePin.getState().load(),
     ]);
     const t = isTheme(theme) ? theme : "system";
     const s = isSize(size) ? size : "md";

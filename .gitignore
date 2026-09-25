@@ -28,3 +28,7 @@ scripts/.cache/
 src-tauri/target/
 src-tauri/gen/schemas/
 coverage/
+
+# Llave privada del actualizador: NUNCA subirla (ADR-0010)
+keys/
+*.key

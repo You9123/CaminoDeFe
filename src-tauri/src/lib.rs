@@ -151,11 +151,15 @@ pub fn run() {
         .plugin(tauri_plugin_notification::init());
 
     #[cfg(desktop)]
-    let builder = builder.plugin(
-        tauri_plugin_autostart::Builder::new()
-            .args([AUTOSTART_ARG])
-            .build(),
-    );
+    let builder = builder
+        .plugin(
+            tauri_plugin_autostart::Builder::new()
+                .args([AUTOSTART_ARG])
+                .build(),
+        )
+        // Actualizaciones: busca latest.json en GitHub Releases (ADR-0010) y reinicia la app.
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_process::init());
 
     let result = builder
         .plugin(

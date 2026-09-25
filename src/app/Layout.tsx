@@ -3,6 +3,7 @@ import { useEffect, useRef, type ComponentType } from "react";
 import { XpBar } from "../components/XpBar";
 import { Toaster } from "../components/Toaster";
 import { ChallengeCelebration } from "../components/ChallengeCelebration";
+import { UpdateCard } from "../components/UpdateCard";
 import {
   BookIcon,
   ChartIcon,
@@ -83,7 +84,7 @@ export function Layout() {
 
   return (
     <div className="flex h-full">
-      <aside className="flex w-60 shrink-0 flex-col border-r border-border bg-surface/80 px-4 py-6">
+      <aside className="flex w-60 shrink-0 flex-col overflow-y-auto border-r border-border bg-surface/80 px-4 py-6">
         <div className="mb-9 flex items-center gap-2.5 px-2">
           <LogoMark size={30} />
           <span className="font-display text-[1.35rem] leading-none font-semibold">Camino de Fe</span>
@@ -104,6 +105,7 @@ export function Layout() {
         </nav>
 
         <div className="mt-auto flex flex-col gap-3">
+          <UpdateCard />
           <NavItemLink to="/ajustes" label="Ajustes" icon={SlidersIcon} />
           <div className="rounded-2xl border border-border bg-surface-2/70 p-4">
             <div className="mb-2 flex justify-between text-sm text-muted">

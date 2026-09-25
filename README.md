@@ -18,6 +18,7 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 
 - Sprint 3A (v2.1.0): línea temporal interactiva (15 etapas, `content/timeline.json`) y coleccionables de personajes, lugares y eventos (`content/characters.json`, `places.json`, `events.json`), que se desbloquean al leer.
 - Sprint 3B (v2.2.0): quiz por libro (`content/quiz/*.json`, 20 libros y 230 preguntas) después de leer y desde el mapa, y cinco desafíos mayores con insignia y animación.
+- Sprint 3C (v2.3.0): PIN para el diario (con "¿Olvidaste tu PIN?" que espera 24 h sin borrar nada), actualizaciones automáticas firmadas desde GitHub Releases, e imagen completa de las fichas de coleccionables (ADR-0010).
 
 ---
 
@@ -57,7 +58,7 @@ camino-de-fe/
 │  ├─ app/          # App (rutas) y Layout (barra lateral)
 │  ├─ screens/      # Hoy, Biblia, Lector, Mapa, Línea temporal, Misiones, Diario, Logros, Coleccionables, Mi camino, Ajustes
 │  ├─ components/   # piezas reutilizables (XpBar…)
-│  ├─ domain/       # LÓGICA PURA: xp, niveles, rangos, rachas, misiones, logros, desafíos, mapa, estadísticas, coleccionables
+│  ├─ domain/       # LÓGICA PURA: xp, niveles, rangos, rachas, misiones, logros, desafíos, mapa, estadísticas, coleccionables, quiz, PIN, actualizaciones
 │  ├─ content/      # carga y valida con Zod los JSON de /content
 │  ├─ data/         # repositorios: única capa que habla con SQLite
 │  ├─ stores/       # estado global (Zustand)
@@ -104,6 +105,18 @@ Para "empezar de cero" en desarrollo, cierra la app y borra `user.db` de esa car
 
 ## Publicar una versión
 
-1. Sube la versión en `package.json`, `src-tauri/tauri.conf.json` y `src-tauri/Cargo.toml`.
+1. Sube la versión en `package.json`, `src-tauri/tauri.conf.json` y `src-tauri/Cargo.toml` (una prueba revisa que coincidan).
 2. `git tag v1.0.0 && git push origin v1.0.0`
-3. GitHub Actions compila el instalador y crea un **borrador** en _Releases_.
+3. GitHub Actions compila el instalador, lo **firma** y crea un **borrador** en _Releases_ con el `-setup.exe` y `latest.json`.
+4. Edita el borrador: escribe las novedades en las primeras líneas (se ven en el aviso de la app) y pulsa **Publish release**. Desde ese momento, las apps instaladas (2.3.0 o posterior) avisan que hay una versión nueva.
+
+### Llave del actualizador (una sola vez)
+
+Las actualizaciones van firmadas (ADR-0010). La llave privada está en `keys/` (ignorada por Git: **nunca la subas**).
+
+1. En GitHub: _Settings → Secrets and variables → Actions → New repository secret_:
+   - `TAURI_SIGNING_PRIVATE_KEY`: el contenido completo de `keys/camino-de-fe.key`.
+   - `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`: el contenido de `keys/password.txt`.
+2. Guarda una copia de la carpeta `keys/` en otro lugar seguro (un gestor de contraseñas, una memoria USB). **Si se pierde, las apps instaladas ya no se podrán actualizar** y habría que reinstalar a mano.
+
+`pnpm tauri build` en tu PC no necesita la llave: solo el workflow crea los archivos firmados (`src-tauri/tauri.release.conf.json`).

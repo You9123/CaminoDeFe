@@ -17,7 +17,8 @@ import { EMOTION_BY_ID } from "../content/emotions";
 import type { EmotionId } from "../domain/emotions";
 import { EMOTION_ICON } from "../components/emotionIcons";
 import { JournalExportButton } from "../components/JournalExport";
-import { JournalIcon, PenIcon, QuillIcon, SearchIcon, SproutIcon, TrashIcon } from "../components/icons";
+import { usePin } from "../stores/pinStore";
+import { JournalIcon, LockIcon, PenIcon, QuillIcon, SearchIcon, SproutIcon, TrashIcon } from "../components/icons";
 
 const KINDS: Record<JournalKind, { label: string; icon: ComponentType<{ size?: number; className?: string }> }> = {
   reflection: { label: "Reflexión", icon: QuillIcon },
@@ -41,6 +42,8 @@ export function JournalScreen() {
   const [version, setVersion] = useState(0);
   const [composing, setComposing] = useState(false);
   const reload = () => setVersion((v) => v + 1);
+  const pinEnabled = usePin((s) => s.enabled);
+  const lock = usePin((s) => s.lock);
 
   useEffect(() => {
     const id = window.setTimeout(() => setSearch(searchText), 250);
@@ -65,6 +68,15 @@ export function JournalScreen() {
           </p>
         </div>
         <div className="flex shrink-0 gap-2">
+          {pinEnabled && (
+            <button
+              onClick={lock}
+              className="inline-flex items-center gap-2 rounded-xl border border-border px-3.5 py-2.5 text-muted hover:border-accent hover:text-accent"
+              title="Cerrar el diario con tu PIN"
+            >
+              <LockIcon size={18} duo={false} /> Bloquear
+            </button>
+          )}
           <JournalExportButton />
           {!composing && (
             <button

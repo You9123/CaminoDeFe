@@ -2,6 +2,14 @@ name: Release
 
 # Crea el instalador de Windows y lo publica como borrador en GitHub Releases.
 # Uso:  git tag v1.0.0 && git push origin v1.0.0
+#
+# Actualizaciones automáticas (ADR-0010): el instalador se firma con la llave privada del
+# actualizador y se sube un latest.json. La app lo busca en
+# https://github.com/You9123/CaminoDeFe/releases/latest/download/latest.json
+# Solo lo encuentra cuando el borrador se PUBLICA (un borrador no cuenta como "latest").
+# Necesita dos secretos del repositorio (Settings → Secrets and variables → Actions):
+#   TAURI_SIGNING_PRIVATE_KEY           el contenido del archivo camino-de-fe.key
+#   TAURI_SIGNING_PRIVATE_KEY_PASSWORD  su contraseña
 on:
   push:
     tags: ["v*"]
@@ -29,9 +37,18 @@ jobs:
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
+          # Solo aquí se crean los archivos firmados del actualizador (en tu PC no hace falta la llave).
+          args: --config src-tauri/tauri.release.conf.json
+          includeUpdaterJson: true
           tagName: v__VERSION__
           releaseName: "Camino de Fe v__VERSION__"
-          releaseBody: "Instalador para Windows. Descarga el archivo `-setup.exe`."
+          # Escribe las novedades antes de publicar el borrador: las primeras líneas se ven en el aviso de la app.
+          releaseBody: |
+            Mejoras y novedades de Camino de Fe.
+
+            Para instalarla por primera vez, descarga el archivo que termina en -setup.exe. Si ya tienes la versión 2.3.0 o posterior, la app te avisa y se actualiza sola.
           releaseDraft: true
           prerelease: false

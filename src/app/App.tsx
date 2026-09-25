@@ -15,10 +15,12 @@ import { MapScreen } from "../screens/MapScreen";
 import { MissionsScreen } from "../screens/MissionsScreen";
 import { TimelineScreen } from "../screens/TimelineScreen";
 import { CollectiblesScreen } from "../screens/CollectiblesScreen";
+import { JournalGate } from "../components/PinLock";
 import { NotInTauriScreen } from "../screens/NotInTauriScreen";
 import { isTauri } from "../data/db";
 import { useProgress } from "../stores/progressStore";
 import { useSettings } from "../stores/settingsStore";
+import { useUpdates } from "../stores/updateStore";
 
 export default function App() {
   const refresh = useProgress((s) => s.refresh);
@@ -32,6 +34,8 @@ export default function App() {
       void loadSettings()
         .then(refresh)
         .then(checkAchievements)
+        // Al final, sin apuro: ¿hay una versión nueva? (ADR-0010)
+        .then(() => useUpdates.getState().init())
         .catch((e: unknown) => console.error(e));
   }, [loadSettings, refresh, checkAchievements]);
 
@@ -47,7 +51,14 @@ export default function App() {
           <Route path="biblia/favoritos" element={<FavoritesScreen />} />
           <Route path="biblia/:code" element={<ChaptersScreen />} />
           <Route path="biblia/:code/:chapter" element={<ReaderScreen />} />
-          <Route path="diario" element={<JournalScreen />} />
+          <Route
+            path="diario"
+            element={
+              <JournalGate>
+                <JournalScreen />
+              </JournalGate>
+            }
+          />
           <Route path="mapa" element={<MapScreen />} />
           <Route path="misiones" element={<MissionsScreen />} />
           <Route path="linea-temporal" element={<TimelineScreen />} />

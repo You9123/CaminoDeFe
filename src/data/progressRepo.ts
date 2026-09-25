@@ -190,4 +190,9 @@ export async function setSetting(key: string, value: string): Promise<void> {
   );
 }
 
+export async function deleteSetting(key: string): Promise<void> {
+  const db = await userDb();
+  await db.execute("DELETE FROM settings WHERE key = $1", [key]);
+}
+
 export const LAST_POSITION_KEY = "last_position";
