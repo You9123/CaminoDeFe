@@ -1,0 +1,925 @@
+{
+  "_nota": "Imagen de cada ficha y su crédito. Solo obras de dominio público o con licencia libre (Wikimedia Commons). Los archivos viven en src/assets/fichas/ (WebP de 960x540). La clave es 'tipo:id' (character, place, event).",
+  "images": {
+    "character:aaron": {
+      "file": "character-aaron.webp",
+      "title": "Aarón",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Aaron_%28Exodus_4_16%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_James_Tissot_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst.jpg"
+    },
+    "character:abraham": {
+      "file": "character-abraham.webp",
+      "title": "Abraham y los tres visitantes",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Abraham_et_les_trois_Anges_%28Genesis_18_2%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_James_Tissot_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst..jpg"
+    },
+    "character:adan": {
+      "file": "character-adan.webp",
+      "title": "La creación de Adán",
+      "author": "Miguel Ángel",
+      "year": "hacia 1511",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:The_Creation_of_Adam_perspective_fix.jpg"
+    },
+    "character:ana": {
+      "file": "character-ana.webp",
+      "title": "Ana ora en el templo",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Le_grand_pr%C3%A9tre_et_la_vieille_femme_%281_Samuel_1_12-13%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_James_Tissot_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst.jpg"
+    },
+    "character:bernabe": {
+      "file": "character-bernabe.webp",
+      "title": "Pablo y Bernabé en Listra",
+      "author": "Jacob Pynas",
+      "year": "siglo XVII",
+      "license": "CC0",
+      "source": "https://commons.wikimedia.org/wiki/File:Paul_and_Barnabas_at_Lystra_MET_DP133560.jpg"
+    },
+    "character:daniel": {
+      "file": "character-daniel.webp",
+      "title": "Daniel en el foso de los leones",
+      "author": "James Tissot",
+      "year": "hacia 1896",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Tissot_Daniel_in_the_Lion%27s_Den.jpg"
+    },
+    "character:david": {
+      "file": "character-david.webp",
+      "title": "El rey David toca el arpa",
+      "author": "Gerard van Honthorst",
+      "year": "1622",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Gerard_van_Honthorst_-_King_David_Playing_the_Harp_-_Google_Art_Project.jpg"
+    },
+    "character:debora": {
+      "file": "character-debora.webp",
+      "title": "Débora bajo su palmera",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:D%C3%A9bora_sous_son_palmier_%28Judges_4_4%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_James_Tissot_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst.jpg"
+    },
+    "character:elias": {
+      "file": "character-elias.webp",
+      "title": "El profeta Elías",
+      "author": "Icono serbio",
+      "year": "siglo XVIII",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Prophet_Elijah%2C_Serbian_painter%2C_18th_c.jpg"
+    },
+    "character:eliseo": {
+      "file": "character-eliseo.webp",
+      "title": "El profeta Eliseo",
+      "author": "Giorgio Vasari",
+      "year": "hacia 1566",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Giorgio_Vasari_-_The_Prophet_Elisha_-_WGA24289.jpg"
+    },
+    "character:esau": {
+      "file": "character-esau.webp",
+      "title": "El encuentro de Esaú y Jacob",
+      "author": "James Tissot",
+      "year": "hacia 1900",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Tissot_The_Meeting_of_Esau_and_Jacob.jpg"
+    },
+    "character:esdras": {
+      "file": "character-esdras.webp",
+      "title": "Esdras lee la Ley",
+      "author": "Sinagoga de Dura Europos",
+      "year": "hacia 244",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Ezra_reading_the_Law.jpg"
+    },
+    "character:esteban": {
+      "file": "character-esteban.webp",
+      "title": "La lapidación de Esteban",
+      "author": "Rembrandt",
+      "year": "1625",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Rembrandt_Harmensz._van_Rijn_150.jpg"
+    },
+    "character:ester": {
+      "file": "character-ester.webp",
+      "title": "La reina Ester",
+      "author": "Hugues Merle",
+      "year": "1875",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:QUEEN_ESTHER_%29.jpg"
+    },
+    "character:eva": {
+      "file": "character-eva.webp",
+      "title": "Adán y Eva expulsados del paraíso",
+      "author": "James Tissot",
+      "year": "hacia 1900",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:James_Jacques_Joseph_Tissot_-_Adam_and_Eve_Driven_From_Paradise_-_Google_Art_Project.jpg"
+    },
+    "character:gedeon": {
+      "file": "character-gedeon.webp",
+      "title": "Gedeón",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:G%C3%A9d%C3%A9on_demande_des_vivres_%C3%A0_ceux_de_Soccoth_%28Judges_8_5%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_James_Tissot_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst.jpg"
+    },
+    "character:isaac": {
+      "file": "character-isaac.webp",
+      "title": "Isaac bendice a Jacob",
+      "author": "Govert Flinck",
+      "year": "1638",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Isaak_zegent_Jakob_Rijksmuseum_SK-A-110.jpeg"
+    },
+    "character:isaias": {
+      "file": "character-isaias.webp",
+      "title": "El profeta Isaías",
+      "author": "Miguel Ángel",
+      "year": "hacia 1510",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Jesaja_%28Michelangelo%29.jpg"
+    },
+    "character:jacob": {
+      "file": "character-jacob.webp",
+      "title": "Jacob engaña a Isaac",
+      "author": "James Tissot",
+      "year": "hacia 1900",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Tissot_Jacob_Deceives_Isaac.jpg"
+    },
+    "character:jeremias": {
+      "file": "character-jeremias.webp",
+      "title": "Jeremías llora la destrucción de Jerusalén",
+      "author": "Rembrandt",
+      "year": "1630",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Rembrandt_Jeremiah_lamenting.jpg"
+    },
+    "character:job": {
+      "file": "character-job.webp",
+      "title": "Job y sus amigos",
+      "author": "Iliá Repin",
+      "year": "1869",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Job_and_his_friends.jpg"
+    },
+    "character:jonas": {
+      "file": "character-jonas.webp",
+      "title": "Jonás",
+      "author": "George Frederic Watts",
+      "year": "1894",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:George_Frederic_Watts_-_Jonah_-_Google_Art_Project.jpg"
+    },
+    "character:jonatan": {
+      "file": "character-jonatan.webp",
+      "title": "David y Jonatán",
+      "author": "Rembrandt",
+      "year": "1642",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Harmensz_van_Rijn_Rembrandt_-_%D0%94%D0%B0%D0%B2%D0%B8%D0%B4_%D0%B8_%D0%98%D0%BE%D0%BD%D0%B0%D1%84%D0%B0%D0%BD_-_Google_Art_Project.jpg"
+    },
+    "character:jose": {
+      "file": "character-jose.webp",
+      "title": "José en Egipto",
+      "author": "James Tissot",
+      "year": "hacia 1900",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:James_Jacques_Joseph_Tissot_-_Joseph_Dwelleth_in_Egypt_-_Google_Art_Project.jpg"
+    },
+    "character:josue": {
+      "file": "character-josue.webp",
+      "title": "Moisés bendice a Josué",
+      "author": "James Tissot",
+      "year": "hacia 1900",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Tissot_Moses_Blesses_Joshua_Before_the_High_Priest.jpg"
+    },
+    "character:juan_apostol": {
+      "file": "character-juan_apostol.webp",
+      "title": "San Juan Evangelista",
+      "author": "Pintura mural (foto: Livioandronico2013)",
+      "year": "2015",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Paintings_of_Saint_John_the_Evangelist_in_Monastero_del_Sacro_Speco_%28Subiaco%29.jpg"
+    },
+    "character:juan_bautista": {
+      "file": "character-juan_bautista.webp",
+      "title": "San Juan Bautista",
+      "author": "Leonardo da Vinci",
+      "year": "hacia 1515",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_-_Saint_John_the_Baptist_C2RMF_retouched.jpg"
+    },
+    "character:maria": {
+      "file": "character-maria.webp",
+      "title": "La Virgen en oración",
+      "author": "Sassoferrato",
+      "year": "hacia 1645",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Sassoferrato_-_Jungfrun_i_b%C3%B6n.jpg"
+    },
+    "character:maria_magdalena": {
+      "file": "character-maria_magdalena.webp",
+      "title": "María Magdalena arrepentida",
+      "author": "Gerard Seghers",
+      "year": "hacia 1628",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Repentant_Mary_Magdalene_%29.jpg"
+    },
+    "character:moises": {
+      "file": "character-moises.webp",
+      "title": "Moisés con las tablas de la Ley",
+      "author": "Rembrandt",
+      "year": "1659",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Rembrandt_-_Moses_with_the_Ten_Commandments_-_Google_Art_Project.jpg"
+    },
+    "character:nehemias": {
+      "file": "character-nehemias.webp",
+      "title": "Nehemías ante el rey de Persia",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Esdras_et_son_Roi_%28Nehemiah_2_2%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_Michel_Simonidy_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst.jpg"
+    },
+    "character:nicodemo": {
+      "file": "character-nicodemo.webp",
+      "title": "Nicodemo",
+      "author": "James Tissot",
+      "year": "hacia 1890",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Brooklyn_Museum_-_Nicodemus_%28Nicod%C3%A8me%29_-_James_Tissot_-_overall.jpg"
+    },
+    "character:noe": {
+      "file": "character-noe.webp",
+      "title": "El sacrificio de Noé",
+      "author": "James Tissot",
+      "year": "hacia 1900",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:James_Tissot_-_Sacrifice_of_Noah.jpg"
+    },
+    "character:pablo": {
+      "file": "character-pablo.webp",
+      "title": "El apóstol Pablo en la cárcel",
+      "author": "Rembrandt",
+      "year": "1627",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Rembrandt_St._Paul_in_Prison.jpg"
+    },
+    "character:pedro": {
+      "file": "character-pedro.webp",
+      "title": "Cristo entrega las llaves a Pedro",
+      "author": "Pedro Pablo Rubens",
+      "year": "1612",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Christ_giving_the_Keys_of_Heaven_to_St._Peter_by_Peter_Paul_Rubens_-_Gem%C3%A4ldegalerie_-_Berlin_-_Germany_2017.jpg"
+    },
+    "character:rahab": {
+      "file": "character-rahab.webp",
+      "title": "Rahab y los espías",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:La_courtisane_de_J%C3%A9richo_et_les_espions_%28Joshua_2_12%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_James_Tissot_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst.jpg"
+    },
+    "character:rebeca": {
+      "file": "character-rebeca.webp",
+      "title": "Rebeca en el pozo",
+      "author": "Giovanni Antonio Pellegrini",
+      "year": "hacia 1710",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:RebeccaAtTheWell_Giovanni.jpg"
+    },
+    "character:rut": {
+      "file": "character-rut.webp",
+      "title": "Rut en el campo de Booz",
+      "author": "Julius Schnorr von Carolsfeld",
+      "year": "1828",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Julius_Schnorr_von_Carolsfeld-_Ruth_im_Feld_des_Boaz.jpg"
+    },
+    "character:salomon": {
+      "file": "character-salomon.webp",
+      "title": "La sabiduría de Salomón",
+      "author": "James Tissot",
+      "year": "hacia 1896",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Tissot_The_Wisdom_of_Solomon.jpg"
+    },
+    "character:samuel": {
+      "file": "character-samuel.webp",
+      "title": "Samuel habla con Elí",
+      "author": "John Singleton Copley",
+      "year": "1780",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Eli_and_Samuel.jpg"
+    },
+    "character:sanson": {
+      "file": "character-sanson.webp",
+      "title": "Sansón",
+      "author": "Giovanni Battista Langetti",
+      "year": "siglo XVII",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:%28Venice%29_Samson_by_Giovanni_Battista_Langetti_-_Gallerie_Accademia.jpg"
+    },
+    "character:sara": {
+      "file": "character-sara.webp",
+      "title": "Sara ríe al escuchar la promesa",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Sara_rit_en_%C3%A9coutant_%28Genesis_18_10%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_James_Tissot_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst..jpg"
+    },
+    "character:saul": {
+      "file": "character-saul.webp",
+      "title": "Saúl y David",
+      "author": "Rembrandt",
+      "year": "hacia 1655",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Rembrandt_Saul_and_David.jpg"
+    },
+    "character:timoteo": {
+      "file": "character-timoteo.webp",
+      "title": "Timoteo y su abuela Loida",
+      "author": "Willem Drost",
+      "year": "hacia 1650",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Timothy-and-Lois.jpg"
+    },
+    "character:zaqueo": {
+      "file": "character-zaqueo.webp",
+      "title": "Zaqueo",
+      "author": "Jan Luyken (foto: Phillip Medhurst)",
+      "year": "siglo XVIII",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Jan_Luyken%27s_Jesus_21._Zacchaeus._Phillip_Medhurst_Collection.jpg"
+    },
+    "place:antioquia": {
+      "file": "place-antioquia.webp",
+      "title": "Antakya, la antigua Antioquía",
+      "author": "Maarten Sepp",
+      "year": "2011",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Antakya_-_2011-04-10.jpg"
+    },
+    "place:atenas": {
+      "file": "place-atenas.webp",
+      "title": "El Areópago visto desde la Acrópolis",
+      "author": "ajbear",
+      "year": "2006",
+      "license": "CC BY-SA 2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Areopagus_from_the_Acropolis.jpg"
+    },
+    "place:babel": {
+      "file": "place-babel.webp",
+      "title": "La pequeña torre de Babel",
+      "author": "Pieter Brueghel el Viejo",
+      "year": "hacia 1568",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_%28Rotterdam%29_-_Google_Art_Project_-_edited.jpg"
+    },
+    "place:babilonia": {
+      "file": "place-babilonia.webp",
+      "title": "La puerta de Ishtar de Babilonia",
+      "author": "Kurt Kaiser",
+      "year": "2019",
+      "license": "CC0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ishtar_Gate_in_the_Pergamon_Museum_-.jpg"
+    },
+    "place:beerseba": {
+      "file": "place-beerseba.webp",
+      "title": "El pozo de Tel Beerseba",
+      "author": "Mboesch",
+      "year": "2015",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tel-beer-sheva-brunnen.JPG"
+    },
+    "place:belen": {
+      "file": "place-belen.webp",
+      "title": "La plaza del mercado de Belén",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1895",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Market_Place%2C_Bethlehem%2C_Holy_Land%2C_%28i.e.%2C_West_Bank%29-LCCN2002724971.jpg"
+    },
+    "place:betel": {
+      "file": "place-betel.webp",
+      "title": "Ruinas de Betel",
+      "author": "Daniel B. Shepp",
+      "year": "1894",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Bethel%2C_72.Holy_land_photographed._Daniel_B._Shepp._1894-1.jpg"
+    },
+    "place:carmelo": {
+      "file": "place-carmelo.webp",
+      "title": "El monte Carmelo",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1895",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:General_view%2C_Mount_Carmel%2C_Holy_Land%2C_%28i.e._Israel%29-LCCN2002725037.jpg"
+    },
+    "place:damasco": {
+      "file": "place-damasco.webp",
+      "title": "Vista de Damasco",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1895",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Flickr_-_%E2%80%A6trialsanderrors_-_Minaret_of_the_Bride%2C_Damascus%2C_Holy_Land%2C_ca._1895.jpg"
+    },
+    "place:eden": {
+      "file": "place-eden.webp",
+      "title": "El jardín del Edén",
+      "author": "Thomas Cole",
+      "year": "1828",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Thomas_Cole_The_Garden_of_Eden_Amon_Carter_Museum.jpg"
+    },
+    "place:egipto": {
+      "file": "place-egipto.webp",
+      "title": "Las pirámides de Guiza",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1890",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Egypt._Cairo._The_pyramids_and_fellahs_LCCN2017656992.jpg"
+    },
+    "place:filipos": {
+      "file": "place-filipos.webp",
+      "title": "Ruinas de Filipos",
+      "author": "Explorer1940",
+      "year": "2009",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Philippi_--_Ruins_of_church_01.jpg"
+    },
+    "place:galilea": {
+      "file": "place-galilea.webp",
+      "title": "El mar de Galilea",
+      "author": "Mustang Joe",
+      "year": "2023",
+      "license": "CC0",
+      "source": "https://commons.wikimedia.org/wiki/File:The_Sea_of_Galilee,_Israel_(53670530547).jpg"
+    },
+    "place:getsemani": {
+      "file": "place-getsemani.webp",
+      "title": "El huerto de Getsemaní",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1895",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Garden_of_Gethsemane%2C_Jerusalem%2C_Holy_Land-LCCN2002725020.jpg"
+    },
+    "place:golgota": {
+      "file": "place-golgota.webp",
+      "title": "La iglesia del Santo Sepulcro",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1895",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:The_front_of_the_Holy_Sepulchre%2C_Jerusalem%2C_Holy_Land-LCCN2002725003.jpg"
+    },
+    "place:jerico": {
+      "file": "place-jerico.webp",
+      "title": "Jericó",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1895",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:General_view%2C_Jericho%2C_Holy_Land%2C_%28i.e._West_Bank%29-LCCN2002724993.jpg"
+    },
+    "place:jerusalen": {
+      "file": "place-jerusalen.webp",
+      "title": "Vista de Jerusalén",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1895",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:General_view%2C_Jerusalem%2C_Holy_Land-LCCN2002724996.jpg"
+    },
+    "place:jordan": {
+      "file": "place-jordan.webp",
+      "title": "El río Jordán",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1895",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:The_River_Jordan%2C_Holy_Land-LCCN2002725029.jpg"
+    },
+    "place:mar_rojo": {
+      "file": "place-mar_rojo.webp",
+      "title": "Montañas junto al mar Rojo, Sinaí",
+      "author": "Vyacheslav Argenberg",
+      "year": "2007",
+      "license": "CC BY 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Nuweiba%2C_Mountains%2C_Red_Sea%2C_Sinai%2C_Egypt.jpg"
+    },
+    "place:nazaret": {
+      "file": "place-nazaret.webp",
+      "title": "La fuente de la Virgen, Nazaret",
+      "author": "Photoglob Co. (fotocromo)",
+      "year": "hacia 1890",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:The_virgin%27s_fountain%2C_Nazareth%2C_Holy_Land%2C_%28i.e._Israel%29-LCCN2002725047.jpg"
+    },
+    "place:ninive": {
+      "file": "place-ninive.webp",
+      "title": "La puerta de Mashki, Nínive",
+      "author": "Mohamed albaroodi91",
+      "year": "2014",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mashki_gate_2.jpg"
+    },
+    "place:patmos": {
+      "file": "place-patmos.webp",
+      "title": "La bahía de Patmos",
+      "author": "Gerd Eichmann",
+      "year": "1987",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Patmos-12-Stadt-Bucht-1987-gje.jpg"
+    },
+    "place:roma": {
+      "file": "place-roma.webp",
+      "title": "El Foro Romano",
+      "author": "Wolfgang Moroder",
+      "year": "2018",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Foro_Romano_Musei_Capitolini_Roma.jpg"
+    },
+    "place:sinai": {
+      "file": "place-sinai.webp",
+      "title": "Amanecer en el monte Sinaí",
+      "author": "Ibrahim El-Mezayen",
+      "year": "2014",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Sunrise_on_Mount_Sinai_-_Egypt.jpg"
+    },
+    "place:susa": {
+      "file": "place-susa.webp",
+      "title": "Friso de los arqueros de Susa",
+      "author": "Arte persa",
+      "year": "hacia 510 a. C.",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Archers_frieze_Darius_1st_Palace_Suse_Louvre_AOD_488_a.jpg"
+    },
+    "place:ur": {
+      "file": "place-ur.webp",
+      "title": "El zigurat de Ur",
+      "author": "Hardnfast",
+      "year": "2005",
+      "license": "CC BY 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ancient_ziggurat_at_Ali_Air_Base_Iraq_2005.jpg"
+    },
+    "event:bautismo_jesus": {
+      "file": "event-bautismo_jesus.webp",
+      "title": "El bautismo de Cristo",
+      "author": "Cima da Conegliano",
+      "year": "1492",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Baptism_of_Christ_by_Cima_da_Conegliano.jpg"
+    },
+    "event:caida_jerusalen": {
+      "file": "event-caida_jerusalen.webp",
+      "title": "Nabucodonosor incendia Jerusalén",
+      "author": "Círculo de Juan de la Corte",
+      "year": "hacia 1640",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Circle_of_Juan_de_la_Corte_-_The_Burning_of_Jerusalem_by_Nebuchadnezzar%E2%80%99s_Army_-_Google_Art_Project.jpg"
+    },
+    "event:carcel_filipos": {
+      "file": "event-carcel_filipos.webp",
+      "title": "Pablo y Silas en la cárcel",
+      "author": "Michael Václav Halbax",
+      "year": "1700",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Michael_V%C3%A1clav_Halbax_-_St_Paul_and_Silas_in_Prison_-_O_2303_-_National_Gallery_Prague.jpg"
+    },
+    "event:cielo_nuevo": {
+      "file": "event-cielo_nuevo.webp",
+      "title": "Las llanuras del cielo",
+      "author": "John Martin",
+      "year": "hacia 1851",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:John_Martin_-_The_Plains_of_Heaven_-_Google_Art_Project.jpg"
+    },
+    "event:conversion_saulo": {
+      "file": "event-conversion_saulo.webp",
+      "title": "La conversión de Pablo",
+      "author": "Autor anónimo",
+      "year": "hacia 1530",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Italian_%28Ferrarese%29_School_-_The_Conversion_of_Saint_Paul_-_NG73_-_National_Gallery.jpg"
+    },
+    "event:creacion_mundo": {
+      "file": "event-creacion_mundo.webp",
+      "title": "El paraíso terrenal",
+      "author": "Jan Brueghel el Viejo",
+      "year": "1613",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Jan_Brueghel_the_Elder_-_The_Garden_of_Eden_with_the_Fall_of_Man.jpg"
+    },
+    "event:crucifixion": {
+      "file": "event-crucifixion.webp",
+      "title": "Lo que vio nuestro Señor desde la cruz",
+      "author": "James Tissot",
+      "year": "hacia 1890",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Brooklyn_Museum_-_What_Our_Lord_Saw_from_the_Cross_%28Ce_que_voyait_Notre-Seigneur_sur_la_Croix%29_-_James_Tissot.jpg"
+    },
+    "event:david_goliat": {
+      "file": "event-david_goliat.webp",
+      "title": "David y Goliat",
+      "author": "Osmar Schindler",
+      "year": "1888",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Osmar_Schindler_-_David_und_Goliath.jpg"
+    },
+    "event:el_arca": {
+      "file": "event-el_arca.webp",
+      "title": "El arca de Noé",
+      "author": "Edward Hicks",
+      "year": "1846",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Edward_Hicks%2C_American_-_Noah%27s_Ark_-_Google_Art_Project.jpg"
+    },
+    "event:escalera_jacob": {
+      "file": "event-escalera_jacob.webp",
+      "title": "El sueño de Jacob",
+      "author": "José de Ribera",
+      "year": "1639",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Jos%C3%A9_de_Ribera_-_Jacob%27s_Dream_-_WGA19383.jpg"
+    },
+    "event:ester_valiente": {
+      "file": "event-ester_valiente.webp",
+      "title": "Ester ante Asuero",
+      "author": "Artemisia Gentileschi",
+      "year": "hacia 1625",
+      "license": "CC0",
+      "source": "https://commons.wikimedia.org/wiki/File:Esther_before_Ahasuerus_MET_DT1440.jpg"
+    },
+    "event:foso_leones": {
+      "file": "event-foso_leones.webp",
+      "title": "Daniel en el foso de los leones",
+      "author": "Briton Rivière",
+      "year": "1872",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Daniel_in_the_Lions%27_Den%2C_by_Briton_Rivi%C3%A8re.jpg"
+    },
+    "event:fuego_carmelo": {
+      "file": "event-fuego_carmelo.webp",
+      "title": "El sacrificio de Elías ante los profetas de Baal",
+      "author": "Domenico Fetti",
+      "year": "hacia 1621",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Domenico_Fetti_%28Rome_c._1588-Venice_1623%29_-_The_Sacrifice_of_Elijah_Before_the_Priests_of_Baal_-_RCIN_405466_-_Royal_Collection.jpg"
+    },
+    "event:gedeon_300": {
+      "file": "event-gedeon_300.webp",
+      "title": "Gedeón elige a los trescientos",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:G%C3%A9d%C3%A9on_choisit_les_trois_cents_%28Judges_7_6%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_James_Tissot_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst.jpg"
+    },
+    "event:horno_fuego": {
+      "file": "event-horno_fuego.webp",
+      "title": "Los tres jóvenes en el horno",
+      "author": "Catacumba de Priscila, Roma",
+      "year": "siglo III",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Shadrach%2C_Meshach%2C_and_Abednego_in_the_fiery_furnace%2C_from_the_book_Die_Malereien_der_Katakomben_Roms%2C_plate_78%2C_levels_adjusted.jpg"
+    },
+    "event:jonas_ninive": {
+      "file": "event-jonas_ninive.webp",
+      "title": "Jonás y el gran pez",
+      "author": "Pieter Lastman",
+      "year": "1621",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Pieter_Lastman_-_Jonah_and_the_Whale_-_Google_Art_Project.jpg"
+    },
+    "event:jose_perdona": {
+      "file": "event-jose_perdona.webp",
+      "title": "José se da a conocer a sus hermanos",
+      "author": "Peter von Cornelius",
+      "year": "1817",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Peter_von_Cornelius_-_Joseph_gibt_sich_seinen_Br%C3%BCdern_zu_erkennen_-_Google_Art_Project.jpg"
+    },
+    "event:jose_vendido": {
+      "file": "event-jose_vendido.webp",
+      "title": "José vendido por sus hermanos",
+      "author": "Giovanni Maria Bottalla",
+      "year": "hacia 1640",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Raffaellino_Bottalla_-_Joseph_sold_by_his_brothers_-_Google_Art_Project.jpg"
+    },
+    "event:la_caida": {
+      "file": "event-la_caida.webp",
+      "title": "La expulsión del jardín del Edén",
+      "author": "Thomas Cole",
+      "year": "1828",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Cole_Thomas_Expulsion_from_the_Garden_of_Eden_1828.jpg"
+    },
+    "event:llamado_abram": {
+      "file": "event-llamado_abram.webp",
+      "title": "Abraham camino a Canaán",
+      "author": "Pieter Lastman",
+      "year": "1614",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Lastman%2C_Pieter_-_Abraham%27s_Journey_to_Canaan_-_1614.jpg"
+    },
+    "event:llamado_samuel": {
+      "file": "event-llamado_samuel.webp",
+      "title": "El niño Samuel",
+      "author": "Joshua Reynolds",
+      "year": "1776",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:InfantSamuel.jpg"
+    },
+    "event:lucha_jacob": {
+      "file": "event-lucha_jacob.webp",
+      "title": "Jacob lucha con el ángel",
+      "author": "Rembrandt",
+      "year": "hacia 1659",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Jakob_ringt_mit_dem_Engel_-_Gem%C3%A4ldegalerie_Berlin_-_5190519.jpg"
+    },
+    "event:mandamientos": {
+      "file": "event-mandamientos.webp",
+      "title": "Moisés recibe las tablas de la Ley",
+      "author": "Taller de Rafael",
+      "year": "1519",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Loggia_di_raffaello%2C_09%2C_01.jpg"
+    },
+    "event:mar_abierto": {
+      "file": "event-mar_abierto.webp",
+      "title": "El paso del mar Rojo",
+      "author": "Nicolas Poussin",
+      "year": "1634",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:The_Crossing_of_The_Red_Sea.jpg"
+    },
+    "event:monte_moriah": {
+      "file": "event-monte_moriah.webp",
+      "title": "El sacrificio de Isaac",
+      "author": "Caravaggio",
+      "year": "hacia 1603",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Sacrifice_of_Isaac-Caravaggio_%28Uffizi%29.jpg"
+    },
+    "event:muros_jerico": {
+      "file": "event-muros_jerico.webp",
+      "title": "La caída de los muros de Jericó",
+      "author": "Robert Leinweber",
+      "year": "hacia 1915",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Destruction_of_the_walls_of_Jericho%2C_Robert_Leinweber%2C_c1915%2C_chromolithograph.jpg"
+    },
+    "event:muros_nehemias": {
+      "file": "event-muros_nehemias.webp",
+      "title": "Nehemías contempla los muros en ruinas",
+      "author": "Gustave Doré",
+      "year": "1866",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:108.Nehemiah_Views_the_Ruins_of_Jerusalem%27s_Walls.jpg"
+    },
+    "event:nacimiento_isaac": {
+      "file": "event-nacimiento_isaac.webp",
+      "title": "Abraham y los tres ángeles",
+      "author": "Michelangelo Ricciolini",
+      "year": "siglo XVII",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Abraham_and_the_Three_Angels_.jpg"
+    },
+    "event:nacimiento_jesus": {
+      "file": "event-nacimiento_jesus.webp",
+      "title": "La adoración de los pastores",
+      "author": "Gerard van Honthorst",
+      "year": "1622",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Gerard_van_Honthorst_-_Adoration_of_the_Shepherds_%281622%29.jpg"
+    },
+    "event:pacto_david": {
+      "file": "event-pacto_david.webp",
+      "title": "David ante el profeta Natán",
+      "author": "Tobias van Nijmegen",
+      "year": "hacia 1680",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Tobias_van_Nijmegen_%28b.c.1665%29_-_David_Kneeling_in_His_Palace_before_the_Prophet_Nathan_-_1530122.1_-_National_Trust.jpg"
+    },
+    "event:pacto_estrellas": {
+      "file": "event-pacto_estrellas.webp",
+      "title": "La Vía Láctea sobre el desierto del Néguev",
+      "author": "HiyoriX",
+      "year": "2024",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Milky_Way%2C_Nahal_Gvanim%2C_Makhtesh_Ramon_at_night_01.jpg"
+    },
+    "event:pascua": {
+      "file": "event-pascua.webp",
+      "title": "La Pascua de los judíos",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:La_p%C3%A2que_des_Juifs_%28Exodus_12_11%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_James_Tissot_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst.jpg"
+    },
+    "event:pentecostes": {
+      "file": "event-pentecostes.webp",
+      "title": "Pentecostés",
+      "author": "El Greco",
+      "year": "hacia 1600",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Pentecost%C3%A9s_%28El_Greco%2C_c._1600%29_Prado.jpg"
+    },
+    "event:rebeca_pozo": {
+      "file": "event-rebeca_pozo.webp",
+      "title": "Eliezer y Rebeca",
+      "author": "Nicolas Poussin",
+      "year": "1648",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Eli%C3%A9zer_et_R%C3%A9becca_-_Nicolas_Poussin_-_Mus%C3%A9e_du_Louvre_Peintures_INV_7270_%3B_MR_2315.jpg"
+    },
+    "event:reino_dividido": {
+      "file": "event-reino_dividido.webp",
+      "title": "Roboam y Abías",
+      "author": "Miguel Ángel",
+      "year": "hacia 1511",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Michelangelo%2C_lunetta%2C_Rehoboam_-_Abijah_01.jpg"
+    },
+    "event:resurreccion": {
+      "file": "event-resurreccion.webp",
+      "title": "Pedro y Juan corren al sepulcro",
+      "author": "Eugène Burnand",
+      "year": "1898",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Disciples_running_by_EB.jpg"
+    },
+    "event:rut_noemi": {
+      "file": "event-rut_noemi.webp",
+      "title": "Noemí y Rut",
+      "author": "Evelyn De Morgan",
+      "year": "1887",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Evelyn_De_Morgan_-_Naomi_and_Ruth%2C_1887.jpg"
+    },
+    "event:sabiduria_salomon": {
+      "file": "event-sabiduria_salomon.webp",
+      "title": "El sueño de Salomón",
+      "author": "Luca Giordano",
+      "year": "hacia 1694",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Luca_Giordano_-_Dream_of_Solomon_-_WGA09004.jpg"
+    },
+    "event:sermon_monte": {
+      "file": "event-sermon_monte.webp",
+      "title": "El Sermón del monte",
+      "author": "Carl Bloch",
+      "year": "1877",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Sermononthemount_cropped.jpg"
+    },
+    "event:suenos_faraon": {
+      "file": "event-suenos_faraon.webp",
+      "title": "José interpreta el sueño del faraón",
+      "author": "James Tissot",
+      "year": "hacia 1900",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Tissot_Joseph_Interprets_Pharaoh%27s_Dream.jpg"
+    },
+    "event:templo": {
+      "file": "event-templo.webp",
+      "title": "Salomón dedica el templo",
+      "author": "James Tissot (foto: Phillip Medhurst)",
+      "year": "hacia 1900",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:La_d%C3%A9dicace_par_Salomon_du_temple_%281_Kings_10_2%29_%E2%80%A2_invenit_James_Tissot_%E2%80%A2_pinxit_Michel_Simonidy_%E2%80%A2_excudit_Maurice_de_Brunoff_apud_Philip_de_Vere_%E2%80%A2_praesentat_Phillip_Medhurst.jpg"
+    },
+    "event:torre_babel": {
+      "file": "event-torre_babel.webp",
+      "title": "La torre de Babel",
+      "author": "Pieter Brueghel el Viejo",
+      "year": "1563",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_%28Vienna%29_-_Google_Art_Project_-_edited.jpg"
+    },
+    "event:ultima_cena": {
+      "file": "event-ultima_cena.webp",
+      "title": "La última cena",
+      "author": "Leonardo da Vinci",
+      "year": "hacia 1497",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_%281452-1519%29_-_The_Last_Supper_%281495-1498%29.jpg"
+    },
+    "event:zarza": {
+      "file": "event-zarza.webp",
+      "title": "Moisés ante la zarza ardiente",
+      "author": "Domenico Fetti",
+      "year": "hacia 1615",
+      "license": "Dominio público",
+      "source": "https://commons.wikimedia.org/wiki/File:Kunsthistorisches_Museum_Wien,_Fetti,_Moses_vor_dem_brennenden_Dornbusch.JPG"
+    }
+  }
+}

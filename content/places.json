@@ -1,0 +1,239 @@
+{
+  "_nota": "Lugares coleccionables. Mismo formato que los personajes.",
+  "places": [
+    {
+      "id": "eden",
+      "name": "El huerto del Edén",
+      "icon": "sprout",
+      "line": "Donde todo empezó",
+      "summary": "Un huerto que Dios planta en el oriente, con toda clase de árboles y un río que lo riega. Allí pone al ser humano para que lo cuide.",
+      "passages": ["GEN.2", "GEN.3"],
+      "verse": "GEN.2.8"
+    },
+    {
+      "id": "babel",
+      "name": "Babel",
+      "icon": "city",
+      "line": "La torre que quedó sin terminar",
+      "summary": "Una ciudad en la llanura de Sinar donde los hombres quieren hacerse un nombre. Allí Dios confunde las lenguas y la torre queda a medias.",
+      "passages": ["GEN.11"],
+      "verse": "GEN.11.9"
+    },
+    {
+      "id": "ur",
+      "name": "Ur de los caldeos",
+      "icon": "compass",
+      "line": "El punto de partida",
+      "summary": "Una ciudad rica junto al río Éufrates. De allí sale la familia de Abram, antes de que Dios lo llame a una tierra que no conocía.",
+      "passages": ["GEN.11", "GEN.15"],
+      "verse": "GEN.15.7"
+    },
+    {
+      "id": "beerseba",
+      "name": "Beerseba",
+      "icon": "well",
+      "line": "El pozo del juramento",
+      "summary": "Un lugar en el sur, a la orilla del desierto. Abraham cava allí un pozo y planta árboles; Isaac vuelve a encontrar agua, y siglos después Elías pasa por allí huyendo.",
+      "passages": ["GEN.21", "GEN.26", "1KI.19"],
+      "verse": "GEN.21.33"
+    },
+    {
+      "id": "betel",
+      "name": "Betel",
+      "icon": "ladder",
+      "line": "Casa de Dios",
+      "summary": "Era solo un lugar para pasar la noche hasta que Jacob soñó allí con la escalera. Al despertar dijo: ciertamente Jehová está en este lugar, y yo no lo sabía.",
+      "passages": ["GEN.28", "GEN.35"],
+      "verse": "GEN.28.17"
+    },
+    {
+      "id": "egipto",
+      "name": "Egipto",
+      "icon": "peak",
+      "line": "Refugio y esclavitud",
+      "summary": "La gran potencia del Nilo. Allí José salva a su familia del hambre, allí sus descendientes terminan esclavos, y allí también se refugia Jesús cuando es niño.",
+      "passages": ["GEN.41", "EXO.1", "EXO.12", "MAT.2"],
+      "verse": "EXO.3.7"
+    },
+    {
+      "id": "mar_rojo",
+      "name": "El mar Rojo",
+      "icon": "wave",
+      "line": "Un camino donde no lo había",
+      "summary": "Con el mar delante y el ejército del faraón detrás, parecía no haber salida, y Dios abrió un camino en medio de las aguas. La Reina-Valera 1909 lo llama «mar Bermejo».",
+      "passages": ["EXO.14", "EXO.15"],
+      "verse": "EXO.14.21"
+    },
+    {
+      "id": "sinai",
+      "name": "El monte Sinaí",
+      "icon": "tablets",
+      "line": "El monte de la Ley",
+      "summary": "También llamado Horeb. Allí Moisés ve la zarza ardiente, allí Dios hace su pacto con Israel, y allí Elías escucha el silbo apacible.",
+      "passages": ["EXO.3", "EXO.19", "EXO.20", "1KI.19"],
+      "verse": "EXO.19.5"
+    },
+    {
+      "id": "jordan",
+      "name": "El río Jordán",
+      "icon": "wave",
+      "line": "Aguas de nuevos comienzos",
+      "summary": "Israel lo cruza en seco para entrar a la tierra prometida. Naamán se sana en sus aguas, y allí Juan bautiza a Jesús.",
+      "passages": ["JOS.3", "2KI.5", "MAT.3"],
+      "verse": "JOS.3.17"
+    },
+    {
+      "id": "jerico",
+      "name": "Jericó",
+      "icon": "city",
+      "line": "La ciudad de las palmas",
+      "summary": "Una de las ciudades más antiguas del mundo. Sus muros caen ante el pueblo de Israel, y siglos después allí Jesús se invita a la casa de Zaqueo.",
+      "passages": ["JOS.2", "JOS.6", "LUK.19"],
+      "verse": "HEB.11.30"
+    },
+    {
+      "id": "belen",
+      "name": "Belén",
+      "icon": "star",
+      "line": "Pequeña entre los pueblos de Judá",
+      "summary": "Allí vive Rut con Booz, allí Samuel unge al joven David, y allí nace Jesús, como lo había anunciado el profeta Miqueas.",
+      "passages": ["RUT.1", "1SA.16", "MIC.5", "LUK.2"],
+      "verse": "MIC.5.2"
+    },
+    {
+      "id": "jerusalen",
+      "name": "Jerusalén",
+      "icon": "city",
+      "line": "La ciudad de David",
+      "summary": "David la conquista y la hace su capital; Salomón construye allí el templo. Es destruida y reconstruida, y en ella Jesús muere y resucita. La Biblia termina con una Jerusalén nueva.",
+      "passages": ["2SA.5", "1KI.8", "NEH.6", "LUK.19", "REV.21"],
+      "verse": "PSA.122.6"
+    },
+    {
+      "id": "carmelo",
+      "name": "El monte Carmelo",
+      "icon": "flame",
+      "line": "El monte del fuego",
+      "summary": "Un monte junto al mar. Allí Elías reúne al pueblo y le pregunta hasta cuándo va a dudar entre dos opiniones. Dios responde con fuego.",
+      "passages": ["1KI.18"],
+      "verse": "1KI.18.21"
+    },
+    {
+      "id": "ninive",
+      "name": "Nínive",
+      "icon": "fish",
+      "line": "La gran ciudad",
+      "summary": "La capital de Asiria, enemiga de Israel. Jonás no quería ir, pero cuando anuncia el juicio, toda la ciudad se arrepiente, desde el rey hasta los animales.",
+      "passages": ["JON.1", "JON.3", "JON.4"],
+      "verse": "JON.3.10"
+    },
+    {
+      "id": "babilonia",
+      "name": "Babilonia",
+      "icon": "harp",
+      "line": "Junto a sus ríos lloramos",
+      "summary": "El imperio que destruyó Jerusalén y se llevó cautivo al pueblo. Allí, lejos de casa, Daniel y sus amigos se mantienen fieles.",
+      "passages": ["2KI.25", "PSA.137", "DAN.1", "DAN.5"],
+      "verse": "PSA.137.1"
+    },
+    {
+      "id": "susa",
+      "name": "Susa",
+      "icon": "crown",
+      "line": "El palacio de Persia",
+      "summary": "Una de las capitales del imperio persa. Allí Nehemías sirve como copero del rey y allí Ester llega a ser reina.",
+      "passages": ["NEH.1", "EST.1", "EST.4"],
+      "verse": "NEH.1.1"
+    },
+    {
+      "id": "nazaret",
+      "name": "Nazaret",
+      "icon": "sprout",
+      "line": "Un pueblo sin fama",
+      "summary": "Un pueblo pequeño de Galilea. Allí recibe María la visita del ángel, allí crece Jesús y allí lee en la sinagoga el libro de Isaías.",
+      "passages": ["LUK.1", "LUK.2", "LUK.4"],
+      "verse": "LUK.2.52"
+    },
+    {
+      "id": "galilea",
+      "name": "El mar de Galilea",
+      "icon": "fish",
+      "line": "El lago de los pescadores",
+      "summary": "Un lago de agua dulce rodeado de pueblos de pescadores. Allí Jesús llama a sus primeros discípulos, calma la tempestad y camina sobre el agua.",
+      "passages": ["MAT.4", "MRK.4", "MAT.14", "JHN.21"],
+      "verse": "MRK.4.39"
+    },
+    {
+      "id": "getsemani",
+      "name": "Getsemaní",
+      "icon": "olive",
+      "line": "El huerto de los olivos",
+      "summary": "Un huerto al pie del monte de los Olivos. La noche antes de la cruz, Jesús ora allí angustiado: no como yo quiero, sino como tú.",
+      "passages": ["MAT.26", "MRK.14"],
+      "verse": "MAT.26.39"
+    },
+    {
+      "id": "golgota",
+      "name": "El Gólgota",
+      "icon": "cross",
+      "line": "El lugar de la Calavera",
+      "summary": "Un lugar a las afueras de Jerusalén donde Jesús es crucificado. Muy cerca había un huerto con un sepulcro nuevo, y allí lo sepultan.",
+      "passages": ["MAT.27", "JHN.19"],
+      "verse": "JHN.19.17"
+    },
+    {
+      "id": "damasco",
+      "name": "Damasco",
+      "icon": "sun",
+      "line": "Donde Saulo volvió a ver",
+      "summary": "Una ciudad antigua de Siria. Saulo llega allí ciego y humillado, y un discípulo llamado Ananías ora por él. De allí sale predicando a Jesús.",
+      "passages": ["ACT.9", "GAL.1"],
+      "verse": "ACT.9.18"
+    },
+    {
+      "id": "antioquia",
+      "name": "Antioquía",
+      "icon": "compass",
+      "line": "Allí los llamaron cristianos",
+      "summary": "Una gran ciudad de Siria donde la iglesia crece entre judíos y griegos. Allí se los llama cristianos por primera vez, y de allí salen Pablo y Bernabé a sus viajes.",
+      "passages": ["ACT.11", "ACT.13", "ACT.15"],
+      "verse": "ACT.11.26"
+    },
+    {
+      "id": "filipos",
+      "name": "Filipos",
+      "icon": "harp",
+      "line": "La primera iglesia de Europa",
+      "summary": "Una colonia romana en Macedonia. Allí se convierte Lidia, Pablo y Silas cantan en la cárcel, y a esa iglesia querida Pablo le escribe: gozaos en el Señor siempre.",
+      "passages": ["ACT.16", "PHP.1", "PHP.4"],
+      "verse": "PHP.4.4"
+    },
+    {
+      "id": "atenas",
+      "name": "Atenas",
+      "icon": "scroll",
+      "line": "Al Dios no conocido",
+      "summary": "La ciudad de los filósofos. Pablo ve un altar dedicado al Dios no conocido y, en el Areópago, les habla de él.",
+      "passages": ["ACT.17"],
+      "verse": "ACT.17.28"
+    },
+    {
+      "id": "roma",
+      "name": "Roma",
+      "icon": "path",
+      "line": "El centro del imperio",
+      "summary": "La capital del mundo romano. Pablo escribe a sus creyentes su carta más larga, y años después llega allí preso, pero sigue anunciando el evangelio sin impedimento.",
+      "passages": ["ROM.1", "ACT.28"],
+      "verse": "ROM.1.16"
+    },
+    {
+      "id": "patmos",
+      "name": "Patmos",
+      "icon": "sunrise",
+      "line": "La isla de la revelación",
+      "summary": "Una pequeña isla rocosa del mar Egeo. Allí, desterrado por su fe, Juan recibe la visión del Apocalipsis.",
+      "passages": ["REV.1"],
+      "verse": "REV.1.9"
+    }
+  ]
+}

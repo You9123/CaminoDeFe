@@ -13,6 +13,8 @@ import { AchievementsScreen } from "../screens/AchievementsScreen";
 import { StatsScreen } from "../screens/StatsScreen";
 import { MapScreen } from "../screens/MapScreen";
 import { MissionsScreen } from "../screens/MissionsScreen";
+import { TimelineScreen } from "../screens/TimelineScreen";
+import { CollectiblesScreen } from "../screens/CollectiblesScreen";
 import { NotInTauriScreen } from "../screens/NotInTauriScreen";
 import { isTauri } from "../data/db";
 import { useProgress } from "../stores/progressStore";
@@ -48,7 +50,9 @@ export default function App() {
           <Route path="diario" element={<JournalScreen />} />
           <Route path="mapa" element={<MapScreen />} />
           <Route path="misiones" element={<MissionsScreen />} />
+          <Route path="linea-temporal" element={<TimelineScreen />} />
           <Route path="logros" element={<AchievementsScreen />} />
+          <Route path="logros/coleccionables" element={<CollectiblesScreen />} />
           <Route path="estadisticas" element={<StatsScreen />} />
           <Route path="ajustes" element={<SettingsScreen />} />
         </Route>

@@ -11,6 +11,9 @@ import { checkAchievements } from "../data/achievementsRepo";
 import { checkChallenges } from "../data/challengesRepo";
 import type { Challenge } from "../domain/challenges";
 import { toast } from "./toastStore";
+import { getReadChapterMap } from "../data/collectiblesRepo";
+import { CATALOG } from "../content/collectibles";
+import { KIND_LABEL, newlyUnlocked, type Collectible } from "../domain/collectibles";
 
 type ProgressState = {
   loaded: boolean;
@@ -155,4 +158,24 @@ export const useProgress = create<ProgressState>((set, get) => ({
 export function useXpFor(type: ActivityType): number {
   const rewarded = useProgress((s) => s.rewardedToday[type] ?? 0);
   return xpFor(type, rewarded);
+}
+
+/**
+ * Después de leer un capítulo: avisa de las fichas nuevas (personajes, lugares, eventos)
+ * y hace que la mascota celebre. Devuelve las fichas para mostrarlas en el lector.
+ */
+export async function announceCollectibles(ref: string, wasReadBefore: boolean): Promise<Collectible[]> {
+  if (wasReadBefore) return [];
+  try {
+    const { read } = await getReadChapterMap();
+    const list = newlyUnlocked(CATALOG.collectibles, read, ref, wasReadBefore);
+    if (list.length === 0) return [];
+    if (list.length > 2) toast(`${list.length} fichas nuevas en Coleccionables`, "collectible");
+    else for (const c of list) toast(`${KIND_LABEL[c.kind].unlocked}: ${c.name}`, "collectible");
+    useProgress.setState((s) => ({ celebrationKey: s.celebrationKey + 1 }));
+    return list;
+  } catch (e) {
+    console.error("No se pudieron revisar los coleccionables", e);
+    return [];
+  }
 }

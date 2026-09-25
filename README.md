@@ -14,6 +14,10 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 - Sprint 2C (v1.3.0): ¿Cómo me siento hoy? (`content/emotions.json`), modo escuchar (texto a voz), sesiones de 5/10/15/30 minutos y exportar el diario a Markdown o PDF.
 - Sprint 2D (v2.0.0): mascota opcional (oveja, león, paloma o pez) que crece con tu nivel, con accesorios y animaciones.
 
+**V3 en curso**
+
+- Sprint 3A (v2.1.0): línea temporal interactiva (15 etapas, `content/timeline.json`) y coleccionables de personajes, lugares y eventos (`content/characters.json`, `places.json`, `events.json`), que se desbloquean al leer.
+
 ---
 
 ## Requisitos (Windows)
@@ -50,15 +54,15 @@ pnpm import-bible     # regenerar src-tauri/resources/bible.db (solo si cambias 
 camino-de-fe/
 ├─ src/
 │  ├─ app/          # App (rutas) y Layout (barra lateral)
-│  ├─ screens/      # Hoy, Biblia, Lector, Mapa, Misiones, Diario, Logros, Mi camino, Ajustes
+│  ├─ screens/      # Hoy, Biblia, Lector, Mapa, Línea temporal, Misiones, Diario, Logros, Coleccionables, Mi camino, Ajustes
 │  ├─ components/   # piezas reutilizables (XpBar…)
-│  ├─ domain/       # LÓGICA PURA: xp, niveles, rangos, rachas, misiones, logros, desafíos, mapa, estadísticas
+│  ├─ domain/       # LÓGICA PURA: xp, niveles, rangos, rachas, misiones, logros, desafíos, mapa, estadísticas, coleccionables
 │  ├─ content/      # carga y valida con Zod los JSON de /content
 │  ├─ data/         # repositorios: única capa que habla con SQLite
 │  ├─ stores/       # estado global (Zustand)
 │  ├─ hooks/
 │  └─ styles/       # Tailwind + colores (claro/oscuro)
-├─ content/         # JSON editables: libros/zonas, resúmenes, versículos del día, logros, desafíos, misiones sorpresa, emociones
+├─ content/         # JSON editables: libros/zonas, resúmenes, versículos del día, logros, desafíos, misiones sorpresa, emociones, línea temporal y coleccionables
 ├─ scripts/         # import-bible.ts (+ normalize.ts)
 ├─ tests/           # Vitest
 ├─ src-tauri/

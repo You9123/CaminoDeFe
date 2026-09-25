@@ -13,7 +13,11 @@ import { getChapterMarks, HIGHLIGHT_COLORS, updateMarks, type HighlightColor } f
 import { chapterRef, versesLabel } from "../domain/refs";
 import { estimatedReadSeconds, formatMinutes, minSecondsToCount } from "../domain/reading";
 import { useAsync } from "../hooks/useAsync";
-import { useProgress } from "../stores/progressStore";
+import { announceCollectibles, useProgress } from "../stores/progressStore";
+import { CATALOG } from "../content/collectibles";
+import { collectibleKey, collectiblesInChapter } from "../domain/collectibles";
+import { CollectibleSheet, RelatedChip } from "../components/CollectibleSheet";
+import { getReadChapterMap } from "../data/collectiblesRepo";
 import { toast } from "../stores/toastStore";
 import { PostReadingFlow } from "../components/PostReadingFlow";
 import { BookmarkIcon, CheckIcon, CopyIcon, HourglassIcon, QuillIcon, SpeakerIcon } from "../components/icons";
@@ -229,6 +233,7 @@ function ChapterReader({
         durationSec: elapsed,
       });
       await celebrate(res.awards);
+      await announceCollectibles(chapterRef(chapter.book.code, chapter.chapter), alreadyRead);
       const after = useProgress.getState().level.level;
       setResult({ ...res, levelUp: after > before ? after : null });
       if (inSession && !sessionLast) session.advance();
@@ -315,6 +320,8 @@ function ChapterReader({
           );
         })}
       </article>
+
+      <ChapterCollectibles chapterRef={chapterRef(chapter.book.code, chapter.chapter)} />
 
       <div className="mt-14 flex justify-between gap-4 text-sm">
         {prev ? (
@@ -501,6 +508,28 @@ function ChapterReader({
         />
       )}
     </div>
+  );
+}
+
+/** "Aparecen aquí": fichas de la línea temporal que tienen este capítulo como pasaje clave. */
+function ChapterCollectibles({ chapterRef: ref }: { chapterRef: string }) {
+  const totalXp = useProgress((s) => s.totalXp);
+  const [open, setOpen] = useState<string | null>(null);
+  const items = collectiblesInChapter(CATALOG.collectibles, ref);
+  const data = useAsync(getReadChapterMap, `${totalXp}`);
+  if (items.length === 0) return null;
+  const read = data.data?.read ?? new Set<string>();
+  const item = open ? CATALOG.byKey.get(open) : undefined;
+  return (
+    <aside className="mt-12 rounded-2xl border border-dashed border-border px-5 py-4">
+      <p className="mb-2.5 text-sm font-semibold text-muted">Aparecen en este capítulo</p>
+      <div className="flex flex-wrap gap-2">
+        {items.map((c) => (
+          <RelatedChip key={collectibleKey(c.kind, c.id)} item={c} read={read} onOpen={setOpen} />
+        ))}
+      </div>
+      {item && <CollectibleSheet key={open} item={item} onClose={() => setOpen(null)} onOpen={setOpen} />}
+    </aside>
   );
 }
 

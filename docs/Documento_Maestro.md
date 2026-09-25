@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 2.0 · 24/09/2026
+> **Versión del documento:** 2.1 · 24/09/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -264,7 +264,7 @@ Gráficos: lecturas por semana, tiempo dedicado, libros completados, un calendar
 
 ### 2.17 Línea temporal bíblica [V3]
 
-Una línea horizontal interactiva: Creación → Diluvio → Abraham → Isaac → Jacob → José → Éxodo → Jueces → David → Salomón → División del reino → Exilio → Regreso → Jesús → Iglesia. Cada evento tiene una ficha con un resumen, los pasajes relacionados (con enlace directo al lector) y los personajes involucrados. Datos en `content/timeline.json`.
+Una línea horizontal interactiva: Creación → Diluvio → Abraham → Isaac → Jacob → José → Éxodo → Josué y los jueces → David → Salomón → División del reino → Exilio → Regreso → Jesús → Iglesia. Cada etapa tiene un resumen, los pasajes relacionados (con enlace directo al lector), sus eventos, los personajes y los lugares. Se ilumina cuando lees sus capítulos. Datos en `content/timeline.json` (etapas) y `content/events.json` (eventos). **Hecho en el Sprint 3A** (ADR-0008).
 
 ### 2.18 Quiz [V3]
 
@@ -274,7 +274,7 @@ Una línea horizontal interactiva: Creación → Diluvio → Abraham → Isaac �
 
 ### 2.19 Coleccionables [V3]
 
-Fichas de **Personajes**, **Lugares** y **Eventos**. Cada ficha tiene una lista de pasajes clave, y el porcentaje de la ficha es la parte de esos pasajes que has leído. Al leer un pasaje de la lista aparece "🔓 Personaje desbloqueado". Datos en `content/characters.json`, `places.json` y `events.json`.
+Fichas de **Personajes**, **Lugares** y **Eventos**. Cada ficha tiene una lista de capítulos clave, y el avance de la ficha es la parte de esos capítulos que has leído (se calcula con `chapter_progress`, sin tablas nuevas). Al leer por primera vez uno de ellos aparece "Personaje desbloqueado: …". Todas las fichas se ven desde el principio; al completarlas se vuelven doradas. Están en **Logros → Coleccionables**, y el lector muestra las que aparecen en cada capítulo. Datos en `content/characters.json`, `places.json` y `events.json`. **Hecho en el Sprint 3A** (ADR-0008).
 
 ### 2.20 Configuración [V1]
 
@@ -339,7 +339,7 @@ La mayor parte del trabajo del proyecto es **escribir contenido**, no programar.
 | `random_missions.json`                            | Misiones sorpresa                                                                                    | V2      |
 | `challenges.json`                                 | Desafíos y requisitos                                                                                | V2      |
 | `achievements.json`                               | Logros y reglas                                                                                      | V2      |
-| `timeline.json`                                   | Eventos de la línea temporal                                                                         | V3      |
+| `timeline.json`                                   | Etapas de la línea temporal                                                                          | V3      |
 | `characters.json` / `places.json` / `events.json` | Coleccionables                                                                                       | V3      |
 | `quiz/<libro>.json`                               | Preguntas por libro                                                                                  | V3      |
 
@@ -603,15 +603,17 @@ Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, 
 - [x] Sesiones de 5 / 10 / 15 / 30 minutos (Sprint 2C)
 - [x] Exportar el diario a Markdown o PDF (Sprint 2C)
 
-### 🟠 V3 — Experiencia bíblica
+### 🟠 V3 — Experiencia bíblica · en curso
 
-- [ ] Línea temporal interactiva
-- [ ] Quiz por libro
-- [ ] Coleccionables: personajes, lugares, eventos
-- [ ] Desafíos mayores (los "jefes finales")
-- [ ] PIN para el diario
-- [ ] Actualizaciones automáticas
-- [ ] Voces neuronales offline (Piper), opcional
+Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v2.1.0 · **3B Quiz y desafíos mayores** · **3C Privacidad y actualizaciones** (PIN del diario, actualizaciones automáticas) · **3D Voces Piper** (opcional).
+
+- [x] Línea temporal interactiva (Sprint 3A)
+- [ ] Quiz por libro (Sprint 3B)
+- [x] Coleccionables: personajes, lugares, eventos (Sprint 3A)
+- [ ] Desafíos mayores (los "jefes finales") (Sprint 3B)
+- [ ] PIN para el diario (Sprint 3C)
+- [ ] Actualizaciones automáticas (Sprint 3C)
+- [ ] Voces neuronales offline (Piper), opcional (Sprint 3D)
 
 ### 🔴 V4 — Nube y móvil
 

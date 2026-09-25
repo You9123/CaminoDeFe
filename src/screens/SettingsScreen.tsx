@@ -9,6 +9,9 @@ import { ReminderFields, AutostartField, BackupFields } from "./settings/SystemF
 import { Field } from "./settings/ui";
 import { EmotionPromptField, SpeechFields } from "./settings/SpeechFields";
 import { PetFields } from "./settings/PetFields";
+import { allCollectibleImages } from "../content/collectibleImages";
+import { CATALOG } from "../content/collectibles";
+import { creditLine } from "../domain/collectibles";
 
 const THEMES: { value: Theme; label: string }[] = [
   { value: "system", label: "Como el sistema" },
@@ -98,13 +101,18 @@ export function SettingsScreen() {
       </Section>
 
       <Section title="Acerca de">
-        <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-sm">
+        <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-6 gap-y-2 text-sm">
           <dt className="text-muted">Versión</dt>
           <dd>{version ?? "—"}</dd>
           <dt className="text-muted">Biblia</dt>
           <dd>Reina-Valera 1909 (dominio público)</dd>
           <dt className="text-muted">Tus datos</dt>
           <dd>Se guardan solo en esta computadora. Nada se envía a internet.</dd>
+          <dt className="text-muted">Imágenes</dt>
+          <dd>
+            Obras de dominio público y fotos con licencia libre de Wikimedia Commons.
+            <ImageCredits />
+          </dd>
         </dl>
       </Section>
     </div>
@@ -176,5 +184,29 @@ function NameField() {
         </button>
       </form>
     </Field>
+  );
+}
+
+/** Créditos de las imágenes de los coleccionables (las licencias CC BY y CC BY-SA piden nombrar al autor). */
+function ImageCredits() {
+  const list = allCollectibleImages();
+  return (
+    <details className="mt-1.5">
+      <summary className="cursor-pointer text-accent hover:underline">Ver los créditos ({list.length})</summary>
+      <ul className="mt-2 flex max-h-72 flex-col gap-1.5 overflow-y-auto pr-2 text-[13px] leading-snug">
+        {list.map(({ key, image }) => (
+          <li key={key}>
+            <span className="font-semibold">{CATALOG.byKey.get(key)?.name}</span>
+            <span className="text-muted">
+              {" "}
+              · {image.title}. {creditLine(image)}.
+            </span>
+            <span className="block truncate text-[11px] text-muted/80 select-text" title={image.source}>
+              {decodeURI(image.source)}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </details>
   );
 }

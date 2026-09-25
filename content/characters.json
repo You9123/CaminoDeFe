@@ -1,0 +1,410 @@
+{
+  "_nota": "Personajes coleccionables. 'line' es una frase corta para la tarjeta; 'passages' son los capítulos clave (la ficha se desbloquea al leer el primero). Jesús no es una ficha: es el centro de toda la línea temporal.",
+  "characters": [
+    {
+      "id": "adan",
+      "name": "Adán",
+      "icon": "sprout",
+      "line": "El primer hombre",
+      "summary": "Dios lo forma del polvo y le da aliento de vida. Pone nombre a los animales, cuida el huerto y, junto con Eva, conoce tanto la bendición como la caída.",
+      "passages": ["GEN.2", "GEN.3"],
+      "verse": "GEN.2.7"
+    },
+    {
+      "id": "eva",
+      "name": "Eva",
+      "icon": "heart",
+      "line": "Madre de todos los vivientes",
+      "summary": "Dios la forma para que Adán no esté solo. Escucha a la serpiente y cae con él, pero también recibe la primera promesa de salvación.",
+      "passages": ["GEN.2", "GEN.3", "GEN.4"],
+      "verse": "GEN.3.20"
+    },
+    {
+      "id": "noe",
+      "name": "Noé",
+      "icon": "ark",
+      "line": "Justo en tiempos difíciles",
+      "summary": "Mientras todos se corrompen, Noé camina con Dios. Construye el arca tal como se le pidió y, al salir, lo primero que hace es levantar un altar.",
+      "passages": ["GEN.6-9"],
+      "verse": "GEN.6.9"
+    },
+    {
+      "id": "abraham",
+      "name": "Abraham",
+      "icon": "star",
+      "line": "El padre de la fe",
+      "summary": "Deja su tierra por una promesa y espera durante años un hijo que parecía imposible. A veces duda y se equivoca, pero vuelve a confiar. La Biblia lo llama amigo de Dios.",
+      "passages": ["GEN.12", "GEN.15", "GEN.18", "GEN.22"],
+      "verse": "GEN.12.2"
+    },
+    {
+      "id": "sara",
+      "name": "Sara",
+      "icon": "tent",
+      "line": "Se rió, y Dios cumplió",
+      "summary": "Esposa de Abraham. Estéril toda su vida, se ríe al oír que tendrá un hijo a los noventa años. Para Dios no había nada demasiado difícil.",
+      "passages": ["GEN.12", "GEN.18", "GEN.21"],
+      "verse": "GEN.18.14"
+    },
+    {
+      "id": "isaac",
+      "name": "Isaac",
+      "icon": "sun",
+      "line": "El hijo de la promesa",
+      "summary": "Hijo de Abraham y Sara; su nombre significa «risa». Es un hombre de paz: cuando le disputan los pozos, en lugar de pelear, cava otros nuevos.",
+      "passages": ["GEN.21", "GEN.22", "GEN.24", "GEN.26"],
+      "verse": "GEN.26.22"
+    },
+    {
+      "id": "rebeca",
+      "name": "Rebeca",
+      "icon": "well",
+      "line": "Generosa y decidida",
+      "summary": "Da de beber a un desconocido y a sus diez camellos sin que se lo pidan. Deja su casa para casarse con Isaac y es madre de Esaú y Jacob.",
+      "passages": ["GEN.24", "GEN.25", "GEN.27"],
+      "verse": "GEN.24.18"
+    },
+    {
+      "id": "jacob",
+      "name": "Jacob",
+      "icon": "ladder",
+      "line": "Luchó con Dios y fue bendecido",
+      "summary": "Astuto desde que nace: engaña a su padre y a su hermano, y también es engañado. Dios no lo suelta, le da un nombre nuevo, Israel, y de sus doce hijos salen las tribus.",
+      "passages": ["GEN.25", "GEN.27", "GEN.28", "GEN.29", "GEN.32"],
+      "verse": "GEN.28.15"
+    },
+    {
+      "id": "esau",
+      "name": "Esaú",
+      "icon": "path",
+      "line": "El hermano que abrazó",
+      "summary": "Cazador, hijo mayor de Isaac. Cambia su primogenitura por un plato de guiso y pierde la bendición. Años después, cuando Jacob vuelve con miedo, Esaú corre a abrazarlo.",
+      "passages": ["GEN.25", "GEN.27", "GEN.33"],
+      "verse": "GEN.33.4"
+    },
+    {
+      "id": "jose",
+      "name": "José",
+      "icon": "moon",
+      "line": "Del pozo al palacio",
+      "summary": "El hijo preferido de Jacob, vendido por sus hermanos. En Egipto es esclavo, preso y gobernador, y en cada lugar es fiel. Termina perdonando a quienes le hicieron daño.",
+      "passages": ["GEN.37", "GEN.39", "GEN.41", "GEN.45", "GEN.50"],
+      "verse": "GEN.50.20"
+    },
+    {
+      "id": "moises",
+      "name": "Moisés",
+      "icon": "tablets",
+      "line": "El libertador",
+      "summary": "Salvado de las aguas cuando era bebé, crece en el palacio del faraón. Dios lo llama a sacar a su pueblo de Egipto, y durante cuarenta años lo guía por el desierto hablando con Dios cara a cara.",
+      "passages": ["EXO.2", "EXO.3", "EXO.14", "EXO.20", "EXO.34", "DEU.34"],
+      "verse": "EXO.33.11"
+    },
+    {
+      "id": "aaron",
+      "name": "Aarón",
+      "icon": "staff",
+      "line": "La voz de Moisés",
+      "summary": "Hermano mayor de Moisés, habla por él delante del faraón. Es el primer sumo sacerdote de Israel, aunque también falla, como cuando hace el becerro de oro.",
+      "passages": ["EXO.4", "EXO.7", "EXO.28", "EXO.32"],
+      "verse": "EXO.4.14"
+    },
+    {
+      "id": "josue",
+      "name": "Josué",
+      "icon": "shield",
+      "line": "Esfuérzate y sé valiente",
+      "summary": "Ayudante de Moisés y uno de los dos espías que confiaron en Dios. Guía al pueblo a la tierra prometida y al final dice: yo y mi casa serviremos a Jehová.",
+      "passages": ["NUM.14", "JOS.1", "JOS.6", "JOS.24"],
+      "verse": "JOS.1.9"
+    },
+    {
+      "id": "rahab",
+      "name": "Rahab",
+      "icon": "city",
+      "line": "Una fe inesperada",
+      "summary": "Vive en los muros de Jericó y esconde a los espías de Israel porque cree que su Dios es el verdadero. Se salva con toda su familia y aparece en la genealogía de Jesús.",
+      "passages": ["JOS.2", "JOS.6", "MAT.1"],
+      "verse": "JOS.2.11"
+    },
+    {
+      "id": "debora",
+      "name": "Débora",
+      "icon": "olive",
+      "line": "Jueza y profetisa",
+      "summary": "Juzga a Israel sentada bajo una palmera. Anima a Barac a salir a la batalla y después canta la victoria que Dios les dio.",
+      "passages": ["JDG.4", "JDG.5"],
+      "verse": "JDG.4.14"
+    },
+    {
+      "id": "gedeon",
+      "name": "Gedeón",
+      "icon": "lamp",
+      "line": "El menor de la casa de su padre",
+      "summary": "Está escondido trillando trigo cuando un ángel lo llama «varón esforzado». Pide señales porque tiene miedo, y Dios le tiene paciencia. Con trescientos hombres vence a un ejército.",
+      "passages": ["JDG.6", "JDG.7", "JDG.8"],
+      "verse": "JDG.6.12"
+    },
+    {
+      "id": "sanson",
+      "name": "Sansón",
+      "icon": "sun",
+      "line": "Fuerte, pero frágil",
+      "summary": "Tiene una fuerza enorme mientras guarda su voto a Dios. Se deja llevar por sus impulsos y lo pierde todo, pero al final, ciego y humillado, clama a Dios una vez más.",
+      "passages": ["JDG.13", "JDG.14", "JDG.15", "JDG.16"],
+      "verse": "JDG.16.28"
+    },
+    {
+      "id": "rut",
+      "name": "Rut",
+      "icon": "sprout",
+      "line": "Leal hasta el final",
+      "summary": "Una extranjera moabita que se queda con su suegra Noemí cuando todo parecía perdido. Recoge espigas en el campo de Booz, se casa con él y es bisabuela del rey David.",
+      "passages": ["RUT.1-4"],
+      "verse": "RUT.2.12"
+    },
+    {
+      "id": "ana",
+      "name": "Ana",
+      "icon": "candle",
+      "line": "Oró con todo el corazón",
+      "summary": "No podía tener hijos y lloraba en silencio en el templo. Dios escucha su oración, nace Samuel, y ella lo dedica a Dios con un canto de gratitud.",
+      "passages": ["1SA.1", "1SA.2"],
+      "verse": "1SA.1.27"
+    },
+    {
+      "id": "samuel",
+      "name": "Samuel",
+      "icon": "lamp",
+      "line": "Profeta desde niño",
+      "summary": "Hijo de la oración de Ana. De niño aprende a reconocer la voz de Dios, y de adulto es juez, profeta y quien unge a los primeros reyes de Israel.",
+      "passages": ["1SA.1", "1SA.3", "1SA.8", "1SA.16"],
+      "verse": "1SA.3.19"
+    },
+    {
+      "id": "saul",
+      "name": "Saúl",
+      "icon": "crown",
+      "line": "El primer rey",
+      "summary": "Alto y de buen parecer, empieza siendo humilde. Con el tiempo desobedece y lo consumen los celos contra David. Su historia muestra que un buen comienzo no basta.",
+      "passages": ["1SA.9", "1SA.10", "1SA.15", "1SA.31"],
+      "verse": "1SA.15.22"
+    },
+    {
+      "id": "jonatan",
+      "name": "Jonatán",
+      "icon": "shield",
+      "line": "Un amigo fiel",
+      "summary": "Hijo del rey Saúl y heredero del trono. En lugar de ver a David como rival, lo quiere como a sí mismo y lo protege, aunque le cueste el favor de su padre.",
+      "passages": ["1SA.14", "1SA.18", "1SA.20"],
+      "verse": "1SA.18.1"
+    },
+    {
+      "id": "david",
+      "name": "David",
+      "icon": "harp",
+      "line": "Conforme al corazón de Dios",
+      "summary": "Pastor, músico, guerrero y rey. Vence a Goliat, perdona la vida a Saúl y escribe muchos salmos. Cuando peca, no se justifica: se arrepiente de verdad.",
+      "passages": ["1SA.16", "1SA.17", "1SA.24", "2SA.7", "2SA.12", "PSA.23", "PSA.51"],
+      "verse": "1SA.16.7"
+    },
+    {
+      "id": "salomon",
+      "name": "Salomón",
+      "icon": "crown",
+      "line": "El rey sabio",
+      "summary": "Hijo de David. Pide sabiduría y se vuelve famoso en todo el mundo; construye el templo y escribe proverbios. Pero en la vejez sus muchas esposas lo apartan de Dios.",
+      "passages": ["1KI.3", "1KI.8", "1KI.10", "1KI.11"],
+      "verse": "1KI.4.29"
+    },
+    {
+      "id": "elias",
+      "name": "Elías",
+      "icon": "flame",
+      "line": "El profeta del fuego",
+      "summary": "Enfrenta solo a cientos de profetas de Baal y ve caer fuego del cielo. Después se hunde en el cansancio, y Dios le habla en un silbo apacible. Sube al cielo en un torbellino.",
+      "passages": ["1KI.17", "1KI.18", "1KI.19", "2KI.2"],
+      "verse": "1KI.19.12"
+    },
+    {
+      "id": "eliseo",
+      "name": "Eliseo",
+      "icon": "olive",
+      "line": "Pidió una doble porción",
+      "summary": "Deja el arado para seguir a Elías y hereda su manto. Sus milagros son casi siempre para gente sencilla: una viuda, una familia, un general extranjero enfermo.",
+      "passages": ["1KI.19", "2KI.2", "2KI.4", "2KI.5"],
+      "verse": "2KI.2.9"
+    },
+    {
+      "id": "jonas",
+      "name": "Jonás",
+      "icon": "fish",
+      "line": "El profeta que huyó",
+      "summary": "Dios lo envía a Nínive y él sale en dirección contraria. Después de tres días dentro de un gran pez, obedece. Su libro termina con una pregunta de Dios sobre la compasión.",
+      "passages": ["JON.1-4"],
+      "verse": "JON.4.2"
+    },
+    {
+      "id": "isaias",
+      "name": "Isaías",
+      "icon": "quill",
+      "line": "Heme aquí, envíame a mí",
+      "summary": "Ve la gloria de Dios en el templo y se ofrece para ir. Anuncia a un niño que se llamará Admirable, Consejero, y a un siervo que sufrirá por los pecados de otros.",
+      "passages": ["ISA.6", "ISA.9", "ISA.40", "ISA.53"],
+      "verse": "ISA.6.8"
+    },
+    {
+      "id": "jeremias",
+      "name": "Jeremías",
+      "icon": "scroll",
+      "line": "El profeta que lloraba",
+      "summary": "Dios lo llama siendo muy joven. Durante años anuncia un juicio que nadie quiere oír y sufre con su pueblo. Aun así habla de un nuevo pacto escrito en el corazón.",
+      "passages": ["JER.1", "JER.18", "JER.29", "JER.31"],
+      "verse": "JER.29.11"
+    },
+    {
+      "id": "daniel",
+      "name": "Daniel",
+      "icon": "candle",
+      "line": "Fiel en tierra extraña",
+      "summary": "Llevado joven a Babilonia, decide no contaminarse con la comida del rey. Interpreta sueños, sirve a varios reyes y nunca deja de orar, aunque le cueste el foso de los leones.",
+      "passages": ["DAN.1", "DAN.2", "DAN.5", "DAN.6"],
+      "verse": "DAN.1.8"
+    },
+    {
+      "id": "esdras",
+      "name": "Esdras",
+      "icon": "book",
+      "line": "Maestro de la Ley",
+      "summary": "Sacerdote y escriba que vuelve de Babilonia a Jerusalén. Se dedica a estudiar la Ley, a cumplirla y a enseñarla. Cuando la lee al pueblo, todos lloran y después celebran.",
+      "passages": ["EZR.7", "NEH.8"],
+      "verse": "EZR.7.10"
+    },
+    {
+      "id": "nehemias",
+      "name": "Nehemías",
+      "icon": "city",
+      "line": "Oró y se puso a trabajar",
+      "summary": "Copero del rey de Persia. Al enterarse de que Jerusalén sigue en ruinas, ora, pide permiso y organiza la reconstrucción de los muros sin rendirse ante las burlas.",
+      "passages": ["NEH.1", "NEH.2", "NEH.4", "NEH.6"],
+      "verse": "NEH.2.4"
+    },
+    {
+      "id": "ester",
+      "name": "Ester",
+      "icon": "crown",
+      "line": "Para un momento como este",
+      "summary": "Una joven judía huérfana que llega a ser reina de Persia. Cuando su pueblo corre peligro, ayuna, reúne valor y se presenta ante el rey sin ser llamada.",
+      "passages": ["EST.2", "EST.4", "EST.5", "EST.7"],
+      "verse": "EST.4.16"
+    },
+    {
+      "id": "job",
+      "name": "Job",
+      "icon": "anchor",
+      "line": "Firme en el dolor",
+      "summary": "Un hombre íntegro que lo pierde todo. Discute, llora y hace preguntas difíciles, pero no suelta a Dios. Al final, Dios le responde desde un torbellino.",
+      "passages": ["JOB.1", "JOB.2", "JOB.38", "JOB.42"],
+      "verse": "JOB.1.21"
+    },
+    {
+      "id": "maria",
+      "name": "María",
+      "icon": "heart",
+      "line": "Hágase conforme a tu palabra",
+      "summary": "Una joven de Nazaret a quien un ángel le anuncia que será la madre de Jesús. Guarda todo en su corazón y está presente desde el pesebre hasta la cruz.",
+      "passages": ["LUK.1", "LUK.2", "JHN.2", "JHN.19"],
+      "verse": "LUK.1.38"
+    },
+    {
+      "id": "juan_bautista",
+      "name": "Juan el Bautista",
+      "icon": "wave",
+      "line": "Una voz en el desierto",
+      "summary": "Pariente de Jesús, nacido pocos meses antes que él. Vive en el desierto, llama al pueblo a arrepentirse y bautiza en el Jordán. Cuando ve a Jesús dice: he aquí el Cordero de Dios.",
+      "passages": ["LUK.1", "MAT.3", "JHN.1", "MAT.14"],
+      "verse": "JHN.1.29"
+    },
+    {
+      "id": "pedro",
+      "name": "Pedro",
+      "icon": "fish",
+      "line": "El pescador impulsivo",
+      "summary": "Deja sus redes para seguir a Jesús. Camina sobre el agua y se hunde, confiesa que Jesús es el Cristo y después lo niega tres veces. Jesús lo restaura, y en Pentecostés predica con valentía.",
+      "passages": ["MAT.4", "MAT.14", "MAT.16", "LUK.22", "JHN.21", "ACT.2"],
+      "verse": "MAT.16.16"
+    },
+    {
+      "id": "juan_apostol",
+      "name": "Juan",
+      "icon": "quill",
+      "line": "El discípulo amado",
+      "summary": "Pescador, hermano de Jacobo. Está cerca de Jesús en la última cena y al pie de la cruz, donde recibe a María como madre. La tradición le atribuye un evangelio, tres cartas y el Apocalipsis.",
+      "passages": ["MRK.1", "JHN.13", "JHN.19", "JHN.20", "REV.1"],
+      "verse": "1JN.4.8"
+    },
+    {
+      "id": "maria_magdalena",
+      "name": "María Magdalena",
+      "icon": "sunrise",
+      "line": "La primera en verlo resucitado",
+      "summary": "Jesús la libera y ella lo sigue y lo sirve. Se queda junto a la cruz cuando otros huyen, y en la mañana de la resurrección él la llama por su nombre.",
+      "passages": ["LUK.8", "JHN.19", "JHN.20"],
+      "verse": "JHN.20.16"
+    },
+    {
+      "id": "nicodemo",
+      "name": "Nicodemo",
+      "icon": "moon",
+      "line": "Vino de noche",
+      "summary": "Un maestro fariseo que visita a Jesús de noche con preguntas sinceras. Escucha que hay que nacer de nuevo, y más tarde, ya sin esconderse, ayuda a sepultarlo.",
+      "passages": ["JHN.3", "JHN.7", "JHN.19"],
+      "verse": "JHN.3.3"
+    },
+    {
+      "id": "zaqueo",
+      "name": "Zaqueo",
+      "icon": "sprout",
+      "line": "Bajó del árbol",
+      "summary": "Jefe de los cobradores de impuestos en Jericó, rico y mal visto. Se sube a un árbol para ver pasar a Jesús, y Jesús se invita a su casa. Ese día le cambia la vida.",
+      "passages": ["LUK.19"],
+      "verse": "LUK.19.10"
+    },
+    {
+      "id": "esteban",
+      "name": "Esteban",
+      "icon": "spark",
+      "line": "Lleno de gracia y de poder",
+      "summary": "Uno de los siete elegidos para servir a las viudas. Habla con tanta sabiduría que no pueden responderle. Muere apedreado, perdonando a quienes lo matan.",
+      "passages": ["ACT.6", "ACT.7"],
+      "verse": "ACT.7.60"
+    },
+    {
+      "id": "pablo",
+      "name": "Pablo",
+      "icon": "path",
+      "line": "El apóstol de las naciones",
+      "summary": "Perseguía a la iglesia hasta que Jesús lo detuvo camino a Damasco. Recorre el mundo anunciando el evangelio, escribe cartas a las iglesias y termina su carrera en Roma, preso pero en paz.",
+      "passages": ["ACT.9", "ACT.13", "ACT.16", "ACT.17", "ACT.28", "2TI.4"],
+      "verse": "2TI.4.7"
+    },
+    {
+      "id": "bernabe",
+      "name": "Bernabé",
+      "icon": "olive",
+      "line": "Hijo de consolación",
+      "summary": "Vende un terreno y da el dinero a los apóstoles. Cuando nadie confía en Pablo, él lo presenta. Anima a la iglesia de Antioquía y acompaña a Pablo en su primer viaje.",
+      "passages": ["ACT.4", "ACT.9", "ACT.11", "ACT.13"],
+      "verse": "ACT.11.24"
+    },
+    {
+      "id": "timoteo",
+      "name": "Timoteo",
+      "icon": "book",
+      "line": "Joven y de fe sincera",
+      "summary": "Hijo de madre judía creyente y de padre griego. Acompaña a Pablo en sus viajes y recibe de él dos cartas llenas de consejos, como este: que nadie tenga en poco tu juventud.",
+      "passages": ["ACT.16", "1TI.4", "2TI.1"],
+      "verse": "1TI.4.12"
+    }
+  ]
+}

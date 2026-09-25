@@ -15,6 +15,7 @@ import {
   SealIcon,
   SlidersIcon,
   SunriseIcon,
+  TimelineIcon,
 } from "../components/icons";
 import { RANK_ICON } from "../components/badgeIcons";
 import { isCosmeticActive } from "../domain/cosmetics";
@@ -30,6 +31,7 @@ const NAV: NavItem[] = [
   { to: "/", label: "Hoy", icon: SunriseIcon, end: true },
   { to: "/biblia", label: "Biblia", icon: BookIcon },
   { to: "/mapa", label: "Mapa", icon: MapIcon },
+  { to: "/linea-temporal", label: "Línea temporal", icon: TimelineIcon },
   { to: "/misiones", label: "Misiones", icon: CompassIcon },
   { to: "/diario", label: "Diario", icon: JournalIcon },
   { to: "/logros", label: "Logros", icon: LaurelIcon },

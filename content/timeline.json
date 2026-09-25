@@ -1,0 +1,170 @@
+{
+  "_nota": "Etapas de la línea temporal, en orden. Solo referencias de capítulo ('GEN.12' o 'GEN.6-9'). Las fechas son aproximadas. Los eventos de cada etapa están en events.json (campo 'era').",
+  "eras": [
+    {
+      "id": "creacion",
+      "title": "La creación",
+      "when": "Al principio",
+      "testament": "AT",
+      "icon": "sunrise",
+      "summary": "Dios crea los cielos, la tierra y al ser humano a su imagen. Pronto llega la caída: el pecado entra al mundo, pero Dios ya promete que el mal no tendrá la última palabra.",
+      "passages": ["GEN.1", "GEN.2", "GEN.3"],
+      "characters": ["adan", "eva"],
+      "places": ["eden"]
+    },
+    {
+      "id": "diluvio",
+      "title": "El diluvio",
+      "when": "Tiempos antiguos",
+      "testament": "AT",
+      "icon": "ark",
+      "summary": "La maldad llena la tierra. Noé, un hombre justo, construye el arca y se salva con su familia. Después, los hombres quieren llegar al cielo con una torre, y Dios confunde su lengua.",
+      "passages": ["GEN.6-9", "GEN.11"],
+      "characters": ["noe"],
+      "places": ["babel"]
+    },
+    {
+      "id": "abraham",
+      "title": "Abraham",
+      "when": "Hacia el 2000 a. C.",
+      "testament": "AT",
+      "icon": "star",
+      "summary": "Dios llama a Abram a dejar su tierra sin decirle a dónde va, y le promete una descendencia como las estrellas del cielo. Abraham cree, y su fe se vuelve el ejemplo de toda la Biblia.",
+      "passages": ["GEN.12", "GEN.15", "GEN.22"],
+      "characters": ["abraham", "sara"],
+      "places": ["ur"]
+    },
+    {
+      "id": "isaac",
+      "title": "Isaac",
+      "when": "Hacia el 1900 a. C.",
+      "testament": "AT",
+      "icon": "well",
+      "summary": "El hijo de la promesa nace cuando Abraham tiene cien años. Isaac se casa con Rebeca y hereda la bendición: una vida tranquila, de pozos cavados y promesas cumplidas.",
+      "passages": ["GEN.21", "GEN.24", "GEN.26"],
+      "characters": ["isaac", "rebeca"],
+      "places": ["beerseba"]
+    },
+    {
+      "id": "jacob",
+      "title": "Jacob",
+      "when": "Hacia el 1850 a. C.",
+      "testament": "AT",
+      "icon": "ladder",
+      "summary": "Jacob se queda con la bendición de su hermano Esaú y tiene que huir. En el camino sueña con una escalera que llega al cielo. Años después lucha con Dios y recibe un nombre nuevo: Israel.",
+      "passages": ["GEN.27", "GEN.28", "GEN.32"],
+      "characters": ["jacob", "esau"],
+      "places": ["betel"]
+    },
+    {
+      "id": "jose",
+      "title": "José",
+      "when": "Hacia el 1800 a. C.",
+      "testament": "AT",
+      "icon": "moon",
+      "summary": "Sus hermanos lo venden por envidia y José termina en Egipto. Pasa por la cárcel, explica los sueños del faraón y llega a gobernar. Al final perdona a sus hermanos y salva a su familia del hambre.",
+      "passages": ["GEN.37", "GEN.41", "GEN.45", "GEN.50"],
+      "characters": ["jose"],
+      "places": ["egipto"]
+    },
+    {
+      "id": "exodo",
+      "title": "El éxodo",
+      "when": "Siglo XV o XIII a. C.",
+      "testament": "AT",
+      "icon": "tablets",
+      "summary": "Israel es esclavo en Egipto. Dios llama a Moisés desde una zarza que arde, abre el mar para que su pueblo pase y lo guía por el desierto. En el Sinaí le da los Diez Mandamientos.",
+      "passages": ["EXO.3", "EXO.12", "EXO.14", "EXO.20"],
+      "characters": ["moises", "aaron"],
+      "places": ["egipto", "mar_rojo", "sinai"]
+    },
+    {
+      "id": "jueces",
+      "title": "Josué y los jueces",
+      "when": "Antes del 1050 a. C.",
+      "testament": "AT",
+      "icon": "shield",
+      "summary": "Josué guía al pueblo a la tierra prometida y caen los muros de Jericó. Vienen tiempos inestables: el pueblo se aleja de Dios y él levanta jueces como Débora, Gedeón y Sansón. En medio de todo, la historia de Rut.",
+      "passages": ["JOS.1", "JOS.6", "JDG.2", "JDG.7", "RUT.1"],
+      "characters": ["josue", "rahab", "debora", "gedeon", "sanson", "rut"],
+      "places": ["jordan", "jerico", "belen"]
+    },
+    {
+      "id": "david",
+      "title": "David",
+      "when": "Hacia el 1000 a. C.",
+      "testament": "AT",
+      "icon": "harp",
+      "summary": "Israel pide un rey. Samuel unge primero a Saúl y después a un joven pastor de Belén. David vence a Goliat, llega a ser rey y escribe salmos. Cae, se arrepiente, y Dios le promete un reino que no tendrá fin.",
+      "passages": ["1SA.3", "1SA.16", "1SA.17", "2SA.7", "PSA.51"],
+      "characters": ["ana", "samuel", "saul", "jonatan", "david"],
+      "places": ["belen", "jerusalen"]
+    },
+    {
+      "id": "salomon",
+      "title": "Salomón",
+      "when": "Hacia el 970 a. C.",
+      "testament": "AT",
+      "icon": "crown",
+      "summary": "Salomón le pide a Dios sabiduría en lugar de riquezas, y la recibe. Construye el templo de Jerusalén. Pero con los años su corazón se divide, y el reino también.",
+      "passages": ["1KI.3", "1KI.8", "1KI.11"],
+      "characters": ["salomon"],
+      "places": ["jerusalen"]
+    },
+    {
+      "id": "division",
+      "title": "El reino dividido",
+      "when": "Desde el 930 a. C.",
+      "testament": "AT",
+      "icon": "flame",
+      "summary": "El reino se parte en dos: Israel al norte y Judá al sur. Muchos reyes se olvidan de Dios, pero él no deja de hablar: envía profetas como Elías, Eliseo, Jonás e Isaías.",
+      "passages": ["1KI.12", "1KI.18", "2KI.2", "ISA.6"],
+      "characters": ["elias", "eliseo", "jonas", "isaias"],
+      "places": ["carmelo", "ninive"]
+    },
+    {
+      "id": "exilio",
+      "title": "El exilio",
+      "when": "722 y 586 a. C.",
+      "testament": "AT",
+      "icon": "path",
+      "summary": "Asiria conquista el reino del norte, y más tarde Babilonia destruye Jerusalén y su templo. El pueblo vive lejos de casa. Aun allí, Daniel se mantiene fiel y Jeremías anuncia que Dios tiene planes de esperanza.",
+      "passages": ["2KI.25", "JER.29", "DAN.3", "DAN.6"],
+      "characters": ["jeremias", "daniel"],
+      "places": ["babilonia"]
+    },
+    {
+      "id": "regreso",
+      "title": "El regreso",
+      "when": "Desde el 538 a. C.",
+      "testament": "AT",
+      "icon": "city",
+      "summary": "Persia vence a Babilonia y el rey Ciro deja volver a los judíos. Reconstruyen el templo y, con Nehemías, los muros de Jerusalén. Esdras les vuelve a leer la Ley, y Ester, desde el palacio, salva a su pueblo.",
+      "passages": ["EZR.1", "NEH.2", "NEH.8", "EST.4"],
+      "characters": ["esdras", "nehemias", "ester"],
+      "places": ["jerusalen", "susa"]
+    },
+    {
+      "id": "jesus",
+      "title": "Jesús",
+      "when": "Hacia el 4 a. C. – 30 d. C.",
+      "testament": "NT",
+      "icon": "cross",
+      "summary": "Dios se hace hombre. Jesús nace en Belén, crece en Nazaret, enseña, sana y perdona. Muere en una cruz en Jerusalén y al tercer día resucita.",
+      "passages": ["LUK.2", "MAT.5", "JHN.3", "JHN.19", "JHN.20"],
+      "characters": ["maria", "juan_bautista", "pedro", "juan_apostol", "maria_magdalena", "nicodemo", "zaqueo"],
+      "places": ["belen", "nazaret", "jordan", "galilea", "getsemani", "golgota"]
+    },
+    {
+      "id": "iglesia",
+      "title": "La Iglesia",
+      "when": "Desde el 30 d. C.",
+      "testament": "NT",
+      "icon": "dove",
+      "summary": "El Espíritu Santo llega en Pentecostés y los discípulos anuncian a Jesús con valentía. Saulo, que perseguía a los cristianos, se convierte en Pablo y lleva el mensaje hasta Roma. La Biblia termina con la promesa de un cielo nuevo y una tierra nueva.",
+      "passages": ["ACT.2", "ACT.9", "ACT.28", "REV.21"],
+      "characters": ["esteban", "pablo", "bernabe", "timoteo"],
+      "places": ["jerusalen", "damasco", "antioquia", "filipos", "atenas", "roma", "patmos"]
+    }
+  ]
+}

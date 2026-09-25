@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ToastKind = "xp" | "bonus" | "streak" | "level" | "achievement" | "info";
+export type ToastKind = "xp" | "bonus" | "streak" | "level" | "achievement" | "collectible" | "info";
 export type Toast = { id: number; text: string; kind: ToastKind };
 
 type ToastState = { toasts: Toast[]; push: (text: string, kind?: ToastKind) => void; dismiss: (id: number) => void };
