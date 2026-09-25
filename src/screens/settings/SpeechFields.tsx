@@ -4,8 +4,10 @@ import { SPEECH_RATES, spanishVoices } from "../../domain/speech";
 import { useSettings } from "../../stores/settingsStore";
 import { useSpeechState } from "../../hooks/useSpeech";
 import { Field, Toggle } from "./ui";
-
-const SAMPLE = "Jehová es mi pastor; nada me faltará. En lugares de delicados pastos me hará yacer.";
+import { NaturalVoices, VOICE_SAMPLE } from "./NaturalVoices";
+import { voiceById } from "../../content/voices";
+import { naturalVoiceURI } from "../../domain/voices";
+import { useVoices } from "../../stores/voicesStore";
 
 export function SpeechFields() {
   const voiceURI = useSettings((s) => s.ttsVoice);
@@ -13,47 +15,61 @@ export function SpeechFields() {
   const setTts = useSettings((s) => s.setTts);
   const state = useSpeechState();
   const [voices, setVoices] = useState<SpeechSynthesisVoice[] | null>(null);
+  const natural = useVoices((s) => s.installed);
 
   useEffect(() => {
     void loadVoices().then((v) => setVoices(spanishVoices(v)));
   }, []);
 
-  if (!speechSupported()) {
-    return <p className="text-sm text-muted">Este equipo no tiene disponible la lectura en voz alta.</p>;
-  }
-  if (voices && voices.length === 0) {
-    return (
-      <p className="text-sm leading-relaxed text-muted">
-        No encontramos voces en español. En Windows puedes agregarlas en Configuración → Hora e idioma → Idioma y región
-        → Español → Opciones → Voz.
-      </p>
-    );
-  }
-
   const testing = state.status === "playing" && state.label === "Prueba de voz";
+  const noWindowsVoices = !speechSupported() || (voices !== null && voices.length === 0);
 
   return (
     <>
-      <Field label="Voz" hint="Se usan las voces instaladas en tu computadora, así funciona sin internet.">
+      <NaturalVoices />
+      <Field
+        label="Voz"
+        hint={
+          noWindowsVoices
+            ? "No encontramos voces de Windows en español. Puedes descargar una voz natural arriba, o agregarlas en Configuración de Windows → Hora e idioma → Idioma y región → Español → Opciones → Voz."
+            : "Elige una voz natural o una de las voces instaladas en Windows. Todas funcionan sin internet."
+        }
+      >
         <div className="flex gap-2">
           <select
             value={voiceURI}
             onChange={(e) => void setTts({ voice: e.target.value })}
             className="min-w-0 flex-1 rounded-xl border border-border bg-surface px-3 py-2 outline-none focus:border-accent"
           >
-            <option value="">Automática{voices?.[0] ? ` (${voices[0].name})` : ""}</option>
-            {voices?.map((v) => (
-              <option key={v.voiceURI} value={v.voiceURI}>
-                {v.name} · {v.lang}
-                {v.localService ? "" : " · necesita internet"}
-              </option>
-            ))}
+            <option value="">Automática de Windows{voices?.[0] ? ` (${voices[0].name})` : ""}</option>
+            {natural.length > 0 && (
+              <optgroup label="Voces naturales">
+                {natural.map((id) => {
+                  const v = voiceById(id);
+                  return (
+                    <option key={id} value={naturalVoiceURI(id)}>
+                      {v ? `${v.name} · ${v.accent} (natural)` : id}
+                    </option>
+                  );
+                })}
+              </optgroup>
+            )}
+            {voices && voices.length > 0 && (
+              <optgroup label="Voces de Windows">
+                {voices.map((v) => (
+                  <option key={v.voiceURI} value={v.voiceURI}>
+                    {v.name} · {v.lang}
+                    {v.localService ? "" : " · necesita internet"}
+                  </option>
+                ))}
+              </optgroup>
+            )}
           </select>
           <button
             onClick={() =>
               testing
                 ? speech.stop()
-                : void speech.play([{ id: 1, text: SAMPLE }], { label: "Prueba de voz", rate, voiceURI })
+                : void speech.play([{ id: 1, text: VOICE_SAMPLE }], { label: "Prueba de voz", rate, voiceURI })
             }
             className="shrink-0 rounded-xl border border-accent px-4 py-2 text-sm font-semibold text-accent hover:bg-accent-soft"
           >

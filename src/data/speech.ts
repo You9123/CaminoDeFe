@@ -1,10 +1,18 @@
+import { invoke } from "@tauri-apps/api/core";
 import { cleanForSpeech, pickVoice, splitForSpeech } from "../domain/speech";
+import { activeNaturalVoice } from "../domain/voices";
+import { useVoices } from "../stores/voicesStore";
+import { toast } from "../stores/toastStore";
 
 /**
  * Control del texto a voz (Web Speech API). No es React: una sola instancia para toda la app,
  * así al cambiar de pantalla no quedan dos lecturas a la vez.
  *
  * Pausar = detener y recordar en qué versículo iba (en Chromium, `pause()` no es confiable).
+ *
+ * Dos motores: las voces de Windows (Web Speech API) y las voces naturales de Piper (ADR-0011),
+ * que Rust convierte en un WAV por versículo. Con Piper se prepara el versículo siguiente
+ * mientras suena el actual, así no hay silencios largos entre uno y otro.
  */
 export type SpeechItem = { id: number; text: string };
 
@@ -39,6 +47,11 @@ class SpeechController {
   private onFinish: (() => void) | null = null;
   // Referencias para que el navegador no descarte las frases antes de leerlas (bug de Chromium).
   private alive: SpeechSynthesisUtterance[] = [];
+  // Voz natural: el audio que suena y los versículos ya preparados (índice → URL del WAV).
+  private audio: HTMLAudioElement | null = null;
+  private prepared = new Map<number, Promise<string>>();
+  /** La voz natural falló (por ejemplo, falta un componente de Windows): se usa la de Windows. */
+  private naturalFailedFor: string | null = null;
   state: SpeechState = { status: "idle", current: null, label: "" };
   private listeners = new Set<Listener>();
 
@@ -63,6 +76,7 @@ class SpeechController {
       0,
       items.findIndex((i) => i.id === (opts.from ?? items[0]?.id)),
     );
+    if (opts.voiceURI !== this.opts.voiceURI) this.naturalFailedFor = null;
     this.opts = { rate: opts.rate, voiceURI: opts.voiceURI };
     this.onFinish = opts.onFinish ?? null;
     this.set({ label: opts.label });
@@ -100,10 +114,32 @@ class SpeechController {
     this.run++;
     this.alive = [];
     if (speechSupported()) window.speechSynthesis.cancel();
+    if (this.audio) {
+      this.audio.onended = null;
+      this.audio.onerror = null;
+      this.audio.pause();
+      this.audio = null;
+    }
+    for (const p of this.prepared.values()) void p.then(URL.revokeObjectURL, () => {});
+    this.prepared.clear();
+  }
+
+  private finish() {
+    const finish = this.onFinish;
+    this.items = [];
+    this.onFinish = null;
+    this.set({ status: "idle", current: null });
+    finish?.();
   }
 
   private async speakFrom(index: number) {
-    if (!speechSupported()) return;
+    const natural = activeNaturalVoice(this.opts.voiceURI, useVoices.getState().installed);
+    if (natural && this.naturalFailedFor !== natural) return this.speakNatural(index, natural);
+    if (!speechSupported()) {
+      // Sin voces de Windows (y la natural no está o falló): no hay con qué leer.
+      this.set({ status: "idle", current: null });
+      return;
+    }
     const run = ++this.run;
     const voices = await loadVoices();
     if (run !== this.run) return;
@@ -112,14 +148,7 @@ class SpeechController {
 
     const speakItem = (i: number) => {
       if (run !== this.run) return;
-      if (i >= this.items.length) {
-        const finish = this.onFinish;
-        this.items = [];
-        this.onFinish = null;
-        this.set({ status: "idle", current: null });
-        finish?.();
-        return;
-      }
+      if (i >= this.items.length) return this.finish();
       this.index = i;
       this.set({ current: this.items[i].id });
       const chunks = splitForSpeech(cleanForSpeech(this.items[i].text));
@@ -139,6 +168,69 @@ class SpeechController {
       });
     };
     speakItem(index);
+  }
+
+  /** Prepara (sintetiza) un versículo con Piper. Devuelve la URL del WAV. */
+  private prepare(i: number, voice: string): Promise<string> {
+    let p = this.prepared.get(i);
+    if (!p) {
+      const text = cleanForSpeech(this.items[i].text);
+      p = invoke<ArrayBuffer>("piper_speak", { voice, text, rate: this.opts.rate }).then((buf) =>
+        URL.createObjectURL(new Blob([buf], { type: "audio/wav" })),
+      );
+      this.prepared.set(i, p);
+    }
+    return p;
+  }
+
+  private async speakNatural(index: number, voice: string) {
+    const run = ++this.run;
+    this.set({ status: "playing" });
+
+    const playItem = async (i: number): Promise<void> => {
+      if (run !== this.run) return;
+      if (i >= this.items.length) return this.finish();
+      this.index = i;
+      this.set({ current: this.items[i].id });
+      if (!cleanForSpeech(this.items[i].text)) return playItem(i + 1);
+
+      let url: string;
+      try {
+        url = await this.prepare(i, voice);
+      } catch (e) {
+        if (run !== this.run) return;
+        console.error("Voz natural", e);
+        this.naturalFailedFor = voice;
+        toast("No se pudo usar la voz natural. Se usará la de Windows; el detalle está en Ajustes → Escuchar.", "info");
+        useVoices.setState({ error: `La voz natural no funcionó: ${String(e)}` });
+        this.prepared.clear();
+        return this.speakFrom(i);
+      }
+      if (run !== this.run) return;
+      // El siguiente versículo se prepara mientras suena este.
+      const next = i + 1;
+      if (next < this.items.length && cleanForSpeech(this.items[next].text)) this.prepare(next, voice).catch(() => {});
+
+      const audio = new Audio(url);
+      this.audio = audio;
+      const done = () => {
+        if (run !== this.run) return;
+        this.prepared.delete(i);
+        URL.revokeObjectURL(url);
+        void playItem(i + 1);
+      };
+      audio.onended = done;
+      audio.onerror = () => {
+        console.error("No se pudo reproducir el audio");
+        done();
+      };
+      try {
+        await audio.play();
+      } catch (e) {
+        if (run === this.run) console.error(e);
+      }
+    };
+    await playItem(index);
   }
 }
 

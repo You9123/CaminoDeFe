@@ -14,11 +14,12 @@ Hecha con **Tauri 2 + React + TypeScript + SQLite**.
 - Sprint 2C (v1.3.0): ¿Cómo me siento hoy? (`content/emotions.json`), modo escuchar (texto a voz), sesiones de 5/10/15/30 minutos y exportar el diario a Markdown o PDF.
 - Sprint 2D (v2.0.0): mascota opcional (oveja, león, paloma o pez) que crece con tu nivel, con accesorios y animaciones.
 
-**V3 en curso**
+**V3 completa** ✅ (v2.4.0)
 
 - Sprint 3A (v2.1.0): línea temporal interactiva (15 etapas, `content/timeline.json`) y coleccionables de personajes, lugares y eventos (`content/characters.json`, `places.json`, `events.json`), que se desbloquean al leer.
 - Sprint 3B (v2.2.0): quiz por libro (`content/quiz/*.json`, 20 libros y 230 preguntas) después de leer y desde el mapa, y cinco desafíos mayores con insignia y animación.
 - Sprint 3C (v2.3.0): PIN para el diario (con "¿Olvidaste tu PIN?" que espera 24 h sin borrar nada), actualizaciones automáticas firmadas desde GitHub Releases, e imagen completa de las fichas de coleccionables (ADR-0010).
+- Sprint 3D (v2.4.0): voces naturales sin internet con Piper (`content/voices.json`: Claude, Ald, Daniela y DaveFX), que se descargan una sola vez desde Ajustes → Escuchar (ADR-0011).
 
 ---
 

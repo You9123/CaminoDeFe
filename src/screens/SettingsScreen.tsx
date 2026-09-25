@@ -11,6 +11,7 @@ import { EmotionPromptField, SpeechFields } from "./settings/SpeechFields";
 import { PetFields } from "./settings/PetFields";
 import { PrivacyFields } from "./settings/PrivacyFields";
 import { UpdateFields } from "./settings/UpdateFields";
+import { VOICES } from "../content/voices";
 import { allCollectibleImages } from "../content/collectibleImages";
 import { CATALOG } from "../content/collectibles";
 import { creditLine } from "../domain/collectibles";
@@ -114,6 +115,11 @@ export function SettingsScreen() {
           <dd>Reina-Valera 1909 (dominio público)</dd>
           <dt className="text-muted">Tus datos</dt>
           <dd>Se guardan solo en esta computadora. Nada de tus datos se envía a internet.</dd>
+          <dt className="text-muted">Voces naturales</dt>
+          <dd>
+            Piper (licencia MIT), de Rhasspy / Open Home Foundation. Voces:{" "}
+            {VOICES.voices.map((v) => `${v.name} (${v.license})`).join(", ")}.
+          </dd>
           <dt className="text-muted">Imágenes</dt>
           <dd>
             Obras de dominio público y fotos con licencia libre de Wikimedia Commons.

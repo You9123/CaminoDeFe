@@ -22,7 +22,7 @@ import { toast } from "../stores/toastStore";
 import { PostReadingFlow } from "../components/PostReadingFlow";
 import { ChapterQuizCard } from "../components/ChapterQuizCard";
 import { BookmarkIcon, CheckIcon, CopyIcon, HourglassIcon, QuillIcon, SpeakerIcon } from "../components/icons";
-import { speech, speechSupported, useSpeechState } from "../hooks/useSpeech";
+import { speech, useCanSpeak, useSpeechState } from "../hooks/useSpeech";
 import { SPEECH_RATES } from "../domain/speech";
 import { useSettings } from "../stores/settingsStore";
 import { useSession } from "../stores/sessionStore";
@@ -126,6 +126,7 @@ function ChapterReader({
 
   // ---------- Modo escuchar ----------
   const speechState = useSpeechState();
+  const canSpeak = useCanSpeak();
   const rate = useSettings((s) => s.ttsRate);
   const voiceURI = useSettings((s) => s.ttsVoice);
   const setTts = useSettings((s) => s.setTts);
@@ -178,7 +179,7 @@ function ChapterReader({
   // Si se llegó con ?escuchar=1 (desde "Escuchar el siguiente"), empieza solo.
   const autoStarted = useRef(false);
   useEffect(() => {
-    if (autoListen && data?.chapter && !autoStarted.current && speechSupported()) {
+    if (autoListen && data?.chapter && !autoStarted.current && canSpeak) {
       autoStarted.current = true;
       startListening();
     }
@@ -255,7 +256,7 @@ function ChapterReader({
           <span className="inline-flex items-center gap-1.5">
             <Clock size={14} /> {formatMinutes(estimatedReadSeconds(chapter.words))} de lectura
           </span>
-          {speechSupported() && !listening && (
+          {canSpeak && !listening && (
             <button
               onClick={() => startListening()}
               className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2.5 py-1 font-medium hover:border-accent hover:text-accent"

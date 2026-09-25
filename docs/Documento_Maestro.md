@@ -203,7 +203,7 @@ Según la emoción, se muestra un versículo relacionado (`content/emotions.json
 
 - Lee el capítulo en voz alta con **texto a voz (TTS)**, resaltando el versículo que se está leyendo.
 - Velocidad ajustable (0.75x a 1.5x), pausa y "siguiente capítulo".
-- Tecnología: primero la **Web Speech API** (usa las voces instaladas en Windows, gratis y sin conexión). Como mejora opcional, voces neuronales offline con **Piper TTS**.
+- Tecnología: primero la **Web Speech API** (usa las voces instaladas en Windows, gratis y sin conexión). Como mejora opcional, voces neuronales offline con **Piper TTS** [V3, Sprint 3D ✅]: se descargan desde Ajustes → Escuchar → Voces naturales, una sola vez, y funcionan sin internet (ADR-0011).
 - Escuchar un capítulo completo cuenta igual que leerlo.
 
 > Los audios bíblicos grabados profesionalmente suelen tener licencia. El texto a voz evita ese problema y funciona con cualquier capítulo.
@@ -367,7 +367,7 @@ La mayor parte del trabajo del proyecto es **escribir contenido**, no programar.
 | Validación               | **Zod**                                               | Valida los JSON de contenido y los datos.                                                                                                                               |
 | Gráficos                 | **Recharts**                                          | Estadísticas.                                                                                                                                                           |
 | Fechas                   | **date-fns**                                          | Rachas, días y zonas horarias.                                                                                                                                          |
-| Texto a voz              | Web Speech API → (opcional) Piper                     | Modo escuchar.                                                                                                                                                          |
+| Texto a voz              | Web Speech API + Piper (voces naturales) ✅           | Modo escuchar.                                                                                                                                                          |
 | Notificaciones           | `tauri-plugin-notification`                           | Recordatorio diario.                                                                                                                                                    |
 | Ajustes                  | `tauri-plugin-store`                                  | Configuración simple (clave-valor).                                                                                                                                     |
 | Pruebas                  | **Vitest** + Testing Library; **Playwright** para E2E | Lógica de XP y rachas bien probada.                                                                                                                                     |
@@ -604,9 +604,9 @@ Se divide en 4 sprints: **2A Progreso** (rangos, logros, recompensas por racha, 
 - [x] Sesiones de 5 / 10 / 15 / 30 minutos (Sprint 2C)
 - [x] Exportar el diario a Markdown o PDF (Sprint 2C)
 
-### 🟠 V3 — Experiencia bíblica · en curso
+### 🟢 V3 — Experiencia bíblica · completa (v2.4.0)
 
-Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v2.1.0 · **3B Quiz y desafíos mayores** ✅ v2.2.0 · **3C Privacidad y actualizaciones** (PIN del diario, actualizaciones automáticas) ✅ v2.3.0 · **3D Voces Piper** (opcional).
+Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v2.1.0 · **3B Quiz y desafíos mayores** ✅ v2.2.0 · **3C Privacidad y actualizaciones** (PIN del diario, actualizaciones automáticas) ✅ v2.3.0 · **3D Voces Piper** ✅ v2.4.0.
 
 - [x] Línea temporal interactiva (Sprint 3A)
 - [x] Quiz por libro (Sprint 3B)
@@ -614,7 +614,7 @@ Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v
 - [x] Desafíos mayores (los "jefes finales") (Sprint 3B)
 - [x] PIN para el diario (Sprint 3C)
 - [x] Actualizaciones automáticas (Sprint 3C)
-- [ ] Voces neuronales offline (Piper), opcional (Sprint 3D)
+- [x] Voces neuronales offline (Piper), opcional (Sprint 3D)
 
 ### 🔴 V4 — Nube y móvil
 

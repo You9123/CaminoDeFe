@@ -1,0 +1,80 @@
+{
+  "$comment": "Voces naturales de Piper (ADR-0011). Direcciones fijadas a una versión de rhasspy/piper-voices; sha256 comprobados. El motor: Piper 2023.11.14-2 (MIT), huella fija en src-tauri/src/piper.rs.",
+  "engine": {
+    "size": 22477236
+  },
+  "voices": [
+    {
+      "id": "es_MX-claude-high",
+      "name": "Claude",
+      "gender": "mujer",
+      "accent": "México",
+      "note": "Calidad alta. Acento latinoamericano.",
+      "license": "Apache 2.0",
+      "model": {
+        "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/es/es_MX/claude/high/es_MX-claude-high.onnx",
+        "sha256": "3ef40a71ea63852cd8ab7e6fa7d2ecdcfa67a0b47c9c48e3f10e02ee02083ea0",
+        "size": 63122309
+      },
+      "config": {
+        "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/es/es_MX/claude/high/es_MX-claude-high.onnx.json",
+        "sha256": "1afc81f703c0e4cb3b4d7c0dca096b8b54a98806807f0170cf5eb5557723c12d",
+        "size": 4963
+      }
+    },
+    {
+      "id": "es_MX-ald-medium",
+      "name": "Ald",
+      "gender": "hombre",
+      "accent": "México",
+      "note": "Calidad media. Acento latinoamericano.",
+      "license": "Unlicense (dominio público)",
+      "model": {
+        "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/es/es_MX/ald/medium/es_MX-ald-medium.onnx",
+        "sha256": "019b3803293c93e34a206dd2e53a3889209a514e786fd7144f7b70196c579b63",
+        "size": 63201294
+      },
+      "config": {
+        "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/es/es_MX/ald/medium/es_MX-ald-medium.onnx.json",
+        "sha256": "5a71498158e04afc8099bfd019c7e87c68eb9d042505a2b1a87e5c1ac2b1a61d",
+        "size": 4878
+      }
+    },
+    {
+      "id": "es_AR-daniela-high",
+      "name": "Daniela",
+      "gender": "mujer",
+      "accent": "Argentina",
+      "note": "Calidad alta, la más pesada. Acento rioplatense.",
+      "license": "CC BY-SA 4.0 (OpenSLR 61)",
+      "model": {
+        "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/es/es_AR/daniela/high/es_AR-daniela-high.onnx",
+        "sha256": "7ceb1fc0dab349418c5b54a639ae9ee595212d7c9ea422220d8419163d5cc985",
+        "size": 114199011
+      },
+      "config": {
+        "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/es/es_AR/daniela/high/es_AR-daniela-high.onnx.json",
+        "sha256": "aedbf69647e1d754c62ecf8e0366ca5f16af3e768e3c6b5329af6eb6bde3852b",
+        "size": 7248
+      }
+    },
+    {
+      "id": "es_ES-davefx-medium",
+      "name": "DaveFX",
+      "gender": "hombre",
+      "accent": "España",
+      "note": "Calidad media. Acento de España.",
+      "license": "CC0 (dominio público)",
+      "model": {
+        "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/es/es_ES/davefx/medium/es_ES-davefx-medium.onnx",
+        "sha256": "6658b03b1a6c316ee4c265a9896abc1393353c2d9e1bca7d66c2c442e222a917",
+        "size": 63201294
+      },
+      "config": {
+        "url": "https://huggingface.co/rhasspy/piper-voices/resolve/c10ece1aade47bb51c153c893d14e5bf8e5b7117/es/es_ES/davefx/medium/es_ES-davefx-medium.onnx.json",
+        "sha256": "0e0dda87c732f6f38771ff274a6380d9252f327dca77aa2963d5fbdf9ec54842",
+        "size": 4817
+      }
+    }
+  ]
+}

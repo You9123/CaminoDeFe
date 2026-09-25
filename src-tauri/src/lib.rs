@@ -1,5 +1,7 @@
 use std::fs;
 
+mod piper;
+
 use tauri::path::BaseDirectory;
 use tauri::Manager;
 use tauri_plugin_dialog::{DialogExt, MessageDialogKind};
@@ -172,8 +174,15 @@ pub fn run() {
             read_backup_file,
             auto_backups_dir,
             user_db_url,
-            write_markdown_file
+            write_markdown_file,
+            piper::piper_status,
+            piper::piper_install_engine,
+            piper::piper_install_voice,
+            piper::piper_remove_voice,
+            piper::piper_stop,
+            piper::piper_speak
         ])
+        .manage(piper::PiperState::default())
         .setup(|app| {
             if let Err(err) = install_bible_db(app) {
                 // Se muestra con el diálogo de Tauri (funciona en todas las plataformas) y luego se cierra.

@@ -1,4 +1,4 @@
-import { speech, speechSupported, useSpeechState } from "../hooks/useSpeech";
+import { speech, useCanSpeak, useSpeechState } from "../hooks/useSpeech";
 import { useSettings } from "../stores/settingsStore";
 import { SpeakerIcon } from "./icons";
 
@@ -7,7 +7,8 @@ export function ListenButton({ text, label, className = "" }: { text: string; la
   const state = useSpeechState();
   const rate = useSettings((s) => s.ttsRate);
   const voiceURI = useSettings((s) => s.ttsVoice);
-  if (!speechSupported()) return null;
+  const canSpeak = useCanSpeak();
+  if (!canSpeak) return null;
   const playing = state.status === "playing" && state.label === label;
 
   return (

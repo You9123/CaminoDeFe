@@ -21,6 +21,7 @@ import { isTauri } from "../data/db";
 import { useProgress } from "../stores/progressStore";
 import { useSettings } from "../stores/settingsStore";
 import { useUpdates } from "../stores/updateStore";
+import { useVoices } from "../stores/voicesStore";
 
 export default function App() {
   const refresh = useProgress((s) => s.refresh);
@@ -34,6 +35,8 @@ export default function App() {
       void loadSettings()
         .then(refresh)
         .then(checkAchievements)
+        // Voces naturales descargadas (Piper, ADR-0011): el modo escuchar las usa si están.
+        .then(() => useVoices.getState().refresh())
         // Al final, sin apuro: ¿hay una versión nueva? (ADR-0010)
         .then(() => useUpdates.getState().init())
         .catch((e: unknown) => console.error(e));
