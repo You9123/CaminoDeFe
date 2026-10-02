@@ -15,13 +15,22 @@ import { estimatedReadSeconds, formatMinutes, minSecondsToCount } from "../domai
 import { useAsync } from "../hooks/useAsync";
 import { announceCollectibles, useProgress } from "../stores/progressStore";
 import { CATALOG } from "../content/collectibles";
-import { collectibleKey, collectiblesInChapter } from "../domain/collectibles";
+import { chapterDiscoveries, collectibleKey } from "../domain/collectibles";
 import { CollectibleSheet, RelatedChip } from "../components/CollectibleSheet";
 import { getReadChapterMap } from "../data/collectiblesRepo";
 import { toast } from "../stores/toastStore";
 import { PostReadingFlow } from "../components/PostReadingFlow";
+import type { ChapterCompletion } from "../components/ChapterCompleteStep";
 import { ChapterQuizCard } from "../components/ChapterQuizCard";
-import { BookmarkIcon, CheckIcon, CopyIcon, HourglassIcon, QuillIcon, SpeakerIcon } from "../components/icons";
+import {
+  BookmarkIcon,
+  CheckIcon,
+  CopyIcon,
+  HourglassIcon,
+  LockIcon,
+  QuillIcon,
+  SpeakerIcon,
+} from "../components/icons";
 import { speech, useCanSpeak, useSpeechState } from "../hooks/useSpeech";
 import { SPEECH_RATES } from "../domain/speech";
 import { useSettings } from "../stores/settingsStore";
@@ -113,6 +122,9 @@ function ChapterReader({
   const [result, setResult] = useState<(ChapterReadResult & { levelUp: number | null }) | null>(null);
   const [saving, setSaving] = useState(false);
   const [showFlow, setShowFlow] = useState(false);
+  // Al terminar el capítulo, el flujo empieza con "Capítulo completado" (y los descubrimientos).
+  const [completion, setCompletion] = useState<ChapterCompletion | null>(null);
+  const [flowWithResult, setFlowWithResult] = useState(false);
   const [listenedAll, setListenedAll] = useState(false);
   const celebrate = useProgress((s) => s.celebrate);
 
@@ -235,12 +247,27 @@ function ChapterReader({
         durationSec: elapsed,
       });
       await celebrate(res.awards);
-      await announceCollectibles(chapterRef(chapter.book.code, chapter.chapter), alreadyRead);
+      // En una sesión, los capítulos intermedios no abren el flujo: ahí los descubrimientos van como avisos.
+      const opensFlow = !(inSession && !sessionLast);
+      const discoveries = await announceCollectibles(chapterRef(chapter.book.code, chapter.chapter), alreadyRead, {
+        quiet: opensFlow,
+      });
       const after = useProgress.getState().level.level;
-      setResult({ ...res, levelUp: after > before ? after : null });
-      if (inSession && !sessionLast) session.advance();
+      const levelUp = after > before ? after : null;
+      setResult({ ...res, levelUp });
+      if (!opensFlow) session.advance();
       // En una sesión, la reflexión y la oración van al final, después del último capítulo.
-      else setShowFlow(true);
+      else {
+        setCompletion({
+          refLabel: `${chapter.book.name} ${chapter.chapter}`,
+          xpGained: res.xpGained,
+          bonus: res.awards.some((a) => a.type === "bonus_5_chapters"),
+          levelUp,
+          discoveries,
+        });
+        setFlowWithResult(true);
+        setShowFlow(true);
+      }
     } finally {
       setSaving(false);
     }
@@ -329,7 +356,7 @@ function ChapterReader({
         chapter={chapter.chapter}
         enabled={alreadyRead || result !== null}
       />
-      <ChapterCollectibles chapterRef={chapterRef(chapter.book.code, chapter.chapter)} />
+      <ChapterCollectibles chapterRef={chapterRef(chapter.book.code, chapter.chapter)} finished={result !== null} />
 
       <div className="mt-14 flex justify-between gap-4 text-sm">
         {prev ? (
@@ -458,7 +485,10 @@ function ChapterReader({
 
           <div className="flex shrink-0 gap-2">
             <button
-              onClick={() => setShowFlow(true)}
+              onClick={() => {
+                setFlowWithResult(false);
+                setShowFlow(true);
+              }}
               className="inline-flex items-center gap-2 rounded-xl border border-accent px-4 py-2.5 font-semibold text-accent hover:bg-accent-soft"
               title="Abrir la reflexión, la oración y la aplicación de este capítulo"
             >
@@ -502,7 +532,11 @@ function ChapterReader({
       {showFlow && (
         <PostReadingFlow
           title={inSession && session.plan ? `Sesión de ${session.plan.minutes} minutos` : undefined}
-          steps={inSession && session.plan ? session.plan.steps : ["reflection", "prayer", "application"]}
+          steps={[
+            ...(flowWithResult && completion ? (["result"] as const) : []),
+            ...(inSession && session.plan ? session.plan.steps : (["reflection", "prayer", "application"] as const)),
+          ]}
+          completion={completion ?? undefined}
           prayerMinutes={inSession && session.plan ? session.plan.prayerMinutes : 0}
           refId={chapterRef(chapter.book.code, chapter.chapter)}
           refLabel={`${chapter.book.name} ${chapter.chapter}`}
@@ -519,23 +553,40 @@ function ChapterReader({
   );
 }
 
-/** "Aparecen aquí": fichas de la línea temporal que tienen este capítulo como pasaje clave. */
-function ChapterCollectibles({ chapterRef: ref }: { chapterRef: string }) {
+/**
+ * Fichas de este capítulo. Sin spoilers (ADR-0012): las que ya descubriste aparecen con su nombre;
+ * de las que faltan solo se dice cuántas son (se descubren al terminar el capítulo).
+ */
+function ChapterCollectibles({ chapterRef: ref, finished }: { chapterRef: string; finished: boolean }) {
   const totalXp = useProgress((s) => s.totalXp);
   const [open, setOpen] = useState<string | null>(null);
-  const items = collectiblesInChapter(CATALOG.collectibles, ref);
-  const data = useAsync(getReadChapterMap, `${totalXp}`);
-  if (items.length === 0) return null;
-  const read = data.data?.read ?? new Set<string>();
+  const data = useAsync(getReadChapterMap, `${totalXp}:${finished}`);
+  const map = data.latest;
+  if (!map) return null;
+  const { revealed, hidden } = chapterDiscoveries(CATALOG.collectibles, ref, map.read);
+  if (revealed.length + hidden === 0) return null;
   const item = open ? CATALOG.byKey.get(open) : undefined;
+  const pending = hidden === 1 ? "un descubrimiento por hacer" : `${hidden} descubrimientos por hacer`;
   return (
     <aside className="mt-12 rounded-2xl border border-dashed border-border px-5 py-4">
-      <p className="mb-2.5 text-sm font-semibold text-muted">Aparecen en este capítulo</p>
-      <div className="flex flex-wrap gap-2">
-        {items.map((c) => (
-          <RelatedChip key={collectibleKey(c.kind, c.id)} item={c} read={read} onOpen={setOpen} />
-        ))}
-      </div>
+      {revealed.length > 0 && (
+        <>
+          <p className="mb-2.5 text-sm font-semibold text-muted">Aparecen en este capítulo</p>
+          <div className="flex flex-wrap gap-2">
+            {revealed.map((c) => (
+              <RelatedChip key={collectibleKey(c.kind, c.id)} item={c} read={map.read} onOpen={setOpen} />
+            ))}
+          </div>
+        </>
+      )}
+      {hidden > 0 && (
+        <p className={`flex items-center gap-3 text-sm text-muted ${revealed.length > 0 ? "mt-3" : ""}`}>
+          <LockIcon size={20} className="shrink-0 text-accent" />
+          {revealed.length > 0
+            ? `Y ${pending}. Termina el capítulo para ver ${hidden === 1 ? "cuál es" : "cuáles son"}.`
+            : `En este capítulo hay ${pending}. Termínalo para ver ${hidden === 1 ? "cuál es" : "cuáles son"}.`}
+        </p>
+      )}
       {item && <CollectibleSheet key={open} item={item} onClose={() => setOpen(null)} onOpen={setOpen} />}
     </aside>
   );

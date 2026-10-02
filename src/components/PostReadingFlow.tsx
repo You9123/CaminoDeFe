@@ -1,6 +1,7 @@
 import { useEffect, useState, type ComponentType, type ReactNode } from "react";
 import { BookIcon, CandleIcon, CheckIcon, QuillIcon, SproutIcon } from "./icons";
 import { Modal } from "./Modal";
+import { ChapterCompleteStep, type ChapterCompletion } from "./ChapterCompleteStep";
 import { addJournalEntry } from "../data/journalRepo";
 import { recordActivity } from "../data/progressRepo";
 import type { ActivityType } from "../domain/xp";
@@ -10,8 +11,9 @@ import { useProgress, useXpFor } from "../stores/progressStore";
  * Flujo "Leer → Reflexionar → Orar → Aplicar" (Documento Maestro §2.4).
  * Todos los pasos son opcionales. Se usa después de leer un capítulo
  * y también desde las misiones del día (con un solo paso).
+ * El paso "result" (Capítulo completado + descubrimientos) solo lo usa el lector al terminar un capítulo.
  */
-export type FlowStep = "verse" | "reflection" | "prayer" | "application";
+export type FlowStep = "result" | "verse" | "reflection" | "prayer" | "application";
 
 type Props = {
   steps: FlowStep[];
@@ -25,10 +27,21 @@ type Props = {
   title?: string;
   /** Temporizador de oración preseleccionado (0 = sin temporizador). */
   prayerMinutes?: number;
+  /** Solo para el paso "result": cómo fue el capítulo que se acaba de terminar. */
+  completion?: ChapterCompletion;
   onClose: () => void;
 };
 
-export function PostReadingFlow({ steps, refId, refLabel, verse, title, prayerMinutes = 0, onClose }: Props) {
+export function PostReadingFlow({
+  steps,
+  refId,
+  refLabel,
+  verse,
+  title,
+  prayerMinutes = 0,
+  completion,
+  onClose,
+}: Props) {
   const [index, setIndex] = useState(0);
   const step = steps[index];
   const next = () => (index + 1 < steps.length ? setIndex(index + 1) : onClose());
@@ -46,6 +59,9 @@ export function PostReadingFlow({ steps, refId, refLabel, verse, title, prayerMi
           </div>
         )}
       </div>
+      {step === "result" && completion && (
+        <ChapterCompleteStep completion={completion} onNext={next} onLeave={onClose} />
+      )}
       {step === "verse" && verse && <VerseStep refId={refId} refLabel={refLabel} verse={verse} onNext={next} />}
       {step === "reflection" && <ReflectionStep refId={refId} refLabel={refLabel} onNext={next} />}
       {step === "prayer" && <PrayerStep refId={refId} defaultMinutes={prayerMinutes} onNext={next} />}

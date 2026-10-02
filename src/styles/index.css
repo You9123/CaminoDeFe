@@ -402,7 +402,8 @@ mark {
 }
 @media (prefers-reduced-motion: reduce) {
   .pet *,
-  .ficha-img {
+  .ficha-img,
+  .ficha-reveal {
     animation: none !important;
   }
 }
@@ -414,14 +415,32 @@ mark {
 }
 
 /* Imagen de las fichas (coleccionables): un tono cálido para que combine con el papel,
-   y un zoom muy lento, como en los documentales. Bloqueada, se ve en gris. */
+   y un zoom muy lento, como en los documentales. Bloqueada, se cubre de niebla (ADR-0012). */
 .ficha-img {
   filter: sepia(0.18) saturate(0.92) brightness(var(--img-brightness, 1));
   transform-origin: 50% 40%;
   animation: ficha-zoom 26s ease-in-out infinite alternate;
 }
-.ficha-img-locked {
-  filter: grayscale(1) sepia(0.12) brightness(var(--img-brightness, 1)) opacity(0.5);
+/* Niebla: la misma pintura, tan desenfocada y oscura que no se reconoce. La escala evita
+   que el desenfoque deje un borde claro. */
+.ficha-fog {
+  filter: blur(22px) brightness(0.45) sepia(0.6) saturate(0.7);
+  transform: scale(1.2);
+  animation: none;
+}
+/* Al descubrir una ficha, la niebla se despeja. */
+.ficha-reveal {
+  animation: ficha-reveal 1.6s ease-out both;
+}
+@keyframes ficha-reveal {
+  from {
+    filter: blur(22px) brightness(0.45) sepia(0.6) saturate(0.7);
+    transform: scale(1.2);
+  }
+  to {
+    filter: blur(0) brightness(var(--img-brightness, 1)) sepia(0.18) saturate(0.92);
+    transform: scale(1.02);
+  }
 }
 @keyframes ficha-zoom {
   from {

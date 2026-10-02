@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 2.2 · 24/09/2026
+> **Versión del documento:** 2.3 · 27/09/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -99,7 +99,7 @@ Un botón principal que arma una sesión corta:
 
 ### 2.4 Flujo post-lectura: Reflexionar → Orar → Aplicar [V1]
 
-Después de leer, se muestran tres pasos. Todos son **opcionales** y se pueden saltar:
+Después de leer, se muestran tres pasos. Todos son **opcionales** y se pueden saltar. Al terminar un capítulo en el lector, antes va una pantalla **"Capítulo completado"** con los XP y, si hubo, los **nuevos descubrimientos** (V3.5, Sprint 3.5A, ADR-0012):
 
 1. **🧠 Reflexión**: "¿Qué fue lo que más te llamó la atención?" (texto libre, se guarda en el diario).
 2. **🙏 Momento de oración**: un temporizador opcional de 1, 3 o 5 minutos y el botón "He terminado".
@@ -275,7 +275,9 @@ Una línea horizontal interactiva: Creación → Diluvio → Abraham → Isaac �
 
 ### 2.19 Coleccionables [V3]
 
-Fichas de **Personajes**, **Lugares** y **Eventos**. Cada ficha tiene una lista de capítulos clave, y el avance de la ficha es la parte de esos capítulos que has leído (se calcula con `chapter_progress`, sin tablas nuevas). Al leer por primera vez uno de ellos aparece "Personaje desbloqueado: …". Todas las fichas se ven desde el principio; al completarlas se vuelven doradas. Están en **Logros → Coleccionables**, y el lector muestra las que aparecen en cada capítulo. Datos en `content/characters.json`, `places.json` y `events.json`. **Hecho en el Sprint 3A** (ADR-0008).
+Fichas de **Personajes**, **Lugares** y **Eventos**. Cada ficha tiene una lista de capítulos clave, y el avance de la ficha es la parte de esos capítulos que has leído (se calcula con `chapter_progress`, sin tablas nuevas). Al leer por primera vez uno de ellos aparece "Personaje desbloqueado: …". Al completarlas se vuelven doradas. Están en **Logros → Coleccionables**, con el contador "N de 115 descubiertos". Datos en `content/characters.json`, `places.json` y `events.json`. **Hecho en el Sprint 3A** (ADR-0008).
+
+**Descubrimiento sin spoilers (V3.5, Sprint 3.5A, ADR-0012):** una ficha sin leer está **cubierta de niebla** (la misma pintura muy desenfocada y oscura), con candado, "???", el tipo y una pista "Aparece en Génesis" (el libro, nunca el capítulo; si el libro se llama como la ficha, solo la zona del mapa). No se ve su nombre, resumen, versículo ni imagen nítida. Al descubrirla, la niebla se despeja en la pantalla "Capítulo completado". El lector solo dice "En este capítulo hay N descubrimientos" hasta que lo lees, y la línea temporal muestra "???" en lo que falta descubrir.
 
 ### 2.20 Configuración [V1]
 
@@ -615,6 +617,17 @@ Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v
 - [x] PIN para el diario (Sprint 3C)
 - [x] Actualizaciones automáticas (Sprint 3C)
 - [x] Voces neuronales offline (Piper), opcional (Sprint 3D)
+
+### 🟡 V3.5 — Descubrir y simplificar (en curso)
+
+Plan en `Plan_V3.5.md` (proyecto). Cuatro sprints: **3.5A Descubrimientos** ✅ v2.5.0 · **3.5B Hoy y navegación** (v2.6.0) · **3.5C Conexiones** (v2.7.0) · **3.5D Mascota y cosméticos** (v2.8.0).
+
+- [x] Fichas bloqueadas con niebla, pista por libro y contador de la colección (Sprint 3.5A)
+- [x] Sin spoilers en el lector, la línea temporal y las fichas relacionadas (Sprint 3.5A)
+- [x] "Capítulo completado" con los nuevos descubrimientos (Sprint 3.5A)
+- [ ] Barra lateral de 6 entradas, Hoy con 4 bloques y onboarding corto (Sprint 3.5B)
+- [ ] Conexiones entre mapa, historia y colección; logros de descubrimiento (Sprint 3.5C)
+- [ ] Reacciones de la mascota y un solo catálogo de cosméticos (Sprint 3.5D)
 
 ### 🔴 V4 — Nube y móvil
 

@@ -378,6 +378,91 @@ export function kindTotals(
   return out;
 }
 
+// ---------- Descubrimiento (sin spoilers, ADR-0012) ----------
+
+/**
+ * Estado visible de una ficha. Bloqueada = todavía no leíste ninguno de sus capítulos clave:
+ * la interfaz no muestra su nombre, resumen, versículo ni imagen nítida, solo el tipo y una pista.
+ */
+export type CollectibleState = "locked" | "unlocked" | "complete";
+
+export function collectibleState(c: Collectible, read: ReadonlySet<string>): CollectibleState {
+  const p = passagesProgress(c.passages, read);
+  return p.complete ? "complete" : p.unlocked ? "unlocked" : "locked";
+}
+
+/** Libro donde aparece por primera vez (el del primer capítulo clave). Nunca el capítulo exacto. */
+export function hintBook(c: Collectible): string {
+  return keyChapters(c.passages)[0].split(".")[0];
+}
+
+/** Lo que la pista necesita saber de un libro: su nombre y la zona del mapa donde está. */
+export type HintBookInfo = { name: string; zone: string };
+
+export type DiscoveryHint = {
+  /** "Aparece en Génesis" (o, si el libro delata el nombre, la zona del mapa). */
+  text: string;
+  /** Libro que se puede abrir sin adelantar nada, o null si su nombre delata la ficha. */
+  book: string | null;
+};
+
+/** Palabras que no dicen nada por sí solas ("El mar de los juncos" → "juncos"). */
+const FILLER = new Set(["los", "las", "del", "con", "por", "una", "uno", "sus", "que", "ante"]);
+const words = (s: string) =>
+  s
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .split(/[^a-z]+/)
+    .filter((w) => w.length >= 3 && !FILLER.has(w));
+
+/** ¿El nombre del libro delata la ficha? (Rut en "Rut", Roma en "Romanos", Samuel en "1 Samuel"). */
+export function bookRevealsName(name: string, book: string): boolean {
+  const a = words(name);
+  return words(book).some((b) => a.some((x) => x.startsWith(b) || b.startsWith(x)));
+}
+
+/**
+ * Pista de una ficha bloqueada: "Aparece en Génesis". No dice el nombre ni el capítulo.
+ * Si el libro se llama como la ficha (Daniel, Ester, Jonás...), dice solo la zona del mapa.
+ */
+export function discoveryHint(c: Collectible, info: (code: string) => HintBookInfo | undefined): DiscoveryHint {
+  const code = hintBook(c);
+  const book = info(code);
+  if (!book) return { text: "Aparece en la Biblia", book: null };
+  if (bookRevealsName(c.name, book.name)) return { text: `Aparece en la zona «${book.zone}» del mapa`, book: null };
+  return { text: `Aparece en ${book.name}`, book: code };
+}
+
+/** Contador de la colección: cuántas fichas descubiertas en total y por tipo. */
+export function collectionSummary(
+  collectibles: Collectible[],
+  read: ReadonlySet<string>,
+): { discovered: number; total: number; byKind: ReturnType<typeof kindTotals> } {
+  const byKind = kindTotals(collectibles, read);
+  const kinds = Object.values(byKind);
+  return {
+    discovered: kinds.reduce((n, k) => n + k.unlocked, 0),
+    total: kinds.reduce((n, k) => n + k.total, 0),
+    byKind,
+  };
+}
+
+/**
+ * Lo que el lector puede decir de un capítulo sin adelantar nada: las fichas que ya descubriste
+ * (con su nombre) y cuántas quedan por descubrir (solo el número). Si ya leíste el capítulo,
+ * todas sus fichas están descubiertas.
+ */
+export function chapterDiscoveries(
+  collectibles: Collectible[],
+  ref: string,
+  read: ReadonlySet<string>,
+): { revealed: Collectible[]; hidden: number } {
+  const items = collectiblesInChapter(collectibles, ref);
+  const revealed = items.filter((c) => passagesProgress(c.passages, read).unlocked);
+  return { revealed, hidden: items.length - revealed.length };
+}
+
 // ---------- Imágenes de las fichas ----------
 
 /** Imagen de una ficha: una obra de dominio público o una foto con licencia libre, con su crédito. */

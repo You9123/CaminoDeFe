@@ -5,11 +5,12 @@ import { X } from "lucide-react";
 import { format, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import { CATALOG } from "../content/collectibles";
-import { bookName, chapterLabel } from "../content/bookNames";
+import { bookName, chapterLabel, hintBookInfo } from "../content/bookNames";
 import { collectibleImage } from "../content/collectibleImages";
 import {
   collectibleKey,
   creditLine,
+  discoveryHint,
   erasOf,
   expandPassage,
   KIND_LABEL,
@@ -27,13 +28,14 @@ import { useProgress } from "../stores/progressStore";
 import { COLLECTIBLE_ICON } from "./collectibleIcons";
 import { Medallion } from "./Medallion";
 import { Modal } from "./Modal";
-import { BookIcon, CheckIcon, TimelineIcon } from "./icons";
+import { BookIcon, CheckIcon, LockIcon, MapIcon, TimelineIcon } from "./icons";
 
 const longDate = (iso: string) => format(parseISO(iso), "d 'de' MMMM 'de' yyyy", { locale: es });
 
 /**
  * Ficha de un coleccionable: quién fue (o qué pasó, o qué lugar es), un versículo,
  * los capítulos clave para leer y con qué se relaciona. Carga sola lo que ya leíste.
+ * Si todavía está bloqueada, se muestra cubierta de niebla y sin spoilers (ADR-0012).
  */
 export function CollectibleSheet({
   item,
@@ -51,9 +53,10 @@ export function CollectibleSheet({
   const data = useAsync(getReadChapterMap, `${totalXp}`);
   const verse = useAsync(async () => (item.verse ? getVerseByRef(item.verse) : null), item.verse ?? "");
 
-  const read = data.data?.read ?? new Set<string>();
+  const map = data.latest;
+  const read = map?.read ?? new Set<string>();
   const p = passagesProgress(item.passages, read);
-  const since = data.data ? unlockedAt(item, data.data.firstReadAt) : null;
+  const since = map ? unlockedAt(item, map.firstReadAt) : null;
   const Icon = COLLECTIBLE_ICON[item.icon];
   const eras = erasOf(item, CATALOG);
   const related = relatedOf(item, CATALOG);
@@ -83,6 +86,10 @@ export function CollectibleSheet({
     return () => window.removeEventListener("keydown", onKey, true);
   }, [imageOpen]);
 
+  // Hasta saber qué leíste no se muestra nada: así una ficha bloqueada nunca deja ver su nombre.
+  if (!map) return null;
+  if (!p.unlocked) return <LockedSheet item={item} onClose={onClose} onGo={go} />;
+
   return (
     <>
       <Modal onClose={onClose} label={item.name} wide>
@@ -97,7 +104,7 @@ export function CollectibleSheet({
               <img
                 src={image.url}
                 alt={image.title}
-                className={`ficha-img h-full w-full object-cover ${p.unlocked || data.loading ? "" : "ficha-img-locked"}`}
+                className="ficha-img h-full w-full object-cover"
                 draggable={false}
               />
             </button>
@@ -138,9 +145,7 @@ export function CollectibleSheet({
         {/* ---------- Avance ---------- */}
         <div className="mt-6">
           <div className="mb-1.5 flex items-baseline justify-between text-sm">
-            <span className="font-semibold">
-              {p.complete ? "Ficha completa" : p.unlocked ? "Desbloqueada" : "Por descubrir"}
-            </span>
+            <span className="font-semibold">{p.complete ? "Ficha completa" : "Descubierta"}</span>
             <span className="text-muted tabular-nums">
               {p.read} de {p.total} {p.total === 1 ? "capítulo clave" : "capítulos clave"}
             </span>
@@ -151,11 +156,7 @@ export function CollectibleSheet({
               style={{ width: `${(p.read / p.total) * 100}%` }}
             />
           </div>
-          <p className="mt-1.5 text-[13px] text-muted">
-            {since
-              ? `Desde el ${longDate(since)}.`
-              : `Se desbloquea al leer ${chapterLabel(p.next ?? item.passages[0])}.`}
-          </p>
+          <p className="mt-1.5 text-[13px] text-muted">{since ? `Descubierta el ${longDate(since)}.` : " "}</p>
         </div>
 
         <h3 className="mt-6 mb-2 text-sm font-semibold tracking-wide text-muted uppercase">Dónde leerlo</h3>
@@ -245,7 +246,68 @@ export function CollectibleSheet({
   );
 }
 
-/** Ficha pequeña (medallón + nombre) que abre otra ficha. */
+/**
+ * Ficha bloqueada: la pintura cubierta de niebla, un candado, "???", el tipo y en qué libro aparece.
+ * Nada más: ni nombre, ni resumen, ni versículo, ni capítulo exacto, ni imagen nítida.
+ */
+function LockedSheet({
+  item,
+  onClose,
+  onGo,
+}: {
+  item: Collectible;
+  onClose: () => void;
+  onGo: (path: string) => void;
+}) {
+  const kind = KIND_LABEL[item.kind];
+  const image = collectibleImage(collectibleKey(item.kind, item.id));
+  const hint = discoveryHint(item, hintBookInfo);
+  return (
+    <Modal onClose={onClose} label={`${kind.one} por descubrir`} wide>
+      {image && (
+        <figure aria-hidden className="relative -mx-8 -mt-8 mb-5 h-[22rem] overflow-hidden rounded-t-3xl bg-surface-2">
+          <img src={image.url} alt="" className="ficha-fog h-full w-full object-cover" draggable={false} />
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="rounded-full bg-black/35 p-4 text-white/90 backdrop-blur-sm">
+              <LockIcon size={40} duo={false} />
+            </span>
+          </span>
+          <span className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-surface via-surface/60 to-transparent" />
+        </figure>
+      )}
+      <div className="flex items-center gap-5 pr-8">
+        <Medallion icon={LockIcon} unlocked={false} size={image ? 60 : 76} />
+        <div className="min-w-0">
+          <p className="text-xs font-semibold tracking-wide text-accent uppercase">{kind.one} por descubrir</p>
+          <h2 className="font-display text-3xl leading-tight font-semibold" aria-label="Nombre oculto">
+            ???
+          </h2>
+          <p className="mt-0.5 text-muted">{hint.text}</p>
+        </div>
+      </div>
+
+      <p className="mt-5 leading-relaxed text-muted">
+        Esta ficha se descubre leyendo. Cuando llegues a su historia, la niebla se despeja y sabrás{" "}
+        {item.kind === "character" ? "quién es" : item.kind === "place" ? "qué lugar es" : "qué pasó"}.
+      </p>
+
+      <div className="mt-7 flex justify-end gap-3">
+        <button onClick={onClose} className="rounded-xl px-4 py-2.5 text-muted hover:bg-surface-2 hover:text-ink">
+          Cerrar
+        </button>
+        <button
+          onClick={() => onGo(hint.book ? `/biblia/${hint.book}` : "/mapa")}
+          className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 font-semibold text-accent-ink"
+        >
+          {hint.book ? <BookIcon size={18} duo={false} /> : <MapIcon size={18} duo={false} />}
+          {hint.book ? `Abrir ${bookName(hint.book) ?? hint.book}` : "Ver el mapa"}
+        </button>
+      </div>
+    </Modal>
+  );
+}
+
+/** Ficha pequeña (medallón + nombre) que abre otra ficha. Bloqueada: candado y "???". */
 export function RelatedChip({
   item,
   read,
@@ -256,14 +318,26 @@ export function RelatedChip({
   onOpen: (key: string) => void;
 }) {
   const p = passagesProgress(item.passages, read);
+  const kind = KIND_LABEL[item.kind].one;
   return (
     <button
       onClick={() => onOpen(collectibleKey(item.kind, item.id))}
       className="inline-flex items-center gap-2 rounded-xl border border-border py-1 pr-3 pl-1 text-sm hover:border-accent hover:text-accent"
-      title={`${KIND_LABEL[item.kind].one}${p.unlocked ? "" : " · por descubrir"}`}
+      title={p.unlocked ? kind : `${kind} por descubrir`}
     >
-      <Medallion icon={COLLECTIBLE_ICON[item.icon]} unlocked={p.unlocked} gold={p.complete} size={28} />
-      <span className={p.unlocked ? "" : "text-muted"}>{item.name}</span>
+      <Medallion
+        icon={p.unlocked ? COLLECTIBLE_ICON[item.icon] : LockIcon}
+        unlocked={p.unlocked}
+        gold={p.complete}
+        size={28}
+      />
+      {p.unlocked ? (
+        <span>{item.name}</span>
+      ) : (
+        <span className="text-muted" aria-label={`${kind} por descubrir`}>
+          ???
+        </span>
+      )}
     </button>
   );
 }

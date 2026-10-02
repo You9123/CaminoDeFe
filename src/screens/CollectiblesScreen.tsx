@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { CATALOG } from "../content/collectibles";
-import { chapterLabel } from "../content/bookNames";
+import { hintBookInfo } from "../content/bookNames";
 import {
   collectibleKey,
+  collectionSummary,
+  discoveryHint,
   KIND_LABEL,
-  kindTotals,
   passagesProgress,
   type Collectible,
   type CollectibleKind,
@@ -17,14 +18,16 @@ import { AchievementsHeader } from "../components/AchievementsTabs";
 import { CollectibleSheet } from "../components/CollectibleSheet";
 import { COLLECTIBLE_ICON, KIND_ICON } from "../components/collectibleIcons";
 import { Medallion } from "../components/Medallion";
+import { KIND_PARAM } from "../app/paths";
+import { LockIcon } from "../components/icons";
 
 const KINDS: CollectibleKind[] = ["character", "place", "event"];
-const KIND_PARAM: Record<CollectibleKind, string> = { character: "personajes", place: "lugares", event: "eventos" };
 
 /**
- * Coleccionables: personajes, lugares y eventos (Documento Maestro §2.19).
- * Todas las fichas se ven desde el principio; se "desbloquean" (y toman color) al leer
- * uno de sus capítulos clave. La Biblia nunca se bloquea: esto es solo el álbum.
+ * Coleccionables: personajes, lugares y eventos (Documento Maestro §2.19, ADR-0012).
+ * Las fichas se descubren al leer uno de sus capítulos clave. Antes están cubiertas de niebla:
+ * candado, "???", el tipo y en qué libro aparecen, sin nombre ni resumen.
+ * La Biblia nunca se bloquea: esto es solo el álbum.
  */
 export function CollectiblesScreen() {
   const totalXp = useProgress((s) => s.totalXp);
@@ -34,8 +37,10 @@ export function CollectiblesScreen() {
   const open = openKey ? CATALOG.byKey.get(openKey) : undefined;
 
   const data = useAsync(getReadChapterMap, `${totalXp}`);
-  const read = useMemo(() => data.data?.read ?? new Set<string>(), [data.data]);
-  const totals = useMemo(() => kindTotals(CATALOG.collectibles, read), [read]);
+  const read = useMemo(() => data.latest?.read ?? new Set<string>(), [data.latest]);
+  const summary = useMemo(() => collectionSummary(CATALOG.collectibles, read), [read]);
+  const totals = summary.byKind;
+  const loaded = data.latest !== undefined;
   const items = CATALOG.collectibles.filter((c) => c.kind === kind);
 
   const setParam = (key: string, value: string | null) =>
@@ -49,11 +54,22 @@ export function CollectiblesScreen() {
       { replace: true },
     );
 
-  const unlockedAll = totals.character.unlocked + totals.place.unlocked + totals.event.unlocked;
+  const unlockedAll = summary.discovered;
 
   return (
     <div className="mx-auto max-w-4xl px-10 py-12">
-      <AchievementsHeader subtitle="Personajes, lugares y eventos que vas conociendo al leer." />
+      <AchievementsHeader subtitle="Personajes, lugares y eventos que vas descubriendo al leer." />
+
+      <p className="animate-rise mb-4 text-muted tabular-nums" aria-live="polite">
+        {loaded ? (
+          <>
+            <span className="font-display text-2xl font-semibold text-ink">{summary.discovered}</span> de{" "}
+            {summary.total} descubiertos
+          </>
+        ) : (
+          " "
+        )}
+      </p>
 
       <div className="animate-rise mb-7 grid grid-cols-3 gap-3" role="tablist" aria-label="Tipo de ficha">
         {KINDS.map((k) => {
@@ -74,7 +90,7 @@ export function CollectiblesScreen() {
               <span className="min-w-0 flex-1">
                 <span className="block font-semibold">{KIND_LABEL[k].many}</span>
                 <span className="text-sm text-muted tabular-nums">
-                  {data.loading ? " " : `${t.unlocked} de ${t.total}`}
+                  {loaded ? `${t.unlocked} de ${t.total}` : " "}
                   {t.complete > 0 && (
                     <span className="text-gold">
                       {" "}
@@ -88,10 +104,10 @@ export function CollectiblesScreen() {
         })}
       </div>
 
-      {!data.loading && unlockedAll === 0 && (
+      {loaded && unlockedAll === 0 && (
         <p className="animate-rise mb-6 rounded-2xl border border-dashed border-border px-5 py-4 text-sm text-muted">
-          Todavía no hay fichas desbloqueadas. Cada vez que leas un capítulo donde aparece alguien o algo de esta lista,
-          su ficha toma color. Puedes empezar por cualquiera.
+          Todavía no descubriste ninguna ficha. Cada vez que leas un capítulo donde aparece alguien o algo de esta
+          colección, su ficha se despeja. Puedes empezar por cualquier libro.
         </p>
       )}
 
@@ -101,7 +117,7 @@ export function CollectiblesScreen() {
             key={c.id}
             item={c}
             read={read}
-            loading={data.loading}
+            loading={!loaded}
             onOpen={() => setParam("ficha", collectibleKey(c.kind, c.id))}
           />
         ))}
@@ -132,34 +148,46 @@ function CollectibleCard({
 }) {
   const p = passagesProgress(item.passages, read);
   const on = p.unlocked && !loading;
+  const kind = KIND_LABEL[item.kind].one;
+  if (!on) {
+    return (
+      <button
+        onClick={onOpen}
+        disabled={loading}
+        aria-label={loading ? undefined : `${kind} por descubrir. ${discoveryHint(item, hintBookInfo).text}`}
+        className="group flex gap-3.5 rounded-2xl border border-dashed border-border bg-surface/50 p-4 text-left transition hover:border-accent/70"
+      >
+        <Medallion icon={LockIcon} unlocked={false} size={52} />
+        <span className="min-w-0 flex-1">
+          <span className="block leading-snug font-semibold text-muted">{loading ? " " : "???"}</span>
+          <span className="mt-0.5 block text-[13px] leading-snug text-muted">{loading ? " " : kind}</span>
+          <span className="mt-2 block text-[11px] text-muted">
+            {loading ? " " : discoveryHint(item, hintBookInfo).text}
+          </span>
+        </span>
+      </button>
+    );
+  }
   return (
     <button
       onClick={onOpen}
-      className={`group flex gap-3.5 rounded-2xl border p-4 text-left transition hover:border-accent/70 ${
-        on ? "border-border bg-surface" : "border-border/70 bg-surface/50"
-      }`}
+      className="group flex gap-3.5 rounded-2xl border border-border bg-surface p-4 text-left transition hover:border-accent/70"
     >
-      <Medallion icon={COLLECTIBLE_ICON[item.icon]} unlocked={on} gold={on && p.complete} size={52} />
+      <Medallion icon={COLLECTIBLE_ICON[item.icon]} unlocked gold={p.complete} size={52} />
       <span className="min-w-0 flex-1">
-        <span className={`block leading-snug font-semibold ${on ? "" : "text-ink/75"}`}>{item.name}</span>
+        <span className="block leading-snug font-semibold">{item.name}</span>
         <span className="mt-0.5 block text-[13px] leading-snug text-muted">{item.line}</span>
-        {on ? (
-          <span className="mt-2.5 block">
-            <span className="block h-1.5 overflow-hidden rounded-full bg-border/80">
-              <span
-                className={`block h-full rounded-full ${p.complete ? "bg-gold" : "bg-accent/70"}`}
-                style={{ width: `${(p.read / p.total) * 100}%` }}
-              />
-            </span>
-            <span className="mt-1 block text-[11px] text-muted tabular-nums">
-              {p.complete ? "Completa" : `${p.read} de ${p.total} capítulos`}
-            </span>
+        <span className="mt-2.5 block">
+          <span className="block h-1.5 overflow-hidden rounded-full bg-border/80">
+            <span
+              className={`block h-full rounded-full ${p.complete ? "bg-gold" : "bg-accent/70"}`}
+              style={{ width: `${(p.read / p.total) * 100}%` }}
+            />
           </span>
-        ) : (
-          <span className="mt-2 block text-[11px] text-muted">
-            {loading ? " " : `Aparece en ${chapterLabel(p.next ?? item.passages[0])}`}
+          <span className="mt-1 block text-[11px] text-muted tabular-nums">
+            {p.complete ? "Completa" : `${p.read} de ${p.total} capítulos`}
           </span>
-        )}
+        </span>
       </span>
     </button>
   );

@@ -26,5 +26,11 @@ export function useAsync<T>(fn: () => Promise<T>, key: string) {
   }, [key]);
 
   const current = settled?.key === key ? settled : null;
-  return { data: current?.data, error: current?.error ?? null, loading: current === null };
+  return {
+    data: current?.data,
+    error: current?.error ?? null,
+    loading: current === null,
+    /** El último resultado, aunque sea de una key anterior (para no parpadear mientras recarga). */
+    latest: settled?.data,
+  };
 }

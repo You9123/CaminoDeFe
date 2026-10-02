@@ -20,7 +20,7 @@ import { useProgress } from "../stores/progressStore";
 import { CollectibleSheet, RelatedChip } from "../components/CollectibleSheet";
 import { COLLECTIBLE_ICON } from "../components/collectibleIcons";
 import { Medallion } from "../components/Medallion";
-import { BookIcon, CheckIcon } from "../components/icons";
+import { BookIcon, CheckIcon, LockIcon } from "../components/icons";
 
 /** Ancho de cada etapa y del espacio entre los dos testamentos (px). */
 const STOP_W = 124;
@@ -58,7 +58,7 @@ export function TimelineScreen() {
   const totalXp = useProgress((s) => s.totalXp);
   const [params, setParams] = useSearchParams();
   const data = useAsync(getReadChapterMap, `${totalXp}`);
-  const read = useMemo(() => data.data?.read ?? new Set<string>(), [data.data]);
+  const read = useMemo(() => data.latest?.read ?? new Set<string>(), [data.latest]);
   const progress = useMemo(() => ERAS.map((e) => eraProgress(e, EVENTS, read)), [read]);
 
   // Etapa elegida: la de la URL; si no hay, la última en la que ya leíste algo.
@@ -113,7 +113,7 @@ export function TimelineScreen() {
             De la creación a la Iglesia. Elige una etapa para ver qué pasó, quiénes estaban y dónde leerlo.
           </p>
         </div>
-        {!data.loading && (
+        {data.latest !== undefined && (
           <p className="shrink-0 text-right text-sm text-muted tabular-nums">
             <span className="font-display text-2xl font-semibold text-ink">{litCount}</span> de {ERAS.length} etapas
             <br />
@@ -181,7 +181,7 @@ export function TimelineScreen() {
                   <Stop
                     era={e}
                     progress={progress[i]}
-                    loading={data.loading}
+                    loading={data.latest === undefined}
                     selected={i === index}
                     onSelect={() => select(i)}
                     onKeyDown={(ev) => onKey(ev, i)}
@@ -206,7 +206,7 @@ export function TimelineScreen() {
         index={index}
         progress={progress[index]}
         read={read}
-        loading={data.loading}
+        loading={data.latest === undefined}
         onOpen={(key) => setParam({ ficha: key })}
         onRead={(ref) => {
           const s = passageStart(ref);
@@ -439,18 +439,31 @@ function EventRow({
 }) {
   const p = passagesProgress(item.passages, read);
   const on = p.unlocked && !loading;
+  // Sin spoilers (ADR-0012): un evento que todavía no leíste se ve como "???" y abre la ficha con niebla.
   return (
     <button
       onClick={() => onOpen(collectibleKey(item.kind, item.id))}
-      className="flex items-center gap-3.5 rounded-2xl border border-border px-3 py-2.5 text-left transition hover:border-accent/70"
+      disabled={loading}
+      className={`flex items-center gap-3.5 rounded-2xl border px-3 py-2.5 text-left transition hover:border-accent/70 ${
+        on ? "border-border" : "border-dashed border-border"
+      }`}
     >
-      <Medallion icon={COLLECTIBLE_ICON[item.icon]} unlocked={on} gold={on && p.complete} size={40} />
+      <Medallion icon={on ? COLLECTIBLE_ICON[item.icon] : LockIcon} unlocked={on} gold={on && p.complete} size={40} />
       <span className="min-w-0 flex-1">
-        <span className={`block font-semibold leading-snug ${on ? "" : "text-ink/75"}`}>{item.name}</span>
-        <span className="block truncate text-[13px] text-muted">{item.summary}</span>
+        {on ? (
+          <>
+            <span className="block leading-snug font-semibold">{item.name}</span>
+            <span className="block truncate text-[13px] text-muted">{item.summary}</span>
+          </>
+        ) : (
+          <>
+            <span className="block leading-snug font-semibold text-muted">{loading ? " " : "???"}</span>
+            <span className="block truncate text-[13px] text-muted">{loading ? " " : "Evento por descubrir"}</span>
+          </>
+        )}
       </span>
       <span className="shrink-0 text-xs text-muted tabular-nums">
-        {loading ? "" : p.complete ? "Completo" : `${p.read}/${p.total}`}
+        {on ? (p.complete ? "Completo" : `${p.read}/${p.total}`) : ""}
       </span>
     </button>
   );

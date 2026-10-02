@@ -171,15 +171,22 @@ export function useXpFor(type: ActivityType): number {
 /**
  * Después de leer un capítulo: avisa de las fichas nuevas (personajes, lugares, eventos)
  * y hace que la mascota celebre. Devuelve las fichas para mostrarlas en el lector.
+ * Con `quiet`, no lanza avisos: la pantalla "Capítulo completado" ya las muestra (no se duplica).
  */
-export async function announceCollectibles(ref: string, wasReadBefore: boolean): Promise<Collectible[]> {
+export async function announceCollectibles(
+  ref: string,
+  wasReadBefore: boolean,
+  { quiet = false }: { quiet?: boolean } = {},
+): Promise<Collectible[]> {
   if (wasReadBefore) return [];
   try {
     const { read } = await getReadChapterMap();
     const list = newlyUnlocked(CATALOG.collectibles, read, ref, wasReadBefore);
     if (list.length === 0) return [];
-    if (list.length > 2) toast(`${list.length} fichas nuevas en Coleccionables`, "collectible");
-    else for (const c of list) toast(`${KIND_LABEL[c.kind].unlocked}: ${c.name}`, "collectible");
+    if (!quiet) {
+      if (list.length > 2) toast(`${list.length} fichas nuevas en Coleccionables`, "collectible");
+      else for (const c of list) toast(`${KIND_LABEL[c.kind].unlocked}: ${c.name}`, "collectible");
+    }
     useProgress.setState((s) => ({ celebrationKey: s.celebrationKey + 1 }));
     return list;
   } catch (e) {

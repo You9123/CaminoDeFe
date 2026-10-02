@@ -1,6 +1,6 @@
 # ADR-0008: Línea temporal y coleccionables
 
-- **Estado:** aceptada
+- **Estado:** aceptada (la visibilidad de las fichas bloqueadas la reemplaza el ADR-0012)
 - **Fecha:** 2026-09-24
 
 ## Contexto
