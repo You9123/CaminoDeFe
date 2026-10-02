@@ -3,7 +3,9 @@ import { format, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import { achievementViews, type AchievementView } from "../domain/achievements";
 import { RANKS } from "../domain/ranks";
-import { streakRewards, type CosmeticId, type StreakRewardView } from "../domain/cosmetics";
+import { COSMETIC_GROUPS, cosmeticViews, type CosmeticView } from "../domain/cosmetics";
+import { isPetSpecies } from "../domain/pet";
+import { useCosmeticFacts } from "../hooks/useCosmeticFacts";
 import { ACHIEVEMENT_GROUPS, ACHIEVEMENTS } from "../content/achievements";
 import { getProgressSnapshot, getUnlockedAchievements } from "../data/achievementsRepo";
 import { useAsync } from "../hooks/useAsync";
@@ -11,18 +13,35 @@ import { useProgress } from "../stores/progressStore";
 import { useSettings } from "../stores/settingsStore";
 import { ACHIEVEMENT_ICON, RANK_ICON } from "../components/badgeIcons";
 import { Medallion } from "../components/Medallion";
-import { MapIcon, OliveIcon, SealIcon, SparkIcon, SproutIcon } from "../components/icons";
+import {
+  BellIcon,
+  HeartIcon,
+  LampIcon,
+  LaurelIcon,
+  MapIcon,
+  OliveIcon,
+  PathIcon,
+  SealIcon,
+  SparkIcon,
+  SproutIcon,
+} from "../components/icons";
 import { Toggle } from "./settings/ui";
 import { JourneyHeader } from "../components/SectionHeader";
 
 type Icon = ComponentType<{ size?: number; className?: string; duo?: boolean }>;
 
-const REWARD_ICON: Record<CosmeticId, Icon> = {
+const REWARD_ICON: Record<string, Icon> = {
   olive_branch: OliveIcon,
-  pet_scarf: SparkIcon,
+  bufanda: SparkIcon,
   leaves_background: SproutIcon,
   map_frame: MapIcon,
   golden_seal: SealIcon,
+  flores: HeartIcon,
+  campanita: BellIcon,
+  panuelo: PathIcon,
+  lamp_badge: LampIcon,
+  laurel: LaurelIcon,
+  laurel_badge: LaurelIcon,
 };
 
 export function AchievementsScreen() {
@@ -36,6 +55,9 @@ export function AchievementsScreen() {
   const unlockedCount = views.filter((v) => v.unlockedAt).length;
 
   const RankIcon = RANK_ICON[rank.rank.id];
+  // Un solo catálogo de cosméticos (V3.5D, ADR-0015).
+  const rewards = cosmeticViews(useCosmeticFacts());
+  const petOn = isPetSpecies(useSettings((s) => s.petSpecies));
   const rankIndex = RANKS.findIndex((r) => r.id === rank.rank.id);
 
   return (
@@ -94,17 +116,26 @@ export function AchievementsScreen() {
       {/* ---------- Recompensas por racha ---------- */}
       <section className="animate-rise mb-10">
         <SectionTitle
-          title="Recompensas por constancia"
-          aside={`Récord de racha: ${streak.best} ${streak.best === 1 ? "día" : "días"}`}
+          title="Recompensas"
+          aside={`${rewards.filter((r) => r.unlocked).length} de ${rewards.length} · récord de racha: ${streak.best} ${streak.best === 1 ? "día" : "días"}`}
         />
         <p className="mb-4 -mt-2 text-sm text-muted">
-          Se ganan con tu récord, así que no se pierden aunque la racha se corte.
+          Adornos para la app y para tu mascota. Todo se gana caminando: no hay tienda, y lo ganado no se pierde aunque
+          la racha se corte.
         </p>
-        <div className="grid grid-cols-5 gap-3">
-          {streakRewards(streak.best).map((r) => (
-            <RewardCard key={r.id} reward={r} />
-          ))}
-        </div>
+        {COSMETIC_GROUPS.map((g) => {
+          const items = rewards.filter((r) => g.unlock.includes(r.unlock.type));
+          return (
+            <div key={g.title} className="mb-6">
+              <h3 className="mb-3 text-sm font-semibold tracking-wide text-muted uppercase">{g.title}</h3>
+              <div className="grid grid-cols-5 gap-3">
+                {items.map((r) => (
+                  <RewardCard key={r.id} reward={r} petOn={petOn} />
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </section>
 
       {/* ---------- Insignias ---------- */}
@@ -182,23 +213,24 @@ function AchievementCard({ a }: { a: AchievementView }) {
   );
 }
 
-function RewardCard({ reward: r }: { reward: StreakRewardView }) {
+function RewardCard({ reward: r, petOn }: { reward: CosmeticView; petOn: boolean }) {
   const off = useSettings((s) => s.cosmeticsOff.has(r.id));
   const setCosmetic = useSettings((s) => s.setCosmetic);
-  const Icon = REWARD_ICON[r.id];
+  const Icon = REWARD_ICON[r.id] ?? SparkIcon;
+  const forPet = r.type === "pet_accessory";
   return (
     <div
       className={`flex flex-col items-center rounded-2xl border p-4 text-center ${r.unlocked ? "border-border bg-surface" : "border-border/70 bg-surface/50"}`}
     >
       <Medallion icon={Icon} unlocked={r.unlocked} gold={r.id === "golden_seal" && r.unlocked} size={52} />
-      <p className="mt-2 text-xs font-semibold text-accent">{r.days} días</p>
-      <p className={`font-semibold leading-snug ${r.unlocked ? "" : "text-ink/75"}`}>{r.title}</p>
+      <p className="mt-2 text-xs font-semibold text-accent">{r.how}</p>
+      <p className={`leading-snug font-semibold ${r.unlocked ? "" : "text-ink/75"}`}>{r.title}</p>
       <p className="mt-1 text-[12px] leading-snug text-muted">{r.description}</p>
       <div className="mt-auto pt-3 text-[12px] text-muted">
         {!r.unlocked ? (
-          <span className="tabular-nums">{r.daysLeft === 1 ? "Falta 1 día" : `Faltan ${r.daysLeft} días`}</span>
-        ) : r.usedIn ? (
-          <span>Ganada · {r.usedIn}</span>
+          <span className="tabular-nums">{r.missing ?? "Por ganar"}</span>
+        ) : forPet ? (
+          <span>{petOn ? "Ganada · pónsela en Ajustes" : "Ganada · para tu mascota"}</span>
         ) : r.toggle ? (
           <Toggle checked={!off} onChange={(v) => void setCosmetic(r.id, v)} label={off ? "Guardada" : "En uso"} />
         ) : null}

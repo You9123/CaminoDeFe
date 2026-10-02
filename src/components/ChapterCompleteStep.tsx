@@ -5,6 +5,8 @@ import { collectionPath } from "../app/paths";
 import { COLLECTIBLE_ICON } from "./collectibleIcons";
 import { Medallion } from "./Medallion";
 import { CheckIcon } from "./icons";
+import { usePet } from "../hooks/usePet";
+import { PetArt } from "./pet/PetArt";
 
 /** Lo que se muestra en "Capítulo completado", al terminar un capítulo en el lector. */
 export type ChapterCompletion = {
@@ -41,14 +43,35 @@ export function ChapterCompleteStep({
     navigate(path);
   };
   const found = c.discoveries;
+  // La mascota reacciona aquí (V3.5D): curiosa si descubriste algo, si no, celebra. Sin mascota, nada.
+  const pet = usePet();
 
   return (
     <>
-      <p className="flex items-center gap-2 text-sm font-semibold text-accent">
-        <CheckIcon size={22} />
-        Capítulo completado
-      </p>
-      <h2 className="mt-2 font-display text-3xl font-semibold">{c.refLabel}</h2>
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="flex items-center gap-2 text-sm font-semibold text-accent">
+            <CheckIcon size={22} />
+            Capítulo completado
+          </p>
+          <h2 className="mt-2 font-display text-3xl font-semibold">{c.refLabel}</h2>
+        </div>
+        {pet && (
+          <div className="-mt-2 flex shrink-0 items-end gap-1.5" aria-live="polite">
+            <span className="mb-6 max-w-40 rounded-2xl rounded-br-sm border border-border bg-surface px-3 py-1.5 text-[13px] leading-snug shadow-sm">
+              {pet.line}
+            </span>
+            <PetArt
+              species={pet.species}
+              stage={pet.stage.id}
+              mood={pet.mood}
+              accessory={pet.accessory}
+              size={76}
+              title={pet.name}
+            />
+          </div>
+        )}
+      </div>
       {c.xpGained > 0 ? (
         <p className="mt-1.5 font-semibold text-success">
           +{c.xpGained} XP

@@ -297,6 +297,7 @@ mark {
   --pet-leather: #8a5a36;
   --pet-tunic: #b9cba0;
   --pet-scarf: #c0503c;
+  --pet-bandana: #5b8db8;
   --pet-leaf: #a9c48c;
   --pet-leaf-ink: #56803f;
   --pet-flower-a: #f3c0cc;
@@ -316,6 +317,7 @@ mark {
 .pet .pet-breathe,
 .pet .pet-float,
 .pet .pet-jump,
+.pet .pet-tilt,
 .pet .pet-blink {
   transform-box: fill-box;
 }
@@ -329,6 +331,23 @@ mark {
 .pet .pet-jump {
   transform-origin: 50% 100%;
   animation: pet-jump 0.7s ease-in-out 3;
+}
+/* Curiosa (V3.5D): ladea la cabeza un par de veces. */
+.pet .pet-tilt {
+  transform-origin: 50% 100%;
+  animation: pet-tilt 1.1s ease-in-out 2;
+}
+@keyframes pet-tilt {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  35% {
+    transform: rotate(-7deg);
+  }
+  70% {
+    transform: rotate(3deg);
+  }
 }
 .pet .pet-blink {
   transform-origin: 50% 50%;

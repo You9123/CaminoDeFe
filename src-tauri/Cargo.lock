@@ -456,7 +456,7 @@ dependencies = [
 
 [[package]]
 name = "camino-de-fe"
-version = "2.7.0"
+version = "2.8.0"
 dependencies = [
  "flate2",
  "futures-util",

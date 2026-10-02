@@ -23,6 +23,7 @@ import { RecentDiscoveries } from "../components/RecentDiscoveries";
 import { pickQuickVerse } from "../domain/quickSession";
 import { BookIcon, CheckIcon, FlameIcon, HourglassIcon, OliveIcon, SunriseIcon } from "../components/icons";
 import { isCosmeticActive } from "../domain/cosmetics";
+import { useCosmeticFacts } from "../hooks/useCosmeticFacts";
 import { useSettings } from "../stores/settingsStore";
 
 /**
@@ -37,7 +38,7 @@ export function TodayScreen() {
   const navigate = useNavigate();
   const { loaded, name, streak, totalXp } = useProgress();
   const cosmeticsOff = useSettings((s) => s.cosmeticsOff);
-  const olive = isCosmeticActive("olive_branch", streak.best, cosmeticsOff);
+  const olive = isCosmeticActive("olive_branch", useCosmeticFacts(), cosmeticsOff);
   const [quick, setQuick] = useState<{ ref: string; isDaily: boolean } | null>(null);
   const [picking, setPicking] = useState(false);
   const { day, verse, verseRead, markVerseRead } = useDailyVerse();

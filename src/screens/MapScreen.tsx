@@ -15,6 +15,7 @@ import {
 } from "../domain/mapLayout";
 import { zoneProgress } from "../domain/stats";
 import { isCosmeticActive } from "../domain/cosmetics";
+import { useCosmeticFacts } from "../hooks/useCosmeticFacts";
 import { listBooks, type Book } from "../data/bibleRepo";
 import { getReadCountByBook } from "../data/progressRepo";
 import { useAsync } from "../hooks/useAsync";
@@ -53,9 +54,8 @@ type Node = Book & { read: number };
 
 export function MapScreen() {
   const totalXp = useProgress((s) => s.totalXp);
-  const best = useProgress((s) => s.streak.best);
   const cosmeticsOff = useSettings((s) => s.cosmeticsOff);
-  const framed = isCosmeticActive("map_frame", best, cosmeticsOff);
+  const framed = isCosmeticActive("map_frame", useCosmeticFacts(), cosmeticsOff);
   const [open, setOpen] = useState<Node | null>(null);
   const [hover, setHover] = useState<Node | null>(null);
 

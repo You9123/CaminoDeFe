@@ -8,8 +8,7 @@ import {
   petStage,
   SPECIES_INFO,
 } from "../../domain/pet";
-import { getUnlockedAchievements } from "../../data/achievementsRepo";
-import { useAsync } from "../../hooks/useAsync";
+import { useCosmeticFacts } from "../../hooks/useCosmeticFacts";
 import { useProgress } from "../../stores/progressStore";
 import { useSettings } from "../../stores/settingsStore";
 import { toast } from "../../stores/toastStore";
@@ -20,10 +19,7 @@ import { Field, Toggle } from "./ui";
 export function PetFields() {
   const { petSpecies, petName, petAccessory, setPet } = useSettings();
   const level = useProgress((s) => s.level.level);
-  const best = useProgress((s) => s.streak.best);
-  const totalXp = useProgress((s) => s.totalXp);
-  const achievements = useAsync(getUnlockedAchievements, `pet-settings-${totalXp}`).data;
-  const unlocked = new Set(achievements?.keys() ?? []);
+  const facts = useCosmeticFacts();
   const [name, setName] = useState<string | null>(null);
 
   const on = isPetSpecies(petSpecies);
@@ -92,13 +88,16 @@ export function PetFields() {
             </form>
           </Field>
 
-          <Field label="Accesorio" hint="Se ganan con tu racha y con algunos logros.">
+          <Field
+            label="Accesorio"
+            hint="Se ganan con tu racha, con algunos logros, con tu nivel y con los desafíos mayores."
+          >
             <div className="flex flex-wrap gap-2">
               <Chip selected={!petAccessory} onClick={() => void setPet({ accessory: null })}>
                 Ninguno
               </Chip>
               {PET_ACCESSORIES.map((a) => {
-                const ok = accessoryUnlocked(a, best, unlocked);
+                const ok = accessoryUnlocked(a, facts);
                 return (
                   <Chip
                     key={a.id}

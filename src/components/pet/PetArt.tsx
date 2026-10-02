@@ -66,6 +66,19 @@ function Eyes({
       </g>
     );
   }
+  if (mood === "curious") {
+    // Curiosa (V3.5D): ojos bien abiertos, un poco más grandes, con brillo.
+    return (
+      <g>
+        {[left, right].map((p, i) => (
+          <g key={i}>
+            <circle cx={p.x} cy={p.y} r={r * 1.25} fill={INK} />
+            <circle cx={p.x + r * 0.4} cy={p.y - r * 0.45} r={r * 0.5} fill="var(--pet-light)" />
+          </g>
+        ))}
+      </g>
+    );
+  }
   if (mood === "celebrating" || mood === "happy") {
     // Ojos sonrientes: arcos hacia arriba.
     return (
@@ -484,6 +497,59 @@ function Bell({ n }: { n: Anchors["neck"] }) {
   );
 }
 
+/** Pañuelo de viaje (nivel 15, V3.5D): un triángulo azul anudado al cuello. */
+function Bandana({ n }: { n: Anchors["neck"] }) {
+  const l = n.x - n.w / 2;
+  return (
+    <g transform={n.rot ? `rotate(${n.rot} ${n.x} ${n.y})` : undefined}>
+      <path
+        d={`M${l} ${n.y - 2.5}c${n.w * 0.33} 2.6 ${n.w * 0.66} 2.6 ${n.w} 0l-${n.w / 2 - 2} ${n.w * 0.42}c-1.2 1.2-2.8 1.2-4 0z`}
+        fill="var(--pet-bandana)"
+        stroke={INK}
+        strokeWidth={1.6}
+        strokeLinejoin="round"
+      />
+      <circle cx={n.x - 3} cy={n.y + 3.5} r={0.9} fill="var(--pet-light)" />
+      <circle cx={n.x + 3} cy={n.y + 3} r={0.9} fill="var(--pet-light)" />
+      <circle cx={n.x} cy={n.y + 7} r={0.9} fill="var(--pet-light)" />
+    </g>
+  );
+}
+
+/** Corona de laurel (desafío mayor, V3.5D): hojitas verdes en arco sobre la cabeza. */
+function Laurel({ h }: { h: Anchors["headTop"] }) {
+  const leaves = [-0.5, -0.3, -0.1, 0.1, 0.3, 0.5];
+  return (
+    <g transform={`translate(${h.x} ${h.y})`}>
+      <path
+        d={`M${-h.w / 2} 3c${h.w * 0.3}-4 ${h.w * 0.7}-4 ${h.w} 0`}
+        stroke="var(--pet-leaf-ink)"
+        strokeWidth={1.4}
+        fill="none"
+        strokeLinecap="round"
+      />
+      {leaves.map((f, i) => {
+        const x = f * h.w;
+        const y = 3 - 4 * (1 - (2 * f) ** 2) * 0.75;
+        const angle = f * 70 + (i % 2 ? -25 : 25);
+        return (
+          <ellipse
+            key={i}
+            cx={x}
+            cy={y - 1.6}
+            rx={1.6}
+            ry={3.4}
+            fill="var(--pet-leaf)"
+            stroke="var(--pet-leaf-ink)"
+            strokeWidth={0.9}
+            transform={`rotate(${angle} ${x} ${y})`}
+          />
+        );
+      })}
+    </g>
+  );
+}
+
 function Flowers({ h }: { h: Anchors["headTop"] }) {
   const xs = [-h.w / 2 + 3, -h.w / 6, h.w / 6, h.w / 2 - 3];
   const colors = ["var(--pet-flower-a)", "var(--pet-flower-b)", "var(--pet-flower-a)", "var(--pet-flower-b)"];
@@ -536,7 +602,15 @@ export function PetArt({
   const a = art.anchors;
   const parts = art.draw(mood, stage);
   const motion =
-    mood === "celebrating" ? "pet-jump" : mood === "sleeping" ? "" : species === "pez" ? "pet-float" : "pet-breathe";
+    mood === "celebrating"
+      ? "pet-jump"
+      : mood === "curious"
+        ? "pet-tilt"
+        : mood === "sleeping"
+          ? ""
+          : species === "pez"
+            ? "pet-float"
+            : "pet-breathe";
 
   const guardianItem =
     species === "paloma" ? (
@@ -576,6 +650,12 @@ export function PetArt({
           <path d="M100 86c.4 2 1.3 2.9 3.3 3.3-2 .4-2.9 1.3-3.3 3.3-.4-2-1.3-2.9-3.3-3.3 2-.4 2.9-1.3 3.3-3.3z" />
         </g>
       )}
+      {mood === "curious" && (
+        <g className="pet-sparkles" fill="var(--gold)">
+          <path d="M100 24c.6 3 2 4.4 5 5-3 .6-4.4 2-5 5-.6-3-2-4.4-5-5 3-.6 4.4-2 5-5z" />
+          <circle cx={92} cy={16} r={1.6} />
+        </g>
+      )}
       <g className={motion}>
         <g transform={`translate(60 108) scale(${gear.size}) translate(-60 -108)`}>
           {gear.guardian && species !== "paloma" && guardianItem}
@@ -586,6 +666,8 @@ export function PetArt({
           {accessory === "bufanda" && <Scarf n={a.neck} />}
           {accessory === "campanita" && <Bell n={a.neck} />}
           {accessory === "flores" && <Flowers h={a.headTop} />}
+          {accessory === "panuelo" && <Bandana n={a.neck} />}
+          {accessory === "laurel" && <Laurel h={a.headTop} />}
           {gear.guardian && species === "paloma" && guardianItem}
         </g>
       </g>

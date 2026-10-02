@@ -11,6 +11,8 @@ import {
   BookIcon,
   FlameIcon,
   JournalIcon,
+  LampIcon,
+  LaurelIcon,
   LogoMark,
   MapIcon,
   PathIcon,
@@ -22,6 +24,7 @@ import {
 import { PATHS } from "./paths";
 import { RANK_ICON } from "../components/badgeIcons";
 import { isCosmeticActive } from "../domain/cosmetics";
+import { useCosmeticFacts } from "../hooks/useCosmeticFacts";
 import { isDevDatabase } from "../data/db";
 import { useAsync } from "../hooks/useAsync";
 import { useProgress } from "../stores/progressStore";
@@ -60,10 +63,12 @@ export function Layout() {
   const level = useProgress((s) => s.level);
   const rank = useProgress((s) => s.rank.rank);
   const streak = useProgress((s) => s.streak.current);
-  const best = useProgress((s) => s.streak.best);
   const cosmeticsOff = useSettings((s) => s.cosmeticsOff);
-  const leaves = isCosmeticActive("leaves_background", best, cosmeticsOff);
-  const goldSeal = isCosmeticActive("golden_seal", best, cosmeticsOff);
+  const cosmetics = useCosmeticFacts();
+  const leaves = isCosmeticActive("leaves_background", cosmetics, cosmeticsOff);
+  const goldSeal = isCosmeticActive("golden_seal", cosmetics, cosmeticsOff);
+  const lamp = isCosmeticActive("lamp_badge", cosmetics, cosmeticsOff);
+  const laurel = isCosmeticActive("laurel_badge", cosmetics, cosmeticsOff);
   const RankIcon = RANK_ICON[rank.id];
   const devDb = useAsync(isDevDatabase, "db").data;
   useDailyReminder();
@@ -128,6 +133,11 @@ export function Layout() {
               <span className="inline-flex items-center gap-1.5" title="Nivel">
                 <PeakIcon size={17} className="text-accent" />
                 Nivel <span className="font-semibold text-ink">{level.level}</span>
+                {lamp && (
+                  <span title="Lámpara del camino · nivel 25">
+                    <LampIcon size={15} className="text-gold" duo={false} />
+                  </span>
+                )}
               </span>
               <span className="inline-flex items-center gap-1" title="Racha actual">
                 <FlameIcon size={17} className="text-accent" />
@@ -142,7 +152,14 @@ export function Layout() {
             >
               <RankIcon size={16} className="shrink-0 text-accent" />
               <span className="leading-tight">{rank.title}</span>
-              {goldSeal && <SealIcon size={16} className="ml-auto shrink-0 text-gold" duo={false} />}
+              <span className="ml-auto flex shrink-0 items-center gap-1">
+                {laurel && (
+                  <span title="Ramita de laurel · por completar un desafío mayor">
+                    <LaurelIcon size={16} className="text-success" duo={false} />
+                  </span>
+                )}
+                {goldSeal && <SealIcon size={16} className="text-gold" duo={false} />}
+              </span>
             </NavLink>
           </div>
         </div>

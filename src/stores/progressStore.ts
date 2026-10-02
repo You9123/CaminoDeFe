@@ -14,6 +14,12 @@ import { toast } from "./toastStore";
 import { getReadChapterMap } from "../data/collectiblesRepo";
 import { CATALOG } from "../content/collectibles";
 import { KIND_LABEL, newlyUnlocked, type Collectible } from "../domain/collectibles";
+import { getUnlockedAchievements } from "../data/achievementsRepo";
+import { MAJOR_BADGE_IDS } from "../content/achievements";
+import { cosmeticFacts } from "../domain/cosmeticFacts";
+import { levelUpMessage, newUnlocks, type Cosmetic, type CosmeticFacts } from "../domain/cosmetics";
+import { isPetSpecies, petReaction, type PetReaction } from "../domain/pet";
+import { useSettings } from "./settingsStore";
 
 type ProgressState = {
   loaded: boolean;
@@ -31,8 +37,12 @@ type ProgressState = {
   rewardedToday: Record<string, number>;
   /** Último día (de juego) con actividad propia, o null si nunca hubo. */
   lastActiveDay: string | null;
-  /** Cambia cada vez que hay algo que celebrar (subir de nivel, un logro, un desafío): la mascota salta. */
-  celebrationKey: number;
+  /**
+   * La última reacción de la mascota (V3.5D): "celebrating" (terminar un capítulo, las misiones,
+   * un desafío, un logro, subir de nivel) o "curious" (descubrir una ficha). `key` cambia en cada una.
+   */
+  petReaction: { kind: PetReaction; key: number; at: number } | null;
+  react: (kind: PetReaction) => void;
   /** Desafío mayor recién completado: se muestra la animación grande (ver ChallengeCelebration). */
   bigCelebration: Challenge | null;
   dismissCelebration: () => void;
@@ -91,7 +101,8 @@ export const useProgress = create<ProgressState>((set, get) => ({
   missions: missionProgress(new Set()),
   rewardedToday: {},
   lastActiveDay: null,
-  celebrationKey: 0,
+  petReaction: null,
+  react: (kind) => set({ petReaction: { kind, key: (get().petReaction?.key ?? 0) + 1, at: Date.now() } }),
   bigCelebration: null,
   dismissCelebration: () => set({ bigCelebration: null }),
 
@@ -128,6 +139,7 @@ export const useProgress = create<ProgressState>((set, get) => ({
 
   celebrate: async (awards, opts) => {
     const levelBefore = get().level.level;
+    const factsBefore = await currentFacts();
     const rankBefore = get().rank.rank.id;
     const streakBefore = get().streak.current;
     const rewards = await checkRewards();
@@ -141,24 +153,34 @@ export const useProgress = create<ProgressState>((set, get) => ({
     if (awards.some((a) => a.type === "bonus_5_chapters")) toast("Cinco capítulos hoy · +50 XP", "bonus");
     if (awards.some((a) => a.type === "daily_missions_bonus")) toast("Misiones de hoy completas · +60 XP", "bonus");
     if (streak.current > streakBefore && streak.current > 1) toast(`${streak.current} días seguidos`, "streak");
-    if (level.level > levelBefore) toast(`Llegaste al nivel ${level.level}`, "level");
+    const unlocks = newUnlocks(factsBefore, await currentFacts());
+    if (level.level > levelBefore) toast(levelUpText(levelBefore, level.level, unlocks), "level");
     if (rank.rank.id !== rankBefore) toast(`Nuevo rango: ${rank.rank.title}`, "level");
     announceChallenges(rewards.challenges);
     announceAchievements(rewards.achievements);
-    if (level.level > levelBefore || rewards.challenges.length > 0 || rewards.achievements.length > 0) {
-      set({ celebrationKey: get().celebrationKey + 1 });
-    }
+    announceUnlocks(unlocks.filter((c) => c.unlock.type !== "level"));
+    const reaction = petReaction({
+      activities: awards.map((a) => a.type),
+      discoveries: 0,
+      levelUp: level.level > levelBefore,
+      achievements: rewards.achievements.length,
+      challenges: rewards.challenges.length,
+    });
+    if (reaction) get().react(reaction);
   },
 
   checkAchievements: async () => {
     const levelBefore = get().level.level;
+    const factsBefore = await currentFacts();
     const { challenges, achievements } = await checkRewards();
     if (challenges.length === 0 && achievements.length === 0) return;
     await get().refresh();
-    if (get().level.level > levelBefore) toast(`Llegaste al nivel ${get().level.level}`, "level");
+    const unlocks = newUnlocks(factsBefore, await currentFacts());
+    if (get().level.level > levelBefore) toast(levelUpText(levelBefore, get().level.level, unlocks), "level");
     announceChallenges(challenges);
     announceAchievements(achievements);
-    set({ celebrationKey: get().celebrationKey + 1 });
+    announceUnlocks(unlocks.filter((c) => c.unlock.type !== "level"));
+    get().react("celebrating");
   },
 }));
 
@@ -187,10 +209,34 @@ export async function announceCollectibles(
       if (list.length > 2) toast(`${list.length} fichas nuevas en tu colección`, "collectible");
       else for (const c of list) toast(`${KIND_LABEL[c.kind].unlocked}: ${c.name}`, "collectible");
     }
-    useProgress.setState((s) => ({ celebrationKey: s.celebrationKey + 1 }));
+    // Descubrir algo pone curiosa a la mascota (V3.5D).
+    useProgress.getState().react("curious");
     return list;
   } catch (e) {
     console.error("No se pudieron revisar los coleccionables", e);
     return [];
   }
+}
+
+// ---------- Desbloqueos (V3.5D, ADR-0015) ----------
+
+/** Racha, nivel y logros de este momento, para saber qué cosméticos se acaban de ganar. */
+async function currentFacts(): Promise<CosmeticFacts> {
+  const { streak, level } = useProgress.getState();
+  const unlocked = await getUnlockedAchievements().catch(() => new Map<string, string>());
+  return cosmeticFacts(streak.best, level.level, unlocked.keys(), MAJOR_BADGE_IDS);
+}
+
+/** Los accesorios de la mascota solo se anuncian si hay mascota (apagada no ocupa ni avisa). */
+function visible(list: Cosmetic[]): Cosmetic[] {
+  const petOn = isPetSpecies(useSettings.getState().petSpecies);
+  return list.filter((c) => petOn || c.type !== "pet_accessory");
+}
+
+function levelUpText(from: number, to: number, unlocks: readonly Cosmetic[]): string {
+  return levelUpMessage(from, to, unlocks, isPetSpecies(useSettings.getState().petSpecies));
+}
+
+function announceUnlocks(list: Cosmetic[]) {
+  for (const c of visible(list)) toast(`Nuevo desbloqueo: ${c.title}`, "achievement");
 }

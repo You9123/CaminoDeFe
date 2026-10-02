@@ -11,6 +11,7 @@ import {
   wornAccessory,
 } from "../src/domain/pet";
 import raw from "../content/achievements.json";
+import { NO_FACTS } from "../src/domain/cosmetics";
 
 describe("mascota", () => {
   it("evoluciona con el nivel: 1, 5, 10, 20 y 30", () => {
@@ -40,11 +41,16 @@ describe("mascota", () => {
 
   it("los accesorios se ganan con racha o logros, y solo se lleva uno ganado", () => {
     const scarf = PET_ACCESSORIES.find((a) => a.id === "bufanda")!;
-    expect(accessoryUnlocked(scarf, 6, new Set())).toBe(false);
-    expect(accessoryUnlocked(scarf, 7, new Set())).toBe(true);
-    expect(wornAccessory("flores", 0, new Set())).toBeNull();
-    expect(wornAccessory("flores", 0, new Set(["first_book"]))).toBe("flores");
-    expect(wornAccessory("inventado", 100, new Set())).toBeNull();
+    const f = (bestStreak: number, achievements: string[] = []) => ({
+      ...NO_FACTS,
+      bestStreak,
+      achievements: new Set(achievements),
+    });
+    expect(accessoryUnlocked(scarf, f(6))).toBe(false);
+    expect(accessoryUnlocked(scarf, f(7))).toBe(true);
+    expect(wornAccessory("flores", f(0))).toBeNull();
+    expect(wornAccessory("flores", f(0, ["first_book"]))).toBe("flores");
+    expect(wornAccessory("inventado", f(100))).toBeNull();
   });
 
   it("los logros que piden los accesorios existen", () => {

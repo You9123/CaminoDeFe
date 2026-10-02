@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 2.5 · 02/10/2026
+> **Versión del documento:** 2.6 · 02/10/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -216,6 +216,7 @@ Según la emoción, se muestra un versículo relacionado (`content/emotions.json
 - Evoluciona con el nivel: nivel 1 bebé → nivel 5 joven → nivel 10 aventurera → nivel 20 con túnica → nivel 30 guardiana del camino.
 - Animaciones sencillas: respira, celebra al subir de nivel y "duerme" si no has entrado en un tiempo (nunca se enferma ni se muere).
 - Accesorios y aspectos que se desbloquean con rachas y logros.
+- **Desde la V3.5 (Sprint 3.5D, ADR-0015):** se pone **curiosa** al descubrir una ficha y **celebra** al terminar un capítulo, las misiones del día, un desafío, un logro o al subir de nivel (no reacciona a todo). Aparece también, pequeña, en "Capítulo completado". Sus frases hablan del día ("Hoy llevas 2 capítulos", "Descubriste a Eva"). Los cosméticos (adornos de la app y accesorios de la mascota) están en **un solo catálogo**, todo se gana: racha, logros, nivel (Pañuelo de viaje en el 15, Lámpara del camino en el 25) y desafíos mayores (Corona y Ramita de laurel). La subida de nivel dice "Desbloqueaste: …" solo si hay algo nuevo.
 
 ### 2.13 Mapa de la Biblia [V2]
 
@@ -620,16 +621,16 @@ Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v
 - [x] Actualizaciones automáticas (Sprint 3C)
 - [x] Voces neuronales offline (Piper), opcional (Sprint 3D)
 
-### 🟡 V3.5 — Descubrir y simplificar (en curso)
+### 🟢 V3.5 — Descubrir y simplificar · completa (v2.8.0)
 
-Plan en `Plan_V3.5.md` (proyecto). Cuatro sprints: **3.5A Descubrimientos** ✅ v2.5.0 · **3.5B Hoy y navegación** ✅ v2.6.0 · **3.5C Conexiones** ✅ v2.7.0 · **3.5D Mascota y cosméticos** (v2.8.0).
+Plan en `Plan_V3.5.md` (proyecto). Cuatro sprints: **3.5A Descubrimientos** ✅ v2.5.0 · **3.5B Hoy y navegación** ✅ v2.6.0 · **3.5C Conexiones** ✅ v2.7.0 · **3.5D Mascota y cosméticos** ✅ v2.8.0.
 
 - [x] Fichas bloqueadas con niebla, pista por libro y contador de la colección (Sprint 3.5A)
 - [x] Sin spoilers en el lector, la línea temporal y las fichas relacionadas (Sprint 3.5A)
 - [x] "Capítulo completado" con los nuevos descubrimientos (Sprint 3.5A)
 - [x] Barra lateral de 6 entradas, Hoy con 4 bloques y bienvenida corta (Sprint 3.5B)
 - [x] Conexiones entre mapa, historia y colección; logros de descubrimiento (Sprint 3.5C)
-- [ ] Reacciones de la mascota y un solo catálogo de cosméticos (Sprint 3.5D)
+- [x] Reacciones de la mascota y un solo catálogo de cosméticos (Sprint 3.5D)
 
 ### 🔴 V4 — Nube y móvil
 

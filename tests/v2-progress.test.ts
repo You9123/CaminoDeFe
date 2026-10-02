@@ -10,7 +10,7 @@ import {
   type Achievement,
   type ProgressSnapshot,
 } from "../src/domain/achievements";
-import { isCosmeticActive, nextStreakReward, streakRewards } from "../src/domain/cosmetics";
+import { isCosmeticActive, nextStreakReward, NO_FACTS, streakRewards } from "../src/domain/cosmetics";
 import {
   formatDuration,
   heatLevel,
@@ -170,11 +170,12 @@ describe("recompensas por racha", () => {
   });
 
   it("un adorno está activo si se ganó, se puede usar ya y no se apagó", () => {
-    expect(isCosmeticActive("olive_branch", 2, new Set())).toBe(false);
-    expect(isCosmeticActive("olive_branch", 3, new Set())).toBe(true);
-    expect(isCosmeticActive("olive_branch", 3, new Set(["olive_branch"]))).toBe(false);
+    const f = (bestStreak: number) => ({ ...NO_FACTS, bestStreak });
+    expect(isCosmeticActive("olive_branch", f(2), new Set())).toBe(false);
+    expect(isCosmeticActive("olive_branch", f(3), new Set())).toBe(true);
+    expect(isCosmeticActive("olive_branch", f(3), new Set(["olive_branch"]))).toBe(false);
     // La bufanda no se "prende" aquí: se le pone a la mascota en Ajustes
-    expect(isCosmeticActive("pet_scarf", 50, new Set())).toBe(false);
+    expect(isCosmeticActive("bufanda", f(50), new Set())).toBe(false);
   });
 });
 
