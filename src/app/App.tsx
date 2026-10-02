@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { HashRouter, Route, Routes } from "react-router";
+import { HashRouter, Navigate, Route, Routes, useLocation } from "react-router";
+import { LEGACY_ROUTES, legacyRedirect, PATHS } from "./paths";
 import { Layout } from "./Layout";
 import { TodayScreen } from "../screens/TodayScreen";
 import { BooksScreen } from "../screens/BooksScreen";
@@ -62,15 +63,31 @@ export default function App() {
               </JournalGate>
             }
           />
-          <Route path="mapa" element={<MapScreen />} />
-          <Route path="misiones" element={<MissionsScreen />} />
-          <Route path="linea-temporal" element={<TimelineScreen />} />
-          <Route path="logros" element={<AchievementsScreen />} />
-          <Route path="logros/coleccionables" element={<CollectiblesScreen />} />
-          <Route path="estadisticas" element={<StatsScreen />} />
+          {/* Explorar: Libros (mapa) · Historia (línea temporal) · Colección */}
+          <Route path={rel(PATHS.books)} element={<MapScreen />} />
+          <Route path={rel(PATHS.history)} element={<TimelineScreen />} />
+          <Route path={rel(PATHS.collection)} element={<CollectiblesScreen />} />
+          {/* Mi camino: Misiones · Logros · Estadísticas */}
+          <Route path={rel(PATHS.missions)} element={<MissionsScreen />} />
+          <Route path={rel(PATHS.achievements)} element={<AchievementsScreen />} />
+          <Route path={rel(PATHS.stats)} element={<StatsScreen />} />
           <Route path="ajustes" element={<SettingsScreen />} />
+          {/* Rutas de antes de la V3.5: se redirigen (ADR-0013). */}
+          {Object.keys(LEGACY_ROUTES).map((from) => (
+            <Route key={from} path={rel(from)} element={<LegacyRedirect />} />
+          ))}
+          <Route path="*" element={<Navigate to={PATHS.today} replace />} />
         </Route>
       </Routes>
     </HashRouter>
   );
+}
+
+/** "/explorar/historia" → "explorar/historia" (las rutas hijas van sin la barra inicial). */
+const rel = (path: string) => path.replace(/^\//, "");
+
+/** Lleva una ruta vieja a la nueva, conservando ?etapa=, ?tipo= o ?ficha=. */
+function LegacyRedirect() {
+  const { pathname, search } = useLocation();
+  return <Navigate to={legacyRedirect(pathname, search) ?? PATHS.today} replace />;
 }

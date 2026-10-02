@@ -16,6 +16,8 @@ export type ChapterCompletion = {
   levelUp: number | null;
   /** Fichas que se descubrieron con este capítulo (vacío si no hubo). */
   discoveries: Collectible[];
+  /** Si son las primeras de la colección: "Tu primer descubrimiento" (bienvenida, V3.5). */
+  first?: boolean;
 };
 
 /**
@@ -59,9 +61,19 @@ export function ChapterCompleteStep({
 
       {found.length > 0 && (
         <section className="mt-6">
-          <h3 className="mb-3 text-sm font-semibold tracking-wide text-muted uppercase">
-            {found.length === 1 ? "Nuevo descubrimiento" : "Nuevos descubrimientos"}
-          </h3>
+          {c.first ? (
+            <>
+              <h3 className="font-display text-xl font-semibold">Tu primer descubrimiento</h3>
+              <p className="mt-1 mb-3 text-sm leading-relaxed text-muted">
+                Cada capítulo puede esconder personajes, lugares y momentos de la historia. Los que descubras quedan en
+                Explorar, en tu colección.
+              </p>
+            </>
+          ) : (
+            <h3 className="mb-3 text-sm font-semibold tracking-wide text-muted uppercase">
+              {found.length === 1 ? "Nuevo descubrimiento" : "Nuevos descubrimientos"}
+            </h3>
+          )}
           <div
             className={`grid gap-3 ${found.length === 1 ? "grid-cols-1" : found.length === 2 || found.length === 4 ? "grid-cols-2" : "grid-cols-3"}`}
           >

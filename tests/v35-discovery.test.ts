@@ -147,10 +147,10 @@ describe("sin spoilers", () => {
 
   it("enlaza a la colección con la ficha abierta", () => {
     const eva = get("character:eva");
-    expect(collectionPath()).toBe("/logros/coleccionables");
-    expect(collectionPath("place")).toBe("/logros/coleccionables?tipo=lugares");
+    expect(collectionPath()).toBe("/explorar/coleccion");
+    expect(collectionPath("place")).toBe("/explorar/coleccion?tipo=lugares");
     expect(collectionPath(eva.kind, eva)).toBe(
-      `/logros/coleccionables?tipo=personajes&ficha=${encodeURIComponent(collectibleKey("character", "eva"))}`,
+      `/explorar/coleccion?tipo=personajes&ficha=${encodeURIComponent(collectibleKey("character", "eva"))}`,
     );
   });
 });

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { JourneyHeader } from "../components/SectionHeader";
 import { format, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import { MAX_ACTIVE_CHALLENGES, MAX_ACTIVE_MAJOR, overallProgress } from "../domain/challenges";
@@ -13,12 +14,14 @@ import { useProgress } from "../stores/progressStore";
 import { toast } from "../stores/toastStore";
 import { DailyMissionsCard } from "../components/DailyMissionsCard";
 import { SurpriseCard } from "../components/SurpriseCard";
+import { StreakCard } from "../components/StreakCard";
 import { Medallion } from "../components/Medallion";
 import { ACHIEVEMENT_ICON } from "../components/badgeIcons";
 import { HourglassIcon } from "../components/icons";
 
 export function MissionsScreen() {
   const totalXp = useProgress((s) => s.totalXp);
+  const streak = useProgress((s) => s.streak);
   const checkRewards = useProgress((s) => s.checkAchievements);
   const [version, setVersion] = useState(0);
   const reload = () => setVersion((v) => v + 1);
@@ -63,14 +66,14 @@ export function MissionsScreen() {
 
   return (
     <div className="mx-auto max-w-4xl px-10 py-12">
-      <header className="animate-rise mb-8">
-        <h1 className="font-display text-4xl font-semibold">Misiones</h1>
-        <p className="mt-1.5 text-muted">Pequeños pasos para hoy y desafíos para los próximos días.</p>
-      </header>
+      <JourneyHeader subtitle="Pequeños pasos para hoy y desafíos para los próximos días." />
 
-      <section className="animate-rise mb-10 grid grid-cols-[3fr_2fr] gap-4">
+      <section className="animate-rise mb-10 grid grid-cols-[3fr_2fr] items-start gap-4">
         <DailyMissionsCard />
-        <SurpriseCard />
+        <div className="flex flex-col gap-4">
+          <StreakCard streak={streak} />
+          <SurpriseCard />
+        </div>
       </section>
 
       {majors.length > 0 && (

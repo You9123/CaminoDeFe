@@ -1,24 +1,25 @@
 import { NavLink, Outlet, useLocation } from "react-router";
-import { useEffect, useRef, type ComponentType } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
+import { Onboarding } from "../components/onboarding/Onboarding";
+import { needsOnboarding } from "../domain/onboarding";
+import { getOnboardingFacts, markOnboardingDone } from "../data/onboardingRepo";
 import { XpBar } from "../components/XpBar";
 import { Toaster } from "../components/Toaster";
 import { ChallengeCelebration } from "../components/ChallengeCelebration";
 import { UpdateCard } from "../components/UpdateCard";
 import {
   BookIcon,
-  ChartIcon,
-  CompassIcon,
   FlameIcon,
   JournalIcon,
-  LaurelIcon,
   LogoMark,
   MapIcon,
+  PathIcon,
   PeakIcon,
   SealIcon,
   SlidersIcon,
   SunriseIcon,
-  TimelineIcon,
 } from "../components/icons";
+import { PATHS } from "./paths";
 import { RANK_ICON } from "../components/badgeIcons";
 import { isCosmeticActive } from "../domain/cosmetics";
 import { isDevDatabase } from "../data/db";
@@ -29,15 +30,13 @@ import { useDailyReminder } from "../hooks/useDailyReminder";
 
 type NavItem = { to: string; label: string; icon: ComponentType<{ size?: number }>; end?: boolean };
 
+/** Barra lateral de 6 entradas (V3.5, ADR-0013); Ajustes va abajo. */
 const NAV: NavItem[] = [
-  { to: "/", label: "Hoy", icon: SunriseIcon, end: true },
-  { to: "/biblia", label: "Biblia", icon: BookIcon },
-  { to: "/mapa", label: "Mapa", icon: MapIcon },
-  { to: "/linea-temporal", label: "Línea temporal", icon: TimelineIcon },
-  { to: "/misiones", label: "Misiones", icon: CompassIcon },
-  { to: "/diario", label: "Diario", icon: JournalIcon },
-  { to: "/logros", label: "Logros", icon: LaurelIcon },
-  { to: "/estadisticas", label: "Estadísticas", icon: ChartIcon },
+  { to: PATHS.today, label: "Hoy", icon: SunriseIcon, end: true },
+  { to: PATHS.bible, label: "Biblia", icon: BookIcon },
+  { to: PATHS.explore, label: "Explorar", icon: MapIcon },
+  { to: PATHS.journey, label: "Mi camino", icon: PathIcon },
+  { to: PATHS.journal, label: "Diario", icon: JournalIcon },
 ];
 
 function NavItemLink({ to, label, icon: Icon, end }: NavItem) {
@@ -69,6 +68,14 @@ export function Layout() {
   const devDb = useAsync(isDevDatabase, "db").data;
   useDailyReminder();
 
+  // Bienvenida (ADR-0013): solo un perfil nuevo la ve. A quien ya usaba la app se le marca como vista.
+  const facts = useAsync(getOnboardingFacts, "onboarding").data;
+  const [welcomed, setWelcomed] = useState(false);
+  const onboarding = facts !== undefined && !welcomed && needsOnboarding(facts);
+  useEffect(() => {
+    if (facts && !facts.done && !needsOnboarding(facts)) void markOnboardingDone();
+  }, [facts]);
+
   // Cada pantalla empieza arriba (antes se conservaba el scroll de la pantalla anterior).
   const main = useRef<HTMLElement>(null);
   const { pathname } = useLocation();
@@ -81,6 +88,15 @@ export function Layout() {
     if (leaves) root.dataset.bg = "leaves";
     else delete root.dataset.bg;
   }, [leaves]);
+
+  if (facts === undefined) return null;
+  if (onboarding)
+    return (
+      <>
+        <Onboarding onDone={() => setWelcomed(true)} />
+        <Toaster />
+      </>
+    );
 
   return (
     <div className="flex h-full">
@@ -106,7 +122,7 @@ export function Layout() {
 
         <div className="mt-auto flex flex-col gap-3">
           <UpdateCard />
-          <NavItemLink to="/ajustes" label="Ajustes" icon={SlidersIcon} />
+          <NavItemLink to={PATHS.settings} label="Ajustes" icon={SlidersIcon} />
           <div className="rounded-2xl border border-border bg-surface-2/70 p-4">
             <div className="mb-2 flex justify-between text-sm text-muted">
               <span className="inline-flex items-center gap-1.5" title="Nivel">
@@ -120,7 +136,7 @@ export function Layout() {
             </div>
             <XpBar level={level} compact />
             <NavLink
-              to="/logros"
+              to={PATHS.achievements}
               className="mt-2 flex items-center gap-1.5 text-[13px] text-muted hover:text-accent"
               title="Tu rango"
             >

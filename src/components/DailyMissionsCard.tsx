@@ -6,7 +6,7 @@ import { MissionsCard } from "./MissionsCard";
 import { PostReadingFlow, type FlowStep } from "./PostReadingFlow";
 
 /** Las 4 misiones del día, con sus acciones (sobre el versículo del día). Se usa en Hoy y en Misiones. */
-export function DailyMissionsCard() {
+export function DailyMissionsCard({ compact = false }: { compact?: boolean }) {
   const missions = useProgress((s) => s.missions);
   const { verse, markVerseRead } = useDailyVerse();
   const [flowStep, setFlowStep] = useState<FlowStep | null>(null);
@@ -18,7 +18,7 @@ export function DailyMissionsCard() {
 
   return (
     <>
-      <MissionsCard progress={missions} onAction={onMission} />
+      <MissionsCard progress={missions} onAction={onMission} compact={compact} />
       {flowStep && verse.data && (
         <PostReadingFlow
           steps={[flowStep]}

@@ -184,7 +184,7 @@ export async function announceCollectibles(
     const list = newlyUnlocked(CATALOG.collectibles, read, ref, wasReadBefore);
     if (list.length === 0) return [];
     if (!quiet) {
-      if (list.length > 2) toast(`${list.length} fichas nuevas en Coleccionables`, "collectible");
+      if (list.length > 2) toast(`${list.length} fichas nuevas en tu colección`, "collectible");
       else for (const c of list) toast(`${KIND_LABEL[c.kind].unlocked}: ${c.name}`, "collectible");
     }
     useProgress.setState((s) => ({ celebrationKey: s.celebrationKey + 1 }));

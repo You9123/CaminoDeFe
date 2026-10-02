@@ -232,7 +232,7 @@ describe("misión sorpresa", () => {
   });
 
   it("content/random_missions.json: libros y rutas válidos, sin emojis", () => {
-    const routes = /^\/(biblia(\/buscar|\/[1-3A-Z]{3})?|diario|mapa|misiones)$/;
+    const routes = /^\/(biblia(\/buscar|\/[1-3A-Z]{3})?|diario|explorar|mi-camino)$/;
     for (const m of file.missions) {
       if (m.check.type === "read_chapter") for (const b of m.check.books) expect(codes, `${m.id}: ${b}`).toContain(b);
       if (m.link) expect(m.link.to, m.id).toMatch(routes);

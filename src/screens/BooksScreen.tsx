@@ -3,7 +3,7 @@ import booksMeta from "../../content/books_meta.json";
 import { listBooks, type Book } from "../data/bibleRepo";
 import { getReadCountByBook } from "../data/progressRepo";
 import { useAsync } from "../hooks/useAsync";
-import { BibleHeader } from "../components/BibleTabs";
+import { BibleHeader } from "../components/SectionHeader";
 import { CheckIcon } from "../components/icons";
 
 const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];

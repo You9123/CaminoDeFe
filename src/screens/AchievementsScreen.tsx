@@ -13,7 +13,7 @@ import { ACHIEVEMENT_ICON, RANK_ICON } from "../components/badgeIcons";
 import { Medallion } from "../components/Medallion";
 import { MapIcon, OliveIcon, SealIcon, SparkIcon, SproutIcon } from "../components/icons";
 import { Toggle } from "./settings/ui";
-import { AchievementsHeader } from "../components/AchievementsTabs";
+import { JourneyHeader } from "../components/SectionHeader";
 
 type Icon = ComponentType<{ size?: number; className?: string; duo?: boolean }>;
 
@@ -40,7 +40,7 @@ export function AchievementsScreen() {
 
   return (
     <div className="mx-auto max-w-4xl px-10 py-12">
-      <AchievementsHeader subtitle="Marcas del camino. Miden el hábito, nunca la fe." />
+      <JourneyHeader subtitle="Marcas del camino. Miden el hábito, nunca la fe." />
 
       {/* ---------- Rango ---------- */}
       <section className="animate-rise mb-10 rounded-3xl border border-border bg-surface px-8 py-7">

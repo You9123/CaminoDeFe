@@ -15,7 +15,7 @@ import { estimatedReadSeconds, formatMinutes, minSecondsToCount } from "../domai
 import { useAsync } from "../hooks/useAsync";
 import { announceCollectibles, useProgress } from "../stores/progressStore";
 import { CATALOG } from "../content/collectibles";
-import { chapterDiscoveries, collectibleKey } from "../domain/collectibles";
+import { chapterDiscoveries, collectibleKey, isFirstDiscovery } from "../domain/collectibles";
 import { CollectibleSheet, RelatedChip } from "../components/CollectibleSheet";
 import { getReadChapterMap } from "../data/collectiblesRepo";
 import { toast } from "../stores/toastStore";
@@ -254,6 +254,8 @@ function ChapterReader({
       });
       const after = useProgress.getState().level.level;
       const levelUp = after > before ? after : null;
+      const first =
+        discoveries.length > 0 && isFirstDiscovery(CATALOG.collectibles, (await getReadChapterMap()).read, discoveries);
       setResult({ ...res, levelUp });
       if (!opensFlow) session.advance();
       // En una sesión, la reflexión y la oración van al final, después del último capítulo.
@@ -264,6 +266,7 @@ function ChapterReader({
           bonus: res.awards.some((a) => a.type === "bonus_5_chapters"),
           levelUp,
           discoveries,
+          first,
         });
         setFlowWithResult(true);
         setShowFlow(true);

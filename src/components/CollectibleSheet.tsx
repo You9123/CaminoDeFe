@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { format, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import { CATALOG } from "../content/collectibles";
+import { historyPath, PATHS } from "../app/paths";
 import { bookName, chapterLabel, hintBookInfo } from "../content/bookNames";
 import { collectibleImage } from "../content/collectibleImages";
 import {
@@ -188,9 +189,9 @@ export function CollectibleSheet({
               {eras.map((e) => (
                 <button
                   key={e.id}
-                  onClick={() => go(`/linea-temporal?etapa=${e.id}`)}
+                  onClick={() => go(historyPath(e.id))}
                   className="inline-flex items-center gap-1.5 rounded-xl border border-dashed border-border px-3 py-1.5 text-sm hover:border-accent hover:text-accent"
-                  title="Ver en la línea temporal"
+                  title="Ver en la historia"
                 >
                   <TimelineIcon size={16} className="text-accent" duo={false} />
                   {e.title}
@@ -296,7 +297,7 @@ function LockedSheet({
           Cerrar
         </button>
         <button
-          onClick={() => onGo(hint.book ? `/biblia/${hint.book}` : "/mapa")}
+          onClick={() => onGo(hint.book ? `/biblia/${hint.book}` : PATHS.books)}
           className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 font-semibold text-accent-ink"
         >
           {hint.book ? <BookIcon size={18} duo={false} /> : <MapIcon size={18} duo={false} />}

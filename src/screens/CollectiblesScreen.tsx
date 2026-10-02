@@ -14,7 +14,7 @@ import {
 import { getReadChapterMap } from "../data/collectiblesRepo";
 import { useAsync } from "../hooks/useAsync";
 import { useProgress } from "../stores/progressStore";
-import { AchievementsHeader } from "../components/AchievementsTabs";
+import { ExploreHeader } from "../components/SectionHeader";
 import { CollectibleSheet } from "../components/CollectibleSheet";
 import { COLLECTIBLE_ICON, KIND_ICON } from "../components/collectibleIcons";
 import { Medallion } from "../components/Medallion";
@@ -57,19 +57,20 @@ export function CollectiblesScreen() {
   const unlockedAll = summary.discovered;
 
   return (
-    <div className="mx-auto max-w-4xl px-10 py-12">
-      <AchievementsHeader subtitle="Personajes, lugares y eventos que vas descubriendo al leer." />
-
-      <p className="animate-rise mb-4 text-muted tabular-nums" aria-live="polite">
-        {loaded ? (
-          <>
-            <span className="font-display text-2xl font-semibold text-ink">{summary.discovered}</span> de{" "}
-            {summary.total} descubiertos
-          </>
-        ) : (
-          " "
-        )}
-      </p>
+    <div className="mx-auto max-w-5xl px-10 py-12">
+      <ExploreHeader
+        subtitle="Personajes, lugares y eventos que vas descubriendo al leer."
+        aside={
+          loaded && (
+            <p aria-live="polite">
+              <span className="font-display text-2xl font-semibold text-ink">{summary.discovered}</span> de{" "}
+              {summary.total}
+              <br />
+              descubiertos
+            </p>
+          )
+        }
+      />
 
       <div className="animate-rise mb-7 grid grid-cols-3 gap-3" role="tablist" aria-label="Tipo de ficha">
         {KINDS.map((k) => {

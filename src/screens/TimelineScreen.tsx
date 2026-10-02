@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, type KeyboardEvent } from "react";
+import { ExploreHeader } from "../components/SectionHeader";
 import { useNavigate, useSearchParams } from "react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CATALOG } from "../content/collectibles";
@@ -106,21 +107,18 @@ export function TimelineScreen() {
 
   return (
     <div className="mx-auto max-w-5xl px-10 py-12">
-      <header className="animate-rise mb-6 flex items-end justify-between gap-6">
-        <div>
-          <h1 className="font-display text-4xl font-semibold">Línea temporal</h1>
-          <p className="mt-1.5 text-muted">
-            De la creación a la Iglesia. Elige una etapa para ver qué pasó, quiénes estaban y dónde leerlo.
-          </p>
-        </div>
-        {data.latest !== undefined && (
-          <p className="shrink-0 text-right text-sm text-muted tabular-nums">
-            <span className="font-display text-2xl font-semibold text-ink">{litCount}</span> de {ERAS.length} etapas
-            <br />
-            con algo leído
-          </p>
-        )}
-      </header>
+      <ExploreHeader
+        subtitle="De la creación a la Iglesia: qué pasó, quiénes estaban y dónde leerlo."
+        aside={
+          data.latest !== undefined && (
+            <p>
+              <span className="font-display text-2xl font-semibold text-ink">{litCount}</span> de {ERAS.length} etapas
+              <br />
+              con algo leído
+            </p>
+          )
+        }
+      />
 
       {/* ---------- La franja ---------- */}
       <section className="animate-rise relative rounded-3xl border border-border bg-surface">

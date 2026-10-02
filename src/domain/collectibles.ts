@@ -326,6 +326,29 @@ export function unlockedAt(c: Collectible, firstReadAt: ReadonlyMap<string, stri
   return min;
 }
 
+/** Las últimas fichas descubiertas (la más reciente primero), para "Descubrimientos recientes" en Hoy. */
+export function recentDiscoveries(
+  collectibles: Collectible[],
+  firstReadAt: ReadonlyMap<string, string>,
+  limit = 3,
+): { item: Collectible; at: string }[] {
+  return collectibles
+    .map((item) => ({ item, at: unlockedAt(item, firstReadAt) }))
+    .filter((x): x is { item: Collectible; at: string } => x.at !== null)
+    .sort((a, b) => (a.at < b.at ? 1 : a.at > b.at ? -1 : 0))
+    .slice(0, limit);
+}
+
+/** ¿Son las primeras fichas que se descubren? (para decir "Tu primer descubrimiento"). */
+export function isFirstDiscovery(
+  collectibles: Collectible[],
+  readAfter: ReadonlySet<string>,
+  newly: Collectible[],
+): boolean {
+  if (newly.length === 0) return false;
+  return collectionSummary(collectibles, readAfter).discovered === newly.length;
+}
+
 /** Etapas en las que aparece una ficha (por la etapa misma o por alguno de sus eventos). */
 export function erasOf(c: Collectible, catalog: Catalog): Era[] {
   if (c.kind === "event") return catalog.eras.filter((e) => e.id === c.era);

@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router";
 import { searchVerses, SEARCH_LIMIT } from "../data/bibleRepo";
 import { splitHighlights } from "../domain/search";
 import { useAsync } from "../hooks/useAsync";
-import { BibleHeader } from "../components/BibleTabs";
+import { BibleHeader } from "../components/SectionHeader";
 import { SearchIcon } from "../components/icons";
 
 const SUGGESTIONS = ["misericordia", "no temas", "paz", "perdón", "fe esperanza", "buen pastor"];

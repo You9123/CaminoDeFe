@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { getVerseByRef, refPath } from "../data/bibleRepo";
 import { listFavorites, updateMarks } from "../data/marksRepo";
 import { useAsync } from "../hooks/useAsync";
-import { BibleHeader } from "../components/BibleTabs";
+import { BibleHeader } from "../components/SectionHeader";
 import { BookmarkIcon } from "../components/icons";
 
 export function FavoritesScreen() {

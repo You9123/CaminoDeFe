@@ -4,22 +4,22 @@ import { useSettings } from "../../stores/settingsStore";
 import { PetArt } from "./PetArt";
 
 /**
- * "Conoce a tu compañero de camino": se muestra en Hoy hasta que elijas una mascota
- * o digas que prefieres no tener. Se puede cambiar después en Ajustes.
+ * "Conoce a tu compañero de camino": es un paso de la bienvenida (V3.5). Elegir una mascota
+ * o decir que prefieres no tener; se puede cambiar después en Ajustes.
  */
-export function PetChooser() {
+export function PetChooser({ onChosen }: { onChosen?: () => void }) {
   const setPet = useSettings((s) => s.setPet);
   const [picked, setPicked] = useState<PetSpecies>("oveja");
   const [name, setName] = useState("");
 
   return (
-    <section className="animate-rise mb-6 rounded-3xl border border-dashed border-accent/60 bg-surface px-7 py-6">
-      <h2 className="font-display text-2xl font-semibold">Conoce a tu compañero de camino</h2>
+    <section>
+      <h2 className="font-display text-3xl font-semibold">Conoce a tu compañero de camino</h2>
       <p className="mt-1 text-muted">
         Te acompaña, crece contigo a medida que avanzas y nunca se enferma. Es opcional.
       </p>
 
-      <div className="mt-4 grid grid-cols-4 gap-3">
+      <div className="mt-5 grid grid-cols-4 gap-3">
         {PET_SPECIES.map((sp) => (
           <button
             key={sp}
@@ -37,13 +37,13 @@ export function PetChooser() {
       </div>
 
       <form
-        className="mt-4 flex flex-wrap items-end gap-3"
+        className="mt-5"
         onSubmit={(e) => {
           e.preventDefault();
-          void setPet({ species: picked, name: name || SPECIES_INFO[picked].defaultName });
+          void setPet({ species: picked, name: name || SPECIES_INFO[picked].defaultName }).then(onChosen);
         }}
       >
-        <label className="min-w-56 flex-1">
+        <label className="block">
           <span className="mb-1 block text-sm font-medium">¿Cómo se va a llamar?</span>
           <input
             value={name}
@@ -53,16 +53,18 @@ export function PetChooser() {
             className="w-full rounded-xl border border-border bg-bg px-3 py-2 outline-none focus:border-accent"
           />
         </label>
-        <button
-          type="button"
-          onClick={() => void setPet({ species: "none" })}
-          className="rounded-xl px-4 py-2.5 text-muted hover:bg-surface-2 hover:text-ink"
-        >
-          Prefiero sin mascota
-        </button>
-        <button type="submit" className="rounded-xl bg-accent px-5 py-2.5 font-semibold text-accent-ink">
-          Elegir a {name.trim() || SPECIES_INFO[picked].defaultName}
-        </button>
+        <div className="mt-8 flex justify-end gap-3">
+          <button
+            type="button"
+            onClick={() => void setPet({ species: "none" }).then(onChosen)}
+            className="rounded-xl px-4 py-2.5 text-muted hover:bg-surface-2 hover:text-ink"
+          >
+            Prefiero sin mascota
+          </button>
+          <button type="submit" className="rounded-xl bg-accent px-5 py-2.5 font-semibold text-accent-ink">
+            Elegir a {name.trim() || SPECIES_INFO[picked].defaultName}
+          </button>
+        </div>
       </form>
     </section>
   );

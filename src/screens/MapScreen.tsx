@@ -1,4 +1,5 @@
 import { useMemo, useState, type ComponentType, type KeyboardEvent } from "react";
+import { ExploreHeader } from "../components/SectionHeader";
 import booksMeta from "../../content/books_meta.json";
 import {
   buildMap,
@@ -84,21 +85,18 @@ export function MapScreen() {
 
   return (
     <div className="mx-auto max-w-5xl px-10 py-12">
-      <header className="animate-rise mb-6 flex items-end justify-between gap-6">
-        <div>
-          <h1 className="font-display text-4xl font-semibold">Mapa de la Biblia</h1>
-          <p className="mt-1.5 text-muted">
-            Todo está abierto desde el principio. Cada zona se ilumina a medida que lees.
-          </p>
-        </div>
-        {nodes.length > 0 && (
-          <p className="shrink-0 text-right text-sm text-muted tabular-nums">
-            <span className="font-display text-2xl font-semibold text-ink">{booksDone}</span> de 66 libros
-            <br />
-            {chaptersRead} de {chaptersTotal} capítulos
-          </p>
-        )}
-      </header>
+      <ExploreHeader
+        subtitle="Todo está abierto desde el principio. Cada zona se ilumina a medida que lees."
+        aside={
+          nodes.length > 0 && (
+            <p>
+              <span className="font-display text-2xl font-semibold text-ink">{booksDone}</span> de 66 libros
+              <br />
+              {chaptersRead} de {chaptersTotal} capítulos
+            </p>
+          )
+        }
+      />
 
       <section
         className={`animate-rise relative rounded-3xl border bg-surface ${

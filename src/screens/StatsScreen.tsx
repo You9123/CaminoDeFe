@@ -1,4 +1,5 @@
 import { useState, type ComponentType, type ReactNode } from "react";
+import { JourneyHeader } from "../components/SectionHeader";
 import booksMeta from "../../content/books_meta.json";
 import {
   formatDuration,
@@ -62,10 +63,7 @@ export function StatsScreen() {
 
   return (
     <div className="mx-auto max-w-4xl px-10 py-12">
-      <header className="animate-rise mb-8">
-        <h1 className="font-display text-4xl font-semibold">Mi camino</h1>
-        <p className="mt-1.5 text-muted">Lo que llevas andado, en números.</p>
-      </header>
+      <JourneyHeader subtitle="Lo que llevas andado, en números." />
 
       <section className="animate-rise mb-8 grid grid-cols-4 gap-3">
         <Tile icon={FlameIcon} label="Racha actual" value={streak.current} />

@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 2.3 · 27/09/2026
+> **Versión del documento:** 2.4 · 02/10/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -73,6 +73,7 @@ Buenos días, Youfrend.
 - **Continuar mi camino**: abre el siguiente capítulo según el plan de lectura activo o la última posición.
 - Resumen de la racha, el nivel y las misiones del día.
 - Desde la V2 también aparece la mascota.
+- **Desde la V3.5 (Sprint 3.5B, ADR-0013), Hoy tiene 4 bloques:** saludo con la racha en una línea y la mascota (secundaria); "Continuar mi camino" con el capítulo al que lleva (ej. "Génesis 4") y "Tengo unos minutos"; el versículo del día compacto; y las misiones del día (con la sorpresa) junto a los **descubrimientos recientes** (las últimas 3 fichas). El nivel, el XP y el rango quedan en la barra lateral; la emoción es una fila discreta.
 
 ### 2.2 Lector bíblico [V1]
 
@@ -275,7 +276,7 @@ Una línea horizontal interactiva: Creación → Diluvio → Abraham → Isaac �
 
 ### 2.19 Coleccionables [V3]
 
-Fichas de **Personajes**, **Lugares** y **Eventos**. Cada ficha tiene una lista de capítulos clave, y el avance de la ficha es la parte de esos capítulos que has leído (se calcula con `chapter_progress`, sin tablas nuevas). Al leer por primera vez uno de ellos aparece "Personaje desbloqueado: …". Al completarlas se vuelven doradas. Están en **Logros → Coleccionables**, con el contador "N de 115 descubiertos". Datos en `content/characters.json`, `places.json` y `events.json`. **Hecho en el Sprint 3A** (ADR-0008).
+Fichas de **Personajes**, **Lugares** y **Eventos**. Cada ficha tiene una lista de capítulos clave, y el avance de la ficha es la parte de esos capítulos que has leído (se calcula con `chapter_progress`, sin tablas nuevas). Al leer por primera vez uno de ellos aparece "Personaje desbloqueado: …". Al completarlas se vuelven doradas. Están en **Explorar → Colección**, con el contador "N de 115 descubiertos". Datos en `content/characters.json`, `places.json` y `events.json`. **Hecho en el Sprint 3A** (ADR-0008).
 
 **Descubrimiento sin spoilers (V3.5, Sprint 3.5A, ADR-0012):** una ficha sin leer está **cubierta de niebla** (la misma pintura muy desenfocada y oscura), con candado, "???", el tipo y una pista "Aparece en Génesis" (el libro, nunca el capítulo; si el libro se llama como la ficha, solo la zona del mapa). No se ve su nombre, resumen, versículo ni imagen nítida. Al descubrirla, la niebla se despeja en la pantalla "Capítulo completado". El lector solo dice "En este capítulo hay N descubrimientos" hasta que lo lees, y la línea temporal muestra "???" en lo que falta descubrir.
 
@@ -287,21 +288,20 @@ Nombre, tema (claro / oscuro / sistema), tamaño de letra, versión de la Biblia
 
 ## 3. Pantallas y navegación
 
-Barra lateral fija a la izquierda (en móvil será una barra inferior):
+Barra lateral fija a la izquierda (en móvil será una barra inferior). **Desde la V3.5 (Sprint 3.5B, ADR-0013) tiene 6 entradas:**
 
-| Ícono | Pantalla                   | Versión |
-| ----- | -------------------------- | ------- |
-| 🏠    | Hoy (inicio)               | V1      |
-| 📖    | Biblia (lector + buscador) | V1      |
-| 🗺️    | Mapa                       | V2      |
-| 🎯    | Misiones y desafíos        | V1 / V2 |
-| 📔    | Diario                     | V1      |
-| 🏆    | Logros y coleccionables    | V2 / V3 |
-| 📊    | Estadísticas               | V2      |
-| ⏳    | Línea temporal             | V3      |
-| ⚙️    | Configuración              | V1      |
+| Pantalla                                                           | Ruta         | Versión   |
+| ------------------------------------------------------------------ | ------------ | --------- |
+| Hoy (inicio)                                                       | `/`          | V1 / V3.5 |
+| Biblia: Libros · Buscar · Favoritos                                | `/biblia`    | V1        |
+| Explorar: Libros (el mapa) · Historia (línea temporal) · Colección | `/explorar`  | V3.5      |
+| Mi camino: Misiones (y desafíos) · Logros · Estadísticas           | `/mi-camino` | V3.5      |
+| Diario                                                             | `/diario`    | V1        |
+| Ajustes (abajo)                                                    | `/ajustes`   | V1        |
 
-**Primer uso (onboarding):** bienvenida → nombre → elegir mascota (o ninguna) [V2] → hora del recordatorio → primer versículo.
+Las rutas de antes (`/mapa`, `/linea-temporal`, `/misiones`, `/logros`, `/logros/coleccionables`, `/estadisticas`) se redirigen a las nuevas conservando la búsqueda. Todas están en `src/app/paths.ts`.
+
+**Primer uso (bienvenida, Sprint 3.5B):** bienvenida → nombre → elegir mascota (o ninguna) → recordatorio opcional → "Lee tu primer capítulo" (Génesis 1) → al terminarlo, "Tu primer descubrimiento". Solo la ve un perfil nuevo; quien ya usaba la app no la ve.
 
 **Estilo visual (decidido, ver ADR-0003):** cálido y editorial. Paleta pergamino + terracota con modo oscuro, textura de papel sutil, títulos en Fraunces, texto bíblico en Literata e íconos SVG propios con trazo a mano. **Sin emojis en la interfaz**: tienen que verse naturales y no genéricos. La lectura debe verse seria y cómoda, nunca infantil.
 
@@ -620,12 +620,12 @@ Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v
 
 ### 🟡 V3.5 — Descubrir y simplificar (en curso)
 
-Plan en `Plan_V3.5.md` (proyecto). Cuatro sprints: **3.5A Descubrimientos** ✅ v2.5.0 · **3.5B Hoy y navegación** (v2.6.0) · **3.5C Conexiones** (v2.7.0) · **3.5D Mascota y cosméticos** (v2.8.0).
+Plan en `Plan_V3.5.md` (proyecto). Cuatro sprints: **3.5A Descubrimientos** ✅ v2.5.0 · **3.5B Hoy y navegación** ✅ v2.6.0 · **3.5C Conexiones** (v2.7.0) · **3.5D Mascota y cosméticos** (v2.8.0).
 
 - [x] Fichas bloqueadas con niebla, pista por libro y contador de la colección (Sprint 3.5A)
 - [x] Sin spoilers en el lector, la línea temporal y las fichas relacionadas (Sprint 3.5A)
 - [x] "Capítulo completado" con los nuevos descubrimientos (Sprint 3.5A)
-- [ ] Barra lateral de 6 entradas, Hoy con 4 bloques y onboarding corto (Sprint 3.5B)
+- [x] Barra lateral de 6 entradas, Hoy con 4 bloques y bienvenida corta (Sprint 3.5B)
 - [ ] Conexiones entre mapa, historia y colección; logros de descubrimiento (Sprint 3.5C)
 - [ ] Reacciones de la mascota y un solo catálogo de cosméticos (Sprint 3.5D)
 
