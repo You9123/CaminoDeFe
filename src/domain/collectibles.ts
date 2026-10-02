@@ -486,6 +486,96 @@ export function chapterDiscoveries(
   return { revealed, hidden: items.length - revealed.length };
 }
 
+// ---------- Conexiones (V3.5C, ADR-0014) ----------
+
+/** Libros donde aparece una ficha (los de sus capítulos clave, en orden). */
+export function booksOf(c: Collectible): string[] {
+  return [...new Set(keyChapters(c.passages).map((ch) => ch.split(".")[0]))];
+}
+
+/** Fichas que aparecen en un libro (alguno de sus capítulos clave es de ese libro). */
+export function collectiblesInBook(collectibles: Collectible[], code: string): Collectible[] {
+  return collectibles.filter((c) => booksOf(c).includes(code));
+}
+
+export type KindCount = { kind: CollectibleKind; unlocked: number; total: number };
+
+/**
+ * Descubrimientos de un libro, por tipo: "3 de 8 personajes · 1 de 5 lugares".
+ * Solo cantidades: nunca nombres de lo que falta. Los tipos sin fichas en el libro no aparecen.
+ */
+export function bookDiscoveries(collectibles: Collectible[], code: string, read: ReadonlySet<string>): KindCount[] {
+  const kinds: CollectibleKind[] = ["character", "place", "event"];
+  const inBook = collectiblesInBook(collectibles, code);
+  return kinds
+    .map((kind) => {
+      const list = inBook.filter((c) => c.kind === kind);
+      return {
+        kind,
+        total: list.length,
+        unlocked: list.filter((c) => passagesProgress(c.passages, read).unlocked).length,
+      };
+    })
+    .filter((k) => k.total > 0);
+}
+
+/** "3 de 8 personajes", "1 de 1 lugar". */
+export function kindCountLabel(k: KindCount): string {
+  const word = KIND_LABEL[k.kind][k.total === 1 ? "one" : "many"].toLowerCase();
+  return `${k.unlocked} de ${k.total} ${word}`;
+}
+
+export type ExploreStatus = { state: "unexplored" | "partial" | "complete"; label: string; percent: number };
+
+/**
+ * Estado de una etapa (o de cualquier lista de pasajes): "Sin explorar", "55 %" o "Completa".
+ * El porcentaje nunca dice 0 % si ya leíste algo ni 100 % si falta algo.
+ */
+export function exploreStatus(p: CardProgress): ExploreStatus {
+  if (p.complete) return { state: "complete", label: "Completa", percent: 100 };
+  if (p.read === 0) return { state: "unexplored", label: "Sin explorar", percent: 0 };
+  const percent = Math.min(99, Math.max(1, Math.round((p.read / p.total) * 100)));
+  return { state: "partial", label: `${percent} %`, percent };
+}
+
+export type Connections = {
+  eras: Era[];
+  events: Collectible[];
+  characters: Collectible[];
+  places: Collectible[];
+};
+
+/**
+ * Todo lo que se conecta con una ficha, para recorrer la colección como una pequeña enciclopedia:
+ * - un personaje: sus etapas, los eventos donde aparece, y los lugares y personajes de esos eventos;
+ * - un lugar: sus etapas, los eventos que pasan ahí, y los personajes y lugares de esos eventos;
+ * - un evento: su etapa, sus personajes y sus lugares.
+ * Nunca incluye a la ficha misma. Lo bloqueado lo decide la interfaz ("???").
+ */
+export function connectionsOf(c: Collectible, catalog: Catalog): Connections {
+  const allEvents = catalog.collectibles.filter((e) => e.kind === "event");
+  const events =
+    c.kind === "event"
+      ? []
+      : allEvents.filter((e) => (c.kind === "character" ? e.characters : e.places).includes(c.id));
+  const charIds = new Set<string>();
+  const placeIds = new Set<string>();
+  for (const e of c.kind === "event" ? [c] : events) {
+    e.characters.forEach((x) => charIds.add(x));
+    e.places.forEach((x) => placeIds.add(x));
+  }
+  if (c.kind === "character") charIds.delete(c.id);
+  if (c.kind === "place") placeIds.delete(c.id);
+  const pick = (kind: CollectibleKind, ids: Set<string>) =>
+    [...ids].map((id) => catalog.byKey.get(collectibleKey(kind, id))).filter((x): x is Collectible => !!x);
+  return {
+    eras: erasOf(c, catalog),
+    events,
+    characters: pick("character", charIds),
+    places: pick("place", placeIds),
+  };
+}
+
 // ---------- Imágenes de las fichas ----------
 
 /** Imagen de una ficha: una obra de dominio público o una foto con licencia libre, con su crédito. */

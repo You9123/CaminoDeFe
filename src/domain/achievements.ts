@@ -34,6 +34,8 @@ export const ACHIEVEMENT_ICONS = [
   "path",
   "compass",
   "spark",
+  "person",
+  "map",
 ] as const;
 export type AchievementIcon = (typeof ACHIEVEMENT_ICONS)[number];
 
@@ -80,6 +82,19 @@ export const ruleSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("level_reached"), level: count }),
   /** Completar un desafío concreto (la insignia de los desafíos mayores). */
   z.object({ type: z.literal("challenge_completed"), challenge: z.string().regex(/^[a-z0-9_]+$/) }),
+  /**
+   * Fichas de la colección descubiertas (V3.5C). Se puede filtrar por tipo y por libro (las que
+   * aparecen en él). Sin `count`, hay que descubrir todas las que cumplan el filtro.
+   */
+  z.object({
+    type: z.literal("collectibles_unlocked"),
+    count: count.optional(),
+    kind: z.enum(["character", "place", "event"]).optional(),
+    book: z
+      .string()
+      .regex(/^[1-3A-Z]{3}$/)
+      .optional(),
+  }),
 ]);
 export type AchievementRule = z.infer<typeof ruleSchema>;
 
@@ -123,6 +138,8 @@ export type ProgressSnapshot = {
   level: number;
   /** Ids de los desafíos completados alguna vez. */
   completedChallenges: readonly string[];
+  /** Fichas de la colección (V3.5C): tipo, libros donde aparece y si ya se descubrió. */
+  collectibles: readonly { kind: "character" | "place" | "event"; books: readonly string[]; unlocked: boolean }[];
 };
 
 export type RuleProgress = { current: number; target: number; done: boolean };
@@ -172,6 +189,13 @@ export function ruleProgress(rule: AchievementRule, s: ProgressSnapshot): RulePr
       return progress(s.level, rule.level);
     case "challenge_completed":
       return progress(s.completedChallenges.includes(rule.challenge) ? 1 : 0, 1);
+    case "collectibles_unlocked": {
+      const pool = s.collectibles.filter(
+        (c) => (!rule.kind || c.kind === rule.kind) && (!rule.book || c.books.includes(rule.book)),
+      );
+      const found = pool.filter((c) => c.unlocked).length;
+      return progress(found, rule.count ?? Math.max(pool.length, 1));
+    }
   }
 }
 

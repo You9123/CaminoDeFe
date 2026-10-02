@@ -6,6 +6,9 @@ import { levelFromXp } from "../domain/levels";
 import { computeStreak } from "../domain/streaks";
 import { newlyUnlocked, type Achievement, type ProgressSnapshot } from "../domain/achievements";
 import { ACHIEVEMENTS } from "../content/achievements";
+import { CATALOG } from "../content/collectibles";
+import { booksOf, passagesProgress } from "../domain/collectibles";
+import { getReadChapterMap } from "./collectiblesRepo";
 
 /** Tipo de fila en activity_log para un logro desbloqueado (ref = id del logro). */
 export const ACHIEVEMENT_TYPE = "achievement";
@@ -23,13 +26,14 @@ export async function getUnlockedAchievements(): Promise<Map<string, string>> {
 /** Foto del progreso para evaluar las reglas de los logros. */
 export async function getProgressSnapshot(): Promise<ProgressSnapshot> {
   const db = await userDb();
-  const [books, perBook, counts, challengeRows, activeDays, totalXp] = await Promise.all([
+  const [books, perBook, counts, challengeRows, activeDays, totalXp, chapterMap] = await Promise.all([
     listBooks(),
     db.select<{ book_id: number; n: number }[]>("SELECT book_id, COUNT(*) AS n FROM chapter_progress GROUP BY book_id"),
     db.select<{ type: string; n: number }[]>("SELECT type, COUNT(*) AS n FROM activity_log GROUP BY type"),
     db.select<{ ref: string }[]>("SELECT DISTINCT ref FROM activity_log WHERE type = 'challenge' AND ref IS NOT NULL"),
     getActiveDays(),
     getTotalXp(),
+    getReadChapterMap(),
   ]);
   const codeById = new Map(books.map((b) => [b.id, b.code]));
   const readByBook: Record<string, number> = {};
@@ -44,6 +48,12 @@ export async function getProgressSnapshot(): Promise<ProgressSnapshot> {
     activityCounts: Object.fromEntries(counts.map((c) => [c.type, Number(c.n)])),
     level: levelFromXp(totalXp).level,
     completedChallenges: challengeRows.map((r) => r.ref),
+    // Todo se deriva de chapter_progress: un usuario de la V3 recibe al actualizar los logros que ya cumplía.
+    collectibles: CATALOG.collectibles.map((c) => ({
+      kind: c.kind,
+      books: booksOf(c),
+      unlocked: passagesProgress(c.passages, chapterMap.read).unlocked,
+    })),
   };
 }
 

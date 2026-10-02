@@ -10,19 +10,15 @@
     },
     {
       "id": "corazon",
-      "title": "Reflexión, oración y práctica"
+      "title": "Reflexión y oración"
+    },
+    {
+      "id": "descubrimiento",
+      "title": "Descubrimiento"
     },
     {
       "id": "desafios",
-      "title": "Desafíos y sorpresas"
-    },
-    {
-      "id": "mayores",
-      "title": "Desafíos mayores"
-    },
-    {
-      "id": "camino",
-      "title": "El camino"
+      "title": "Desafíos"
     }
   ],
   "achievements": [
@@ -171,6 +167,32 @@
       "xp": 500
     },
     {
+      "id": "quiz_10",
+      "group": "lectura",
+      "title": "Buena memoria",
+      "description": "Responde bien 10 preguntas del quiz.",
+      "icon": "check",
+      "rule": {
+        "type": "activity_count",
+        "activity": "quiz",
+        "count": 10
+      },
+      "xp": 20
+    },
+    {
+      "id": "quiz_100",
+      "group": "lectura",
+      "title": "Conocedor de la Palabra",
+      "description": "Responde bien 100 preguntas del quiz.",
+      "icon": "lamp",
+      "rule": {
+        "type": "activity_count",
+        "activity": "quiz",
+        "count": 100
+      },
+      "xp": 100
+    },
+    {
       "id": "streak_3",
       "group": "constancia",
       "title": "Tres días",
@@ -255,6 +277,78 @@
         "count": 30
       },
       "xp": 100
+    },
+    {
+      "id": "level_5",
+      "group": "constancia",
+      "title": "Caminante",
+      "description": "Llega al nivel 5.",
+      "icon": "path",
+      "rule": {
+        "type": "level_reached",
+        "level": 5
+      },
+      "xp": 0
+    },
+    {
+      "id": "level_10",
+      "group": "constancia",
+      "title": "Buscador",
+      "description": "Llega al nivel 10.",
+      "icon": "lamp",
+      "rule": {
+        "type": "level_reached",
+        "level": 10
+      },
+      "xp": 0
+    },
+    {
+      "id": "level_20",
+      "group": "constancia",
+      "title": "Discípulo",
+      "description": "Llega al nivel 20.",
+      "icon": "flame",
+      "rule": {
+        "type": "level_reached",
+        "level": 20
+      },
+      "xp": 0
+    },
+    {
+      "id": "level_30",
+      "group": "constancia",
+      "title": "Perseverante",
+      "description": "Llega al nivel 30.",
+      "icon": "anchor",
+      "rule": {
+        "type": "level_reached",
+        "level": 30
+      },
+      "xp": 0
+    },
+    {
+      "id": "level_40",
+      "group": "constancia",
+      "title": "Siervo",
+      "description": "Llega al nivel 40.",
+      "icon": "dove",
+      "rule": {
+        "type": "level_reached",
+        "level": 40
+      },
+      "xp": 0
+    },
+    {
+      "id": "level_50",
+      "group": "constancia",
+      "title": "Peregrino",
+      "description": "Llega al nivel 50.",
+      "icon": "sunrise",
+      "rule": {
+        "type": "level_reached",
+        "level": 50
+      },
+      "xp": 0
     },
     {
       "id": "reflection_1",
@@ -348,6 +442,66 @@
       "xp": 100
     },
     {
+      "id": "discover_10",
+      "group": "descubrimiento",
+      "title": "Diez descubrimientos",
+      "description": "Descubre 10 personajes, lugares o eventos de la colección.",
+      "icon": "spark",
+      "rule": {
+        "type": "collectibles_unlocked",
+        "count": 10
+      },
+      "xp": 30
+    },
+    {
+      "id": "discover_25",
+      "group": "descubrimiento",
+      "title": "Veinticinco descubrimientos",
+      "description": "Descubre 25 fichas de la colección.",
+      "icon": "compass",
+      "rule": {
+        "type": "collectibles_unlocked",
+        "count": 25
+      },
+      "xp": 60
+    },
+    {
+      "id": "discover_50",
+      "group": "descubrimiento",
+      "title": "Cincuenta descubrimientos",
+      "description": "Descubre 50 fichas de la colección.",
+      "icon": "map",
+      "rule": {
+        "type": "collectibles_unlocked",
+        "count": 50
+      },
+      "xp": 120
+    },
+    {
+      "id": "discover_all",
+      "group": "descubrimiento",
+      "title": "La colección completa",
+      "description": "Descubre las 115 fichas: todos los personajes, lugares y eventos.",
+      "icon": "sunrise",
+      "rule": {
+        "type": "collectibles_unlocked"
+      },
+      "xp": 300
+    },
+    {
+      "id": "genesis_characters",
+      "group": "descubrimiento",
+      "title": "La familia de los comienzos",
+      "description": "Descubre a todos los personajes que aparecen en Génesis.",
+      "icon": "person",
+      "rule": {
+        "type": "collectibles_unlocked",
+        "kind": "character",
+        "book": "GEN"
+      },
+      "xp": 80
+    },
+    {
       "id": "first_challenge",
       "group": "desafios",
       "title": "Primer desafío",
@@ -400,106 +554,8 @@
       "xp": 80
     },
     {
-      "id": "level_5",
-      "group": "camino",
-      "title": "Caminante",
-      "description": "Llega al nivel 5.",
-      "icon": "path",
-      "rule": {
-        "type": "level_reached",
-        "level": 5
-      },
-      "xp": 0
-    },
-    {
-      "id": "level_10",
-      "group": "camino",
-      "title": "Buscador",
-      "description": "Llega al nivel 10.",
-      "icon": "lamp",
-      "rule": {
-        "type": "level_reached",
-        "level": 10
-      },
-      "xp": 0
-    },
-    {
-      "id": "level_20",
-      "group": "camino",
-      "title": "Discípulo",
-      "description": "Llega al nivel 20.",
-      "icon": "flame",
-      "rule": {
-        "type": "level_reached",
-        "level": 20
-      },
-      "xp": 0
-    },
-    {
-      "id": "level_30",
-      "group": "camino",
-      "title": "Perseverante",
-      "description": "Llega al nivel 30.",
-      "icon": "anchor",
-      "rule": {
-        "type": "level_reached",
-        "level": 30
-      },
-      "xp": 0
-    },
-    {
-      "id": "level_40",
-      "group": "camino",
-      "title": "Siervo",
-      "description": "Llega al nivel 40.",
-      "icon": "dove",
-      "rule": {
-        "type": "level_reached",
-        "level": 40
-      },
-      "xp": 0
-    },
-    {
-      "id": "level_50",
-      "group": "camino",
-      "title": "Peregrino",
-      "description": "Llega al nivel 50.",
-      "icon": "sunrise",
-      "rule": {
-        "type": "level_reached",
-        "level": 50
-      },
-      "xp": 0
-    },
-    {
-      "id": "quiz_10",
-      "group": "desafios",
-      "title": "Buena memoria",
-      "description": "Responde bien 10 preguntas del quiz.",
-      "icon": "check",
-      "rule": {
-        "type": "activity_count",
-        "activity": "quiz",
-        "count": 10
-      },
-      "xp": 20
-    },
-    {
-      "id": "quiz_100",
-      "group": "desafios",
-      "title": "Conocedor de la Palabra",
-      "description": "Responde bien 100 preguntas del quiz.",
-      "icon": "lamp",
-      "rule": {
-        "type": "activity_count",
-        "activity": "quiz",
-        "count": 100
-      },
-      "xp": 100
-    },
-    {
       "id": "insignia_mayor_jonas",
-      "group": "mayores",
+      "group": "desafios",
       "title": "Jonás, de principio a fin",
       "description": "Completa el desafío mayor «Jonás, de principio a fin».",
       "icon": "compass",
@@ -511,7 +567,7 @@
     },
     {
       "id": "insignia_mayor_daniel",
-      "group": "mayores",
+      "group": "desafios",
       "title": "Fiel en Babilonia",
       "description": "Completa el desafío mayor «Fiel en Babilonia».",
       "icon": "candle",
@@ -523,7 +579,7 @@
     },
     {
       "id": "insignia_mayor_juan",
-      "group": "mayores",
+      "group": "desafios",
       "title": "El Evangelio de Juan",
       "description": "Completa el desafío mayor «El Evangelio de Juan».",
       "icon": "dove",
@@ -535,7 +591,7 @@
     },
     {
       "id": "insignia_mayor_hechos",
-      "group": "mayores",
+      "group": "desafios",
       "title": "La Iglesia en marcha",
       "description": "Completa el desafío mayor «La Iglesia en marcha».",
       "icon": "flame",
@@ -547,7 +603,7 @@
     },
     {
       "id": "insignia_mayor_genesis",
-      "group": "mayores",
+      "group": "desafios",
       "title": "Los comienzos",
       "description": "Completa el desafío mayor «Los comienzos».",
       "icon": "sunrise",

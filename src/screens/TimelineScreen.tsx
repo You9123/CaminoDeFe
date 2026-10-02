@@ -7,6 +7,7 @@ import { bookName } from "../content/bookNames";
 import {
   collectibleKey,
   eraProgress,
+  exploreStatus,
   expandPassage,
   passageLabel,
   passagesProgress,
@@ -290,6 +291,7 @@ function Stop({
           style={{ width: loading ? 0 : `${(p.read / p.total) * 100}%` }}
         />
       </span>
+      <StatusLabel progress={p} loading={loading} className="mt-1 text-[11px]" />
     </button>
   );
 }
@@ -323,8 +325,13 @@ function EraDetail({
     <section className="animate-rise mt-8 rounded-3xl border border-border bg-surface px-8 py-7">
       <div className="grid grid-cols-[1fr_16rem] gap-10">
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-accent">
+          <p className="flex items-center gap-2 text-sm font-semibold text-accent">
             Etapa {index + 1} de {ERAS.length} · {era.when}
+            <StatusLabel
+              progress={p}
+              loading={loading}
+              className="rounded-full border border-current/30 px-2 py-px text-xs"
+            />
           </p>
           <h2 className="mt-0.5 font-display text-3xl font-semibold">{era.title}</h2>
           <p className="mt-3 leading-relaxed">{era.summary}</p>
@@ -465,4 +472,21 @@ function EventRow({
       </span>
     </button>
   );
+}
+
+/** "Sin explorar", "55 %" o "Completa" (V3.5C): el estado de una etapa, con palabras y no solo color. */
+function StatusLabel({
+  progress,
+  loading,
+  className = "",
+}: {
+  progress: CardProgress;
+  loading: boolean;
+  className?: string;
+}) {
+  if (loading) return <span className={className}> </span>;
+  const st = exploreStatus(progress);
+  const color =
+    st.state === "complete" ? "text-gold font-semibold" : st.state === "partial" ? "text-accent" : "text-muted";
+  return <span className={`leading-tight tabular-nums ${color} ${className}`}>{st.label}</span>;
 }

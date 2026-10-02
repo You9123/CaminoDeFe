@@ -9,6 +9,8 @@ import {
   PATH_LENGTH,
   roadPath,
   zoneGlow,
+  zoneState,
+  ZONE_STATE_LABEL,
   type Decoration,
 } from "../domain/mapLayout";
 import { zoneProgress } from "../domain/stats";
@@ -119,13 +121,14 @@ export function MapScreen() {
             const zp = zones.find((x) => x.zone === z.zone);
             const glow = zp ? zoneGlow(zp.read, zp.total) : 0;
             if (glow === 0) return null;
+            const complete = zoneState(zp!.read, zp!.total) === "complete";
             return (
               <path
                 key={z.zone}
                 d={d}
                 pathLength={PATH_LENGTH}
                 fill="none"
-                stroke="var(--accent-soft)"
+                stroke={complete ? "var(--gold-soft)" : "var(--accent-soft)"}
                 strokeWidth={46}
                 strokeLinecap="round"
                 strokeDasharray={`0 ${z.from} ${z.to - z.from} ${PATH_LENGTH}`}
@@ -151,19 +154,32 @@ export function MapScreen() {
           {map.zones.map((z) => {
             const meta = booksMeta.zones.find((x) => x.id === z.zone);
             const zp = zones.find((x) => x.zone === z.zone);
-            const lit = !!zp && zp.read > 0;
+            // Apagada / parcial / iluminada / completa (V3.5C): el nombre lo dice sin depender del color.
+            const state = zp ? zoneState(zp.read, zp.total) : "off";
+            const lit = state !== "off";
+            const complete = state === "complete";
             const Icon = ZONE_ICON[z.zone];
             return (
               <g key={z.zone} transform={`translate(${z.label.x} ${z.label.y})`}>
-                <g transform="translate(-11 -22)" className={lit ? "text-accent" : "text-muted"}>
+                <title>{`${meta?.name}: ${ZONE_STATE_LABEL[state].toLowerCase()}`}</title>
+                <g
+                  transform="translate(-11 -22)"
+                  className={complete ? "text-gold" : lit ? "text-accent" : "text-muted"}
+                >
                   <Icon size={22} duo={lit} />
                 </g>
                 <text
                   y={14}
                   textAnchor="middle"
-                  className={`font-display text-[15px] font-semibold ${lit ? "fill-ink" : "fill-muted"}`}
+                  className={`font-display text-[15px] font-semibold ${complete ? "fill-gold" : lit ? "fill-ink" : "fill-muted"}`}
                 >
                   {meta?.name}
+                  {lit && (
+                    <tspan className={`font-ui text-[11px] font-normal ${complete ? "fill-gold" : "fill-muted"}`}>
+                      {" "}
+                      · {ZONE_STATE_LABEL[state]}
+                    </tspan>
+                  )}
                 </text>
               </g>
             );

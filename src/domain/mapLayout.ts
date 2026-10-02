@@ -133,6 +133,26 @@ export function labelPoint(points: readonly Point[], rowYs: readonly number[]): 
 const LABEL_OFFSET = 40;
 
 /** Brillo de una zona según su avance (0 = apagada; con algo leído ya se enciende un poco). */
+/**
+ * Estado de una zona del mapa (V3.5C): apagada (nada leído), parcial (menos de la mitad),
+ * iluminada (la mitad o más) o completa (todos sus capítulos). Sirve para el nombre de la zona
+ * y su descripción accesible; el brillo sigue siendo gradual (zoneGlow).
+ */
+export type ZoneState = "off" | "partial" | "lit" | "complete";
+
+export function zoneState(read: number, total: number): ZoneState {
+  if (read <= 0 || total <= 0) return "off";
+  if (read >= total) return "complete";
+  return read * 2 >= total ? "lit" : "partial";
+}
+
+export const ZONE_STATE_LABEL: Record<ZoneState, string> = {
+  off: "Sin explorar",
+  partial: "Empezada",
+  lit: "Iluminada",
+  complete: "Completa",
+};
+
 export function zoneGlow(read: number, total: number): number {
   if (read <= 0 || total <= 0) return 0;
   return 0.3 + 0.7 * Math.min(read / total, 1);

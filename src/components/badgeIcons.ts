@@ -14,8 +14,10 @@ import {
   HarpIcon,
   JournalIcon,
   LampIcon,
+  MapIcon,
   OliveIcon,
   PathIcon,
+  PersonIcon,
   QuillIcon,
   ScrollIcon,
   SparkIcon,
@@ -45,6 +47,8 @@ export const ACHIEVEMENT_ICON: Record<AchievementIcon, BadgeIcon> = {
   path: PathIcon,
   compass: CompassIcon,
   spark: SparkIcon,
+  person: PersonIcon,
+  map: MapIcon,
 };
 
 export const RANK_ICON: Record<RankId, BadgeIcon> = {

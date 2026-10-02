@@ -13,6 +13,11 @@ import { QuizModal } from "./QuizModal";
 import { quizFor } from "../content/quiz";
 import { buildBookQuiz } from "../data/bookQuiz";
 import type { QuizItem } from "../domain/quiz";
+import { CATALOG } from "../content/collectibles";
+import { bookDiscoveries, kindCountLabel } from "../domain/collectibles";
+import { getReadChapterMap } from "../data/collectiblesRepo";
+import { bookCollectionPath } from "../app/paths";
+import { KIND_ICON } from "./collectibleIcons";
 
 const SUMMARIES: Record<string, string> = summaries.summaries;
 
@@ -21,8 +26,13 @@ export function BookSheet({ book, read, onClose }: { book: Book; read: number; o
   const navigate = useNavigate();
   const zone = booksMeta.zones.find((z) => z.id === book.zone);
   const data = useAsync(async () => {
-    const [chapters, words] = await Promise.all([getReadChapters(book.id), getBookChapterWords(book.id)]);
-    return { chapters, words };
+    const [chapters, words, map] = await Promise.all([
+      getReadChapters(book.id),
+      getBookChapterWords(book.id),
+      getReadChapterMap(),
+    ]);
+    // Descubrimientos del libro (V3.5C): solo cantidades, nunca nombres de lo que falta.
+    return { chapters, words, found: bookDiscoveries(CATALOG.collectibles, book.code, map.read) };
   }, book.code);
 
   const readSet = data.data?.chapters ?? new Set<number>();
@@ -61,6 +71,32 @@ export function BookSheet({ book, read, onClose }: { book: Book; read: number; o
           <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
         </div>
       </div>
+
+      {data.data && data.data.found.length > 0 && (
+        <div className="mt-5 rounded-2xl bg-surface-2/70 px-4 py-3">
+          <div className="flex items-baseline justify-between gap-3">
+            <p className="text-sm font-semibold">Descubrimientos</p>
+            <button
+              onClick={() => navigate(bookCollectionPath(book.code))}
+              className="text-sm text-muted hover:text-accent"
+            >
+              Ver en la colección
+            </button>
+          </div>
+          <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-muted">
+            {data.data.found.map((k) => {
+              const Icon = KIND_ICON[k.kind];
+              const all = k.unlocked === k.total;
+              return (
+                <li key={k.kind} className="inline-flex items-center gap-1.5 tabular-nums">
+                  <Icon size={17} className={all ? "text-gold" : "text-accent"} />
+                  <span className={all ? "font-semibold text-ink" : ""}>{kindCountLabel(k)}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
 
       {book.chapters > 1 && (
         <div className="mt-5 flex max-h-40 flex-wrap gap-1.5 overflow-y-auto pr-1">

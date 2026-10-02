@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router";
 import { X } from "lucide-react";
@@ -12,13 +12,12 @@ import {
   collectibleKey,
   creditLine,
   discoveryHint,
-  erasOf,
+  connectionsOf,
   expandPassage,
   KIND_LABEL,
   passageLabel,
   passagesProgress,
   passageStart,
-  relatedOf,
   unlockedAt,
   type Collectible,
 } from "../domain/collectibles";
@@ -59,8 +58,13 @@ export function CollectibleSheet({
   const p = passagesProgress(item.passages, read);
   const since = map ? unlockedAt(item, map.firstReadAt) : null;
   const Icon = COLLECTIBLE_ICON[item.icon];
-  const eras = erasOf(item, CATALOG);
-  const related = relatedOf(item, CATALOG);
+  // Conexiones (V3.5C): etapa, eventos, personajes y lugares. Lo bloqueado se ve como "???".
+  const links = connectionsOf(item, CATALOG);
+  const groups = [
+    { title: "Eventos", items: links.events },
+    { title: "Personajes", items: links.characters },
+    { title: "Lugares", items: links.places },
+  ].filter((g) => g.items.length > 0);
   const kind = KIND_LABEL[item.kind];
   const image = collectibleImage(collectibleKey(item.kind, item.id));
 
@@ -182,25 +186,39 @@ export function CollectibleSheet({
           })}
         </div>
 
-        {(eras.length > 0 || related.length > 0) && (
+        {(links.eras.length > 0 || groups.length > 0) && (
           <>
-            <h3 className="mt-6 mb-2 text-sm font-semibold tracking-wide text-muted uppercase">Relacionado</h3>
-            <div className="flex flex-wrap gap-2">
-              {eras.map((e) => (
-                <button
-                  key={e.id}
-                  onClick={() => go(historyPath(e.id))}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-dashed border-border px-3 py-1.5 text-sm hover:border-accent hover:text-accent"
-                  title="Ver en la historia"
-                >
-                  <TimelineIcon size={16} className="text-accent" duo={false} />
-                  {e.title}
-                </button>
+            <h3 className="mt-6 mb-2 text-sm font-semibold tracking-wide text-muted uppercase">Conexiones</h3>
+            <dl className="grid grid-cols-[6.5rem_1fr] items-start gap-x-3 gap-y-2.5">
+              {links.eras.length > 0 && (
+                <>
+                  <dt className="pt-1.5 text-sm text-muted">{links.eras.length === 1 ? "Etapa" : "Etapas"}</dt>
+                  <dd className="flex flex-wrap gap-2">
+                    {links.eras.map((e) => (
+                      <button
+                        key={e.id}
+                        onClick={() => go(historyPath(e.id))}
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-dashed border-border px-3 py-1.5 text-sm hover:border-accent hover:text-accent"
+                        title="Ver en la historia"
+                      >
+                        <TimelineIcon size={16} className="text-accent" duo={false} />
+                        {e.title}
+                      </button>
+                    ))}
+                  </dd>
+                </>
+              )}
+              {groups.map((g) => (
+                <Fragment key={g.title}>
+                  <dt className="pt-1.5 text-sm text-muted">{g.title}</dt>
+                  <dd className="flex flex-wrap gap-2">
+                    {g.items.map((r) => (
+                      <RelatedChip key={collectibleKey(r.kind, r.id)} item={r} read={read} onOpen={onOpen} />
+                    ))}
+                  </dd>
+                </Fragment>
               ))}
-              {related.map((r) => (
-                <RelatedChip key={collectibleKey(r.kind, r.id)} item={r} read={read} onOpen={onOpen} />
-              ))}
-            </div>
+            </dl>
           </>
         )}
 

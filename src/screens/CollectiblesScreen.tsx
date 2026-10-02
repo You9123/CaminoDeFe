@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { CATALOG } from "../content/collectibles";
-import { hintBookInfo } from "../content/bookNames";
+import { bookName, hintBookInfo } from "../content/bookNames";
 import {
   collectibleKey,
+  collectiblesInBook,
   collectionSummary,
   discoveryHint,
   KIND_LABEL,
@@ -20,6 +21,7 @@ import { COLLECTIBLE_ICON, KIND_ICON } from "../components/collectibleIcons";
 import { Medallion } from "../components/Medallion";
 import { KIND_PARAM } from "../app/paths";
 import { LockIcon } from "../components/icons";
+import { X } from "lucide-react";
 
 const KINDS: CollectibleKind[] = ["character", "place", "event"];
 
@@ -38,10 +40,17 @@ export function CollectiblesScreen() {
 
   const data = useAsync(getReadChapterMap, `${totalXp}`);
   const read = useMemo(() => data.latest?.read ?? new Set<string>(), [data.latest]);
+  // ?libro=GEN (desde la ficha del libro en el mapa): solo las fichas que aparecen en ese libro.
+  const book = params.get("libro");
+  const bookLabel = book ? bookName(book) : undefined;
+  const pool = useMemo(
+    () => (book && bookLabel ? collectiblesInBook(CATALOG.collectibles, book) : CATALOG.collectibles),
+    [book, bookLabel],
+  );
   const summary = useMemo(() => collectionSummary(CATALOG.collectibles, read), [read]);
-  const totals = summary.byKind;
+  const totals = useMemo(() => collectionSummary(pool, read).byKind, [pool, read]);
   const loaded = data.latest !== undefined;
-  const items = CATALOG.collectibles.filter((c) => c.kind === kind);
+  const items = pool.filter((c) => c.kind === kind);
 
   const setParam = (key: string, value: string | null) =>
     setParams(
@@ -104,6 +113,29 @@ export function CollectiblesScreen() {
           );
         })}
       </div>
+
+      {bookLabel && (
+        <p className="animate-rise mb-5 flex items-center gap-3 text-sm text-muted">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 bg-accent-soft/50 py-1 pr-1.5 pl-3 font-semibold text-accent">
+            Solo {bookLabel}
+            <button
+              onClick={() => setParam("libro", null)}
+              className="rounded-full p-0.5 hover:bg-accent-soft"
+              aria-label="Ver toda la colección"
+              title="Ver toda la colección"
+            >
+              <X size={15} />
+            </button>
+          </span>
+          Personajes, lugares y eventos que aparecen en este libro.
+        </p>
+      )}
+
+      {loaded && bookLabel && items.length === 0 && (
+        <p className="animate-rise mb-6 rounded-2xl border border-dashed border-border px-5 py-4 text-sm text-muted">
+          En {bookLabel} no hay {KIND_LABEL[kind].many.toLowerCase()} en la colección. Prueba con otro tipo.
+        </p>
+      )}
 
       {loaded && unlockedAll === 0 && (
         <p className="animate-rise mb-6 rounded-2xl border border-dashed border-border px-5 py-4 text-sm text-muted">

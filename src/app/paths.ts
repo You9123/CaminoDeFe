@@ -61,5 +61,8 @@ export function collectionPath(kind?: CollectibleKind, item?: Collectible): stri
   return query ? `${PATHS.collection}?${query}` : PATHS.collection;
 }
 
+/** La colección filtrada a las fichas de un libro (desde la ficha del libro en el mapa). */
+export const bookCollectionPath = (code: string) => `${PATHS.collection}?libro=${encodeURIComponent(code)}`;
+
 /** Enlace a una etapa de la historia (línea temporal). */
 export const historyPath = (eraId: string) => `${PATHS.history}?etapa=${encodeURIComponent(eraId)}`;

@@ -1,6 +1,6 @@
 # ✝️ Camino de Fe — Documento Maestro del Proyecto
 
-> **Versión del documento:** 2.4 · 02/10/2026
+> **Versión del documento:** 2.5 · 02/10/2026
 > **Autor:** Youfrend
 > **Tipo de proyecto:** Aplicación de escritorio (PC / Windows), con la versión móvil planeada para después.
 > **Propósito de este documento:** reunir en un solo lugar la idea completa del programa, sus reglas, pantallas, datos, tecnologías y plan de trabajo. Es la referencia principal del proyecto.
@@ -280,6 +280,8 @@ Fichas de **Personajes**, **Lugares** y **Eventos**. Cada ficha tiene una lista 
 
 **Descubrimiento sin spoilers (V3.5, Sprint 3.5A, ADR-0012):** una ficha sin leer está **cubierta de niebla** (la misma pintura muy desenfocada y oscura), con candado, "???", el tipo y una pista "Aparece en Génesis" (el libro, nunca el capítulo; si el libro se llama como la ficha, solo la zona del mapa). No se ve su nombre, resumen, versículo ni imagen nítida. Al descubrirla, la niebla se despeja en la pantalla "Capítulo completado". El lector solo dice "En este capítulo hay N descubrimientos" hasta que lo lees, y la línea temporal muestra "???" en lo que falta descubrir.
 
+**Conexiones (V3.5, Sprint 3.5C, ADR-0014):** la ficha de cada libro en el mapa dice cuántas fichas de cada tipo llevas descubiertas en ese libro (solo cantidades) y abre la colección filtrada a ese libro. Las zonas del mapa están apagadas, empezadas, iluminadas o completas, y cada etapa de la historia dice "Sin explorar", "55 %" o "Completa". Cada ficha muestra sus conexiones: etapa, eventos, personajes y lugares. Hay logros de descubrimiento (10, 25, 50 y las 115 fichas, y todos los personajes de Génesis) con la regla `collectibles_unlocked`.
+
 ### 2.20 Configuración [V1]
 
 Nombre, tema (claro / oscuro / sistema), tamaño de letra, versión de la Biblia, mascota encendida o apagada, pregunta de emoción encendida o apagada, recordatorio diario (notificación de Windows a una hora elegida), hora de fin del día, **exportar / importar un respaldo** (archivo `.json` o una copia de la base de datos), **PIN del diario** [V3] y **buscar actualizaciones** [V3].
@@ -471,7 +473,7 @@ Los logros se definen como datos, no como código:
 }
 ```
 
-Hay unos pocos tipos de regla (`chapters_read_count`, `books_completed`, `streak_reached`, `activity_count`, `level_reached`) que se evalúan después de cada actividad. Para agregar un logro nuevo solo se edita el JSON.
+Hay unos pocos tipos de regla (`chapters_read_count`, `books_completed_count`, `books_completed`, `streak_reached`, `activity_count`, `level_reached`, `challenge_completed` y, desde la V3.5C, `collectibles_unlocked`) que se evalúan después de cada actividad. Los logros se agrupan en 5 categorías: Lectura, Constancia, Reflexión y oración, Descubrimiento y Desafíos. Para agregar un logro nuevo solo se edita el JSON.
 
 ### 5.5 Estructura de carpetas
 
@@ -620,13 +622,13 @@ Se divide en 4 sprints: **3A Historia** (línea temporal y coleccionables) ✅ v
 
 ### 🟡 V3.5 — Descubrir y simplificar (en curso)
 
-Plan en `Plan_V3.5.md` (proyecto). Cuatro sprints: **3.5A Descubrimientos** ✅ v2.5.0 · **3.5B Hoy y navegación** ✅ v2.6.0 · **3.5C Conexiones** (v2.7.0) · **3.5D Mascota y cosméticos** (v2.8.0).
+Plan en `Plan_V3.5.md` (proyecto). Cuatro sprints: **3.5A Descubrimientos** ✅ v2.5.0 · **3.5B Hoy y navegación** ✅ v2.6.0 · **3.5C Conexiones** ✅ v2.7.0 · **3.5D Mascota y cosméticos** (v2.8.0).
 
 - [x] Fichas bloqueadas con niebla, pista por libro y contador de la colección (Sprint 3.5A)
 - [x] Sin spoilers en el lector, la línea temporal y las fichas relacionadas (Sprint 3.5A)
 - [x] "Capítulo completado" con los nuevos descubrimientos (Sprint 3.5A)
 - [x] Barra lateral de 6 entradas, Hoy con 4 bloques y bienvenida corta (Sprint 3.5B)
-- [ ] Conexiones entre mapa, historia y colección; logros de descubrimiento (Sprint 3.5C)
+- [x] Conexiones entre mapa, historia y colección; logros de descubrimiento (Sprint 3.5C)
 - [ ] Reacciones de la mascota y un solo catálogo de cosméticos (Sprint 3.5D)
 
 ### 🔴 V4 — Nube y móvil

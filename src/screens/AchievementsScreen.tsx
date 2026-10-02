@@ -115,7 +115,12 @@ export function AchievementsScreen() {
           if (items.length === 0) return null;
           return (
             <div key={g.id} className="mb-8">
-              <h3 className="mb-3 text-sm font-semibold tracking-wide text-muted uppercase">{g.title}</h3>
+              <div className="mb-3 flex items-baseline justify-between">
+                <h3 className="text-sm font-semibold tracking-wide text-muted uppercase">{g.title}</h3>
+                <p className="text-xs text-muted tabular-nums">
+                  {items.filter((v) => v.unlockedAt).length} de {items.length}
+                </p>
+              </div>
               <div className="grid grid-cols-3 gap-3">
                 {items.map((a) => (
                   <AchievementCard key={a.id} a={a} />
@@ -150,7 +155,7 @@ function AchievementCard({ a }: { a: AchievementView }) {
       <Medallion
         icon={ACHIEVEMENT_ICON[a.icon]}
         unlocked={unlocked}
-        gold={unlocked && a.group === "mayores"}
+        gold={unlocked && a.rule.type === "challenge_completed"}
         size={52}
       />
       <div className="min-w-0 flex-1">
